@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAFXn///gM\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2012-05-10T20:00:04Z",
+      "side": 1,
+      "message": "Do not submit - this must be updated to an actual release once https://gerrit-review.googlesource.com/#/c/35195/ gets in.",
+      "revId": "c39303e01ac26e6944b4c571543551c12117d1c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
