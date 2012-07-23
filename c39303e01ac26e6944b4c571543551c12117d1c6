@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "AAAHrn///3c\u003d",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-07-23T16:51:50Z",
+      "side": 1,
+      "message": "This should be changed to com.google.gerrit.extensions.annotations.RequiresCapability",
+      "revId": "c39303e01ac26e6944b4c571543551c12117d1c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAFYH///nY\u003d",
         "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
         "patchSetId": 1
@@ -82,6 +99,23 @@
       "writtenOn": "2012-05-10T20:05:48Z",
       "side": 1,
       "message": "Whitespace",
+      "revId": "c39303e01ac26e6944b4c571543551c12117d1c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAHrn///3U\u003d",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteProjectCommandModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-07-23T16:51:50Z",
+      "side": 1,
+      "message": "This should be changed to com.google.gerrit.sshd.PluginCommandModule.",
       "revId": "c39303e01ac26e6944b4c571543551c12117d1c6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
