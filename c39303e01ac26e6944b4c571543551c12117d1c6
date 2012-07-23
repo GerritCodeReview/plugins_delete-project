@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "AAAHrn///z0\u003d",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-07-23T19:14:18Z",
+      "side": 1,
+      "message": "Also should probably be Gerrit-ApiVersion like other plugins. While we\u0027re here, we need Gerrit-ApiType \u003d plugin, or we get errors when starting gerrit.",
+      "parentUuid": "AAAFXn///gM\u003d",
+      "revId": "c39303e01ac26e6944b4c571543551c12117d1c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "AAAHrn///3c\u003d",
         "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
         "patchSetId": 1
