@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAJBX///8U\u003d",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000253
+      },
+      "writtenOn": "2012-09-13T18:47:32Z",
+      "side": 1,
+      "message": "I think it is more robust here to catch everything, not just OrmException.  Really this made me think - I should have been catching Throwable, not just Exception.  In the future, Gerrit may not even have a db.patchComments() method (same for other DB calls below).  So if we surround the call with a catch(Throwable), this will continue to \u0027work\u0027 (it might leave some data in git, which will require updates to this plugin, but at least the plugin won\u0027t crash).\n\nThis strategy might not be the best though.  I\u0027ll defer to SOP if he has any opinion.",
+      "revId": "8df49aa975a315a6fdbd57902f3a59b9951c5355",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
