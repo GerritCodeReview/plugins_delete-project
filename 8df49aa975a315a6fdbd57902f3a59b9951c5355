@@ -16,6 +16,24 @@
       "revId": "8df49aa975a315a6fdbd57902f3a59b9951c5355",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJEX///7U\u003d",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2012-09-13T22:23:12Z",
+      "side": 1,
+      "message": "I have to disagree with this one. I think in general catching exception/throwable is a bad idea.\n\nI believe in this case we should handle exceptions correctly, I am not happy with this current patch I pushed either, it is *ignoring* the exception. I just checked out how delete was wrapped in previous references and took same path.\n\nBest practice here in my opinion would be to check if we can indeed delete the mentioned data and fail or log accordingly, currently I am afraid we would leave the database in a state where we would have a hard time figuring out what exactly went wrong, if a delete operation should fail.\n\nI am also curious what SOP would suggest.",
+      "parentUuid": "AAAJBX///8U\u003d",
+      "revId": "8df49aa975a315a6fdbd57902f3a59b9951c5355",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
