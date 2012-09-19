@@ -34,6 +34,23 @@
       "revId": "8df49aa975a315a6fdbd57902f3a59b9951c5355",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAJQ3///9Y\u003d",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2012-09-19T21:49:28Z",
+      "side": 1,
+      "message": "Since this has nothing to do with patch sets, this should be moved back up to run().",
+      "revId": "8df49aa975a315a6fdbd57902f3a59b9951c5355",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
