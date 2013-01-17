@@ -65,7 +65,6 @@ public final class DeleteCommand extends SshCommand {
 
   private final SitePaths site;
 
-  @SuppressWarnings("unused")
   private int schemaVersion;
 
   @Inject
@@ -83,6 +82,11 @@ public final class DeleteCommand extends SshCommand {
   public void run() throws UnloggedFailure, Failure, Exception {
     Connection conn = ((JdbcSchema) db).getConnection();
     conn.setAutoCommit(false);
+    schemaVersion = getSchemaVersion();
+    if (schemaVersion == 0) {
+      throw new UnloggedFailure("This version of the delete project plugin is not "
+          + "compatible with your schema version. Please update the plugin.");
+    }
     try {
       doDelete(conn);
       conn.commit();
@@ -95,15 +99,6 @@ public final class DeleteCommand extends SshCommand {
   }
 
   private void doDelete(Connection conn) throws UnloggedFailure, Failure, Exception {
-    // Please contribute new schema handling.
-    if (SchemaVersion.C == Schema_73.class) {
-      // Gerrit 2.5
-      schemaVersion = 73;
-    } else {
-      throw new UnloggedFailure("This version of the delete project plugin is not "
-          + "compatible with your schema version. Please update the plugin.");
-    }
-
     // Don't let people delete All-Projects, that's stupid
     final String projectName = project.getProject().getName();
     if (project.getProject().getName().endsWith(AllProjectsNameProvider.DEFAULT)) {
@@ -235,5 +230,22 @@ public final class DeleteCommand extends SshCommand {
       file.delete();
       recursiveDeleteParent(parent, until);
     }
+  }
+
+  /**
+   * Get the schema version we currently have installed. 0 indicates the schema
+   * version is unsupported by the plugin.
+   *
+   * Please contribute new schema handling.
+   *
+   * @return int
+   */
+  private static int getSchemaVersion() {
+    int ourSchema = 0;
+    if (SchemaVersion.C == Schema_73.class) {
+      // Gerrit 2.5
+      ourSchema = 73;
+    }
+    return ourSchema;
   }
 }
