@@ -36,7 +36,6 @@ import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.schema.SchemaVersion;
-import com.google.gerrit.server.schema.Schema_73;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.jdbc.JdbcSchema;
 import com.google.gwtorm.server.OrmException;
@@ -241,10 +240,15 @@ public final class DeleteCommand extends SshCommand {
    * @return int
    */
   private static int getSchemaVersion() {
-    int ourSchema = 0;
-    if (SchemaVersion.C == Schema_73.class) {
+    int ourSchema;
+    switch (SchemaVersion.guessVersion(SchemaVersion.C)) {
       // Gerrit 2.5
-      ourSchema = 73;
+      case 73:
+        ourSchema = 73;
+        break;
+      // Don't know, or can't handle it
+      default:
+        ourSchema = 0;
     }
     return ourSchema;
   }
