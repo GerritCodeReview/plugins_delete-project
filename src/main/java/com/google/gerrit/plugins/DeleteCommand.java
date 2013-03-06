@@ -96,7 +96,7 @@ public final class DeleteCommand extends SshCommand {
 
   private void doDelete(Connection conn) throws UnloggedFailure, Failure, Exception {
     // Please contribute new schema handling.
-    if (SchemaVersion.C == Schema_73.class) {
+    if (SchemaVersion.guessVersion(SchemaVersion.C) == 73) {
       // Gerrit 2.5
       schemaVersion = 73;
     } else {
