@@ -14,11 +14,31 @@
 
 package com.google.gerrit.plugins;
 
+import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
+import com.google.gerrit.plugins.database.Schema73DatabaseDeleteHandler;
+import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.gerrit.sshd.PluginCommandModule;
 
 public class DeleteProjectCommandModule extends PluginCommandModule {
   @Override
   protected void configureCommands() {
+    int schemaVersion = SchemaVersion.guessVersion(SchemaVersion.C);
+
+    //Injection of version dependent database handlers
+    Class<? extends DatabaseDeleteHandler> databaseDeleteHandlerClass = null;
+    switch (schemaVersion) {
+      case 73:
+        databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
+        break;
+      default:
+        throw new RuntimeException("This version of the delete-project plugin is not "
+            + "compatible with your current schema version (Version: "
+            + schemaVersion+ "). Please update the plugin.");
+    }
+    assert databaseDeleteHandlerClass != null: "No database handler set";
+    
+    // Actual binding
+    bind(DatabaseDeleteHandler.class).to(databaseDeleteHandlerClass);
     command("delete").to(DeleteCommand.class);
   }
 }
