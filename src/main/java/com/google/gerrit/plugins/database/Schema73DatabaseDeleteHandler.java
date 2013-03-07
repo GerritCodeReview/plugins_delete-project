@@ -30,8 +30,7 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
     // TODO(mch): This is an ugly hack, ideally we could do it with SubmoduleSubscriptionAccess
     if (conn.createStatement().executeQuery("SELECT * FROM submodule_subscriptions WHERE "
         + "super_project_project_name = '" + projectName + "'").first()) {
-      throw new Exception("Cannot delete project " + projectName +
-          ", it has subscribed submodules." );
+      throw new Exception("Project has subscribed submodules.");
     }
   }
 
