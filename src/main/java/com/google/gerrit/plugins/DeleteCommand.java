@@ -41,7 +41,7 @@ import com.google.inject.Inject;
 @RequiresCapability(GlobalCapability.KILL_TASK)
 public final class DeleteCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
-  private ProjectControl project;
+  private ProjectControl projectControl;
 
   @Option(name = "--yes-really-delete", usage = "confirmation to delete the project")
   private boolean yesReallyDelete;
@@ -73,21 +73,22 @@ public final class DeleteCommand extends SshCommand {
 
   @Override
   public void run() throws UnloggedFailure, Failure, Exception {
+    final Project project = projectControl.getProject();
     // Don't let people delete All-Projects, that's stupid
-    final String projectName = project.getProject().getName();
-    if (project.getProject().getName().endsWith(AllProjectsNameProvider.DEFAULT)) {
+    final String projectName = project.getName();
+    if (projectName.endsWith(AllProjectsNameProvider.DEFAULT)) {
       throw new UnloggedFailure("Perhaps you meant to rm -fR " + site.site_path);
     }
 
     try {
-      databaseDeleteHandler.assertCanDelete(project.getProject());
+      databaseDeleteHandler.assertCanDelete(project);
     } catch (Exception e) {
       throw new UnloggedFailure("Cannot delete project " + projectName + ": "
           + e.getMessage());
     }
 
     if (!yesReallyDelete) {
-      stdout.print("Really delete " + project.getProject().getName() + "?\n");
+      stdout.print("Really delete " + project.getName() + "?\n");
       stdout.print("This is an operation which permanently deletes data. "
           + "This cannot be undone!\n");
       stdout.print("If you are sure you wish to delete this project, re-run\n"
@@ -96,7 +97,7 @@ public final class DeleteCommand extends SshCommand {
     }
 
     if (!force) {
-      Collection<String> warnings = databaseDeleteHandler.getWarnings(project.getProject());
+      Collection<String> warnings = databaseDeleteHandler.getWarnings(project);
       if (warnings != null && !warnings.isEmpty()) {
         StringBuilder msgBuilder = new StringBuilder();
         msgBuilder.append("There are warnings against deleting ");
@@ -114,11 +115,11 @@ public final class DeleteCommand extends SshCommand {
       }
     }
 
-    databaseDeleteHandler.delete(project.getProject());
-    deleteFromDisk(project.getProject());
+    databaseDeleteHandler.delete(project);
+    deleteFromDisk(project);
     
     // Clean up the cache
-    projectCache.remove(project.getProject());
+    projectCache.remove(project);
   }
 
   private void deleteFromDisk(Project project) throws IOException,
