@@ -79,10 +79,7 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
 
   public void atomicDelete(Project project) throws OrmException {
     ResultSet<Change> changes = null;
-    try {
-      changes = db.changes().byProject(project.getNameKey());
-    } catch (OrmException ex) {
-    }
+    changes = db.changes().byProject(project.getNameKey());
     deleteChanges(changes);
 
     db.accountProjectWatches()
