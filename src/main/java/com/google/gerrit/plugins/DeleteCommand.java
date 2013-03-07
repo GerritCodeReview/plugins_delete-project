@@ -89,12 +89,16 @@ public final class DeleteCommand extends SshCommand {
     }
 
     if (!yesReallyDelete) {
-      stdout.print("Really delete " + projectName + "?\n");
-      stdout.print("This is an operation which permanently deletes data. "
-          + "This cannot be undone!\n");
-      stdout.print("If you are sure you wish to delete this project, re-run\n"
-          + "with the --yes-really-delete flag.\n");
-      return;
+      StringBuilder msgBuilder = new StringBuilder();
+      msgBuilder.append("Really delete ");
+      msgBuilder.append(projectName);
+      msgBuilder.append("?\n");
+      msgBuilder.append("This is an operation which permanently deletes");
+      msgBuilder.append("data. This cannot be undone!\n");
+      msgBuilder.append("If you are sure you wish to delete this project, ");
+      msgBuilder.append("re-run\n");
+      msgBuilder.append("with the --yes-really-delete flag.\n");
+      throw new UnloggedFailure(msgBuilder.toString());
     }
 
     if (!force) {
