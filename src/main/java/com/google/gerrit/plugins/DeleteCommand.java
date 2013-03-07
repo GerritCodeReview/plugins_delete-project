@@ -74,8 +74,9 @@ public final class DeleteCommand extends SshCommand {
   @Override
   public void run() throws UnloggedFailure, Failure, Exception {
     final Project project = projectControl.getProject();
-    // Don't let people delete All-Projects, that's stupid
     final String projectName = project.getName();
+
+    // Don't let people delete All-Projects, that's stupid
     if (projectName.endsWith(AllProjectsNameProvider.DEFAULT)) {
       throw new UnloggedFailure("Perhaps you meant to rm -fR " + site.site_path);
     }
@@ -88,7 +89,7 @@ public final class DeleteCommand extends SshCommand {
     }
 
     if (!yesReallyDelete) {
-      stdout.print("Really delete " + project.getName() + "?\n");
+      stdout.print("Really delete " + projectName + "?\n");
       stdout.print("This is an operation which permanently deletes data. "
           + "This cannot be undone!\n");
       stdout.print("If you are sure you wish to delete this project, re-run\n"
