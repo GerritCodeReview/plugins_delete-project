@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RFmwX21Y",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T02:02:31Z",
+      "side": 1,
+      "message": "s/Refactorings are/Refactoring is",
+      "revId": "37efb8d64939aa54629b5a389a2565233de49284",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RFqwLgy8",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T02:02:31Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "37efb8d64939aa54629b5a389a2565233de49284",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RFowIxzM",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T02:02:31Z",
+      "side": 1,
+      "message": "I think \"nonetheless\" can be removed from this sentence.",
+      "revId": "37efb8d64939aa54629b5a389a2565233de49284",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RFsz.z.8",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteProjectCommandModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T02:02:31Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "37efb8d64939aa54629b5a389a2565233de49284",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RFgz99-Q",
+        "filename": "src/main/java/com/google/gerrit/plugins/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T02:02:31Z",
+      "side": 1,
+      "message": "- missing copyright header\n- trailing whitespace",
+      "revId": "37efb8d64939aa54629b5a389a2565233de49284",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RFuwBixM",
+        "filename": "src/main/java/com/google/gerrit/plugins/database/Schema73DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T02:02:31Z",
+      "side": 1,
+      "message": "- missing copyright header\n- trailing whitespace",
+      "revId": "37efb8d64939aa54629b5a389a2565233de49284",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
