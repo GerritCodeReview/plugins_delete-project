@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RL1PuBEQ",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T06:53:12Z",
+      "side": 1,
+      "message": "- s/pervious/previous\n- s/changes/change",
+      "revId": "f094ce86d4b6935abbba274a92dacd1aa126ebc5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RL3PzAC0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T06:53:12Z",
+      "side": 1,
+      "message": "s/iteratior/iterator",
+      "revId": "f094ce86d4b6935abbba274a92dacd1aa126ebc5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RLxP4jAQ",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-03-07T06:53:12Z",
+      "side": 1,
+      "message": "s/Excepiton/Exception",
+      "revId": "f094ce86d4b6935abbba274a92dacd1aa126ebc5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
