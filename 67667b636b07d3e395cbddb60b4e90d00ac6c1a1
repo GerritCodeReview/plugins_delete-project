@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RwsDtPkc",
+        "filename": "src/main/java/com/google/gerrit/plugins/database/DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2013-03-15T17:34:01Z",
+      "side": 1,
+      "message": "nitpick: \"To signal, that\" -\u003e \"To signal that\"",
+      "revId": "67667b636b07d3e395cbddb60b4e90d00ac6c1a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RwqDyuiY",
+        "filename": "src/main/java/com/google/gerrit/plugins/database/DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2013-03-15T17:34:01Z",
+      "side": 1,
+      "message": "nitpick: \"for which\" -\u003e \"that\"",
+      "revId": "67667b636b07d3e395cbddb60b4e90d00ac6c1a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RwgD4xgQ",
+        "filename": "src/main/java/com/google/gerrit/plugins/database/Schema73DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2013-03-15T17:34:01Z",
+      "side": 1,
+      "message": "Why are we asking for a change we\u0027re not using?",
+      "revId": "67667b636b07d3e395cbddb60b4e90d00ac6c1a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
