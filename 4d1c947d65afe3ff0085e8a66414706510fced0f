@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RwkACzhg",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1010813
+      },
+      "writtenOn": "2013-03-15T17:39:48Z",
+      "side": 1,
+      "message": "nitpick: Can reuse projectName here",
+      "revId": "4d1c947d65afe3ff0085e8a66414706510fced0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
