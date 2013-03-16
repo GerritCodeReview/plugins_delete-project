@@ -16,6 +16,7 @@ package com.google.gerrit.plugins;
 
 import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
 import com.google.gerrit.plugins.database.Schema73DatabaseDeleteHandler;
+import com.google.gerrit.plugins.database.Schema77DatabaseDeleteHandler;
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.gerrit.sshd.PluginCommandModule;
 
@@ -32,6 +33,9 @@ public class DeleteProjectCommandModule extends PluginCommandModule {
       case 75:
       case 76:
         databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
+        break;
+      case 77:
+        databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
         break;
       default:
         throw new RuntimeException("This version of the delete-project plugin is not "
