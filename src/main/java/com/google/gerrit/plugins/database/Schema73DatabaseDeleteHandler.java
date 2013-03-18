@@ -98,7 +98,7 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
       ResultSet<PatchSet> patchSets = null;
       patchSets = db.patchSets().byChange(id);
       if (patchSets != null) {
-        deleteFromPatchSets(patchSets, change);
+        deleteFromPatchSets(patchSets);
       }
 
       // In the future, use schemaVersion to decide what to delete.
@@ -111,8 +111,8 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets,
-      final Change change) throws OrmException {
+  private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets)
+      throws OrmException {
     for (PatchSet patchSet : patchSets) {
       db.patchSetAncestors().delete(
           db.patchSetAncestors().byPatchSet(patchSet.getId()));
