@@ -16,6 +16,24 @@
       "revId": "0e9f80e0596abb4f9e6fcf3fb9036db6636e10a9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "R24eOpnM",
+        "filename": "src/main/java/com/google/gerrit/plugins/database/Schema77DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2013-03-18T20:50:22Z",
+      "side": 1,
+      "message": "\u003e This exception should be updated to be like the one in Schema73DatabaseDeleteHandler.\n\nStupid me. master had a different exception than the previous revision I based this change on.\n\nRebased.\n\nDone.\n\n\u003e Also, trailing w/s.\n\nDone.",
+      "parentUuid": "R3uReeiU",
+      "revId": "0e9f80e0596abb4f9e6fcf3fb9036db6636e10a9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
