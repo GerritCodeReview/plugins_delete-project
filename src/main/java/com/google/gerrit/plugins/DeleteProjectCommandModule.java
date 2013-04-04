@@ -35,6 +35,8 @@ public class DeleteProjectCommandModule extends PluginCommandModule {
         databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
         break;
       case 77:
+      case 78:
+      case 79:
         databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
         break;
       default:
