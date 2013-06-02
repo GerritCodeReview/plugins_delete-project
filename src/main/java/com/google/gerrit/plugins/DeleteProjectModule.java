@@ -14,6 +14,9 @@
 
 package com.google.gerrit.plugins;
 
+import static com.google.gerrit.server.project.ProjectResource.PROJECT_KIND;
+
+import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.plugins.cache.CacheDeleteHandler;
 import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
 import com.google.gerrit.plugins.database.Schema73DatabaseDeleteHandler;
@@ -28,6 +31,12 @@ public class DeleteProjectModule extends AbstractModule {
     bind(DatabaseDeleteHandler.class).to(registerDatabaseHandler());
     bind(FilesystemDeleteHandler.class);
     bind(CacheDeleteHandler.class);
+    install(new RestApiModule() {
+      @Override
+      protected void configure() {
+        post(PROJECT_KIND, "delete-project").to(UiDeleteCommand.class);
+      }
+    });
   }
 
   private Class<? extends DatabaseDeleteHandler> registerDatabaseHandler() {
