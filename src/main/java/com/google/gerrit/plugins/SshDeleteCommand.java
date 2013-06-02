@@ -30,12 +30,15 @@ import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.project.ProjectControl;
+import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
 
-// TODO(davido): replace this with plugin-own capability "deleteProject"
+// TODO(davido): replace this ugly work around with plugin-own
+// capability: "deleteProject"
 @RequiresCapability(GlobalCapability.KILL_TASK)
-public final class DeleteCommand extends SshCommand {
+@CommandMetaData(name="delete", descr="Delete specific project")
+public final class SshDeleteCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
   private ProjectControl projectControl;
 
@@ -54,7 +57,7 @@ public final class DeleteCommand extends SshCommand {
   private final CacheDeleteHandler cacheDeleteHandler;
 
   @Inject
-  protected DeleteCommand(SitePaths site,
+  protected SshDeleteCommand(SitePaths site,
       @GerritServerConfig Config cfg,
       DatabaseDeleteHandler databaseDeleteHandler,
       FilesystemDeleteHandler filesystemDeleteHandler,
