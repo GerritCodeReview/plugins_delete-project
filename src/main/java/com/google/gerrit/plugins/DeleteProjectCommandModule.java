@@ -14,9 +14,11 @@
 
 package com.google.gerrit.plugins;
 
+import com.google.gerrit.plugins.cache.CacheDeleteHandler;
 import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
 import com.google.gerrit.plugins.database.Schema73DatabaseDeleteHandler;
 import com.google.gerrit.plugins.database.Schema77DatabaseDeleteHandler;
+import com.google.gerrit.plugins.fs.FilesystemDeleteHandler;
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.gerrit.sshd.PluginCommandModule;
 
@@ -48,6 +50,8 @@ public class DeleteProjectCommandModule extends PluginCommandModule {
 
     // Actual binding
     bind(DatabaseDeleteHandler.class).to(databaseDeleteHandlerClass);
+    bind(FilesystemDeleteHandler.class);
+    bind(CacheDeleteHandler.class);
     command("delete").to(DeleteCommand.class);
   }
 }
