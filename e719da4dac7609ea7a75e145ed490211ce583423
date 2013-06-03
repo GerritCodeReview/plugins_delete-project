@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddbee5e1_97462467",
+        "filename": "src/main/java/com/google/gerrit/plugins/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1010015
+      },
+      "writtenOn": "2013-06-03T08:12:27Z",
+      "side": 1,
+      "message": "if we have 2 projects like:\n\na/b/c/d.git\na/b/e.git\n\nI am thinking of what will happen on a/b/e.git",
+      "revId": "e719da4dac7609ea7a75e145ed490211ce583423",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
