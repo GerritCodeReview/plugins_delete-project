@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bdd3f145_965f4c25",
+        "filename": "src/main/java/com/google/gerrit/plugins/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-06-03T08:57:11Z",
+      "side": 1,
+      "message": "nit: trailing whitespace.",
+      "revId": "e719da4dac7609ea7a75e145ed490211ce583423",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddbee5e1_97462467",
         "filename": "src/main/java/com/google/gerrit/plugins/fs/FilesystemDeleteHandler.java",
         "patchSetId": 1
