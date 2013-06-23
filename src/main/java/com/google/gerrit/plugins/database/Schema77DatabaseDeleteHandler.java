@@ -16,6 +16,7 @@ package com.google.gerrit.plugins.database;
 
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 
 public class Schema77DatabaseDeleteHandler
@@ -30,14 +31,17 @@ public class Schema77DatabaseDeleteHandler
 
   @Override
   public void assertCanDelete(Project project) throws Exception {
-    if (db.submoduleSubscriptions().bySuperProjectProject(project.getNameKey())
-        .iterator().hasNext()) {
-      throw new Exception("Project has subscribed submodules.");
-    }
-
     if (db.submoduleSubscriptions().bySubmoduleProject(project.getNameKey())
         .iterator().hasNext()) {
       throw new Exception("Project is subscribed by other projects.");
     }
+  }
+
+  public void atomicDelete(Project project) throws OrmException {
+    super.atomicDelete(project);
+
+    db.submoduleSubscriptions().delete(
+        db.submoduleSubscriptions().bySuperProjectProject(
+            project.getNameKey()));
   }
 }
