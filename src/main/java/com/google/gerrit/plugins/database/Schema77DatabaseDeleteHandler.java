@@ -34,5 +34,10 @@ public class Schema77DatabaseDeleteHandler
         .iterator().hasNext()) {
       throw new Exception("Project has subscribed submodules.");
     }
+
+    if (db.submoduleSubscriptions().bySubmoduleProject(project.getNameKey())
+        .iterator().hasNext()) {
+      throw new Exception("Project is subscribed by other projects.");
+    }
   }
 }

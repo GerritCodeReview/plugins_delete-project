@@ -46,6 +46,11 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
         + "super_project_project_name = '" + projectName + "'").first()) {
       throw new Exception("Project has subscribed submodules.");
     }
+
+    if (conn.createStatement().executeQuery("SELECT * FROM submodule_subscriptions WHERE "
+        + "submodule_project_name = '" + projectName + "'").first()) {
+      throw new Exception("Project is subscribed by other projects.");
+    }
   }
 
   @Override
