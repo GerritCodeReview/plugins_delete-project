@@ -17,12 +17,12 @@ package com.google.gerrit.plugins;
 import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
 import com.google.gerrit.plugins.database.Schema73DatabaseDeleteHandler;
 import com.google.gerrit.plugins.database.Schema77DatabaseDeleteHandler;
+import com.google.gerrit.server.config.FactoryModule;
 import com.google.gerrit.server.schema.SchemaVersion;
-import com.google.gerrit.sshd.PluginCommandModule;
 
-public class DeleteProjectCommandModule extends PluginCommandModule {
+public class BaseModule extends FactoryModule {
   @Override
-  protected void configureCommands() {
+  protected void configure() {
     int schemaVersion = SchemaVersion.guessVersion(SchemaVersion.C);
 
     //Injection of version dependent database handlers
@@ -48,6 +48,6 @@ public class DeleteProjectCommandModule extends PluginCommandModule {
 
     // Actual binding
     bind(DatabaseDeleteHandler.class).to(databaseDeleteHandlerClass);
-    command("delete").to(DeleteCommand.class);
+    factory(DeleteProject.Factory.class);
   }
 }
