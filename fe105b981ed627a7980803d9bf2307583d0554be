@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "786a6c67_4a96d396",
+        "filename": "src/main/java/com/google/gerrit/plugins/DeleteProjectModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-08-12T22:26:36Z",
+      "side": 1,
+      "message": "nit: we try to break on . rather than ( so:\n\n  bind(...)\n    .annotatedWith(...)\n    .to(...)",
+      "revId": "fe105b981ed627a7980803d9bf2307583d0554be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
