@@ -52,6 +52,24 @@
       "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dd1cce1_52e5b456",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-08-19T23:33:58Z",
+      "side": 1,
+      "message": "Instead of reverting this change I\u0027d prefer to make the implementation a bit more robust in core gerrit.  The problem described here affects all plugins, not just this one.\n\nHow about we branch off stable-2.6 and -2.7 from the point before the capabilities change was introduced?  Then a least there\u0027ll be stable versions of the plugin for those releases.  Development and stabilisation can then continue on master.",
+      "parentUuid": "8d48c079_c378d683",
+      "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
