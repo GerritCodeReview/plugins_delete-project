@@ -25,6 +25,7 @@ import org.eclipse.jgit.lib.RepositoryCache;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
+import com.google.gerrit.common.data.GlobalCapability;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
@@ -37,7 +38,7 @@ import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 
-@RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
+@RequiresCapability(GlobalCapability.KILL_TASK)
 public final class DeleteCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
   private ProjectControl projectControl;
