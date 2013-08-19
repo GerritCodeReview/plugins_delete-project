@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.gerrit.plugins;
+package com.googlesource.gerrit.plugins.deleteproject;
 
-import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
-import com.google.gerrit.plugins.database.Schema73DatabaseDeleteHandler;
-import com.google.gerrit.plugins.database.Schema77DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.database.Schema73DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDeleteHandler;
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.gerrit.sshd.PluginCommandModule;
 

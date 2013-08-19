@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.gerrit.plugins;
+package com.googlesource.gerrit.plugins.deleteproject;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,6 @@ import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
 import com.google.gerrit.extensions.annotations.RequiresCapability;
-import com.google.gerrit.plugins.database.DatabaseDeleteHandler;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
@@ -36,6 +35,7 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 
 @RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
 public final class DeleteCommand extends SshCommand {

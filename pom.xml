@@ -19,7 +19,7 @@ limitations under the License.
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.google.gerrit.plugins</groupId>
+  <groupId>com.googlesource.gerrit.plugins</groupId>
   <artifactId>delete-project</artifactId>
   <packaging>jar</packaging>
   <version>2.8-SNAPSHOT</version>
@@ -54,8 +54,8 @@ limitations under the License.
         <configuration>
           <archive>
             <manifestEntries>
-              <Gerrit-Module>com.google.gerrit.plugins.DeleteProjectModule</Gerrit-Module>
-              <Gerrit-SshModule>com.google.gerrit.plugins.DeleteProjectCommandModule</Gerrit-SshModule>
+              <Gerrit-Module>com.googlesource.gerrit.plugins.deleteproject.DeleteProjectModule</Gerrit-Module>
+              <Gerrit-SshModule>com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCommandModule</Gerrit-SshModule>
 
               <Implementation-Vendor>Gerrit Code Review</Implementation-Vendor>
               <Implementation-URL>http://code.google.com/p/gerrit/</Implementation-URL>

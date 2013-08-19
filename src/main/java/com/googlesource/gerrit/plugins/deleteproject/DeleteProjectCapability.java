@@ -12,20 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.gerrit.plugins;
+package com.googlesource.gerrit.plugins.deleteproject;
 
-import static com.google.gerrit.plugins.DeleteProjectCapability.DELETE_PROJECT;
-
-import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
-import com.google.inject.AbstractModule;
 
-public class DeleteProjectModule extends AbstractModule {
+public class DeleteProjectCapability extends CapabilityDefinition {
+  static final String DELETE_PROJECT = "deleteProject";
 
   @Override
-  protected void configure() {
-    bind(CapabilityDefinition.class)
-      .annotatedWith(Exports.named(DELETE_PROJECT))
-      .to(DeleteProjectCapability.class);
+  public String getDescription() {
+    return "Delete Project";
   }
 }
