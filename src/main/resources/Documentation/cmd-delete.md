@@ -40,10 +40,9 @@ There are a few caveats:
 
 ACCESS
 ------
-Caller must be a member of the privileged 'Administrators' group,
-or have been granted [the 'Kill Task' global capability][1].
+Caller must be a member of a group that is granted the 'Delete Project'
+capability (provided by this plugin).
 
-[1]: ../../../Documentation/access-control.html#capability_kill
 
 SCRIPTING
 ---------
@@ -53,7 +52,7 @@ OPTIONS
 -------
 
 `--yes-really-delete`
-:	Actually perform the deletion. If ommitted, the command
+:	Actually perform the deletion. If omitted, the command
 	will just output information about the deletion and then
 	exit. 
 
