@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d0f7025_26a448a0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-08-19T10:26:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d48c079_03902e95",
+      "revId": "70bee00c770df0dda108ac9773ed97e7107bdd2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d48c079_e394f28b",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-08-19T10:19:18Z",
       "side": 1,
       "message": "nit from Shawn\u0027s latest review: include blanks around equal sign inside @CommandMetaData annotation\n\n;-)",
+      "revId": "70bee00c770df0dda108ac9773ed97e7107bdd2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d0a7414_389fc94b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-08-19T10:26:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d48c079_e394f28b",
       "revId": "70bee00c770df0dda108ac9773ed97e7107bdd2e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
