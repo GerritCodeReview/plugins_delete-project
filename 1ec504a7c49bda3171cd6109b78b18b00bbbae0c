@@ -16,6 +16,24 @@
       "revId": "1ec504a7c49bda3171cd6109b78b18b00bbbae0c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d0f7025_26afa898",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2013-08-19T02:40:15Z",
+      "side": 1,
+      "message": "Yes but changing the package is an unrelated change. :-)",
+      "parentUuid": "0d0f7025_66b5a0e4",
+      "revId": "1ec504a7c49bda3171cd6109b78b18b00bbbae0c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
