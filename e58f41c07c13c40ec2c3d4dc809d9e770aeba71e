@@ -16,6 +16,24 @@
       "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d48c079_03670ee7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2013-08-19T11:57:09Z",
+      "side": 1,
+      "message": "It\u0027s not that I need the part containing the dot.\n\nThe problem is that maven provides the jar with a dot by default. And that\u0027s sound behaviour. But we cannot install the plugin using that name. And neither no we forbid installing jars with such names, nor do we warn against it.\n\nSo it will bite users.\n\nIt bit me for example.\n\nWe even have examples in our documentation that use dots in the names.\n\nInstead of relying on an undocumented convention that requires us to rename jars or override their names during install...\nInstead of a undocumented convention that does not give proper error messages, but allows to break one\u0027s All-Project\u0027s project.config with just a few mouse clicks ...\nInstead of making \"install a plugin\" even harder, I\u0027d just stay with the old approach, as I favor robustness.\n\nDo not get me wrong: I like plugin-owned capabilities. They are great!\n\nI\u0027d love to see delete-project use them. But to me they currently are a tad too fragile to use in this plugin.",
+      "parentUuid": "8d48c079_23620ad7",
+      "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
