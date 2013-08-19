@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d48c079_23620ad7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-19T11:40:00Z",
+      "side": 1,
+      "message": "Yes it is a known problem. Plugin name must be a valid git config identifier.\n\nWhy do you need that \"2.8-SNAPSHOT-deleteProject\" suffix? Why not to deploy the JAR as:\n\n deleteproject.jar",
+      "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
