@@ -34,6 +34,24 @@
       "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d48c079_c378d683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-19T12:08:07Z",
+      "side": 1,
+      "message": "I see your point. How about to increase version of delete-plugin from 2.8 to 3?\n\n ;-)",
+      "parentUuid": "8d48c079_03670ee7",
+      "revId": "e58f41c07c13c40ec2c3d4dc809d9e770aeba71e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
