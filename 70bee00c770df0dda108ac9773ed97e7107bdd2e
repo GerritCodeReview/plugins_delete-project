@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d48c079_03902e95",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-19T10:19:18Z",
+      "side": 1,
+      "message": "You missed update the Module, to bind against annotated class, no name is needed, see\n\n  https://gerrit-review.googlesource.com/#/c/46431/1/src/main/java/com/google/gerrit/plugins/SshDeleteCommandModule.java\n\n   @Override\n   protected void configureCommands() {\n    command(DeleteCommand.class);\n   }",
+      "revId": "70bee00c770df0dda108ac9773ed97e7107bdd2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d48c079_e394f28b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-19T10:19:18Z",
+      "side": 1,
+      "message": "nit from Shawn\u0027s latest review: include blanks around equal sign inside @CommandMetaData annotation\n\n;-)",
+      "revId": "70bee00c770df0dda108ac9773ed97e7107bdd2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
