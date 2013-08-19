@@ -33,11 +33,13 @@ import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectControl;
+import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 
 @RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
+@CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
   private ProjectControl projectControl;

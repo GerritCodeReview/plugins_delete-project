@@ -51,6 +51,6 @@ public class DeleteProjectCommandModule extends PluginCommandModule {
 
     // Actual binding
     bind(DatabaseDeleteHandler.class).to(databaseDeleteHandlerClass);
-    command("delete").to(DeleteCommand.class);
+    command(DeleteCommand.class);
   }
 }
