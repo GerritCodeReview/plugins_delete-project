@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adce6449_6c3c9bda",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-20T08:58:26Z",
+      "side": 1,
+      "message": "Provides the ability to completely delete a project, all its changes and (optionally) the Git repository?\n\nI will implement UiAction, placed on Project Info Screen, that open a popup with a confirmation message and (by default not enabled) checkbox:\n\n[] delete Git repository for that project too\n\nThat is pending because of the review of:\n\n https://gerrit-review.googlesource.com/#/c/48381/\n\nAnd the above must be refactored, once that one is merge:\n\n https://gerrit-review.googlesource.com/#/c/47944/",
+      "revId": "35bc5716b617ca0d41a3fe24e3652158d9b47f56",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
