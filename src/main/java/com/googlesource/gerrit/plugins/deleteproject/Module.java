@@ -57,12 +57,13 @@ public class Module extends AbstractModule {
       case 80:
       case 81:
       case 82:
+      case 83:
         databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
         break;
       default:
         throw new RuntimeException("This version of the delete-project plugin is not "
             + "compatible with your current schema version (Version: "
-            + schemaVersion+ "). Please update the plugin.");
+            + schemaVersion + "). Please update the plugin.");
     }
     assert databaseDeleteHandlerClass != null: "No database handler set";
     return databaseDeleteHandlerClass;
