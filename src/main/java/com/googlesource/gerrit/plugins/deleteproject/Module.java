@@ -14,10 +14,12 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import static com.google.gerrit.server.project.ProjectResource.PROJECT_KIND;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
+import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.inject.AbstractModule;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
@@ -26,7 +28,7 @@ import com.googlesource.gerrit.plugins.deleteproject.database.Schema73DatabaseDe
 import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
-public class DeleteProjectModule extends AbstractModule {
+public class Module extends AbstractModule {
 
   @Override
   protected void configure() {
@@ -37,6 +39,13 @@ public class DeleteProjectModule extends AbstractModule {
     bind(DatabaseDeleteHandler.class)
         .to(registerDatabaseHandler());
     bind(FilesystemDeleteHandler.class);
+    install(new RestApiModule() {
+      @Override
+      protected void configure() {
+        post(PROJECT_KIND, "delete-project")
+            .to(UiDeleteAction.class);
+      }
+    });
   }
 
   private Class<? extends DatabaseDeleteHandler> registerDatabaseHandler() {
