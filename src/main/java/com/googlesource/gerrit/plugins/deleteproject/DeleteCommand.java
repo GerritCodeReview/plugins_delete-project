@@ -14,14 +14,9 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryCache;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -30,13 +25,13 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
-import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
 @RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
 @CommandMetaData(name = "delete", description = "Delete specific project")
@@ -50,26 +45,24 @@ public final class DeleteCommand extends SshCommand {
   @Option(name = "--force", usage = "delete the project even if it has open changes")
   private boolean force = false;
 
-  private final File gitDir;
-
-  private final ProjectCache projectCache;
-
-  private final GitRepositoryManager repoManager;
+  @Option(name = "--preserve-git-repository", usage = "preserve git repository")
+  private boolean preserveGitRepository = false;
 
   private final SitePaths site;
-
+  private final CacheDeleteHandler cacheDeleteHandler;
   private final DatabaseDeleteHandler databaseDeleteHandler;
+  private final FilesystemDeleteHandler filesystemDeleteHandler;
 
   @Inject
-  protected DeleteCommand(ProjectCache projectCache,
-      GitRepositoryManager repoManager, SitePaths site,
+  protected DeleteCommand(SitePaths site,
       @GerritServerConfig Config cfg,
-      DatabaseDeleteHandler databaseDeleteHandler) {
-    gitDir = site.resolve(cfg.getString("gerrit", null, "basePath"));
-    this.projectCache = projectCache;
-    this.repoManager = repoManager;
+      DatabaseDeleteHandler databaseDeleteHandler,
+      FilesystemDeleteHandler filesystemDeleteHandler,
+      CacheDeleteHandler cacheDeleteHandler) {
     this.site = site;
     this.databaseDeleteHandler = databaseDeleteHandler;
+    this.filesystemDeleteHandler = filesystemDeleteHandler;
+    this.cacheDeleteHandler = cacheDeleteHandler;
   }
 
   @Override
@@ -122,65 +115,7 @@ public final class DeleteCommand extends SshCommand {
     }
 
     databaseDeleteHandler.delete(project);
-    deleteFromDisk(project);
-
-    // Clean up the cache
-    projectCache.remove(project);
-  }
-
-  private void deleteFromDisk(Project project) throws IOException,
-      RepositoryNotFoundException, UnloggedFailure {
-    // Remove from the jgit cache
-    final Repository repository = repoManager.openRepository(project
-        .getNameKey());
-    if (repository == null) {
-      throw new UnloggedFailure("There was an error finding the project.");
-    }
-
-    repository.close();
-    RepositoryCache.close(repository);
-
-    // Delete the repository from disk
-    File parentFile = repository.getDirectory().getParentFile();
-    if (!recursiveDelete(repository.getDirectory())) {
-      throw new UnloggedFailure("Error trying to delete "
-          + repository.getDirectory().getAbsolutePath());
-    }
-
-    // Delete parent folders while they are (now) empty
-    recursiveDeleteParent(parentFile, gitDir);
-  }
-
-  /**
-   * Recursively delete the specified file and all of its contents.
-   *
-   * @return true on success, false if there was an error.
-   */
-  private boolean recursiveDelete(File file) {
-    if (file.isDirectory()) {
-      for (File f : file.listFiles()) {
-        if (!recursiveDelete(f)) {
-          return false;
-        }
-      }
-    }
-    return file.delete();
-  }
-
-  /**
-   * Recursively delete the specified file and its parent files until we hit the
-   * file {@code Until} or the parent file is populated. This is used when we
-   * have a tree structure such as a/b/c/d.git and a/b/e.git - if we delete
-   * a/b/c/d.git, we no longer need a/b/c/.
-   */
-  private void recursiveDeleteParent(File file, File until) {
-    if (file.equals(until)) {
-      return;
-    }
-    if (file.listFiles().length == 0) {
-      File parent = file.getParentFile();
-      file.delete();
-      recursiveDeleteParent(parent, until);
-    }
+    filesystemDeleteHandler.delete(preserveGitRepository, project);
+    cacheDeleteHandler.delete(project);
   }
 }
