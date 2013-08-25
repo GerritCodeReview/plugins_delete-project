@@ -1,4 +1,4 @@
-// Copyright (C) 2012 The Android Open Source Project
+// Copyright (C) 2013 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,13 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.googlesource.gerrit.plugins.deleteproject;
+package com.googlesource.gerrit.plugins.deleteproject.cache;
 
-import com.google.gerrit.sshd.PluginCommandModule;
+import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.project.ProjectCache;
+import com.google.inject.Inject;
 
-public class SshModule extends PluginCommandModule {
-  @Override
-  protected void configureCommands() {
-    command(DeleteCommand.class);
+public class CacheDeleteHandler {
+
+  private final ProjectCache projectCache;
+
+  @Inject
+  public CacheDeleteHandler(ProjectCache projectCache) {
+    this.projectCache = projectCache;
+  }
+
+  public void delete(Project project) {
+    projectCache.remove(project);
   }
 }
