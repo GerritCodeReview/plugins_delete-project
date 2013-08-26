@@ -42,7 +42,7 @@ public class FilesystemDeleteHandler {
     this.repoManager = repoManager;
   }
 
-  public void delete(Project project)
+  public void delete(Project project, boolean preserveGitRepository)
       throws IOException, RepositoryNotFoundException, UnloggedFailure {
     // Remove from the jgit cache
     final Repository repository =
@@ -52,7 +52,9 @@ public class FilesystemDeleteHandler {
     }
 
     cleanCache(repository);
-    deleteGitRepository(repository);
+    if (!preserveGitRepository) {
+      deleteGitRepository(repository);
+    }
   }
 
   private void deleteGitRepository(final Repository repository)
