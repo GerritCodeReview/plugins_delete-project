@@ -11,6 +11,7 @@ SYNOPSIS
 ssh -p @SSH_PORT@ @SSH_HOST@ @PLUGIN@ delete
   [--yes-really-delete]
   [--force]
+  [--preserve-git-repository]
   <PROJECT>
 ```
 
@@ -58,6 +59,10 @@ OPTIONS
 
 `--force`
 :	Delete project even if it has open changes.
+
+`--preserve-git-repository`
+:	Don't delete git repository directory.
+
 
 EXAMPLES
 --------
