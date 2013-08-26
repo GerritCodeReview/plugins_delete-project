@@ -16,6 +16,24 @@
       "revId": "e672eae215953323997384cb94015f5e358e5694",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd71d854_6df6550f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/SshModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-26T05:51:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad7e6423_8cee273a",
+      "revId": "e672eae215953323997384cb94015f5e358e5694",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
