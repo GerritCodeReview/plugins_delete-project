@@ -20,7 +20,7 @@ import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDe
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.gerrit.sshd.PluginCommandModule;
 
-public class DeleteProjectCommandModule extends PluginCommandModule {
+public class SshModule extends PluginCommandModule {
   @Override
   protected void configureCommands() {
     int schemaVersion = SchemaVersion.guessVersion(SchemaVersion.C);

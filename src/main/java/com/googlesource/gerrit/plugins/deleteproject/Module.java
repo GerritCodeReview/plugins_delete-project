@@ -20,7 +20,7 @@ import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
 import com.google.inject.AbstractModule;
 
-public class DeleteProjectModule extends AbstractModule {
+public class Module extends AbstractModule {
 
   @Override
   protected void configure() {
