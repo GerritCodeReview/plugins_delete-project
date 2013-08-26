@@ -26,7 +26,7 @@ import com.googlesource.gerrit.plugins.deleteproject.database.Schema73DatabaseDe
 import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
-public class DeleteProjectModule extends AbstractModule {
+public class Module extends AbstractModule {
 
   @Override
   protected void configure() {

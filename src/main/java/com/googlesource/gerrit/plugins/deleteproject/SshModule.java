@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.sshd.PluginCommandModule;
 
-public class DeleteProjectCommandModule extends PluginCommandModule {
+public class SshModule extends PluginCommandModule {
   @Override
   protected void configureCommands() {
     command(DeleteCommand.class);

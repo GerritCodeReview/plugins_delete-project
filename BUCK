@@ -3,6 +3,7 @@ gerrit_plugin(
   srcs = glob(['src/main/java/**/*.java']),
   resources = glob(['src/main/resources/**/*']),
   manifest_entries = [
-    'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCommandModule',
+    'Gerrit-Module: com.googlesource.gerrit.plugins.deleteproject.Module',
+    'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule',
   ]
 )
