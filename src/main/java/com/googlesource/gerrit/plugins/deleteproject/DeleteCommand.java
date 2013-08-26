@@ -45,6 +45,9 @@ public final class DeleteCommand extends SshCommand {
   @Option(name = "--force", usage = "delete the project even if it has open changes")
   private boolean force = false;
 
+  @Option(name = "--preserve-git-repository", usage = "don't delete git repository directory")
+  private boolean preserveGitRepository = false;
+
   private final SitePaths site;
   private final CacheDeleteHandler cacheDeleteHandler;
   private final DatabaseDeleteHandler databaseDeleteHandler;
@@ -112,7 +115,7 @@ public final class DeleteCommand extends SshCommand {
     }
 
     databaseDeleteHandler.delete(project);
-    filesystemDeleteHandler.delete(project);
+    filesystemDeleteHandler.delete(project, preserveGitRepository);
     cacheDeleteHandler.delete(project);
   }
 }
