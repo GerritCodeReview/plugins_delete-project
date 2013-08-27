@@ -16,6 +16,24 @@
       "revId": "3653514e82e7d1f0f063cc047b6533e371db934b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8da7e022_ab5d6924",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-27T12:08:30Z",
+      "side": 1,
+      "message": "Welcome in the world of UiActions ;-) It is intentionally not splittable by design: once UiActions are supported on a screen, like it is the currently the case on CS2, every UiAction for RevisionResource and CHangeResource and ChangeResource is immediately shown on the screen, given that\n\n* Description.isEnabled(rsrc)\n* Description.isVisible(rsrc)\n\nare returning true for that action.\n\nI do agree, that the new REST endpoint should be mentioned in the plugin documentation. I missed that part.",
+      "parentUuid": "8da7e022_4b320501",
+      "revId": "3653514e82e7d1f0f063cc047b6533e371db934b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
