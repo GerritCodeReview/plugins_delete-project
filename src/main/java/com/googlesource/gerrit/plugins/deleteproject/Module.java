@@ -42,7 +42,7 @@ public class Module extends AbstractModule {
     install(new RestApiModule() {
       @Override
       protected void configure() {
-        delete(PROJECT_KIND)
+        delete(PROJECT_KIND, "delete-project")
             .to(DeleteProject.class);
       }
     });
