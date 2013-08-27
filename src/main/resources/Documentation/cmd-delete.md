@@ -42,7 +42,7 @@ There are a few caveats:
 ACCESS
 ------
 Caller must be a member of a group that is granted the 'Delete Project'
-capability (provided by this plugin).
+capability (provided by this plugin) or be a member of Administrators group.
 
 
 SCRIPTING
