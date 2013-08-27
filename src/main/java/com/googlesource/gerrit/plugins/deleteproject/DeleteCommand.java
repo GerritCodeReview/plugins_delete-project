@@ -87,7 +87,7 @@ public final class DeleteCommand extends SshCommand {
       msgBuilder.append("Really delete ");
       msgBuilder.append(projectName);
       msgBuilder.append("?\n");
-      msgBuilder.append("This is an operation which permanently deletes");
+      msgBuilder.append("This is an operation which permanently deletes ");
       msgBuilder.append("data. This cannot be undone!\n");
       msgBuilder.append("If you are sure you wish to delete this project, ");
       msgBuilder.append("re-run\n");
