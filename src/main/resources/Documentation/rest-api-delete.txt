@@ -7,7 +7,7 @@ delete - Delete project
 
 SYNOPSIS
 --------
->     DELETE /projects/link:#project-name[\{project-name\}]
+>     DELETE /projects/link:#project-name[\{project-name\}]/delete-project-plugin~delete-project
 
 DESCRIPTION
 -----------
@@ -30,7 +30,7 @@ EXAMPLES
 Delete project 'foo' including GIT repository directory
 
 >     curl -X DELETE --digest --user joe:secret \
->       http://host:port/a/projects/foo
+>       http://host:port/a/projects/foo/delete-project-plugin~delete-project
 > "The project \"foo\" was successfully deleted"
 
 Delete project 'foo' but preserve GIT repository directory
@@ -38,7 +38,7 @@ Delete project 'foo' but preserve GIT repository directory
 >     curl -X DELETE -H "Content-Type: application/json" \
 >       -d '{preserve: true}' \
 >       --digest --user joe:secret \
->       http://host:port/a/projects/foo
+>       http://host:port/a/projects/foo/delete-project-plugin~delete-project
 > "The project \"foo\" was successfully deleted"
 
 SEE ALSO
