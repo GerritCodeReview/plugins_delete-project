@@ -55,6 +55,7 @@ limitations under the License.
           <archive>
             <manifestEntries>
               <Gerrit-Module>com.googlesource.gerrit.plugins.deleteproject.Module</Gerrit-Module>
+              <Gerrit-HttpModule>com.googlesource.gerrit.plugins.deleteproject.HttpModule</Gerrit-HttpModule>
               <Gerrit-SshModule>com.googlesource.gerrit.plugins.deleteproject.SshModule</Gerrit-SshModule>
 
               <Implementation-Vendor>Gerrit Code Review</Implementation-Vendor>
