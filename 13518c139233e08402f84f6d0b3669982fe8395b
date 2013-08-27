@@ -16,6 +16,24 @@
       "revId": "13518c139233e08402f84f6d0b3669982fe8395b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edf21c16_5e00f514",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-08-27T00:12:15Z",
+      "side": 1,
+      "message": "Yes, restarting the server will reload the repository.\n\nMy understanding is that this would be used by an admin who wants to remove a project from Gerrit, but keep the actual git.  He would issue the command, and then manually move the git before restarting.\n\nPerhaps this should be mentioned in the documentation.",
+      "parentUuid": "ed74dc43_ce3663fa",
+      "revId": "13518c139233e08402f84f6d0b3669982fe8395b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
