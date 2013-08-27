@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8da7e022_4b320501",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-27T11:54:34Z",
+      "side": 1,
+      "message": "This change is not only adding an UiAction for deleting a project, but it is also adding a REST endpoint for deleting projects. Having the REST endpoint alone is already very valueable, which makes me think that it might make sense to split this change into two changes:\n\n  1. Add REST endpoint for deleting projects\n  2. Add an UiAction for deleting projects\n\nThis splitting makes especially sense since 2. depends on some other changes in Gerrit core, while 1. could be submitted immediately. At least I would expect that the REST endpoint is mentioned in the commit message and that also documentation for it is included into the plugin documentation. Also it might make sense to seperate both aspects in the implementation, e.g. the class UiDeleteAction implements the REST endpoint for deleting projects, but from the class name this was unexpected to me as the REST endpoint has nothing to do with UI.",
+      "revId": "3653514e82e7d1f0f063cc047b6533e371db934b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
