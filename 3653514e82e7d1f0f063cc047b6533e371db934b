@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "adaae4e9_ec8aeb6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-27T13:34:10Z",
+      "side": 1,
+      "message": "Sure, we don\u0027t need to, but we always try to keep changes small and try to focus in one change on one thing only. This is what helps most to make reviews easier and faster. In this case it would also help to keep the code cleaner/better understandable. It also has other advantages, when it comes to the usage of git cherry-pick or git revert. If you couple both features in one commit they are also coupled later for cherry-pick or revert if this is later needed for one of two features. This is just my two cents on it, since it is a plugin I\u0027ll not insist on it.",
+      "parentUuid": "adaae4e9_ac80e34c",
+      "revId": "3653514e82e7d1f0f063cc047b6533e371db934b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d5440b2_23494a62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
