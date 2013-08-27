@@ -20,14 +20,17 @@ import java.util.Collection;
 
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
-import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
+import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
@@ -35,7 +38,8 @@ import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHand
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
 @RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
-class DeleteProject implements RestModifyView<ProjectResource, Input> {
+class DeleteProject implements RestModifyView<ProjectResource, Input>,
+    UiAction<ProjectResource> {
   static class Input {
     boolean preserve;
     boolean force;
@@ -44,18 +48,21 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DatabaseDeleteHandler databaseDeleteHandler;
   private final FilesystemDeleteHandler filesystemDeleteHandler;
   private final CacheDeleteHandler cacheDeleteHandler;
+  private final Provider<CurrentUser> currentUser;
 
   @Inject
   DeleteProject(DatabaseDeleteHandler databaseDeleteHandler,
       FilesystemDeleteHandler filesystemDeleteHandler,
-      CacheDeleteHandler cacheDeleteHandler) {
+      CacheDeleteHandler cacheDeleteHandler,
+      Provider<CurrentUser> currentUser) {
     this.databaseDeleteHandler = databaseDeleteHandler;
     this.filesystemDeleteHandler = filesystemDeleteHandler;
     this.cacheDeleteHandler = cacheDeleteHandler;
+    this.currentUser = currentUser;
   }
 
   @Override
-  public Object apply(ProjectResource rsrc, Input input)
+  public String apply(ProjectResource rsrc, Input input)
       throws UnprocessableEntityException, ResourceConflictException,
       OrmException, SQLException, IOException {
     Project project = rsrc.getControl().getProject();
@@ -82,6 +89,23 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     filesystemDeleteHandler.delete(project,
         input == null ? false : input.preserve);
     cacheDeleteHandler.delete(project);
-    return Response.none();
+    return String.format("The project \"%s\" was successfully deleted",
+        rsrc.getName());
+  }
+
+  @Override
+  public UiAction.Description getDescription(ProjectResource rsrc) {
+    return new UiAction.Description()
+        .setLabel("Delete Project")
+        .setTitle(isAllProjects(rsrc)
+            ? String.format("No deletion of %s project",
+                AllProjectsNameProvider.DEFAULT)
+            : String.format("Deleting project %s", rsrc.getName()))
+        .setEnabled(!isAllProjects(rsrc))
+        .setVisible(currentUser.get() instanceof IdentifiedUser);
+  }
+
+  private boolean isAllProjects(ProjectResource rsrc) {
+    return rsrc.getName().endsWith(AllProjectsNameProvider.DEFAULT);
   }
 }
