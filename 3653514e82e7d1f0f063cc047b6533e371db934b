@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "adaae4e9_ac80e34c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-27T13:24:28Z",
+      "side": 1,
+      "message": "Yes you are right. Never thought about this.\n\nTBH we don\u0027t need to split it. What for? Take that plugin with this change, without merging the dependent changes mention below and the REST endpoint would just work.\n\nOnce the dependent changes are merged, the new \"Delete\" action would appear on the \"Project Info Screen\".",
+      "parentUuid": "adaae4e9_6c4c3b73",
+      "revId": "3653514e82e7d1f0f063cc047b6533e371db934b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d5440b2_23494a62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
