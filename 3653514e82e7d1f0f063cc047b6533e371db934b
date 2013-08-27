@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "adaae4e9_6c4c3b73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-27T13:10:47Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is not splittable.\n\nYou can implement the REST endpoint in an own class, let\u0027s say DeleteProject (to stay consistent with the naming of REST classes in Gerrit core). This class implments RestModifyView and basically contains the apply method and the Input class that you are currently having in UiDeleteAction. UiDeleteAction would then extend the DeleteProject class and add the implementation of UiAction. This is a clear seperation and each steps can be implemented in an own change.",
+      "parentUuid": "8da7e022_ab5d6924",
+      "revId": "3653514e82e7d1f0f063cc047b6533e371db934b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d5440b2_23494a62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
