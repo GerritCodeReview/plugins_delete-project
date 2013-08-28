@@ -87,6 +87,24 @@
       "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fafd2e_1ef3cd21",
+        "filename": "src/main/resources/Documentation/rest-api-delete.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T05:40:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52eca979_a1fefee1",
+      "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
