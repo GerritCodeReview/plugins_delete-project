@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52eca979_c101021c",
+        "filename": "src/main/resources/Documentation/cmd-delete.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-08-28T02:02:28Z",
+      "side": 1,
+      "message": "\"the Administrators group\".\n\nBut I don\u0027t see anywhere in the code explicitly requiring the administrator permission.",
+      "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52eca979_e1f40608",
+        "filename": "src/main/resources/Documentation/rest-api-delete.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-08-28T02:02:28Z",
+      "side": 1,
+      "message": "This link will not work.",
+      "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
