@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12f6b149_5f126b6b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-28T07:24:55Z",
+      "side": 1,
+      "message": "We normally try to avoid throwing Exception but rather prefer to list the concrete Exceptions that can be thrown.",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fafd2e_def44508",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-28T07:24:55Z",
+      "side": 1,
+      "message": "For a REST endpoint we don\u0027t need to send back a success message, as this is already clear from the 200 OK response code.\n\nJust change the return type to Response and then\n  return Response.ok(\"\");",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_3f07a72d",
+        "filename": "src/main/resources/Documentation/rest-api-delete.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-28T07:24:55Z",
+      "side": 1,
+      "message": "This description is ok, but I would prefer a format that is similar to the format of the Gerrit Core REST API documentation. If you don\u0027t want to spend time on this, I could do this in a follow-up change.",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
