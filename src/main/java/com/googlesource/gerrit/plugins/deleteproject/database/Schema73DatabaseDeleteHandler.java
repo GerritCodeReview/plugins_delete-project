@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject.database;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -37,19 +38,23 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
   }
 
   @Override
-  public void assertCanDelete(Project project) throws Exception {
+  public void assertCanDelete(Project project) throws CannotDeleteProjectException {
     final Connection conn = ((JdbcSchema) db).getConnection();
     final String projectName = project.getName();
 
-    // TODO(mch): This is an ugly hack, ideally we could do it with SubmoduleSubscriptionAccess
-    if (conn.createStatement().executeQuery("SELECT * FROM submodule_subscriptions WHERE "
-        + "super_project_project_name = '" + projectName + "'").first()) {
-      throw new Exception("Project has subscribed submodules.");
-    }
+    try {
+      // TODO(mch): This is an ugly hack, ideally we could do it with SubmoduleSubscriptionAccess
+      if (conn.createStatement().executeQuery("SELECT * FROM submodule_subscriptions WHERE "
+          + "super_project_project_name = '" + projectName + "'").first()) {
+        throw new CannotDeleteProjectException("Project has subscribed submodules.");
+      }
 
-    if (conn.createStatement().executeQuery("SELECT * FROM submodule_subscriptions WHERE "
-        + "submodule_project_name = '" + projectName + "'").first()) {
-      throw new Exception("Project is subscribed by other projects.");
+      if (conn.createStatement().executeQuery("SELECT * FROM submodule_subscriptions WHERE "
+          + "submodule_project_name = '" + projectName + "'").first()) {
+        throw new CannotDeleteProjectException("Project is subscribed by other projects.");
+      }
+    } catch (SQLException e) {
+      throw new CannotDeleteProjectException(e);
     }
   }
 
@@ -67,17 +72,25 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
   }
 
   @Override
-  public void delete(Project project) throws Exception {
+  public void delete(Project project) throws OrmException {
+    // TODO(davido): Why not to use 1.7 features?
+    // http://docs.oracle.com/javase/specs/jls/se7/html/jls-14.html#jls-14.20.3.2
     Connection conn = ((JdbcSchema) db).getConnection();
-    conn.setAutoCommit(false);
     try {
-      atomicDelete(project);
-      conn.commit();
-    } catch (Exception e) {
-      conn.rollback();
-      throw e;
-    } finally {
-      conn.setAutoCommit(true);
+      conn.setAutoCommit(false);
+      try {
+        atomicDelete(project);
+        conn.commit();
+      } finally {
+        conn.setAutoCommit(true);
+      }
+    } catch (SQLException e) {
+      try {
+        conn.rollback();
+      } catch (SQLException ex) {
+        throw new OrmException(ex);
+      }
+      throw new OrmException(e);
     }
   }
 
