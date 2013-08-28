@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_de2685c8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T12:42:12Z",
+      "side": 1,
+      "message": "Done\n\nRefactored out as a predecessor change and fixed the exception in REST endpoint:\n\n https://gerrit-review.googlesource.com/#/c/49274/",
+      "parentUuid": "12f6b149_bf1a977a",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2fafd2e_def44508",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 14
