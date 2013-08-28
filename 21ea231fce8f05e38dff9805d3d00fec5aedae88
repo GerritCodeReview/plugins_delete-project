@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_7ee4115d",
+        "filename": "src/main/resources/Documentation/cmd-delete.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T04:53:53Z",
+      "side": 1,
+      "message": "Done\n\nIt is hidden in the plugin-owned capabilities logic. The function in DispatchCommand, that checks if the current user has the required capabilities checks also for the Administrators group:\n\n   private void checkRequiresCapability(Command cmd)\n   [...]\n      if (!ctl.canPerform(capability) \u0026\u0026 !ctl.canAdministrateServer()) {\n        String msg \u003d String.format(\n            \"fatal: %s does not have \\\"%s\\\" capability.\",\n            user.getUserName(), capability);\n        throw new UnloggedFailure(BaseCommand.STATUS_NOT_ADMIN, msg);\n      }\n\nSo almoust no capabilities must be granted for the admins.",
+      "parentUuid": "52eca979_c101021c",
+      "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52eca979_e1f40608",
         "filename": "src/main/resources/Documentation/rest-api-delete.txt",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2013-08-28T02:02:28Z",
       "side": 1,
       "message": "This link will not work.",
+      "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fafd2e_5ee95531",
+        "filename": "src/main/resources/Documentation/rest-api-delete.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T04:53:53Z",
+      "side": 1,
+      "message": "Why?",
+      "parentUuid": "52eca979_e1f40608",
       "revId": "21ea231fce8f05e38dff9805d3d00fec5aedae88",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
