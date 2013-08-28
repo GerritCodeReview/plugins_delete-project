@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "12f6b149_bf1a977a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-28T08:00:56Z",
+      "side": 1,
+      "message": "Hmm, I think it would be better to think already now about it. E.g. I would expect that we throw ResourceConflictException if the project can\u0027t be deleted because there are are open changes. This would result in 409 Conflict result [1]. At the moment every exception is resulting in 500 Internal Server Error. If refactoring is needed it should rather be done as a predecessor change to this one?\n\n[1]https://gerrit-review.googlesource.com/Documentation/rest-api.html#response-codes",
+      "parentUuid": "f2fafd2e_7e0d314b",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2fafd2e_def44508",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 14
