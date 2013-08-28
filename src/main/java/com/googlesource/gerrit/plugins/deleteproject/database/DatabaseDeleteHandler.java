@@ -62,9 +62,8 @@ public interface DatabaseDeleteHandler {
    *
    * @param project The project to obtain delete warnings for
    * @throws OrmException
-   * @return Collection of Strings, each holding a warning message to show
-   *    to the user. If there are no warnings, return either null, or an empty
-   *    Collection.
+   * @return Collection of Strings, each holding a warning message to show to
+   *         the user. If there are no warnings, return an empty Collection.
    */
   public Collection<String> getWarnings(Project project) throws OrmException;
 
