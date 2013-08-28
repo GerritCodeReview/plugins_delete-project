@@ -30,10 +30,12 @@ public class Schema77DatabaseDeleteHandler
   }
 
   @Override
-  public void assertCanDelete(Project project) throws Exception {
+  public void assertCanDelete(Project project)
+      throws CannotDeleteProjectException, OrmException {
     if (db.submoduleSubscriptions().bySubmoduleProject(project.getNameKey())
         .iterator().hasNext()) {
-      throw new Exception("Project is subscribed by other projects.");
+      throw new CannotDeleteProjectException(
+          "Project is subscribed by other projects.");
     }
   }
 

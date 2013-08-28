@@ -26,7 +26,6 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.sshd.BaseCommand.UnloggedFailure;
 import com.google.inject.Inject;
 
 public class FilesystemDeleteHandler {
@@ -43,12 +42,12 @@ public class FilesystemDeleteHandler {
   }
 
   public void delete(Project project, boolean preserveGitRepository)
-      throws IOException, RepositoryNotFoundException, UnloggedFailure {
+      throws IOException, RepositoryNotFoundException {
     // Remove from the jgit cache
     final Repository repository =
         repoManager.openRepository(project.getNameKey());
     if (repository == null) {
-      throw new UnloggedFailure("There was an error finding the project.");
+      throw new RepositoryNotFoundException("There was an error finding the project.");
     }
 
     cleanCache(repository);
@@ -58,11 +57,11 @@ public class FilesystemDeleteHandler {
   }
 
   private void deleteGitRepository(final Repository repository)
-      throws UnloggedFailure {
+      throws IOException {
     // Delete the repository from disk
     File parentFile = repository.getDirectory().getParentFile();
     if (!recursiveDelete(repository.getDirectory())) {
-      throw new UnloggedFailure("Error trying to delete "
+      throw new IOException("Error trying to delete "
           + repository.getDirectory().getAbsolutePath());
     }
 

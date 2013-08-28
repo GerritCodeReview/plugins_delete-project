@@ -14,8 +14,10 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import java.io.IOException;
 import java.util.Collection;
 
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
@@ -28,8 +30,10 @@ import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
@@ -66,7 +70,7 @@ public final class DeleteCommand extends SshCommand {
   }
 
   @Override
-  public void run() throws UnloggedFailure, Failure, Exception {
+  public void run() throws Failure {
     final Project project = projectControl.getProject();
     final String projectName = project.getName();
 
@@ -77,9 +81,11 @@ public final class DeleteCommand extends SshCommand {
 
     try {
       databaseDeleteHandler.assertCanDelete(project);
-    } catch (Exception e) {
+    } catch (CannotDeleteProjectException e) {
       throw new UnloggedFailure("Cannot delete project " + projectName + ": "
           + e.getMessage());
+    } catch (OrmException e) {
+      die(e);
     }
 
     if (!yesReallyDelete) {
@@ -96,7 +102,12 @@ public final class DeleteCommand extends SshCommand {
     }
 
     if (!force) {
-      Collection<String> warnings = databaseDeleteHandler.getWarnings(project);
+      Collection<String> warnings = null;
+      try {
+        warnings = databaseDeleteHandler.getWarnings(project);
+      } catch (OrmException e) {
+        die(e);
+      }
       if (warnings != null && !warnings.isEmpty()) {
         StringBuilder msgBuilder = new StringBuilder();
         msgBuilder.append("There are warnings against deleting ");
@@ -114,8 +125,16 @@ public final class DeleteCommand extends SshCommand {
       }
     }
 
-    databaseDeleteHandler.delete(project);
-    filesystemDeleteHandler.delete(project, preserveGitRepository);
-    cacheDeleteHandler.delete(project);
+    try {
+      databaseDeleteHandler.delete(project);
+      filesystemDeleteHandler.delete(project, preserveGitRepository);
+      cacheDeleteHandler.delete(project);
+    } catch (OrmException e) {
+      die(e);
+    } catch (RepositoryNotFoundException e) {
+      die(e);
+    } catch (IOException e) {
+      die(e);
+    }
   }
 }

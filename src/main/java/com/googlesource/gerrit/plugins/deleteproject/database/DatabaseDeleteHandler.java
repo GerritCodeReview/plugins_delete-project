@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.deleteproject.database;
 import java.util.Collection;
 
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gwtorm.server.OrmException;
 
 /**
  * Handles deleting a project from the database for a specific schema.
@@ -36,12 +37,15 @@ public interface DatabaseDeleteHandler {
    * <p>
    * To signal that deletion of the project is not okay, throw an exception.
    *
-   * @param project The project that should be checked whether or not it can
-   *    be deleted.
-   * @throws Exception If there is on obstacle to the deletion. The exception's
-   *    message should describe the problem.
+   * @param project The project that should be checked whether or not it can be
+   *        deleted.
+   * @throws CannotDeleteProjectException If there is on obstacle to the
+   *         deletion. The exception's message should describe the problem.
+   * @throws OrmException If checking that the project can be deleted fails due
+   *         to a database error.
    */
-  public void assertCanDelete(Project project) throws Exception;
+  public void assertCanDelete(Project project)
+      throws CannotDeleteProjectException, OrmException;
 
   /**
    * Gets warnings to show to user before allowing to delete project.
@@ -57,12 +61,12 @@ public interface DatabaseDeleteHandler {
    * deletion, implement those guards in {@code assertCanDelete()}.
    *
    * @param project The project to obtain delete warnings for
-   * @throws Exception
+   * @throws OrmException
    * @return Collection of Strings, each holding a warning message to show
    *    to the user. If there are no warnings, return either null, or an empty
    *    Collection.
    */
-  public Collection<String> getWarnings(Project project) throws Exception;
+  public Collection<String> getWarnings(Project project) throws OrmException;
 
   /**
    * Deletes the project from the database.
@@ -71,7 +75,7 @@ public interface DatabaseDeleteHandler {
    * advance and no exceptions where thrown from this invocation.
    *
    * @param project The project that should get deleted.
-   * @throws Exception
+   * @throws OrmException
    */
-  public void delete(Project project) throws Exception;
+  public void delete(Project project) throws OrmException;
 }
