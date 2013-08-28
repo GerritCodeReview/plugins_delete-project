@@ -104,6 +104,24 @@
       "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fafd2e_3e07a92d",
+        "filename": "src/main/resources/Documentation/rest-api-delete.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-28T07:43:50Z",
+      "side": 1,
+      "message": "I meant to leave the documentation for this change as it is and I would then be willing to make another change to propose a different formatting that matches the formatting of the Gerrit core REST API documentation.",
+      "parentUuid": "12f6b149_1f0ce34b",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
