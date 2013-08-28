@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_7e0d314b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T07:39:08Z",
+      "side": 1,
+      "message": "That would mean a bigger refactoring of underlying handlers and can be done in a follow-up change.",
+      "parentUuid": "12f6b149_5f126b6b",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2fafd2e_def44508",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 14
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_9efebde2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T07:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2fafd2e_def44508",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12f6b149_3f07a72d",
         "filename": "src/main/resources/Documentation/rest-api-delete.txt",
         "patchSetId": 14
@@ -47,6 +83,24 @@
       "writtenOn": "2013-08-28T07:24:55Z",
       "side": 1,
       "message": "This description is ok, but I would prefer a format that is similar to the format of the Gerrit Core REST API documentation. If you don\u0027t want to spend time on this, I could do this in a follow-up change.",
+      "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_1f0ce34b",
+        "filename": "src/main/resources/Documentation/rest-api-delete.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-28T07:39:08Z",
+      "side": 1,
+      "message": "Follow-up change?",
+      "parentUuid": "12f6b149_3f07a72d",
       "revId": "0726c86539e5f878fef4fbb619ffb2863d036174",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
