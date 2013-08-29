@@ -24,6 +24,7 @@ import org.kohsuke.args4j.Option;
 
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
@@ -53,6 +54,7 @@ public final class DeleteCommand extends SshCommand {
   private boolean preserveGitRepository = false;
 
   private final SitePaths site;
+  private final AllProjectsName allProjectsName;
   private final CacheDeleteHandler cacheDeleteHandler;
   private final DatabaseDeleteHandler databaseDeleteHandler;
   private final FilesystemDeleteHandler filesystemDeleteHandler;
@@ -60,10 +62,12 @@ public final class DeleteCommand extends SshCommand {
   @Inject
   protected DeleteCommand(SitePaths site,
       @GerritServerConfig Config cfg,
+      AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler databaseDeleteHandler,
       FilesystemDeleteHandler filesystemDeleteHandler,
       CacheDeleteHandler cacheDeleteHandler) {
     this.site = site;
+    this.allProjectsName = allProjectsNameProvider.get();
     this.databaseDeleteHandler = databaseDeleteHandler;
     this.filesystemDeleteHandler = filesystemDeleteHandler;
     this.cacheDeleteHandler = cacheDeleteHandler;
@@ -75,7 +79,7 @@ public final class DeleteCommand extends SshCommand {
     final String projectName = project.getName();
 
     // Don't let people delete All-Projects, that's stupid
-    if (projectName.endsWith(AllProjectsNameProvider.DEFAULT)) {
+    if (project.getNameKey().equals(allProjectsName)) {
       throw new UnloggedFailure("Perhaps you meant to rm -fR " + site.site_path);
     }
 
