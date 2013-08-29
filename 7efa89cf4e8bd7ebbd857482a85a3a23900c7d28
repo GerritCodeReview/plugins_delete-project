@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "12f6b149_682c5763",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/Schema77DatabaseDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:36:16Z",
+      "side": 1,
+      "message": "Yes, this is what I\u0027ve menat :-)",
+      "parentUuid": "32f1f550_06537e14",
+      "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2fafd2e_1ee18d19",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 3
