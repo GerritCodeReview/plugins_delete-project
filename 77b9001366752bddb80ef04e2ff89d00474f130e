@@ -16,6 +16,24 @@
       "revId": "77b9001366752bddb80ef04e2ff89d00474f130e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_a846df28",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T06:41:55Z",
+      "side": 1,
+      "message": "That probably make my JS API extension change (support passing request payload for the DELETE method)\n\n https://gerrit-review.googlesource.com/#/c/49301/\n\nunnecessary?",
+      "parentUuid": "f2fafd2e_3e6329dd",
+      "revId": "77b9001366752bddb80ef04e2ff89d00474f130e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
