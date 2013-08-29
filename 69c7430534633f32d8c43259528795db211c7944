@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_feaee1c7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T08:53:20Z",
+      "side": 1,
+      "message": "Well, i borrowed the code from existing SSH command. We should fix it there too.",
+      "parentUuid": "12f6b149_c86243b3",
+      "revId": "69c7430534633f32d8c43259528795db211c7944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12f6b149_a85fffe2",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 19
@@ -64,6 +82,24 @@
       "writtenOn": "2013-08-29T08:25:23Z",
       "side": 1,
       "message": "At the moment I\u0027m not having a better idea how to do the POST request, but from the request \u0027POST /projects/myProject\u0027 it is not obvious that this is a deletion. In other cases, e.g. deletion of group members we made this very obvious from the URL: \u0027POST /groups/myGroup/members.delete\u0027 [1]. Not sure if we could do something similar here.\n\n[1] https://gerrit-review.googlesource.com/Documentation/rest-api-groups.html#delete-group-members",
+      "revId": "69c7430534633f32d8c43259528795db211c7944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fafd2e_deab25b6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T08:53:20Z",
+      "side": 1,
+      "message": "Sure we could:\n\n post(PROJECT_KIND, \"delete-project\")\n            .to(DeleteProject.class);\n\nMoreover, we need the name for UiAction to work:\n\n https://gerrit-review.googlesource.com/#/c/49250/15/src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+      "parentUuid": "12f6b149_a8f81fa7",
       "revId": "69c7430534633f32d8c43259528795db211c7944",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
