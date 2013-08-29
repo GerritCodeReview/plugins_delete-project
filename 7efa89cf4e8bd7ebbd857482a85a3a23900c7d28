@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "12f6b149_48219369",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:52:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2fafd2e_7ed2d14c",
+      "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2fafd2e_5ed7153b",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "12f6b149_28264f83",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:52:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2fafd2e_5ed7153b",
+      "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12f6b149_08694b97",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/Schema73DatabaseDeleteHandler.java",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2013-08-29T07:18:44Z",
       "side": 1,
       "message": "I think the SQLException should not be wrapped into a CannotDeleteProjectException but rather into an OrmException.\n\nAs I understood it\n\n  CannotDeleteProjectException:\n    Means the project cannot be deleted because some\n    preconditions for the deletion are not fulfilled.\n    For the REST endpoint this would be mapped to\n    409 Conflict.\n\n  OrmException:\n    An error occurred while accessing the database.\n    For the REST endpoint this would be mapped to\n    500 Internal Server Error.",
+      "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_081b8b33",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/Schema73DatabaseDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:52:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12f6b149_08694b97",
       "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_3eb56915",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/Schema77DatabaseDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:52:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12f6b149_682c5763",
+      "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2fafd2e_1ee18d19",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 3
@@ -117,6 +189,24 @@
       "writtenOn": "2013-08-29T07:18:44Z",
       "side": 1,
       "message": "Should this rather be an IOException, since the repository exists but cannot be deleted?",
+      "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fafd2e_1ebaad03",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:52:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2fafd2e_1ee18d19",
       "revId": "7efa89cf4e8bd7ebbd857482a85a3a23900c7d28",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
