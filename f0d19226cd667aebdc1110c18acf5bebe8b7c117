@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2fafd2e_fe682195",
+        "filename": "src/main/resources/Documentation/rest-api-projects.md",
+        "patchSetId": 21
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T15:30:04Z",
+      "side": 1,
+      "message": "You missed here ACCESS section:\n\nACCESS\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nCaller must be a member of a group that is granted the \u0027Delete Project\u0027\ncapability (provided by this plugin) or be a member of the Administrators\ngroup.",
+      "revId": "f0d19226cd667aebdc1110c18acf5bebe8b7c117",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
