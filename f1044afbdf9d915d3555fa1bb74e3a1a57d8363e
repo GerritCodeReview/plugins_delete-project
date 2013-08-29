@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2fafd2e_dec20578",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T07:38:06Z",
+      "side": 1,
+      "message": "That\u0027s wrong: now two \"Delete\" buttons are rendered on the Project Info Screen. UiDeleteProject should subclass DeleteProject and implement UiAction interface, so that UiAction is bound here only once for the POST method.",
+      "revId": "f1044afbdf9d915d3555fa1bb74e3a1a57d8363e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
