@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "12f6b149_c897e33c",
+        "filename": "src/main/resources/Documentation/rest-api-projects.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T19:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2fafd2e_de6565bd",
+      "revId": "67fb1ee222e54873566f648e256de251e1723724",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32f1f550_a69a92b1",
         "filename": "src/main/resources/Documentation/rest-api-projects.md",
         "patchSetId": 22
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f2fafd2e_9e5fdde3",
+        "filename": "src/main/resources/Documentation/rest-api-projects.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T19:07:14Z",
+      "side": 1,
+      "message": "Removed POST example here. I missed that you documented the endpoint above.",
+      "parentUuid": "32f1f550_a69a92b1",
+      "revId": "67fb1ee222e54873566f648e256de251e1723724",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12f6b149_088eeb2c",
         "filename": "src/main/resources/Documentation/rest-api-projects.md",
         "patchSetId": 22
@@ -47,6 +83,24 @@
       "writtenOn": "2013-08-29T18:31:50Z",
       "side": 1,
       "message": "This information is important, but I would move this sentence up into the description of the REST endpoint. Means into the \u0027Delete Project\u0027 section. It\u0027s not likely to happen, but in principle this plugin could have several REST endpoints and they can have different access rules.",
+      "revId": "67fb1ee222e54873566f648e256de251e1723724",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_e88aa716",
+        "filename": "src/main/resources/Documentation/rest-api-projects.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-29T19:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12f6b149_088eeb2c",
       "revId": "67fb1ee222e54873566f648e256de251e1723724",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
