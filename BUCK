@@ -4,6 +4,7 @@ gerrit_plugin(
   resources = glob(['src/main/resources/**/*']),
   manifest_entries = [
     'Gerrit-Module: com.googlesource.gerrit.plugins.deleteproject.Module',
+    'Gerrit-HttpModule: com.googlesource.gerrit.plugins.deleteproject.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule',
   ]
 )
