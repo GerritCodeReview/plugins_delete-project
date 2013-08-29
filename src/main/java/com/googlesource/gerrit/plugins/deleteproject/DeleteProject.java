@@ -44,7 +44,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     boolean force;
   }
 
-  private final AllProjectsName allProjectsName;
+  protected final AllProjectsName allProjectsName;
   private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
@@ -91,5 +91,10 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     }
     cacheHandler.delete(project);
     return Response.none();
+  }
+
+  protected boolean isAllProjects(ProjectResource rsrc) {
+    return (rsrc.getControl().getProject()
+        .getNameKey().equals(allProjectsName));
   }
 }

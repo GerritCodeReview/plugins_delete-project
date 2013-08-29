@@ -5,6 +5,7 @@ gerrit_plugin(
   manifest_entries = [
     'Gerrit-PluginName: deleteproject',
     'Gerrit-Module: com.googlesource.gerrit.plugins.deleteproject.Module',
+    'Gerrit-HttpModule: com.googlesource.gerrit.plugins.deleteproject.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule',
   ]
 )
