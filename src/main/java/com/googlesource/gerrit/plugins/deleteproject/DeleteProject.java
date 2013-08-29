@@ -41,7 +41,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     boolean force;
   }
 
-  private final AllProjectsName allProjectsName;
+  protected final AllProjectsName allProjectsName;
   private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
@@ -61,11 +61,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   public Object apply(ProjectResource rsrc, Input input)
       throws ResourceConflictException, OrmException, IOException,
       MethodNotAllowedException {
-    Project project = rsrc.getControl().getProject();
-    if (project.getNameKey().equals(allProjectsName)) {
+    if (isAllProjects(rsrc)) {
       throw new MethodNotAllowedException();
     }
 
+    Project project = rsrc.getControl().getProject();
     try {
       dbHandler.assertCanDelete(project);
     } catch (CannotDeleteProjectException e) {
@@ -85,5 +85,10 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
         input == null ? false : input.preserve);
     cacheHandler.delete(project);
     return Response.none();
+  }
+
+  protected boolean isAllProjects(ProjectResource rsrc) {
+    return (rsrc.getControl().getProject()
+        .getNameKey().equals(allProjectsName));
   }
 }
