@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12f6b149_c86243b3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:25:23Z",
+      "side": 1,
+      "message": "Why \u0027endsWith\" and not \u0027equals\u0027?\n\nAlso it is not safe to use AllProjectsNameProvider.DEFAULT for the comparison. This is just the default, but on a Gerrit server the All-Projects project can have another name. Rather get the All-Projects name injected:\n\n   AllProjectsName allProjects",
+      "revId": "69c7430534633f32d8c43259528795db211c7944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_a85fffe2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:25:23Z",
+      "side": 1,
+      "message": "This should be a ResourceConflictException. The project that is supposed to be deleted is directly specified in the URL of the request, and UnprocessableEntityException is only returned for resources that were specified in the request body. Have a look at the description of \u0027409 Conflict\u0027 and \u0027422 Unprocessable Entity\" in [1].\n\n[1] https://gerrit-review.googlesource.com/Documentation/rest-api.html#response-codes",
+      "revId": "69c7430534633f32d8c43259528795db211c7944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_88fe7b99",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:25:23Z",
+      "side": 1,
+      "message": "Same here, this should be ResourceConflictException.",
+      "revId": "69c7430534633f32d8c43259528795db211c7944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f6b149_a8f81fa7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-29T08:25:23Z",
+      "side": 1,
+      "message": "At the moment I\u0027m not having a better idea how to do the POST request, but from the request \u0027POST /projects/myProject\u0027 it is not obvious that this is a deletion. In other cases, e.g. deletion of group members we made this very obvious from the URL: \u0027POST /groups/myGroup/members.delete\u0027 [1]. Not sure if we could do something similar here.\n\n[1] https://gerrit-review.googlesource.com/Documentation/rest-api-groups.html#delete-group-members",
+      "revId": "69c7430534633f32d8c43259528795db211c7944",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
