@@ -16,6 +16,24 @@
       "revId": "b3dd02a5a12f281f731a23cec76922615bb10926",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "123eb1ea_1f6423f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteAction.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-08-30T09:41:15Z",
+      "side": 1,
+      "message": "Good catch! We should adjust RestApiServlet. It was your idea to distinct between endpoint and UiAction ;-) We have never done it before.",
+      "parentUuid": "123eb1ea_9f2673c7",
+      "revId": "b3dd02a5a12f281f731a23cec76922615bb10926",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
