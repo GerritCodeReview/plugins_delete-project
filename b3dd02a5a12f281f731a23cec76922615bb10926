@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123eb1ea_9f2673c7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteAction.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-08-30T08:58:15Z",
+      "side": 1,
+      "message": "At the moment RestApiServlet ignores that RequiresCapability annotation that is defined on the superclass. As result there is currently no permission check for this DeleteAction and any user can delete projects.\n\nWe either need to fix this in Gerrit core (see [1]) or add the RequiresCapability annotation to this class again.\n\n[1] https://gerrit-review.googlesource.com/49307",
+      "revId": "b3dd02a5a12f281f731a23cec76922615bb10926",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
