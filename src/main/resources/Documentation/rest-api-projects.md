@@ -15,7 +15,7 @@ _DELETE /projects/[\{project-name\}](../../../Documentation/rest-api-projects.ht
 
 OR
 
-_POST /projects/[\{project-name\}](../../../Documentation/rest-api-projects.html#project-name)/delete_
+_POST /projects/[\{project-name\}](../../../Documentation/rest-api-projects.html#project-name)/@PLUGIN@~delete_
 
 Deletes a project.
 
