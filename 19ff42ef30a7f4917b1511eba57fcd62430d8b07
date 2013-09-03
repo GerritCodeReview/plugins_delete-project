@@ -34,6 +34,24 @@
       "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "529ca983_416332b8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteAction.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-03T16:42:23Z",
+      "side": 1,
+      "message": "OK, will let it as is for now: GWT.create() is not known in plugins, and beside that, the second part of messages is in ... Javascript file \"delete-project.js\".",
+      "parentUuid": "529ca983_81c6da8b",
+      "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
