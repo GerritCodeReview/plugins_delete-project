@@ -52,6 +52,24 @@
       "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "529ca983_21602ea9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteAction.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-03T17:13:18Z",
+      "side": 1,
+      "message": "Ok, fine with me :-)",
+      "parentUuid": "529ca983_416332b8",
+      "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
