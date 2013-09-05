@@ -70,6 +70,23 @@
       "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "120791cc_b75e881c",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-05T11:40:12Z",
+      "side": 1,
+      "message": "With the latest patch set of [1] the name is not anymore available in the ProjectConfig :-(\n\nAs result it shows the following message:\n  \u0027The project: \"undefined\" was deleted.\u0027\n\n[1] https://gerrit-review.googlesource.com/48381",
+      "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
