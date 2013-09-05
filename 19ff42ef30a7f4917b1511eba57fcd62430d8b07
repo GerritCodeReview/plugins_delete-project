@@ -87,6 +87,24 @@
       "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2f2fd15_be7f7975",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-05T12:08:05Z",
+      "side": 1,
+      "message": "Oh, sure, i somehow managed not to push a new ps here that i\u0027ve already amended after addressing your comments in [1].\n\nSo, on lines 26 and 33 it should be\n\n c.project",
+      "parentUuid": "120791cc_b75e881c",
+      "revId": "19ff42ef30a7f4917b1511eba57fcd62430d8b07",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
