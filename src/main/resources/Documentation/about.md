@@ -4,6 +4,12 @@ Deleting a project means that the project is completely removed from
 the Gerrit installation, including all its changes and optionally its
 Git repository.
 
+When a project is deleted a project deletion event is fired. Other
+plugins can listen to this event by implementing
+`com.google.gerrit.extensions.events.ProjectDeletedListener` which is
+part of the Gerrit core extension API. The project deletion event is
+only fired if the Git repository of the project is deleted.
+
 Limitations
 -----------
 
@@ -25,6 +31,15 @@ There are a few caveats:
 	If deleting a project that makes use of submodule subscription,
 	you cannot delete the project. Remove the submodule registration
 	before attempting to delete the project.
+
+Replication of project deletions
+--------------------------------
+
+This plugin does not replicate any project deletions, but it triggers
+an event when a project is deleted. The [replication plugin]
+(https://gerrit-review.googlesource.com/#/admin/projects/plugins/replication)
+can be configured to listen to the project deletion event and to
+replicate project deletions.
 
 Access
 ------
