@@ -81,7 +81,11 @@ public class FilesystemDeleteHandler {
    */
   private boolean recursiveDelete(File file) {
     if (file.isDirectory()) {
-      for (File f : file.listFiles()) {
+      File[] contents = file.listFiles();
+      if (contents == null) {
+        return false;
+      }
+      for (File f : contents) {
         if (!recursiveDelete(f)) {
           return false;
         }
