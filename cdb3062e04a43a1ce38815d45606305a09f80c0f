@@ -16,6 +16,24 @@
       "revId": "cdb3062e04a43a1ce38815d45606305a09f80c0f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27db7507_b0141856",
+        "filename": "src/main/resources/Documentation/cmd-delete.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-11T15:29:36Z",
+      "side": 0,
+      "message": "Good idea, but this should probably not be part of the SSH command description, but rather in a generic place of the delete-projects plugin description.\n\nI can upload a new patch set tomorrow.",
+      "parentUuid": "27db7507_f01aa083",
+      "revId": "cdb3062e04a43a1ce38815d45606305a09f80c0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
