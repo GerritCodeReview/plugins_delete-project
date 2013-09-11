@@ -27,12 +27,6 @@ There are a few caveats:
 	This is an irreversible action, and should be taken with extreme
 	care. Backups are always advised of any important data.
 
-* Project deletion does not replicate
-
-	The delete project action does not replicate to Gerrit slaves.
-	If deleting a project on the master, you must also delete it
-	on the slave.
-
 * You cannot delete projects that use "submodule subscription"
 
 	If deleting a project that makes use of submodule subscription,
