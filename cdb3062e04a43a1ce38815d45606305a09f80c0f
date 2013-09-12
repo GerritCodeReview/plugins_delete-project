@@ -34,6 +34,24 @@
       "revId": "cdb3062e04a43a1ce38815d45606305a09f80c0f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27ba95ee_18fec5e2",
+        "filename": "src/main/resources/Documentation/cmd-delete.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-12T06:51:29Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "27db7507_b0141856",
+      "revId": "cdb3062e04a43a1ce38815d45606305a09f80c0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
