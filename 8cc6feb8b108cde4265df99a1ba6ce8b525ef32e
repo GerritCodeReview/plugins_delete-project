@@ -16,6 +16,24 @@
       "revId": "8cc6feb8b108cde4265df99a1ba6ce8b525ef32e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27ba95ee_f830b1fd",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-12T07:56:25Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message.\n\nAt the moment the ProjectDeletedListener is defined in the Gerrit core extension API, since it is currently not possible to define it in this plugin and then having another plugin implementing it. I think this is OK since it is a quite generic listener, but we should not add listeners there that are very specific to a certain plugin. ProjectDBDeletedListener and ProjectFSDeletedListener I see as too specific which is why I don\u0027t want to add them.",
+      "parentUuid": "27ba95ee_781ee17a",
+      "revId": "8cc6feb8b108cde4265df99a1ba6ce8b525ef32e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
