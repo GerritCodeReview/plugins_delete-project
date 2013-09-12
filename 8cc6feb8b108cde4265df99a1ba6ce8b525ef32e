@@ -34,6 +34,24 @@
       "revId": "8cc6feb8b108cde4265df99a1ba6ce8b525ef32e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87b1810f_7b1edf7a",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-12T08:09:26Z",
+      "side": 1,
+      "message": "I am not sure if i agree here. You have very specific use case: propagate project deletion to replication plugin and that why you decided to not propagate ProjectDeleted event if Git repository was preserved.\n\nBut as i wrote above, we have many other plugins that would want to react  on Project deletion from the Gerrit even if the Git repository of this project was preserved.\n\nFor example LibreOffice buildbot plugin would like to deactivate the Build Queue for that specific project and shut down Jenkins publishing firehose,\nand what not.\n\nHow about to extend the ProjectDeletionListener.Event with `cause` enum was what deleted:\n\n* ALL\n* FS\n\nand fire the event correspondingly?\n\nIn replication you would get the event and would skip it if ProjectDeletionListener.Event.cause !\u003d ALL. How is that sounds?",
+      "parentUuid": "27ba95ee_f830b1fd",
+      "revId": "8cc6feb8b108cde4265df99a1ba6ce8b525ef32e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
