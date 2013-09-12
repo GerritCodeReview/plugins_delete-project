@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27ba95ee_5822fdae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-12T10:10:55Z",
+      "side": 1,
+      "message": "I wonder why we don\u0027t have an issue with DB deletion in that specific case?\n\n dbHandler.delete(project);",
+      "revId": "c6e7a7d555312ecfb848ecc6825126ad2ae03a83",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
