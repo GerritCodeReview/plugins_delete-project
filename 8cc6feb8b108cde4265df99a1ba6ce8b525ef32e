@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27ba95ee_781ee17a",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-12T07:44:32Z",
+      "side": 1,
+      "message": "Mention this in the commit message?\n\n[Optionally] In some circumstances it might be useful to be notified that the project was deleted, but Git repository is preserved, i. e.:\n\n* ProjectDBDeletedListener\n* ProjectFSDeletedListener",
+      "revId": "8cc6feb8b108cde4265df99a1ba6ce8b525ef32e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
