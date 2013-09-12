@@ -16,6 +16,24 @@
       "revId": "c6e7a7d555312ecfb848ecc6825126ad2ae03a83",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87b1810f_7b25bfb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-12T10:57:10Z",
+      "side": 1,
+      "message": "dbHandler.delete(project) fires sql statements to clean up the database. Means the sql statements would simply not match anything, and this wouldn\u0027t cause a failure.",
+      "parentUuid": "27ba95ee_5822fdae",
+      "revId": "c6e7a7d555312ecfb848ecc6825126ad2ae03a83",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
