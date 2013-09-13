@@ -36,6 +36,42 @@
     },
     {
       "key": {
+        "uuid": "874d0112_7b227faf",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-13T08:23:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "271615dd_1801051c",
+      "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a75045a5_9c3ae5da",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-13T08:23:00Z",
+      "side": 1,
+      "message": "I replaced \u0027deleted\u0027 with \u0027fully deleted\u0027.\n\nThat the event is not fired if the Git repository is preserved is already explicitely stated below (see last sentence of this paragraph).",
+      "parentUuid": "a75045a5_1c18158a",
+      "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "071bd107_77f4d002",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 5
@@ -47,6 +83,24 @@
       "writtenOn": "2013-09-13T07:50:51Z",
       "side": 1,
       "message": "This section seems to be redundant; it\u0027s already explained in the paragraph added above.",
+      "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a75045a5_bc3fa1c9",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-13T08:23:00Z",
+      "side": 1,
+      "message": "OK, but I would rather keep this section and remove it from the paragraph above. Actually this is what I wanted to do, but I just forgot to do the deletion in the other paragraph.",
+      "parentUuid": "071bd107_77f4d002",
       "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
