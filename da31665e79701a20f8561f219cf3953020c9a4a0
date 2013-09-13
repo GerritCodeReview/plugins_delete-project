@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "271615dd_1801051c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-09-13T07:50:51Z",
+      "side": 1,
+      "message": "Add a comma after \"deleted\"",
+      "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "071bd107_77f4d002",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-09-13T07:50:51Z",
+      "side": 1,
+      "message": "This section seems to be redundant; it\u0027s already explained in the paragraph added above.",
+      "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
