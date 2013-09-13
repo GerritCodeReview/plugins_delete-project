@@ -17,9 +17,12 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
@@ -59,8 +62,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
 
   @Override
   public Object apply(ProjectResource rsrc, Input input)
-      throws ResourceConflictException, OrmException, IOException,
-      MethodNotAllowedException {
+      throws ResourceNotFoundException, ResourceConflictException,
+      MethodNotAllowedException, OrmException, IOException {
     Project project = rsrc.getControl().getProject();
     if (project.getNameKey().equals(allProjectsName)) {
       throw new MethodNotAllowedException();
@@ -81,8 +84,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     }
 
     dbHandler.delete(project);
-    fsHandler.delete(project,
-        input == null ? false : input.preserve);
+    try {
+      fsHandler.delete(project, input == null ? false : input.preserve);
+    } catch (RepositoryNotFoundException e) {
+      throw new ResourceNotFoundException();
+    }
     cacheHandler.delete(project);
     return Response.none();
   }
