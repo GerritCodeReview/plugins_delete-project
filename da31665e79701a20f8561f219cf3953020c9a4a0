@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "a75045a5_1c18158a",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-13T07:55:16Z",
+      "side": 1,
+      "message": "Extend \"deleted\" with \"fully deleted\" or \"deleted from the GIT repository\" and mention, that if the GIT repository is preserved, then the event is not fired?",
+      "revId": "da31665e79701a20f8561f219cf3953020c9a4a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "071bd107_77f4d002",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 5
