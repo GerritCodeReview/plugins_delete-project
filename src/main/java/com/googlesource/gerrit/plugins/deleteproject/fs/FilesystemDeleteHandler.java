@@ -21,7 +21,11 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.google.gerrit.extensions.events.ProjectDeletedListener;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
@@ -29,16 +33,21 @@ import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
 
 public class FilesystemDeleteHandler {
+  private static final Logger log = LoggerFactory
+      .getLogger(FilesystemDeleteHandler.class);
 
   private final File gitDir;
   private final GitRepositoryManager repoManager;
+  private final DynamicSet<ProjectDeletedListener> deletedListener;
 
   @Inject
   public FilesystemDeleteHandler(GitRepositoryManager repoManager,
       SitePaths site,
-      @GerritServerConfig Config cfg) {
+      @GerritServerConfig Config cfg,
+      DynamicSet<ProjectDeletedListener> deletedListener) {
     gitDir = site.resolve(cfg.getString("gerrit", null, "basePath"));
     this.repoManager = repoManager;
+    this.deletedListener = deletedListener;
   }
 
   public void delete(Project project, boolean preserveGitRepository)
@@ -52,11 +61,12 @@ public class FilesystemDeleteHandler {
 
     cleanCache(repository);
     if (!preserveGitRepository) {
-      deleteGitRepository(repository);
+      deleteGitRepository(project.getNameKey(), repository);
     }
   }
 
-  private void deleteGitRepository(final Repository repository)
+  private void deleteGitRepository(final Project.NameKey project,
+      final Repository repository)
       throws IOException {
     // Delete the repository from disk
     File parentFile = repository.getDirectory().getParentFile();
@@ -67,6 +77,21 @@ public class FilesystemDeleteHandler {
 
     // Delete parent folders while they are (now) empty
     recursiveDeleteParent(parentFile, gitDir);
+
+    // Send an event that the repository was deleted
+    ProjectDeletedListener.Event event = new ProjectDeletedListener.Event() {
+      @Override
+      public String getProjectName() {
+        return project.get();
+      }
+    };
+    for (ProjectDeletedListener l : deletedListener) {
+      try {
+        l.onProjectDeleted(event);
+      } catch (RuntimeException e) {
+        log.warn("Failure in ProjectDeletedListener", e);
+      }
+    }
   }
 
   private void cleanCache(final Repository repository) {
