@@ -69,6 +69,7 @@ public class Module extends AbstractModule {
       case 81:
       case 82:
       case 83:
+      case 84:
         databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
         break;
       default:
