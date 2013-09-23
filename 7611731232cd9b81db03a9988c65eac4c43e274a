@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4f07ba0_eeffffdc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-23T10:52:24Z",
+      "side": 1,
+      "message": "There is no schema version 84 in Gerrit master yet. Does this depend on an open change?",
+      "revId": "7611731232cd9b81db03a9988c65eac4c43e274a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
