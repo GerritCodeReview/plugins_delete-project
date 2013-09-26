@@ -37,7 +37,9 @@ public class Module extends AbstractModule {
         .annotatedWith(Exports.named(DELETE_PROJECT))
         .to(DeleteProjectCapability.class);
     bind(DatabaseDeleteHandler.class)
-        .to(registerDatabaseHandler());
+        .to(SchemaVersion.guessVersion(SchemaVersion.C) < 77
+            ? Schema73DatabaseDeleteHandler.class
+            : Schema77DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
     install(new RestApiModule() {
       @Override
@@ -48,36 +50,5 @@ public class Module extends AbstractModule {
             .to(DeleteProject.class);
       }
     });
-  }
-
-  private Class<? extends DatabaseDeleteHandler> registerDatabaseHandler() {
-    int schemaVersion = SchemaVersion.guessVersion(SchemaVersion.C);
-
-    //Injection of version dependent database handlers
-    Class<? extends DatabaseDeleteHandler> databaseDeleteHandlerClass = null;
-    switch (schemaVersion) {
-      case 73:
-      case 74:
-      case 75:
-      case 76:
-        databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
-        break;
-      case 77:
-      case 78:
-      case 79:
-      case 80:
-      case 81:
-      case 82:
-      case 83:
-      case 84:
-        databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
-        break;
-      default:
-        throw new RuntimeException("This version of the delete-project plugin is not "
-            + "compatible with your current schema version (Version: "
-            + schemaVersion + "). Please update the plugin.");
-    }
-    assert databaseDeleteHandlerClass != null: "No database handler set";
-    return databaseDeleteHandlerClass;
   }
 }
