@@ -51,31 +51,17 @@ public class Module extends AbstractModule {
   }
 
   private Class<? extends DatabaseDeleteHandler> registerDatabaseHandler() {
+    Class<? extends DatabaseDeleteHandler> databaseDeleteHandlerClass = null;
     int schemaVersion = SchemaVersion.guessVersion(SchemaVersion.C);
 
-    //Injection of version dependent database handlers
-    Class<? extends DatabaseDeleteHandler> databaseDeleteHandlerClass = null;
-    switch (schemaVersion) {
-      case 73:
-      case 74:
-      case 75:
-      case 76:
-        databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
-        break;
-      case 77:
-      case 78:
-      case 79:
-      case 80:
-      case 81:
-      case 82:
-      case 83:
-      case 84:
-        databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
-        break;
-      default:
-        throw new RuntimeException("This version of the delete-project plugin is not "
-            + "compatible with your current schema version (Version: "
-            + schemaVersion + "). Please update the plugin.");
+    if (schemaVersion < 73) {
+      throw new RuntimeException("The delete-project plugin is not "
+          + "compatible with your current schema version (Version: "
+          + schemaVersion + "). Please update the plugin.");
+    } else if (schemaVersion < 77) {
+      databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
+    } else {
+      databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
     }
     assert databaseDeleteHandlerClass != null: "No database handler set";
     return databaseDeleteHandlerClass;
