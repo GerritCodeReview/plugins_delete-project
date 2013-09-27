@@ -112,7 +112,7 @@ public final class DeleteCommand extends SshCommand {
       } catch (OrmException e) {
         die(e);
       }
-      if (!warnings.isEmpty()) {
+      if (warnings != null && !warnings.isEmpty()) {
         StringBuilder msgBuilder = new StringBuilder();
         msgBuilder.append("There are warnings against deleting ");
         msgBuilder.append(projectName);
