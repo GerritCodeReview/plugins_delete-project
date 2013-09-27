@@ -34,6 +34,24 @@
       "revId": "a22b95274ca643b7f8c53a65d7b2b92ee9543200",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "844dff11_1ba49bf7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-09-27T09:58:55Z",
+      "side": 1,
+      "message": "I thought the same on my first glance at this change, but didn\u0027t have time to review in detail.\n\nI can upload a new patch soon...",
+      "parentUuid": "c44377e0_bd947f92",
+      "revId": "a22b95274ca643b7f8c53a65d7b2b92ee9543200",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
