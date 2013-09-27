@@ -16,6 +16,24 @@
       "revId": "a0d7ae2974676a9337b13d93614e2c780e1d3f8d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "241613dd_9804352a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-09-27T06:38:37Z",
+      "side": 1,
+      "message": "Strictly no, it\u0027s not needed.  I added this to prevent FindBugs from raising a warning.",
+      "parentUuid": "a45043a5_7cf3591d",
+      "revId": "a0d7ae2974676a9337b13d93614e2c780e1d3f8d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
