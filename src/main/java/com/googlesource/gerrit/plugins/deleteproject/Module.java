@@ -45,7 +45,7 @@ public class Module extends AbstractModule {
         delete(PROJECT_KIND)
             .to(DeleteProject.class);
         post(PROJECT_KIND, "delete")
-            .to(DeleteProject.class);
+            .to(DeleteAction.class);
       }
     });
   }
