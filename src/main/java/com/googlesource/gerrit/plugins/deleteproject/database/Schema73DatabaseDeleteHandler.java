@@ -121,7 +121,6 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
       db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
       db.changeMessages().delete(db.changeMessages().byChange(id));
       db.starredChanges().delete(db.starredChanges().byChange(id));
-      db.trackingIds().delete(db.trackingIds().byChange(id));
       db.changes().delete(Collections.singleton(change));
     }
   }
