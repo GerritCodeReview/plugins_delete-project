@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9288eae3_4101521d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-01-20T07:11:52Z",
+      "side": 1,
+      "message": "Mention that tracking Ids are removed from the database in 2.9, and thus the corresponding code is removed in the plugin?",
+      "revId": "dac8bf3a7a575ce44a2b742191bb87838f5bcc93",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
