@@ -14,6 +14,9 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -22,8 +25,10 @@ import org.eclipse.jgit.lib.Config;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
@@ -33,12 +38,12 @@ import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
-@RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
 @CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
@@ -58,6 +63,8 @@ public final class DeleteCommand extends SshCommand {
   private final CacheDeleteHandler cacheDeleteHandler;
   private final DatabaseDeleteHandler databaseDeleteHandler;
   private final FilesystemDeleteHandler filesystemDeleteHandler;
+  private final Provider<CurrentUser> userProvider;
+  private final String pluginName;
 
   @Inject
   protected DeleteCommand(SitePaths site,
@@ -65,16 +72,28 @@ public final class DeleteCommand extends SshCommand {
       AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler databaseDeleteHandler,
       FilesystemDeleteHandler filesystemDeleteHandler,
-      CacheDeleteHandler cacheDeleteHandler) {
+      CacheDeleteHandler cacheDeleteHandler,
+      Provider<CurrentUser> userProvider,
+      @PluginName String pluginName) {
     this.site = site;
     this.allProjectsName = allProjectsNameProvider.get();
     this.databaseDeleteHandler = databaseDeleteHandler;
     this.filesystemDeleteHandler = filesystemDeleteHandler;
     this.cacheDeleteHandler = cacheDeleteHandler;
+    this.userProvider = userProvider;
+    this.pluginName = pluginName;
   }
 
   @Override
   public void run() throws Failure {
+    CapabilityControl ctl = userProvider.get().getCapabilities();
+    if (!ctl.canAdministrateServer()
+        && !ctl.canPerform(pluginName + "-" + DELETE_PROJECT)
+        && !(ctl.canPerform(pluginName + "-" + DELETE_OWN_PROJECT)
+            && projectControl.isOwner())) {
+      throw new UnloggedFailure("not allowed to delete project");
+    }
+
     final Project project = projectControl.getProject();
     final String projectName = project.getName();
 

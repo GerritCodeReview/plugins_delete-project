@@ -14,10 +14,13 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
+import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
@@ -28,8 +31,11 @@ public class DeleteAction extends DeleteProject implements
   DeleteAction(AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
-      CacheDeleteHandler cacheHandler) {
-    super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler);
+      CacheDeleteHandler cacheHandler,
+      Provider<CurrentUser> userProvider,
+      @PluginName String pluginName) {
+    super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
+        userProvider, pluginName);
   }
 
   @Override
@@ -40,6 +46,7 @@ public class DeleteAction extends DeleteProject implements
             ? String.format("No deletion of %s project",
                 allProjectsName)
             : String.format("Delete project %s", rsrc.getName()))
-        .setEnabled(!isAllProjects(rsrc));
+        .setEnabled(!isAllProjects(rsrc))
+        .setVisible(canDelete(rsrc));
   }
 }

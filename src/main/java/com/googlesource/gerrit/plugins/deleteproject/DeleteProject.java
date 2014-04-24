@@ -14,30 +14,36 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
+
 import java.io.IOException;
 import java.util.Collection;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
-import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
-@RequiresCapability(DeleteProjectCapability.DELETE_PROJECT)
 class DeleteProject implements RestModifyView<ProjectResource, Input> {
   static class Input {
     boolean preserve;
@@ -48,22 +54,32 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
+  private final Provider<CurrentUser> userProvider;
+  private final String pluginName;
 
   @Inject
   DeleteProject(AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
-      CacheDeleteHandler cacheHandler) {
+      CacheDeleteHandler cacheHandler,
+      Provider<CurrentUser> userProvider,
+      @PluginName String pluginName) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
+    this.userProvider = userProvider;
+    this.pluginName = pluginName;
   }
 
   @Override
   public Object apply(ProjectResource rsrc, Input input)
       throws ResourceNotFoundException, ResourceConflictException,
-      MethodNotAllowedException, OrmException, IOException {
+      MethodNotAllowedException, OrmException, IOException, AuthException {
+    if (!canDelete(rsrc)) {
+      throw new AuthException("not allowed to delete project");
+    }
+
     Project project = rsrc.getControl().getProject();
     if (project.getNameKey().equals(allProjectsName)) {
       throw new MethodNotAllowedException();
@@ -91,6 +107,14 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     }
     cacheHandler.delete(project);
     return Response.none();
+  }
+
+  protected boolean canDelete(ProjectResource rsrc) {
+    CapabilityControl ctl = userProvider.get().getCapabilities();
+    return ctl.canAdministrateServer()
+        || ctl.canPerform(pluginName + "-" + DELETE_PROJECT)
+        || (ctl.canPerform(pluginName + "-" + DELETE_OWN_PROJECT)
+            && rsrc.getControl().isOwner());
   }
 
   protected boolean isAllProjects(ProjectResource rsrc) {

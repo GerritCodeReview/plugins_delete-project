@@ -38,7 +38,10 @@ replicate project deletions.
 Access
 ------
 
-To be allowed to delete projects a user must be a member of a group
-that is granted the 'Delete Project' capability (provided by this
-plugin) or the 'Administrate Server' capability.
+To be allowed to delete arbitrary projects a user must be a member of a
+group that is granted the 'Delete Project' capability (provided by this
+plugin) or the 'Administrate Server' capability. Project owners are
+allowed to delete their own projects if they are member of a group that
+is granted the 'Delete Own Project' capability (provided by this
+plugin).
 

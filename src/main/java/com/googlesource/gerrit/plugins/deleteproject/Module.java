@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.gerrit.server.project.ProjectResource.PROJECT_KIND;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 
 import com.google.gerrit.extensions.annotations.Exports;
@@ -36,6 +37,9 @@ public class Module extends AbstractModule {
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(DELETE_PROJECT))
         .to(DeleteProjectCapability.class);
+    bind(CapabilityDefinition.class)
+        .annotatedWith(Exports.named(DELETE_OWN_PROJECT))
+        .to(DeleteOwnProjectCapability.class);
     bind(DatabaseDeleteHandler.class)
         .to(registerDatabaseHandler());
     bind(FilesystemDeleteHandler.class);
