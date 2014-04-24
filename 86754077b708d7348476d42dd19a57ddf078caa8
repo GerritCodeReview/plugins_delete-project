@@ -22,6 +22,30 @@
       "revId": "86754077b708d7348476d42dd19a57ddf078caa8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d5cffe_a06dfad4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-04-24T12:54:00Z",
+      "side": 0,
+      "message": "I think, doing the permission check programmatically is not really bad. Of course with the annotation it would be more elegant but as you pointed out it currently can\u0027t be used in this case :(",
+      "parentUuid": "e5db2337_fd088745",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "86754077b708d7348476d42dd19a57ddf078caa8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
