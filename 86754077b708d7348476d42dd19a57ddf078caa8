@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5db2337_fd088745",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-04-24T08:27:06Z",
+      "side": 0,
+      "message": "I am sad, we are removing the configurative way and failing back to programmatic way of expressing the capability check.\n\nTo preserve configurative way, two things must happen:\n\n* @RequiresCapabilities annotation must be added, where more then only required capabilities can be provided.\n* To get what you trying to do in this change, add role \u003d ProjectRoleEnum.PROJECT_OWNER | ProjectRoleEnum.CHANGE_OWNER | … )\n\nto RequiresCapability annotation and check that the user possesses the requested role.\n\nProblem: While REST endpoint can easily do the role check (because FooReseource is aware of it), for SSH commands it is not trivially to implement.\n\nI was trying to extend SSH command with Resource awareness it but this changed was abandoned.\n\nSo i think the way you are doing it is what we can do for now.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "86754077b708d7348476d42dd19a57ddf078caa8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
