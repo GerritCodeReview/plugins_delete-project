@@ -18,9 +18,11 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
+import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
@@ -33,9 +35,10 @@ public class DeleteAction extends DeleteProject implements
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
       Provider<CurrentUser> userProvider,
+      Provider<ListChildProjects> listChildProjectsProvider,
       @PluginName String pluginName) {
     super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
-        userProvider, pluginName);
+        userProvider, listChildProjectsProvider, pluginName);
   }
 
   @Override

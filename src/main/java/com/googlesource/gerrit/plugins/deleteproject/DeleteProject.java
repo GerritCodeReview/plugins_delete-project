@@ -19,6 +19,7 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
@@ -34,10 +35,13 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
+import com.google.gerrit.server.project.ListChildProjects;
+import com.google.gerrit.server.project.ProjectJson.ProjectInfo;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
@@ -55,6 +59,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
   private final Provider<CurrentUser> userProvider;
+  private final Provider<ListChildProjects> listChildProjectsProvider;
   private final String pluginName;
 
   @Inject
@@ -63,12 +68,14 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
       Provider<CurrentUser> userProvider,
+      Provider<ListChildProjects> listChildProjectsProvider,
       @PluginName String pluginName) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
     this.userProvider = userProvider;
+    this.listChildProjectsProvider = listChildProjectsProvider;
     this.pluginName = pluginName;
   }
 
@@ -83,6 +90,20 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     Project project = rsrc.getControl().getProject();
     if (project.getNameKey().equals(allProjectsName)) {
       throw new MethodNotAllowedException();
+    }
+
+    ListChildProjects listChildProjects = listChildProjectsProvider.get();
+    List<ProjectInfo> children = listChildProjects.apply(rsrc);
+    if(!children.isEmpty()) {
+      StringBuilder sb = new StringBuilder();
+      for (ProjectInfo projectInfo : children) {
+        if (!(sb.length() == 0)) {
+          sb.append(", ");
+        }
+        sb.append(projectInfo.name);
+      }
+      throw new ResourceConflictException("Cannot delete project because "
+          + "it has children: " + sb.toString());
     }
 
     try {

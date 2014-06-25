@@ -19,6 +19,7 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
@@ -33,12 +34,16 @@ import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
+import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectControl;
+import com.google.gerrit.server.project.ProjectJson.ProjectInfo;
+import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
@@ -64,6 +69,7 @@ public final class DeleteCommand extends SshCommand {
   private final DatabaseDeleteHandler databaseDeleteHandler;
   private final FilesystemDeleteHandler filesystemDeleteHandler;
   private final Provider<CurrentUser> userProvider;
+  private final Provider<ListChildProjects> listChildProjectsProvider;
   private final String pluginName;
 
   @Inject
@@ -74,6 +80,7 @@ public final class DeleteCommand extends SshCommand {
       FilesystemDeleteHandler filesystemDeleteHandler,
       CacheDeleteHandler cacheDeleteHandler,
       Provider<CurrentUser> userProvider,
+      Provider<ListChildProjects> listChildProjectsProvider,
       @PluginName String pluginName) {
     this.site = site;
     this.allProjectsName = allProjectsNameProvider.get();
@@ -81,6 +88,7 @@ public final class DeleteCommand extends SshCommand {
     this.filesystemDeleteHandler = filesystemDeleteHandler;
     this.cacheDeleteHandler = cacheDeleteHandler;
     this.userProvider = userProvider;
+    this.listChildProjectsProvider = listChildProjectsProvider;
     this.pluginName = pluginName;
   }
 
@@ -100,6 +108,20 @@ public final class DeleteCommand extends SshCommand {
     // Don't let people delete All-Projects, that's stupid
     if (project.getNameKey().equals(allProjectsName)) {
       throw new UnloggedFailure("Perhaps you meant to rm -fR " + site.site_path);
+    }
+
+    ListChildProjects listChildProjects = listChildProjectsProvider.get();
+    List<ProjectInfo> children = listChildProjects.apply(new ProjectResource(projectControl));
+    if(!children.isEmpty()) {
+      StringBuilder sb = new StringBuilder();
+      for (ProjectInfo projectInfo : children) {
+        if (!(sb.length() == 0)) {
+          sb.append(", ");
+        }
+        sb.append(projectInfo.name);
+      }
+      throw new UnloggedFailure("Cannot delete project " + projectName + " because"
+          + "it has children: " + sb.toString());
     }
 
     try {
