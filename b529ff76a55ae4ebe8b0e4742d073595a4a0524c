@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2481c117_e78c62e3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-06-25T15:13:05Z",
+      "side": 1,
+      "message": "This method seems to be the same in both SSH command and REST endpoint. Can we extract it and reuse in both places? For example why not to do it in assertCanDelete()? This method is called from both places (line 113 below).",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 5
+      },
+      "revId": "b529ff76a55ae4ebe8b0e4742d073595a4a0524c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
