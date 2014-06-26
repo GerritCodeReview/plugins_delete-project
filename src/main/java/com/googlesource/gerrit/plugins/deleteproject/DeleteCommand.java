@@ -29,20 +29,20 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.CapabilityControl;
-import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.GerritServerConfig;
-import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.project.ProjectControl;
+import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.database.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
 @CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
@@ -58,28 +58,26 @@ public final class DeleteCommand extends SshCommand {
   @Option(name = "--preserve-git-repository", usage = "don't delete git repository directory")
   private boolean preserveGitRepository = false;
 
-  private final SitePaths site;
-  private final AllProjectsName allProjectsName;
   private final CacheDeleteHandler cacheDeleteHandler;
   private final DatabaseDeleteHandler databaseDeleteHandler;
   private final FilesystemDeleteHandler filesystemDeleteHandler;
+  private final ProjectConfigDeleteHandler pcHandler;
   private final Provider<CurrentUser> userProvider;
   private final String pluginName;
 
   @Inject
-  protected DeleteCommand(SitePaths site,
-      @GerritServerConfig Config cfg,
+  protected DeleteCommand(@GerritServerConfig Config cfg,
       AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler databaseDeleteHandler,
       FilesystemDeleteHandler filesystemDeleteHandler,
       CacheDeleteHandler cacheDeleteHandler,
+      ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
       @PluginName String pluginName) {
-    this.site = site;
-    this.allProjectsName = allProjectsNameProvider.get();
     this.databaseDeleteHandler = databaseDeleteHandler;
     this.filesystemDeleteHandler = filesystemDeleteHandler;
     this.cacheDeleteHandler = cacheDeleteHandler;
+    this.pcHandler = pcHandler;
     this.userProvider = userProvider;
     this.pluginName = pluginName;
   }
@@ -97,9 +95,10 @@ public final class DeleteCommand extends SshCommand {
     final Project project = projectControl.getProject();
     final String projectName = project.getName();
 
-    // Don't let people delete All-Projects, that's stupid
-    if (project.getNameKey().equals(allProjectsName)) {
-      throw new UnloggedFailure("Perhaps you meant to rm -fR " + site.site_path);
+    try {
+      pcHandler.assertCanDelete(new ProjectResource(projectControl));
+    } catch (CannotDeleteProjectException e) {
+      throw new UnloggedFailure(e.getMessage());
     }
 
     try {

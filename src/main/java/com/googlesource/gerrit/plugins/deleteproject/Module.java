@@ -23,11 +23,13 @@ import com.google.gerrit.extensions.config.CapabilityDefinition;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.inject.AbstractModule;
+
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.Schema73DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
 public class Module extends AbstractModule {
 
@@ -43,6 +45,7 @@ public class Module extends AbstractModule {
     bind(DatabaseDeleteHandler.class)
         .to(registerDatabaseHandler());
     bind(FilesystemDeleteHandler.class);
+    bind(ProjectConfigDeleteHandler.class);
     install(new RestApiModule() {
       @Override
       protected void configure() {
