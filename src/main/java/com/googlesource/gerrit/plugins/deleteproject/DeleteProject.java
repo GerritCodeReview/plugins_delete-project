@@ -19,7 +19,6 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.AuthException;
-import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
@@ -79,7 +78,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   @Override
   public Object apply(ProjectResource rsrc, Input input)
       throws ResourceNotFoundException, ResourceConflictException,
-      MethodNotAllowedException, OrmException, IOException, AuthException {
+      OrmException, IOException, AuthException {
     if (!canDelete(rsrc)) {
       throw new AuthException("not allowed to delete project");
     }
@@ -87,7 +86,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     try {
       pcHandler.assertCanDelete(rsrc);
     } catch (CannotDeleteProjectException e) {
-      throw new MethodNotAllowedException(e.getMessage());
+      throw new ResourceConflictException(e.getMessage());
     }
 
     Project project = rsrc.getControl().getProject();
