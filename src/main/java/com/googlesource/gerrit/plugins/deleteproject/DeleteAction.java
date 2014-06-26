@@ -21,9 +21,11 @@ import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
 public class DeleteAction extends DeleteProject implements
     UiAction<ProjectResource> {
@@ -32,10 +34,11 @@ public class DeleteAction extends DeleteProject implements
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
+      ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
       @PluginName String pluginName) {
     super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
-        userProvider, pluginName);
+        pcHandler, userProvider, pluginName);
   }
 
   @Override

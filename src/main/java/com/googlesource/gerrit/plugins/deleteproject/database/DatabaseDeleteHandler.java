@@ -19,6 +19,8 @@ import java.util.Collection;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gwtorm.server.OrmException;
 
+import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
+
 /**
  * Handles deleting a project from the database for a specific schema.
  */

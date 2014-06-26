@@ -19,6 +19,8 @@ import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 
+import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
+
 public class Schema77DatabaseDeleteHandler
     extends Schema73DatabaseDeleteHandler {
   private final ReviewDb db;
