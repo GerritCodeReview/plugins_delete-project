@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0402fd8c_e6fc7edb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-06-26T13:15:32Z",
+      "side": 1,
+      "message": "nit: wrap this line",
+      "range": {
+        "startLine": 44,
+        "startChar": 59,
+        "endLine": 44,
+        "endChar": 60
+      },
+      "revId": "1067938c79f8fd6500cd9f188caf2d01f978b70c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0402fd8c_c6018229",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-06-26T13:15:32Z",
+      "side": 1,
+      "message": "nit: wrap this line",
+      "range": {
+        "startLine": 47,
+        "startChar": 75,
+        "endLine": 47,
+        "endChar": 76
+      },
+      "revId": "1067938c79f8fd6500cd9f188caf2d01f978b70c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
