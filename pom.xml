@@ -86,8 +86,8 @@ limitations under the License.
 
   <repositories>
     <repository>
-      <id>gerrit-api-repository</id>
-      <url>https://gerrit-api.commondatastorage.googleapis.com/release/</url>
+      <id>snapshot-repository</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </repository>
   </repositories>
 
