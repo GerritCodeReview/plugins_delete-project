@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04303d7d_76405048",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-06-27T15:02:36Z",
+      "side": 1,
+      "message": "This injection doesn\u0027t seem to work for me. I\u0027m getting:\n\n[2014-06-27 16:59:32,880] WARN  com.google.gerrit.server.plugins.PluginLoader : Cannot load plugin deleteproject\ncom.google.inject.CreationException: Guice creation errors:\n\n1) Could not find a suitable constructor in com.google.gerrit.server.config.AllProjectsName. Classes must have either one (and only one) constructor annotated with @Inject or a zero-argument constructor that is not private.\n  at com.google.gerrit.server.config.AllProjectsName.class(AllProjectsName.java:23)\n  while locating com.google.gerrit.server.config.AllProjectsName\n    for parameter 1 at com.google.gerrit.server.project.ListChildProjects.\u003cinit\u003e(ListChildProjects.java:43)\n  while locating com.google.inject.Provider\u003ccom.google.gerrit.server.project.ListChildProjects\u003e\n    for parameter 2 at com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler.\u003cinit\u003e(ProjectConfigDeleteHandler.java:44)\n  at com.googlesource.gerrit.plugins.deleteproject.Module.configure(Module.java:48)\n\n2) Could not find a suitable constructor in com.google.gerrit.server.config.AllProjectsName. Classes must have either one (and only one) constructor annotated with @Inject or a zero-argument constructor that is not private.\n  at com.google.gerrit.server.config.AllProjectsName.class(AllProjectsName.java:23)\n  while locating com.google.gerrit.server.config.AllProjectsName\n    for parameter 0 at com.google.gerrit.server.project.ProjectJson.\u003cinit\u003e(ProjectJson.java:30)\n  while locating com.google.gerrit.server.project.ProjectJson\n    for parameter 2 at com.google.gerrit.server.project.ListChildProjects.\u003cinit\u003e(ListChildProjects.java:43)\n  while locating com.google.inject.Provider\u003ccom.google.gerrit.server.project.ListChildProjects\u003e\n    for parameter 2 at com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler.\u003cinit\u003e(ProjectConfigDeleteHandler.java:44)\n  at com.googlesource.gerrit.plugins.deleteproject.Module.configure(Module.java:48)",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "fcd9796698f3c0ed63311678c5c4df1a8eee9dcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
