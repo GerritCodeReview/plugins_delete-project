@@ -22,6 +22,30 @@
       "revId": "fcd9796698f3c0ed63311678c5c4df1a8eee9dcc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a44db111_dba0739b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-06-30T09:33:54Z",
+      "side": 1,
+      "message": "Works now with the new patch set.",
+      "parentUuid": "04303d7d_76405048",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "fcd9796698f3c0ed63311678c5c4df1a8eee9dcc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
