@@ -1,3 +1,5 @@
+include_defs('//bucklets/gerrit_plugin.bucklet')
+
 gerrit_plugin(
   name = 'delete-project',
   srcs = glob(['src/main/java/**/*.java']),
