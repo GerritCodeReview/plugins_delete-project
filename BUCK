@@ -1,3 +1,5 @@
+include_defs('//bucklets/gerrit_plugin.bucklet')
+
 gerrit_plugin(
   name = 'delete-project',
   srcs = glob(['src/main/java/**/*.java']),
@@ -8,4 +10,9 @@ gerrit_plugin(
     'Gerrit-HttpModule: com.googlesource.gerrit.plugins.deleteproject.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule',
   ]
+)
+
+java_library(
+  name = 'classpath',
+  deps = [':delete-project__plugin'],
 )
