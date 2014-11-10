@@ -16,6 +16,11 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
@@ -66,13 +71,15 @@ public class FilesystemDeleteHandler {
   }
 
   private void deleteGitRepository(final Project.NameKey project,
-      final Repository repository)
-      throws IOException {
+      final Repository repository) throws IOException {
     // Delete the repository from disk
     File parentFile = repository.getDirectory().getParentFile();
-    if (!recursiveDelete(repository.getDirectory())) {
+
+    try {
+      recursiveDelete(repository.getDirectory());
+    } catch (IOException e) {
       throw new IOException("Error trying to delete "
-          + repository.getDirectory().getAbsolutePath());
+          + repository.getDirectory().getAbsolutePath(), e);
     }
 
     // Delete parent folders while they are (now) empty
@@ -101,22 +108,29 @@ public class FilesystemDeleteHandler {
 
   /**
    * Recursively delete the specified file and all of its contents.
-   *
-   * @return true on success, false if there was an error.
+   * 
+   * @throws IOException
    */
-  private boolean recursiveDelete(File file) {
-    if (file.isDirectory()) {
-      File[] contents = file.listFiles();
-      if (contents == null) {
-        return false;
+  private void recursiveDelete(File file) throws IOException {
+    Files.walkFileTree(file.toPath(), new SimpleFileVisitor<Path>() {
+      @Override
+      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+          throws IOException {
+        Files.delete(file);
+        return FileVisitResult.CONTINUE;
       }
-      for (File f : contents) {
-        if (!recursiveDelete(f)) {
-          return false;
+
+      @Override
+      public FileVisitResult postVisitDirectory(Path dir, IOException e)
+          throws IOException {
+        if (e == null) {
+          Files.delete(dir);
+          return FileVisitResult.CONTINUE;
+        } else {
+          throw e;
         }
       }
-    }
-    return file.delete();
+    });
   }
 
   /**
