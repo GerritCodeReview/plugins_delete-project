@@ -22,6 +22,30 @@
       "revId": "3abb1de226e62e2056c932139a5260f39d697239",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da71a7c8_394faf84",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2014-11-11T11:47:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac2171f_0dd71152",
+      "range": {
+        "startLine": 129,
+        "startChar": 9,
+        "endLine": 131,
+        "endChar": 9
+      },
+      "revId": "3abb1de226e62e2056c932139a5260f39d697239",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
