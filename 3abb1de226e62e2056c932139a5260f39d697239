@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac2171f_0dd71152",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-11-11T01:11:43Z",
+      "side": 1,
+      "message": "This doesn\u0027t really need to be in an else clause.\n\nIt might be more readable to invert the logic of this block, i.e.:\n\n if (e !\u003d null) {\n   throw e;\n }\n Files.delete(dir);\n return FileVisitResult.CONTINUE;",
+      "range": {
+        "startLine": 129,
+        "startChar": 9,
+        "endLine": 131,
+        "endChar": 9
+      },
+      "revId": "3abb1de226e62e2056c932139a5260f39d697239",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
