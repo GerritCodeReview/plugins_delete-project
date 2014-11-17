@@ -16,6 +16,17 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
@@ -70,10 +81,9 @@ public class FilesystemDeleteHandler {
       throws IOException {
     // Delete the repository from disk
     File parentFile = repository.getDirectory().getParentFile();
-    if (!recursiveDelete(repository.getDirectory())) {
-      throw new IOException("Error trying to delete "
-          + repository.getDirectory().getAbsolutePath());
-    }
+
+    Path trash = moveToTrash(repository.getDirectory().toPath(), project);
+    recursiveDelete(trash.toFile());
 
     // Delete parent folders while they are (now) empty
     recursiveDeleteParent(parentFile, gitDir);
@@ -92,6 +102,13 @@ public class FilesystemDeleteHandler {
         log.warn("Failure in ProjectDeletedListener", e);
       }
     }
+  }
+
+  private Path moveToTrash(Path directory, Project.NameKey nameKey)
+      throws IOException {
+    File trashRepo =
+        new File(gitDir, nameKey.get() + "." + System.currentTimeMillis() + ".deleted");
+    return Files.move(directory, trashRepo.toPath(), StandardCopyOption.ATOMIC_MOVE);
   }
 
   private void cleanCache(final Repository repository) {
