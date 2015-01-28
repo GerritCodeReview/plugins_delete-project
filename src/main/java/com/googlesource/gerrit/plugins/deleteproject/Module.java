@@ -20,14 +20,17 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
+import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.inject.AbstractModule;
+import com.google.inject.internal.UniqueAnnotations;
 
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.Schema73DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
@@ -35,6 +38,8 @@ public class Module extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(LifecycleListener.class).annotatedWith(UniqueAnnotations.create()).to(
+        DeleteTrashFolders.class);
     bind(CacheDeleteHandler.class);
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(DELETE_PROJECT))
