@@ -16,6 +16,24 @@
       "revId": "a9d6e484980650d6b7aafe346722a458ad0d96c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "972c6f7c_e8483372",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2015-02-04T10:08:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5726779d_06a57ac9",
+      "revId": "a9d6e484980650d6b7aafe346722a458ad0d96c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
