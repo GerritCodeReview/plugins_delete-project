@@ -18,25 +18,31 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.query.change.ChangeData;
+import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.ResultSet;
 import com.google.inject.Inject;
-
+import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 
 public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
   private final ReviewDb db;
+  private final Provider<InternalChangeQuery> queryProvider;
 
   @Inject
-  public Schema73DatabaseDeleteHandler(ReviewDb db) {
+  public Schema73DatabaseDeleteHandler(ReviewDb db,
+      Provider<InternalChangeQuery> queryProvider) {
     this.db = db;
+    this.queryProvider = queryProvider;
   }
 
   @Override
@@ -66,7 +72,8 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
     Collection<String> ret = Lists.newArrayList();
 
     // Warn against open changes
-    ResultSet<Change> openChanges = db.changes().byProjectOpenAll(project.getNameKey());
+    List<ChangeData> openChanges =
+        queryProvider.get().byProjectOpen(project.getNameKey());
     if (openChanges.iterator().hasNext()) {
       ret.add(project.getName() + " has open changes");
     }
@@ -98,8 +105,8 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
   }
 
   public void atomicDelete(Project project) throws OrmException {
-    ResultSet<Change> changes = null;
-    changes = db.changes().byProject(project.getNameKey());
+    List<ChangeData> changes =
+        queryProvider.get().byProject(project.getNameKey());
     deleteChanges(changes);
 
     db.accountProjectWatches()
@@ -108,10 +115,10 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
             project.getNameKey()));
   }
 
-  private final void deleteChanges(final ResultSet<Change> changes)
+  private final void deleteChanges(List<ChangeData> changeData)
       throws OrmException {
-    for (Change change : changes) {
-      Change.Id id = change.getId();
+    for (ChangeData cd : changeData) {
+      Change.Id id = cd.getId();
       ResultSet<PatchSet> patchSets = null;
       patchSets = db.patchSets().byChange(id);
       if (patchSets != null) {
@@ -123,7 +130,7 @@ public class Schema73DatabaseDeleteHandler implements DatabaseDeleteHandler {
       db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
       db.changeMessages().delete(db.changeMessages().byChange(id));
       db.starredChanges().delete(db.starredChanges().byChange(id));
-      db.changes().delete(Collections.singleton(change));
+      db.changes().delete(Collections.singleton(cd.change()));
     }
   }
 

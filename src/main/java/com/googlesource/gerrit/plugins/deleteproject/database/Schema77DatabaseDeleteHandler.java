@@ -16,9 +16,10 @@ package com.googlesource.gerrit.plugins.deleteproject.database;
 
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
-
+import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 
 public class Schema77DatabaseDeleteHandler
@@ -26,8 +27,9 @@ public class Schema77DatabaseDeleteHandler
   private final ReviewDb db;
 
   @Inject
-  public Schema77DatabaseDeleteHandler(ReviewDb db) {
-    super(db);
+  public Schema77DatabaseDeleteHandler(ReviewDb db,
+      Provider<InternalChangeQuery> queryProvider) {
+    super(db, queryProvider);
     this.db = db;
   }
 
