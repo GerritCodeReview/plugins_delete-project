@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d73267d2_0a201b41",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-02-05T19:50:50Z",
+      "side": 1,
+      "message": "nit: wrap this as the lines below\n\n  bind(LifecycleListener.class)\n      .annotatedWith(UniqueAnnotations.create())\n      .to(DeleteTrashFolders.class);",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "f40fe93849b9eaa256f7baba1752b9674e4cdd84",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "972c6f7c_68e9a383",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-02-05T19:50:50Z",
+      "side": 1,
+      "message": "Move this method into the TrashFolderRemover class?",
+      "revId": "f40fe93849b9eaa256f7baba1752b9674e4cdd84",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d73267d2_2a1ddf07",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-02-05T19:50:50Z",
+      "side": 1,
+      "message": "nit: wrong indention, use only 2 space, not 4",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 7
+      },
+      "revId": "f40fe93849b9eaa256f7baba1752b9674e4cdd84",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
