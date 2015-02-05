@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "972c6f7c_08f2e774",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-02-05T19:30:28Z",
+      "side": 1,
+      "message": "Quite some of these imports are not needed.\n\nAlso when I import the project as Maven project into Eclipse it cannot resolve these imports. The reason is that in the pom.xml file it still references Java 1.6.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "618e944dc4545d7d432fe1f82f2608b1a5695cf1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
