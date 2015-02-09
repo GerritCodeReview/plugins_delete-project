@@ -20,6 +20,7 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -75,11 +76,11 @@ public class FilesystemDeleteHandler {
     // Delete the repository from disk
     File parentFile = repository.getDirectory().getParentFile();
 
+    Path trash = moveToTrash(repository.getDirectory().toPath(), project);
     try {
-      recursiveDelete(repository.getDirectory().toPath());
+      recursiveDelete(trash);
     } catch (IOException e) {
-      throw new IOException("Error trying to delete "
-          + repository.getDirectory().getAbsolutePath(), e);
+      throw new IOException("Error trying to delete " + trash, e);
     }
 
     // Delete parent folders while they are (now) empty
@@ -99,6 +100,13 @@ public class FilesystemDeleteHandler {
         log.warn("Failure in ProjectDeletedListener", e);
       }
     }
+  }
+
+  private Path moveToTrash(Path directory, Project.NameKey nameKey)
+      throws IOException {
+    File trashRepo =
+        new File(gitDir, nameKey.get() + "." + System.currentTimeMillis() + ".deleted");
+    return Files.move(directory, trashRepo.toPath(), StandardCopyOption.ATOMIC_MOVE);
   }
 
   private void cleanCache(final Repository repository) {
