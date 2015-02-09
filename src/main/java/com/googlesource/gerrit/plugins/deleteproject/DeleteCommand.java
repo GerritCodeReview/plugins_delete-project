@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.Collection;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Config;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -29,8 +28,6 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.CapabilityControl;
-import com.google.gerrit.server.config.AllProjectsNameProvider;
-import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.sshd.CommandMetaData;
@@ -66,9 +63,7 @@ public final class DeleteCommand extends SshCommand {
   private final String pluginName;
 
   @Inject
-  protected DeleteCommand(@GerritServerConfig Config cfg,
-      AllProjectsNameProvider allProjectsNameProvider,
-      DatabaseDeleteHandler databaseDeleteHandler,
+  protected DeleteCommand(DatabaseDeleteHandler databaseDeleteHandler,
       FilesystemDeleteHandler filesystemDeleteHandler,
       CacheDeleteHandler cacheDeleteHandler,
       ProjectConfigDeleteHandler pcHandler,
