@@ -43,6 +43,7 @@ public class Schema77DatabaseDeleteHandler
     }
   }
 
+  @Override
   public void atomicDelete(Project project) throws OrmException {
     super.atomicDelete(project);
 
