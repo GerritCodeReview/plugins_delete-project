@@ -94,11 +94,16 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   @Override
   public void start() {
-    try {
-      Files.walkFileTree(gitDir.toPath(), new TrashFolderRemover());
-    } catch (IOException e) {
-      log.warn("Exception occured while trying to delete trash folders", e);
-    }
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          Files.walkFileTree(gitDir.toPath(), new TrashFolderRemover());
+        } catch (IOException e) {
+          log.warn("Exception occured while trying to delete trash folders", e);
+        }
+      }
+    }, "DeleteTrashFolders").start();
   }
 
   @Override
