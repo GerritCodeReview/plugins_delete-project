@@ -19,6 +19,8 @@ import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 
 import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.RepositoryCache.FileKey;
+import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,22 +55,12 @@ public class DeleteTrashFolders implements LifecycleListener {
         log.warn("Will delete this folder: {}", dir);
         recursiveDelete(dir);
         return FileVisitResult.SKIP_SUBTREE;
+      } else if (FileKey.isGitRepository(dir.toFile(), FS.DETECTED)) {
+        // We are in a GITDIR and don't expect trash folders inside GITDIR's.
+        return FileVisitResult.SKIP_SUBTREE;
       }
-      return super.preVisitDirectory(dir, attrs);
-    }
 
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-        throws IOException {
-      // Whenever we detect a regular file named 'HEAD' contained in a folder
-      // ending with ".git" then don't try to search for trash folders in this
-      // subtree. We are in a GITDIR and don't expect trash folders inside
-      // GITDIR's.
-      if (attrs.isRegularFile() && file.getFileName().toString().equals("HEAD")
-          && file.getParent().toString().endsWith(".git")) {
-        return FileVisitResult.SKIP_SIBLINGS;
-      }
-      return super.visitFile(file, attrs);
+      return super.preVisitDirectory(dir, attrs);
     }
 
     /**
@@ -102,11 +94,16 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   @Override
   public void start() {
-    try {
-      Files.walkFileTree(gitDir.toPath(), new TrashFolderRemover());
-    } catch (IOException e) {
-      log.warn("Exception occured while trying to delete trash folders", e);
-    }
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          Files.walkFileTree(gitDir.toPath(), new TrashFolderRemover());
+        } catch (IOException e) {
+          log.warn("Exception occured while trying to delete trash folders", e);
+        }
+      }
+    }, "DeleteTrashFolders").start();
   }
 
   @Override
