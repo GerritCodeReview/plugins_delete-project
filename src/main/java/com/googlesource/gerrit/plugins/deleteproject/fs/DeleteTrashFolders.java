@@ -13,17 +13,6 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import com.google.gerrit.extensions.events.LifecycleListener;
-import com.google.gerrit.server.config.GerritServerConfig;
-import com.google.gerrit.server.config.SitePaths;
-import com.google.inject.Inject;
-
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.RepositoryCache.FileKey;
-import org.eclipse.jgit.util.FS;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -31,6 +20,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+
+import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.RepositoryCache.FileKey;
+import org.eclipse.jgit.util.FS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gerrit.extensions.events.LifecycleListener;
+import com.google.gerrit.server.config.GerritServerConfig;
+import com.google.gerrit.server.config.SitePaths;
+import com.google.inject.Inject;
 
 public class DeleteTrashFolders implements LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
