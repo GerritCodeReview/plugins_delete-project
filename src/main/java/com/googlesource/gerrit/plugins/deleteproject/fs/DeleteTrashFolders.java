@@ -13,7 +13,6 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -34,7 +33,7 @@ import com.google.inject.Inject;
 
 public class DeleteTrashFolders implements LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
-  private File gitDir;
+  private Path gitDir;
 
   @Inject
   public DeleteTrashFolders(SitePaths site, @GerritServerConfig Config cfg) {
@@ -98,7 +97,7 @@ public class DeleteTrashFolders implements LifecycleListener {
       @Override
       public void run() {
         try {
-          Files.walkFileTree(gitDir.toPath(), new TrashFolderRemover());
+          Files.walkFileTree(gitDir, new TrashFolderRemover());
         } catch (IOException e) {
           log.warn("Exception occured while trying to delete trash folders", e);
         }

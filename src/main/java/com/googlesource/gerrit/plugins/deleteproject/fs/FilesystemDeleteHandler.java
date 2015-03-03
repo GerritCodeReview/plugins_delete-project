@@ -42,7 +42,7 @@ public class FilesystemDeleteHandler {
   private static final Logger log = LoggerFactory
       .getLogger(FilesystemDeleteHandler.class);
 
-  private final File gitDir;
+  private final Path gitDir;
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListener;
 
@@ -84,7 +84,7 @@ public class FilesystemDeleteHandler {
     }
 
     // Delete parent folders while they are (now) empty
-    recursiveDeleteParent(parentFile, gitDir);
+    recursiveDeleteParent(parentFile, gitDir.toFile());
 
     // Send an event that the repository was deleted
     ProjectDeletedListener.Event event = new ProjectDeletedListener.Event() {
@@ -104,9 +104,9 @@ public class FilesystemDeleteHandler {
 
   private Path moveToTrash(Path directory, Project.NameKey nameKey)
       throws IOException {
-    File trashRepo =
-        new File(gitDir, nameKey.get() + "." + System.currentTimeMillis() + ".deleted");
-    return Files.move(directory, trashRepo.toPath(), StandardCopyOption.ATOMIC_MOVE);
+    Path trashRepo = gitDir.resolve(nameKey.get() + "."
+        + System.currentTimeMillis() + ".deleted");
+    return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
   private void cleanCache(final Repository repository) {
