@@ -18,6 +18,7 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
+import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -37,9 +38,11 @@ public class DeleteAction extends DeleteProject implements
       ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
       @PluginName String pluginName,
-      DeleteLog deleteLog) {
+      DeleteLog deleteLog,
+      PluginConfigFactory cfgFactory,
+      HideProject hideProject) {
     super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
-        pcHandler, userProvider, pluginName, deleteLog);
+        pcHandler, userProvider, pluginName, deleteLog, cfgFactory, hideProject);
   }
 
   @Override
