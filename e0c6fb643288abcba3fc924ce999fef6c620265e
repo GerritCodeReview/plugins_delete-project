@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2517118d_686f7be4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-03-04T13:53:16Z",
+      "side": 1,
+      "message": "Add a space before this?  Or is it intended that the output is ProjectDeletionFailure as one word?",
+      "range": {
+        "startLine": 102,
+        "startChar": 18,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
