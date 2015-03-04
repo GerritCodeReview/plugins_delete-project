@@ -18,3 +18,14 @@ file.
 	source code must be kept to ensure build reproducibility of the
 	releases.
 	By default true.
+
+<a id="hideProjectOnPreserve">
+`plugin.@PLUGIN@.hideProjectOnPreserve`
+:	Whether projects should be hidden when the preserve option is used
+	for the deletion.
+	Hiding the project means that the project state is set to `HIDDEN`,
+	all access rights are removed and the project is reparented to the
+	`Deleted Projects` project. The `Deleted Projects` project is
+	automatically created under the root project when it does not exist
+	yet.
+	By default false.
