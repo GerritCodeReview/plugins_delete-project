@@ -25,7 +25,15 @@ file.
 	for the deletion.
 	Hiding the project means that the project state is set to `HIDDEN`,
 	all access rights are removed and the project is reparented to the
-	`Deleted Projects` project. The `Deleted Projects` project is
-	automatically created under the root project when it does not exist
-	yet.
+	project defined by [parentForDeletedProjects](#parentForDeletedProjects).
+	This parent project is automatically created under the root project
+	when it does not exist yet.
 	By default false.
+
+<a id="parentForDeletedProjects">
+`plugin.@PLUGIN@.parentForDeletedProjects`
+:	The name of the project that is used as parent for all deleted
+	projects that were preserved by hiding them.
+	This project is only used when [hideProjectOnPreserve](#hideProjectOnPreserve)
+	is set to true.
+	By default `Deleted Projects`.
