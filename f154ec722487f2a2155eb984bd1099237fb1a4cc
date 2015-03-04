@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2517118d_4839dffa",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-03-04T10:24:16Z",
+      "side": 1,
+      "message": "This looks like an unrelated change.  Should it be in a separate commit?",
+      "range": {
+        "startLine": 95,
+        "startChar": 3,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "f154ec722487f2a2155eb984bd1099237fb1a4cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
