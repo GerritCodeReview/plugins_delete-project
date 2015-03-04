@@ -25,6 +25,7 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
@@ -57,6 +58,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final ProjectConfigDeleteHandler pcHandler;
   private final Provider<CurrentUser> userProvider;
   private final String pluginName;
+  private final DeleteLog deleteLog;
 
   @Inject
   DeleteProject(AllProjectsNameProvider allProjectsNameProvider,
@@ -65,7 +67,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       CacheDeleteHandler cacheHandler,
       ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
-      @PluginName String pluginName) {
+      @PluginName String pluginName,
+      DeleteLog deleteLog) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
@@ -73,6 +76,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.pcHandler = pcHandler;
     this.userProvider = userProvider;
     this.pluginName = pluginName;
+    this.deleteLog = deleteLog;
   }
 
   @Override
@@ -90,7 +94,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       }
     }
 
-    doDelete(rsrc, input == null ? false : input.preserve);
+    doDelete(rsrc, input);
     return Response.none();
   }
 
@@ -129,12 +133,14 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     return dbHandler.getWarnings(rsrc.getControl().getProject());
   }
 
-  public void doDelete(ProjectResource rsrc, boolean preserve)
+  public void doDelete(ProjectResource rsrc, Input input)
       throws OrmException, IOException, ResourceNotFoundException {
     Project project = rsrc.getControl().getProject();
+    deleteLog.onDelete((IdentifiedUser) userProvider.get(),
+        project.getNameKey(), input);
     dbHandler.delete(project);
     try {
-      fsHandler.delete(project, preserve);
+      fsHandler.delete(project, input == null ? false : input.preserve);
     } catch (RepositoryNotFoundException e) {
       throw new ResourceNotFoundException();
     }
