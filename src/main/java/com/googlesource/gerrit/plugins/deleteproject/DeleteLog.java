@@ -14,6 +14,10 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.google.gerrit.audit.AuditEvent;
+import com.google.gerrit.audit.AuditService;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.systemstatus.ServerInformation;
@@ -42,21 +46,25 @@ class DeleteLog implements LifecycleListener {
 
   private final SystemLog systemLog;
   private final ServerInformation serverInfo;
+  private final AuditService auditService;
   private static boolean started;
 
   @Inject
   public DeleteLog(SystemLog systemLog,
-      ServerInformation serverInfo) {
+      ServerInformation serverInfo,
+      AuditService auditService) {
     this.systemLog = systemLog;
     this.serverInfo = serverInfo;
+    this.auditService = auditService;
   }
 
   public void onDelete(IdentifiedUser user, Project.NameKey project,
       DeleteProject.Input options, Exception ex) {
+    long ts = TimeUtil.nowMs();
     LoggingEvent event = new LoggingEvent( //
         Logger.class.getName(), // fqnOfCategoryClass
         log,       // logger
-        TimeUtil.nowMs(), // when
+        ts,        // when
         ex == null // level
             ? Level.INFO
             : Level.ERROR,
@@ -84,6 +92,31 @@ class DeleteLog implements LifecycleListener {
     }
 
     log.callAppenders(event);
+
+    audit(user, ts, project, options, ex);
+  }
+
+  private void audit(IdentifiedUser user, long ts, Project.NameKey project,
+      DeleteProject.Input options, Exception ex) {
+    Multimap<String, Object> params = HashMultimap.create();
+    params.put("class", DeleteLog.class);
+    params.put("project", project.get());
+    params.put("force", String.valueOf(options.force));
+    params.put("preserve", String.valueOf(options.preserve));
+
+    auditService.dispatch(
+        new AuditEvent(
+            null,      // sessionId
+            user,      // who
+            ex == null // what
+                ? "ProjectDeletion"
+                : "ProjectDeletionFailure",
+            ts,        // when
+            params,    // params
+            ex != null // result
+                ? ex.toString()
+                : "OK"
+        ));
   }
 
   @Override
