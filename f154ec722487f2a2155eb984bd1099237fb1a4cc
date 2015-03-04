@@ -22,6 +22,30 @@
       "revId": "f154ec722487f2a2155eb984bd1099237fb1a4cc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_380309be",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-04T10:33:15Z",
+      "side": 1,
+      "message": "Actually it\u0027s related. The input object is needed to log the delete options.",
+      "parentUuid": "2517118d_4839dffa",
+      "range": {
+        "startLine": 95,
+        "startChar": 3,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "f154ec722487f2a2155eb984bd1099237fb1a4cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
