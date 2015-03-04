@@ -118,6 +118,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     try {
       pcHandler.assertCanDelete(rsrc);
       dbHandler.assertCanDelete(rsrc.getControl().getProject());
+      fsHandler.assertCanDelete(rsrc);
     } catch (CannotDeleteProjectException e) {
       throw new ResourceConflictException(e.getMessage());
     }
