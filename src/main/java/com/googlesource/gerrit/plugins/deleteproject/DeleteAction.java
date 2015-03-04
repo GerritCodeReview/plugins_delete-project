@@ -52,4 +52,9 @@ public class DeleteAction extends DeleteProject implements
         .setEnabled(!isAllProjects(rsrc))
         .setVisible(canDelete(rsrc));
   }
+
+  private boolean isAllProjects(ProjectResource rsrc) {
+    return (rsrc.getControl().getProject()
+        .getNameKey().equals(allProjectsName));
+  }
 }

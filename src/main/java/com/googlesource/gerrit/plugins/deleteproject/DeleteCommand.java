@@ -14,32 +14,21 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
-import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
-
-import java.io.IOException;
-import java.util.Collection;
-
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
-import com.google.gerrit.extensions.annotations.PluginName;
-import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.account.CapabilityControl;
+import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
-import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
+import java.io.IOException;
+import java.util.Collection;
 
 @CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
@@ -55,102 +44,57 @@ public final class DeleteCommand extends SshCommand {
   @Option(name = "--preserve-git-repository", usage = "don't delete git repository directory")
   private boolean preserveGitRepository = false;
 
-  private final CacheDeleteHandler cacheDeleteHandler;
-  private final DatabaseDeleteHandler databaseDeleteHandler;
-  private final FilesystemDeleteHandler filesystemDeleteHandler;
-  private final ProjectConfigDeleteHandler pcHandler;
-  private final Provider<CurrentUser> userProvider;
-  private final String pluginName;
+  private final DeleteProject deleteProject;
 
   @Inject
-  protected DeleteCommand(DatabaseDeleteHandler databaseDeleteHandler,
-      FilesystemDeleteHandler filesystemDeleteHandler,
-      CacheDeleteHandler cacheDeleteHandler,
-      ProjectConfigDeleteHandler pcHandler,
-      Provider<CurrentUser> userProvider,
-      @PluginName String pluginName) {
-    this.databaseDeleteHandler = databaseDeleteHandler;
-    this.filesystemDeleteHandler = filesystemDeleteHandler;
-    this.cacheDeleteHandler = cacheDeleteHandler;
-    this.pcHandler = pcHandler;
-    this.userProvider = userProvider;
-    this.pluginName = pluginName;
+  protected DeleteCommand(DeleteProject deleteProject) {
+    this.deleteProject = deleteProject;
   }
 
   @Override
   public void run() throws Failure {
-    CapabilityControl ctl = userProvider.get().getCapabilities();
-    if (!ctl.canAdministrateServer()
-        && !ctl.canPerform(pluginName + "-" + DELETE_PROJECT)
-        && !(ctl.canPerform(pluginName + "-" + DELETE_OWN_PROJECT)
-            && projectControl.isOwner())) {
-      throw new UnloggedFailure("not allowed to delete project");
-    }
-
-    final Project project = projectControl.getProject();
-    final String projectName = project.getName();
-
     try {
-      pcHandler.assertCanDelete(new ProjectResource(projectControl));
-    } catch (CannotDeleteProjectException e) {
-      throw new UnloggedFailure(e.getMessage());
-    }
+      ProjectResource rsrc = new ProjectResource(projectControl);
+      deleteProject.assertDeletePermission(rsrc);
+      deleteProject.assertCanDelete(rsrc);
 
-    try {
-      databaseDeleteHandler.assertCanDelete(project);
-    } catch (CannotDeleteProjectException e) {
-      throw new UnloggedFailure("Cannot delete project " + projectName + ": "
-          + e.getMessage());
-    } catch (OrmException e) {
-      die(e);
-    }
+      String projectName = projectControl.getProject().getName();
 
-    if (!yesReallyDelete) {
-      StringBuilder msgBuilder = new StringBuilder();
-      msgBuilder.append("Really delete ");
-      msgBuilder.append(projectName);
-      msgBuilder.append("?\n");
-      msgBuilder.append("This is an operation which permanently deletes ");
-      msgBuilder.append("data. This cannot be undone!\n");
-      msgBuilder.append("If you are sure you wish to delete this project, ");
-      msgBuilder.append("re-run\n");
-      msgBuilder.append("with the --yes-really-delete flag.\n");
-      throw new UnloggedFailure(msgBuilder.toString());
-    }
-
-    if (!force) {
-      Collection<String> warnings = null;
-      try {
-        warnings = databaseDeleteHandler.getWarnings(project);
-      } catch (OrmException e) {
-        die(e);
-      }
-      if (warnings != null && !warnings.isEmpty()) {
+      if (!yesReallyDelete) {
         StringBuilder msgBuilder = new StringBuilder();
-        msgBuilder.append("There are warnings against deleting ");
+        msgBuilder.append("Really delete ");
         msgBuilder.append(projectName);
-        msgBuilder.append(":\n");
-        for (String warning: warnings) {
-          msgBuilder.append(" * ");
-          msgBuilder.append(warning);
-          msgBuilder.append("\n");
-        }
-        msgBuilder.append("To really delete ");
-        msgBuilder.append(projectName);
-        msgBuilder.append(", re-run with the --force flag.");
+        msgBuilder.append("?\n");
+        msgBuilder.append("This is an operation which permanently deletes ");
+        msgBuilder.append("data. This cannot be undone!\n");
+        msgBuilder.append("If you are sure you wish to delete this project, ");
+        msgBuilder.append("re-run\n");
+        msgBuilder.append("with the --yes-really-delete flag.\n");
         throw new UnloggedFailure(msgBuilder.toString());
       }
-    }
 
-    try {
-      databaseDeleteHandler.delete(project);
-      filesystemDeleteHandler.delete(project, preserveGitRepository);
-      cacheDeleteHandler.delete(project);
-    } catch (OrmException e) {
-      die(e);
-    } catch (RepositoryNotFoundException e) {
-      die(e);
-    } catch (IOException e) {
+      if (!force) {
+        Collection<String> warnings = deleteProject.getWarnings(rsrc);
+        if (warnings != null && !warnings.isEmpty()) {
+          StringBuilder msgBuilder = new StringBuilder();
+          msgBuilder.append("There are warnings against deleting ");
+          msgBuilder.append(projectName);
+          msgBuilder.append(":\n");
+          for (String warning: warnings) {
+            msgBuilder.append(" * ");
+            msgBuilder.append(warning);
+            msgBuilder.append("\n");
+          }
+          msgBuilder.append("To really delete ");
+          msgBuilder.append(projectName);
+          msgBuilder.append(", re-run with the --force flag.");
+          throw new UnloggedFailure(msgBuilder.toString());
+        }
+      }
+
+      deleteProject.doDelete(rsrc, preserveGitRepository);
+    } catch (AuthException | ResourceNotFoundException
+        | ResourceConflictException | OrmException | IOException e) {
       die(e);
     }
   }
