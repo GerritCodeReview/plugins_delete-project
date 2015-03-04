@@ -79,39 +79,26 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   public Object apply(ProjectResource rsrc, Input input)
       throws ResourceNotFoundException, ResourceConflictException,
       OrmException, IOException, AuthException {
-    if (!canDelete(rsrc)) {
-      throw new AuthException("not allowed to delete project");
-    }
-
-    try {
-      pcHandler.assertCanDelete(rsrc);
-    } catch (CannotDeleteProjectException e) {
-      throw new ResourceConflictException(e.getMessage());
-    }
-
-    Project project = rsrc.getControl().getProject();
-    try {
-      dbHandler.assertCanDelete(project);
-    } catch (CannotDeleteProjectException e) {
-      throw new ResourceConflictException(e.getMessage());
-    }
+    assertDeletePermission(rsrc);
+    assertCanDelete(rsrc);
 
     if (input == null || !input.force) {
-      Collection<String> warnings = dbHandler.getWarnings(project);
+      Collection<String> warnings = getWarnings(rsrc);
       if (!warnings.isEmpty()) {
         throw new ResourceConflictException(String.format(
-            "Project %s has open changes", project.getName()));
+            "Project %s has open changes", rsrc.getControl().getProject().getName()));
       }
     }
 
-    dbHandler.delete(project);
-    try {
-      fsHandler.delete(project, input == null ? false : input.preserve);
-    } catch (RepositoryNotFoundException e) {
-      throw new ResourceNotFoundException();
-    }
-    cacheHandler.delete(project);
+    doDelete(rsrc, input == null ? false : input.preserve);
     return Response.none();
+  }
+
+  public void assertDeletePermission(ProjectResource rsrc)
+      throws AuthException {
+    if (!canDelete(rsrc)) {
+      throw new AuthException("not allowed to delete project");
+    }
   }
 
   protected boolean canDelete(ProjectResource rsrc) {
@@ -122,8 +109,35 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
             && rsrc.getControl().isOwner());
   }
 
-  protected boolean isAllProjects(ProjectResource rsrc) {
-    return (rsrc.getControl().getProject()
-        .getNameKey().equals(allProjectsName));
+  public void assertCanDelete(ProjectResource rsrc)
+      throws ResourceConflictException, OrmException {
+    try {
+      pcHandler.assertCanDelete(rsrc);
+    } catch (CannotDeleteProjectException e) {
+      throw new ResourceConflictException(e.getMessage());
+    }
+
+    try {
+      dbHandler.assertCanDelete(rsrc.getControl().getProject());
+    } catch (CannotDeleteProjectException e) {
+      throw new ResourceConflictException(e.getMessage());
+    }
+  }
+
+  public Collection<String> getWarnings(ProjectResource rsrc)
+      throws OrmException {
+    return dbHandler.getWarnings(rsrc.getControl().getProject());
+  }
+
+  public void doDelete(ProjectResource rsrc, boolean preserve)
+      throws OrmException, IOException, ResourceNotFoundException {
+    Project project = rsrc.getControl().getProject();
+    dbHandler.delete(project);
+    try {
+      fsHandler.delete(project, preserve);
+    } catch (RepositoryNotFoundException e) {
+      throw new ResourceNotFoundException();
+    }
+    cacheHandler.delete(project);
   }
 }
