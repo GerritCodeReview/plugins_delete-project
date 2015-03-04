@@ -40,6 +40,9 @@ public class Module extends AbstractModule {
   protected void configure() {
     bind(LifecycleListener.class)
         .annotatedWith(UniqueAnnotations.create())
+        .to(DeleteLog.class);
+    bind(LifecycleListener.class)
+        .annotatedWith(UniqueAnnotations.create())
         .to(DeleteTrashFolders.class);
     bind(CacheDeleteHandler.class);
     bind(CapabilityDefinition.class)
