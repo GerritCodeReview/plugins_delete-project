@@ -22,6 +22,30 @@
       "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_1c189571",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-04T13:58:13Z",
+      "side": 1,
+      "message": "It\u0027s intended to be one word, although here a space would not harm. This is one word to be consistent with the message text in the log file that is added in the predecessor change. In the log file it\u0027s better to have it without spaces because space is used as seperator for the different values and if the message would contain spaces it would make parsing difficult.",
+      "parentUuid": "2517118d_686f7be4",
+      "range": {
+        "startLine": 102,
+        "startChar": 18,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
