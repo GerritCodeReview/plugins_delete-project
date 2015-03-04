@@ -84,7 +84,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       throws ResourceNotFoundException, ResourceConflictException,
       OrmException, IOException, AuthException {
     assertDeletePermission(rsrc);
-    assertCanDelete(rsrc);
+    assertCanDelete(rsrc, input);
 
     if (input == null || !input.force) {
       Collection<String> warnings = getWarnings(rsrc);
@@ -113,11 +113,12 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
             && rsrc.getControl().isOwner());
   }
 
-  public void assertCanDelete(ProjectResource rsrc)
+  public void assertCanDelete(ProjectResource rsrc, Input input)
       throws ResourceConflictException, OrmException {
     try {
       pcHandler.assertCanDelete(rsrc);
       dbHandler.assertCanDelete(rsrc.getControl().getProject());
+      fsHandler.assertCanDelete(rsrc, input == null ? false : input.preserve);
     } catch (CannotDeleteProjectException e) {
       throw new ResourceConflictException(e.getMessage());
     }
