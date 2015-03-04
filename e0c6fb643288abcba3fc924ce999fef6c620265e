@@ -46,6 +46,86 @@
       "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_78b1018b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1007114
+      },
+      "writtenOn": "2015-03-04T16:23:43Z",
+      "side": 1,
+      "message": "String.valueOf(options.force) ?",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 64
+      },
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_58b6bd84",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1007114
+      },
+      "writtenOn": "2015-03-04T16:23:43Z",
+      "side": 1,
+      "message": "String.valueOf(options.preserve) ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 27,
+        "endLine": 109,
+        "endChar": 71
+      },
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_18ac4537",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1007114
+      },
+      "writtenOn": "2015-03-04T16:23:43Z",
+      "side": 1,
+      "message": "Please consider to add the project name as a parameter to make it possible to programatically inspect the project name to which this event is related.",
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_bcd641e8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1007114
+      },
+      "writtenOn": "2015-03-04T16:23:43Z",
+      "side": 1,
+      "message": "Please consider to add an additional \n\nparams.put(\"class\", DeleteLog.class);\n\nparameter as our audit log implementations requires to know the class from which the audit event originates.\n\n@see ServerConfigServlet",
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
