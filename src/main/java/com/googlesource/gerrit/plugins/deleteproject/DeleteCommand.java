@@ -92,7 +92,10 @@ public final class DeleteCommand extends SshCommand {
         }
       }
 
-      deleteProject.doDelete(rsrc, preserveGitRepository);
+      DeleteProject.Input input = new DeleteProject.Input();
+      input.force = force;
+      input.preserve = preserveGitRepository;
+      deleteProject.doDelete(rsrc, input);
     } catch (AuthException | ResourceNotFoundException
         | ResourceConflictException | OrmException | IOException e) {
       die(e);
