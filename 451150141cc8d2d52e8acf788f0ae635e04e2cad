@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85527d4f_58acfd05",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLogLayout.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T13:14:38Z",
+      "side": 1,
+      "message": "since this is a project deletion log we probably don\u0027t need to repeat that in every log line. An \"OK\" here and \"FAILURE\" (instead of the ProjectDeletionFailure) would make this log easier to read.",
+      "range": {
+        "startLine": 45,
+        "startChar": 58,
+        "endLine": 45,
+        "endChar": 73
+      },
+      "revId": "451150141cc8d2d52e8acf788f0ae635e04e2cad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
