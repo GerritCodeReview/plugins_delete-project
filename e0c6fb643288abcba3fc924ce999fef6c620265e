@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "72a1d25d_dc8d4d00",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T08:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85527d4f_78b1018b",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 64
+      },
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85527d4f_58b6bd84",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
         "patchSetId": 3
@@ -112,6 +136,48 @@
     },
     {
       "key": {
+        "uuid": "85527d4f_987e95f9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T08:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85527d4f_58b6bd84",
+      "range": {
+        "startLine": 109,
+        "startChar": 27,
+        "endLine": 109,
+        "endChar": 71
+      },
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_f87b5107",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T08:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85527d4f_18ac4537",
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a1d25d_bcd641e8",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
         "patchSetId": 3
@@ -123,6 +189,24 @@
       "writtenOn": "2015-03-04T16:23:43Z",
       "side": 1,
       "message": "Please consider to add an additional \n\nparams.put(\"class\", DeleteLog.class);\n\nparameter as our audit log implementations requires to know the class from which the audit event originates.\n\n@see ServerConfigServlet",
+      "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_d8780d0e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T08:17:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a1d25d_bcd641e8",
       "revId": "e0c6fb643288abcba3fc924ce999fef6c620265e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
