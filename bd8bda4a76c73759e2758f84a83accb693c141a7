@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72a1d25d_bc0081b3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85527d4f_b8e5595a",
+      "range": {
+        "startLine": 94,
+        "startChar": 15,
+        "endLine": 94,
+        "endChar": 54
+      },
+      "revId": "bd8bda4a76c73759e2758f84a83accb693c141a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a1d25d_dc09cde3",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2015-03-05T10:37:30Z",
       "side": 1,
       "message": "empty line above?",
+      "revId": "bd8bda4a76c73759e2758f84a83accb693c141a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_18a28513",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a1d25d_dc09cde3",
       "revId": "bd8bda4a76c73759e2758f84a83accb693c141a7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
