@@ -36,9 +36,10 @@ public class DeleteAction extends DeleteProject implements
       CacheDeleteHandler cacheHandler,
       ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
-      @PluginName String pluginName) {
+      @PluginName String pluginName,
+      DeleteLog deleteLog) {
     super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
-        pcHandler, userProvider, pluginName);
+        pcHandler, userProvider, pluginName, deleteLog);
   }
 
   @Override
