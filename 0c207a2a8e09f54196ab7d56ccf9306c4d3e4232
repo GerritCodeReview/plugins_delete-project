@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2517118d_c8566f13",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-03-05T01:40:39Z",
+      "side": 1,
+      "message": "Make this hyphenated, i.e. \"Deleted-Projects\" so it\u0027s consistent with for example \"All-Projects\"?",
+      "range": {
+        "startLine": 41,
+        "startChar": 54,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "0c207a2a8e09f54196ab7d56ccf9306c4d3e4232",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "451a45b5_a91cd967",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-03-05T01:40:39Z",
+      "side": 1,
+      "message": "See other comment.",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "0c207a2a8e09f54196ab7d56ccf9306c4d3e4232",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
