@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "72a1d25d_5cf61d66",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85527d4f_b8339969",
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a1d25d_1c42d518",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
         "patchSetId": 6
@@ -65,6 +83,54 @@
     },
     {
       "key": {
+        "uuid": "72a1d25d_bc32c1bf",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a1d25d_1c42d518",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 23
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_5ccffd2b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a1d25d_3c479129",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a1d25d_dc3b0da0",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
         "patchSetId": 6
@@ -76,6 +142,30 @@
       "writtenOn": "2015-03-05T10:01:17Z",
       "side": 1,
       "message": "Why doest this need to be static?",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_dce22da2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:27:25Z",
+      "side": 1,
+      "message": "It\u0027s static in ReplicationLogFile which I took as starting point for this class. There it must be static because the class is not singleton. Since this class is singleton I guess it doesn\u0027t need to be static.\n\nDone",
+      "parentUuid": "72a1d25d_dc3b0da0",
       "range": {
         "startLine": 45,
         "startChar": 10,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "85527d4f_b8bef939",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85527d4f_581fddd4",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a1d25d_fc3849a5",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLogLayout.java",
         "patchSetId": 6
@@ -122,6 +236,24 @@
       "writtenOn": "2015-03-05T10:01:17Z",
       "side": 1,
       "message": "having an example log entry would help understanding this code :-)",
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_bce96185",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLogLayout.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-05T11:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a1d25d_fc3849a5",
       "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
