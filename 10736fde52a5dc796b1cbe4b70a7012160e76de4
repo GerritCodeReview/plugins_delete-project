@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85527d4f_b8339969",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:01:17Z",
+      "side": 1,
+      "message": "Do you have an example of how a log entry would look like?",
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_1c42d518",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:01:17Z",
+      "side": 1,
+      "message": "nit: one space too much",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 23
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_3c479129",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:01:17Z",
+      "side": 1,
+      "message": "Does this need to be public?",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_dc3b0da0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:01:17Z",
+      "side": 1,
+      "message": "Why doest this need to be static?",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_581fddd4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:01:17Z",
+      "side": 1,
+      "message": "optional: I think we don\u0027t format the code this way (tabular alignment of comments in each row)",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72a1d25d_fc3849a5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteLogLayout.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:01:17Z",
+      "side": 1,
+      "message": "having an example log entry would help understanding this code :-)",
+      "revId": "10736fde52a5dc796b1cbe4b70a7012160e76de4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
