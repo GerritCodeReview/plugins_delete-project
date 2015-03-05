@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85527d4f_78ec6147",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:34:04Z",
+      "side": 1,
+      "message": "deleted\n\nA project could also be just hidden (not because of the deletion) and its parent will not be the \"Deleted-Projects\" project.",
+      "range": {
+        "startLine": 21,
+        "startChar": 41,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "37a785b5d77496914c254727bd841d9f18581b21",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_58f19d19",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-03-05T10:34:04Z",
+      "side": 1,
+      "message": "empty line above?",
+      "revId": "37a785b5d77496914c254727bd841d9f18581b21",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
