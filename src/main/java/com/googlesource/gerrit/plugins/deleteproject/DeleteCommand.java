@@ -54,9 +54,13 @@ public final class DeleteCommand extends SshCommand {
   @Override
   public void run() throws Failure {
     try {
+      DeleteProject.Input input = new DeleteProject.Input();
+      input.force = force;
+      input.preserve = preserveGitRepository;
+
       ProjectResource rsrc = new ProjectResource(projectControl);
       deleteProject.assertDeletePermission(rsrc);
-      deleteProject.assertCanDelete(rsrc);
+      deleteProject.assertCanDelete(rsrc, input);
 
       if (!yesReallyDelete) {
         StringBuilder msgBuilder = new StringBuilder();
@@ -90,9 +94,6 @@ public final class DeleteCommand extends SshCommand {
         }
       }
 
-      DeleteProject.Input input = new DeleteProject.Input();
-      input.force = force;
-      input.preserve = preserveGitRepository;
       deleteProject.doDelete(rsrc, input);
     } catch (AuthException | ResourceNotFoundException
         | ResourceConflictException | OrmException | IOException e) {

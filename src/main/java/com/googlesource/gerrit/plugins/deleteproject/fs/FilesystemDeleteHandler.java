@@ -25,18 +25,24 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.GerritServerConfig;
+import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.GitRepositoryManager;
+import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
+
+import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 
 public class FilesystemDeleteHandler {
   private static final Logger log = LoggerFactory
@@ -45,15 +51,21 @@ public class FilesystemDeleteHandler {
   private final File gitDir;
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListener;
+  private final PluginConfigFactory cfgFactory;
+  private final String pluginName;
 
   @Inject
   public FilesystemDeleteHandler(GitRepositoryManager repoManager,
       SitePaths site,
       @GerritServerConfig Config cfg,
-      DynamicSet<ProjectDeletedListener> deletedListener) {
+      DynamicSet<ProjectDeletedListener> deletedListener,
+      PluginConfigFactory cfgFactory,
+      @PluginName String pluginName) {
     gitDir = site.resolve(cfg.getString("gerrit", null, "basePath"));
     this.repoManager = repoManager;
     this.deletedListener = deletedListener;
+    this.cfgFactory = cfgFactory;
+    this.pluginName = pluginName;
   }
 
   public void delete(Project project, boolean preserveGitRepository)
@@ -64,6 +76,32 @@ public class FilesystemDeleteHandler {
     cleanCache(repository);
     if (!preserveGitRepository) {
       deleteGitRepository(project.getNameKey(), repository);
+    }
+  }
+
+  public void assertCanDelete(ProjectResource rsrc, boolean preserveGitRepository)
+      throws CannotDeleteProjectException {
+    if (!preserveGitRepository
+        && !cfgFactory.getFromGerritConfig(pluginName).getBoolean(
+            "allowDeletionOfReposWithTags", true)) {
+      assertHasNoTags(rsrc);
+    }
+  }
+
+  private void assertHasNoTags(ProjectResource rsrc)
+      throws CannotDeleteProjectException {
+    try {
+      Repository repo = repoManager.openRepository(rsrc.getNameKey());
+      try {
+        if (!repo.getRefDatabase().getRefs(Constants.R_TAGS).isEmpty()) {
+          throw new CannotDeleteProjectException(
+              String.format("Project %s has tags", rsrc.getName()));
+        }
+      } finally {
+        repo.close();
+      }
+    } catch (IOException e) {
+      throw new CannotDeleteProjectException(e);
     }
   }
 
