@@ -101,8 +101,10 @@ class DeleteLog implements LifecycleListener {
     Multimap<String, Object> params = HashMultimap.create();
     params.put("class", DeleteLog.class);
     params.put("project", project.get());
-    params.put("force", String.valueOf(options.force));
-    params.put("preserve", String.valueOf(options.preserve));
+    if (options != null) {
+      params.put("force", String.valueOf(options.force));
+      params.put("preserve", String.valueOf(options.preserve));
+    }
 
     auditService.dispatch(
         new AuditEvent(
