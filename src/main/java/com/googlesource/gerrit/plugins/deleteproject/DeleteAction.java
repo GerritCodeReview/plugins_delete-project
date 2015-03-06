@@ -18,6 +18,7 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
+import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,9 +37,12 @@ public class DeleteAction extends DeleteProject implements
       CacheDeleteHandler cacheHandler,
       ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
-      @PluginName String pluginName) {
+      @PluginName String pluginName,
+      DeleteLog deleteLog,
+      PluginConfigFactory cfgFactory,
+      HideProject hideProject) {
     super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
-        pcHandler, userProvider, pluginName);
+        pcHandler, userProvider, pluginName, deleteLog, cfgFactory, hideProject);
   }
 
   @Override
@@ -51,5 +55,10 @@ public class DeleteAction extends DeleteProject implements
             : String.format("Delete project %s", rsrc.getName()))
         .setEnabled(!isAllProjects(rsrc))
         .setVisible(canDelete(rsrc));
+  }
+
+  private boolean isAllProjects(ProjectResource rsrc) {
+    return (rsrc.getControl().getProject()
+        .getNameKey().equals(allProjectsName));
   }
 }
