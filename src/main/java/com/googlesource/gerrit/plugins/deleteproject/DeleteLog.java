@@ -28,6 +28,7 @@ import com.google.gerrit.server.util.SystemLog;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import org.apache.log4j.AsyncAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -125,9 +126,11 @@ class DeleteLog implements LifecycleListener {
   public void start() {
     if (!started) {
       Logger deleteLogger = LogManager.getLogger(DELETE_LOG_NAME);
-      deleteLogger.removeAllAppenders();
-      deleteLogger.addAppender(systemLog.createAsyncAppender(
-          deleteLogger.getName(), new DeleteLogLayout()));
+      String loggerName = deleteLogger.getName();
+      AsyncAppender asyncAppender = systemLog.createAsyncAppender(
+          loggerName, new DeleteLogLayout());
+      deleteLogger.removeAppender(loggerName);
+      deleteLogger.addAppender(asyncAppender);
       deleteLogger.setAdditivity(false);
       started = true;
     }
