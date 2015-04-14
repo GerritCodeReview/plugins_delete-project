@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.common.data.AccessSection;
-import com.google.gerrit.common.errors.ProjectCreationFailedException;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.extensions.restapi.BadRequestException;
@@ -98,7 +97,7 @@ class HideProject {
         createProjectFactory.create(projectName).apply(
             TopLevelResource.INSTANCE, null);
       } catch (BadRequestException | UnprocessableEntityException
-          | ResourceNotFoundException | ProjectCreationFailedException e) {
+          | ResourceNotFoundException | ConfigInvalidException e) {
         throw new ResourceConflictException(String.format(
             "Failed to create project %s", projectName));
       }
