@@ -1,5 +1,12 @@
 include_defs('//bucklets/gerrit_plugin.bucklet')
 
+if STANDALONE_MODE:
+  GSON = '//lib/gson:gson'
+  LOG4J = '//lib/log:log4j'
+else:
+  GSON = '//plugins/delete-project/lib/gson:gson'
+  LOG4J = '//plugins/delete-project/lib/log:log4j'
+
 gerrit_plugin(
   name = 'delete-project',
   srcs = glob(['src/main/java/**/*.java']),
@@ -11,8 +18,8 @@ gerrit_plugin(
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule',
   ],
   provided_deps = [
-    '//lib/log:log4j',
-    '//lib:gson',
+    LOG4J,
+    GSON,
   ],
 )
 
