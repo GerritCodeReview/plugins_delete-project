@@ -9,7 +9,11 @@ gerrit_plugin(
     'Gerrit-Module: com.googlesource.gerrit.plugins.deleteproject.Module',
     'Gerrit-HttpModule: com.googlesource.gerrit.plugins.deleteproject.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule',
-  ]
+  ],
+  provided_deps = [
+    '//lib:gson',
+    '//lib/log:log4j',
+  ],
 )
 
 java_library(
