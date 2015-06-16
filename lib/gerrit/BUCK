@@ -1,6 +1,6 @@
 include_defs('//bucklets/maven_jar.bucklet')
 
-VER = '2.11'
+VER = '2.11.1'
 REPO = MAVEN_CENTRAL
 
 maven_jar(
