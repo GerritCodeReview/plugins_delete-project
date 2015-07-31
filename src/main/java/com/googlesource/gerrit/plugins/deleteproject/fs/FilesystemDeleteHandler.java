@@ -111,10 +111,11 @@ public class FilesystemDeleteHandler {
     File parentFile = repository.getDirectory().getParentFile();
 
     Path trash = moveToTrash(repository.getDirectory().toPath(), project);
+    repository.close();
     try {
       recursiveDelete(trash);
     } catch (IOException e) {
-      throw new IOException("Error trying to delete " + trash, e);
+      log.warn("Error trying to delete " + trash, e);
     }
 
     // Delete parent folders while they are (now) empty
