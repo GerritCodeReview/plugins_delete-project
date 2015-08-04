@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8af6189c_cb13158d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-08-04T11:07:12Z",
+      "side": 1,
+      "message": "I think this should be done in a seperate change.",
+      "revId": "e331be9966c90583545de546e38a777f165cbe33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8af6189c_2b561936",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-08-04T11:07:12Z",
+      "side": 1,
+      "message": "Is it intended to continue with the code below? Before when we were throwing the exception this code wasn\u0027t executed any more.",
+      "revId": "e331be9966c90583545de546e38a777f165cbe33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
