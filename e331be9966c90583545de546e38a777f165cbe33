@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6afe4471_32569036",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1021077
+      },
+      "writtenOn": "2015-08-05T15:32:36Z",
+      "side": 1,
+      "message": "It could be, but it does take care of the same problem (files can\u0027t be deleted... because they\u0027re locked) for some cases.",
+      "parentUuid": "8af6189c_cb13158d",
+      "revId": "e331be9966c90583545de546e38a777f165cbe33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8af6189c_2b561936",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-04T11:07:12Z",
       "side": 1,
       "message": "Is it intended to continue with the code below? Before when we were throwing the exception this code wasn\u0027t executed any more.",
+      "revId": "e331be9966c90583545de546e38a777f165cbe33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aafbdc84_ec16eb7e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1021077
+      },
+      "writtenOn": "2015-08-05T15:32:36Z",
+      "side": 1,
+      "message": "Yes, it is intended.  If the code below does not execute, the listeners are never called, which means the UI doesn\u0027t update.  This causes errors if someone clicks on the (now non-existent) project, etc.\n\nSince the repo has already been moved to trash, the project really has been deleted as far as Gerrit (and the User) are concerned, so it is better to update the UI to make that project disappear.",
+      "parentUuid": "8af6189c_2b561936",
       "revId": "e331be9966c90583545de546e38a777f165cbe33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
