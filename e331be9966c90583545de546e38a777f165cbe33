@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c7c3ab58_55bb0c0d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1021077
+      },
+      "writtenOn": "2015-08-10T13:00:41Z",
+      "side": 1,
+      "message": "This was an attempt to \"solve\" the problem with the minimal amount of changes to existing code.  It can certainly be reworked to do as you say.",
+      "parentUuid": "676bdf6a_aabf4ff7",
+      "revId": "e331be9966c90583545de546e38a777f165cbe33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8af6189c_2b561936",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 1
