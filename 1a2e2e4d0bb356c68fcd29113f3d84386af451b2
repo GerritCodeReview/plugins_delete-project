@@ -22,6 +22,30 @@
       "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7c3ab58_d5e55c17",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1021077
+      },
+      "writtenOn": "2015-08-10T16:06:59Z",
+      "side": 1,
+      "message": "Whether you wrap that section inside a try/catch or not, the explicit close is still needed to make the delete succeed in more cases.\n\nMy initial fix for the problem was just the addition of the repository.close(), and this seemed to fix everything... until the new version of jgit was added with 2.11.2.  That new version introduced a LOT more dangling file locks (mainly on \u0027pack\u0027 files), causing me to change the throw to a log.warn.",
+      "parentUuid": "676bdf6a_ca02c348",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
