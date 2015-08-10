@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "676bdf6a_ca02c348",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-08-10T15:10:34Z",
+      "side": 1,
+      "message": "Better use the autocloseable feature here:\n\n  try (Repository repository \u003d\n        repoManager.openRepository(project.getNameKey())) {\n    File repoParentFile \u003d repository.getDirectory().getParentFile();\n    cleanCache(repository);\n\n    ...\n  }",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
