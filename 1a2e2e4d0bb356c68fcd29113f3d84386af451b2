@@ -70,6 +70,30 @@
       "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7c3ab58_f5fdf8a4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1021077
+      },
+      "writtenOn": "2015-08-11T14:58:12Z",
+      "side": 1,
+      "message": "My bad.  I hadn\u0027t seen the repository.close there.",
+      "parentUuid": "877a9331_eb59d162",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
