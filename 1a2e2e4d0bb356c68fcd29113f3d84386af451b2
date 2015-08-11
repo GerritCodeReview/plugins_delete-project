@@ -46,6 +46,30 @@
       "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "877a9331_eb59d162",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-08-11T10:54:39Z",
+      "side": 1,
+      "message": "I just noticed that repository.close() is already invoked in cleanCache(Repository), so calling it again should have no effect?",
+      "parentUuid": "c7c3ab58_d5e55c17",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "1a2e2e4d0bb356c68fcd29113f3d84386af451b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
