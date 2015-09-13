@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "649cbed8_ed06655b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-09-13T21:57:32Z",
+      "side": 1,
+      "message": "Nit: To me that commit message is too terse and hard to read.\n\nOnce one has read the changed code, \"Wrong level File object\" somewhat\nmakes sense. But it was not clear to me what that could refer to\n/before/ reading the changed code  (although I had worked on this file\nsome time back).\n\nAlso, I had expected the commit message would call out whether or not\nsibling repositories have been at stake and whether or not it would be\npossible people unnoticedly deleted them, as the code switches from\ndeleting the repository\u0027s parent directory to the repository\u0027s\ndirectory.  (Obviously no need to fear, as the move before the actual\ndelete reliably failed, hence deleting aborted before parent/sibling\nrepos got removed)\n\nProbably even more minor, I was lacking the hash of the commit that\nintroduced the defect (because I wanted to check whether or not the\ndelete-project plugin that WMF has deployed might be\naffected). Mentioning the hash of the commit that introduced the issue\n(it is bc4834c0eac09a97c271fda0b1e006426d8bc135) would have spared me\n(and possibly others) to walk the history.",
+      "revId": "201c7474edcdaeb71b7da6cbf1f10ebfa6a4ec9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
