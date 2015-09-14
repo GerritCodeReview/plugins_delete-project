@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4416da01_d4305c1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-09-14T21:38:34Z",
+      "side": 1,
+      "message": "I had actually tested that, and it is not an issue.\nThe move (before the delete) will fail reliably, hence no\ndelete occurs.\n(See the “Obviously no need to fear” part of my comment on the\ncommit message on PS1)",
+      "range": {
+        "startLine": 11,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 46
+      },
+      "revId": "9eb4988bc9c6ddf4a939497b1018b77d0c92104c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
