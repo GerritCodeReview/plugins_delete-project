@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "649cbed8_cd0c4946",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1018043
+      },
+      "writtenOn": "2015-09-15T13:26:41Z",
+      "side": 1,
+      "message": "This is wrong, your not movin the repo (*.git dir) anymore but the parent dir. E.g. instead of moving /var/gerrit/git/foo.git, you now trying to move /var/gerrit/git.",
+      "range": {
+        "startLine": 112,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 43
+      },
+      "revId": "bc4834c0eac09a97c271fda0b1e006426d8bc135",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
