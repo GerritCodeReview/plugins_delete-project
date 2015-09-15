@@ -22,6 +22,30 @@
       "revId": "bc4834c0eac09a97c271fda0b1e006426d8bc135",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d00a8b_a8d57b25",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1021077
+      },
+      "writtenOn": "2015-09-15T13:34:29Z",
+      "side": 1,
+      "message": "Correct.  And the code was already merged.\n\nA separate issue has been opened to correct this problem,\n\nhttps://gerrit-review.googlesource.com/#/c/70542/",
+      "parentUuid": "649cbed8_cd0c4946",
+      "range": {
+        "startLine": 112,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 43
+      },
+      "revId": "bc4834c0eac09a97c271fda0b1e006426d8bc135",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
