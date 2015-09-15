@@ -73,10 +73,9 @@ public class FilesystemDeleteHandler {
     // Remove from the jgit cache
     Repository repository =
         repoManager.openRepository(project.getNameKey());
-    File repoParentFile = repository.getDirectory().getParentFile();
     cleanCache(repository);
     if (!preserveGitRepository) {
-      deleteGitRepository(project.getNameKey(), repoParentFile);
+      deleteGitRepository(project.getNameKey(), repository);
     }
   }
 
@@ -107,9 +106,11 @@ public class FilesystemDeleteHandler {
   }
 
   private void deleteGitRepository(final Project.NameKey project,
-      final File repoParentFile) throws IOException {
+      final Repository repository) throws IOException {
     // Delete the repository from disk
-    Path trash = moveToTrash(repoParentFile.toPath(), project);
+    File parentFile = repository.getDirectory().getParentFile();
+
+    Path trash = moveToTrash(repository.getDirectory().toPath(), project);
     try {
       recursiveDelete(trash);
     } catch (IOException e) {
@@ -118,8 +119,8 @@ public class FilesystemDeleteHandler {
       log.warn("Error trying to delete " + trash, e);
     }
 
-    // Delete parent folders if they are (now) empty
-    recursiveDeleteParent(repoParentFile, gitDir);
+    // Delete parent folders while they are (now) empty
+    recursiveDeleteParent(parentFile, gitDir);
 
     // Send an event that the repository was deleted
     ProjectDeletedListener.Event event = new ProjectDeletedListener.Event() {
