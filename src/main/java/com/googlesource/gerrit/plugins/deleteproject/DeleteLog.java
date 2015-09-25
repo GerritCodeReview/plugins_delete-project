@@ -19,23 +19,22 @@ import com.google.common.collect.Multimap;
 import com.google.gerrit.audit.AuditEvent;
 import com.google.gerrit.audit.AuditService;
 import com.google.gerrit.common.TimeUtil;
-import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.systemstatus.ServerInformation;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.OutputFormat;
+import com.google.gerrit.server.util.PluginLogFile;
 import com.google.gerrit.server.util.SystemLog;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import org.apache.log4j.AsyncAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
 @Singleton
-class DeleteLog implements LifecycleListener {
+class DeleteLog extends PluginLogFile {
   private static final String DELETE_LOG_NAME = "delete_log";
   private static final Logger log = LogManager.getLogger(DELETE_LOG_NAME);
 
@@ -45,17 +44,13 @@ class DeleteLog implements LifecycleListener {
   public static String OPTIONS = "options";
   public static String ERROR = "error";
 
-  private final SystemLog systemLog;
-  private final ServerInformation serverInfo;
   private final AuditService auditService;
-  private boolean started;
 
   @Inject
   public DeleteLog(SystemLog systemLog,
       ServerInformation serverInfo,
       AuditService auditService) {
-    this.systemLog = systemLog;
-    this.serverInfo = serverInfo;
+    super(systemLog, serverInfo, DELETE_LOG_NAME, new DeleteLogLayout());
     this.auditService = auditService;
   }
 
@@ -120,32 +115,5 @@ class DeleteLog implements LifecycleListener {
                 ? ex.toString()
                 : "OK"
         ));
-  }
-
-  @Override
-  public void start() {
-    if (!started) {
-      Logger deleteLogger = LogManager.getLogger(DELETE_LOG_NAME);
-      String loggerName = deleteLogger.getName();
-      AsyncAppender asyncAppender = systemLog.createAsyncAppender(
-          loggerName, new DeleteLogLayout());
-      deleteLogger.removeAppender(loggerName);
-      deleteLogger.addAppender(asyncAppender);
-      deleteLogger.setAdditivity(false);
-      started = true;
-    }
-  }
-
-  @Override
-  public void stop() {
-    // stop() is called when the plugin is unloaded or when the server is
-    // shutdown. Only clean up when the server is shutting down to prevent
-    // issues when the plugin is reloaded. Otherwise when Gerrit loads the new
-    // plugin and then unloads the old one, the unload of the old plugin would
-    // remove the appenders that were just created by the new plugin. This is
-    // because the logger is static.
-    if (serverInfo.getState() == ServerInformation.State.SHUTDOWN) {
-      LogManager.getLogger(log.getName()).removeAllAppenders();
-    }
   }
 }
