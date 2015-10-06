@@ -38,11 +38,11 @@ class DeleteLog extends PluginLogFile {
   private static final String DELETE_LOG_NAME = "delete_log";
   private static final Logger log = LogManager.getLogger(DELETE_LOG_NAME);
 
-  public static String ACCOUNT_ID = "accountId";
-  public static String USER_NAME = "userName";
-  public static String PROJECT_NAME = "projectName";
-  public static String OPTIONS = "options";
-  public static String ERROR = "error";
+  public static final String ACCOUNT_ID = "accountId";
+  public static final String USER_NAME = "userName";
+  public static final String PROJECT_NAME = "projectName";
+  public static final String OPTIONS = "options";
+  public static final String ERROR = "error";
 
   private final AuditService auditService;
 
