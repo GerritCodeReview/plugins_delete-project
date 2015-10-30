@@ -22,14 +22,11 @@ import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.restapi.RestApiModule;
-import com.google.gerrit.server.schema.SchemaVersion;
 import com.google.inject.AbstractModule;
 import com.google.inject.internal.UniqueAnnotations;
 
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.database.Schema73DatabaseDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.database.Schema77DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
@@ -51,8 +48,7 @@ public class Module extends AbstractModule {
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(DELETE_OWN_PROJECT))
         .to(DeleteOwnProjectCapability.class);
-    bind(DatabaseDeleteHandler.class)
-        .to(registerDatabaseHandler());
+    bind(DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
     bind(ProjectConfigDeleteHandler.class);
     install(new RestApiModule() {
@@ -64,22 +60,5 @@ public class Module extends AbstractModule {
             .to(DeleteAction.class);
       }
     });
-  }
-
-  private Class<? extends DatabaseDeleteHandler> registerDatabaseHandler() {
-    Class<? extends DatabaseDeleteHandler> databaseDeleteHandlerClass = null;
-    int schemaVersion = SchemaVersion.guessVersion(SchemaVersion.C);
-
-    if (schemaVersion < 73) {
-      throw new RuntimeException("The delete-project plugin is not "
-          + "compatible with your current schema version (Version: "
-          + schemaVersion + ").");
-    } else if (schemaVersion < 77) {
-      databaseDeleteHandlerClass = Schema73DatabaseDeleteHandler.class;
-    } else {
-      databaseDeleteHandlerClass = Schema77DatabaseDeleteHandler.class;
-    }
-    assert databaseDeleteHandlerClass != null: "No database handler set";
-    return databaseDeleteHandlerClass;
   }
 }
