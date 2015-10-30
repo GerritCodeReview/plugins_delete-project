@@ -14,69 +14,123 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.database;
 
-import java.util.Collection;
-
+import com.google.common.collect.Lists;
+import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.query.change.ChangeData;
+import com.google.gerrit.server.query.change.InternalChangeQuery;
+import com.google.gwtorm.jdbc.JdbcSchema;
 import com.google.gwtorm.server.OrmException;
+import com.google.gwtorm.server.ResultSet;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 
-/**
- * Handles deleting a project from the database for a specific schema.
- */
-// When implementing this interface for a specific schema, only use functions
-// available at the time when that schema was created. While this is not
-// strictly necessary, it helps when doing cherry-picking between branches
-// for different api versions.
-public interface DatabaseDeleteHandler {
-  /**
-   * Asserts that the project can be deleted from the database.
-   * <p>
-   * This method performs all required precursory checks whether or not the
-   * project can by deleted from the database.
-   * <p>
-   * This method must not yet remove any data.
-   * <p>
-   * To signal that deletion of the project is not okay, throw an exception.
-   *
-   * @param project The project that should be checked whether or not it can be
-   *        deleted.
-   * @throws CannotDeleteProjectException If there is on obstacle to the
-   *         deletion. The exception's message should describe the problem.
-   * @throws OrmException If checking that the project can be deleted fails due
-   *         to a database error.
-   */
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+public class DatabaseDeleteHandler {
+  private final ReviewDb db;
+  private final Provider<InternalChangeQuery> queryProvider;
+
+  @Inject
+  public DatabaseDeleteHandler(ReviewDb db,
+      Provider<InternalChangeQuery> queryProvider) {
+    this.db = db;
+    this.queryProvider = queryProvider;
+  }
+
+  public Collection<String> getWarnings(Project project) throws OrmException {
+    Collection<String> ret = Lists.newArrayList();
+
+    // Warn against open changes
+    List<ChangeData> openChanges =
+        queryProvider.get().byProjectOpen(project.getNameKey());
+    if (openChanges.iterator().hasNext()) {
+      ret.add(project.getName() + " has open changes");
+    }
+
+    return ret;
+  }
+
+  public void delete(Project project) throws OrmException {
+    // TODO(davido): Why not to use 1.7 features?
+    // http://docs.oracle.com/javase/specs/jls/se7/html/jls-14.html#jls-14.20.3.2
+    Connection conn = ((JdbcSchema) db).getConnection();
+    try {
+      conn.setAutoCommit(false);
+      try {
+        atomicDelete(project);
+        conn.commit();
+      } finally {
+        conn.setAutoCommit(true);
+      }
+    } catch (SQLException e) {
+      try {
+        conn.rollback();
+      } catch (SQLException ex) {
+        throw new OrmException(ex);
+      }
+      throw new OrmException(e);
+    }
+  }
+
+  private final void deleteChanges(List<ChangeData> changeData)
+      throws OrmException {
+    for (ChangeData cd : changeData) {
+      Change.Id id = cd.getId();
+      ResultSet<PatchSet> patchSets = null;
+      patchSets = db.patchSets().byChange(id);
+      if (patchSets != null) {
+        deleteFromPatchSets(patchSets);
+      }
+
+      // In the future, use schemaVersion to decide what to delete.
+      db.patchComments().delete(db.patchComments().byChange(id));
+      db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
+      db.changeMessages().delete(db.changeMessages().byChange(id));
+      db.starredChanges().delete(db.starredChanges().byChange(id));
+      db.changes().delete(Collections.singleton(cd.change()));
+    }
+  }
+
+  private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets)
+      throws OrmException {
+    for (PatchSet patchSet : patchSets) {
+      db.accountPatchReviews().delete(
+          db.accountPatchReviews().byPatchSet(patchSet.getId()));
+
+      db.patchSets().delete(Collections.singleton(patchSet));
+    }
+  }
+
   public void assertCanDelete(Project project)
-      throws CannotDeleteProjectException, OrmException;
+      throws CannotDeleteProjectException, OrmException {
+    if (db.submoduleSubscriptions().bySubmoduleProject(project.getNameKey())
+        .iterator().hasNext()) {
+      throw new CannotDeleteProjectException(
+          "Project is subscribed by other projects.");
+    }
+  }
 
-  /**
-   * Gets warnings to show to user before allowing to delete project.
-   * <p>
-   * This method expects that the caller called {@code assertCanDelete()} in
-   * advance and no exceptions where thrown from this invocation.
-   * <p>
-   * It is not guaranteed that this method is invoked. It is also valid to call
-   * {@code delete()} right after calling {@code assertCanDelete}.
-   * <p>
-   * The given project has to allow to be deleted by calling {@code delete()}
-   * despite the returned warnings. To signal settings that forbid project
-   * deletion, implement those guards in {@code assertCanDelete()}.
-   *
-   * @param project The project to obtain delete warnings for
-   * @throws OrmException
-   * @return Collection of Strings, each holding a warning message to show to
-   *         the user. If there are no warnings, return an empty Collection.
-   */
-  public Collection<String> getWarnings(Project project) throws OrmException;
+  public void atomicDelete(Project project) throws OrmException {
+    List<ChangeData> changes =
+        queryProvider.get().byProject(project.getNameKey());
+    deleteChanges(changes);
 
-  /**
-   * Deletes the project from the database.
-   * <p>
-   * This method expects that the caller called {@code assertCanDelete()} in
-   * advance and no exceptions where thrown from this invocation.
-   *
-   * @param project The project that should get deleted.
-   * @throws OrmException
-   */
-  public void delete(Project project) throws OrmException;
+    db.accountProjectWatches()
+    .delete(
+        db.accountProjectWatches().byProject(
+    project.getNameKey()));
+
+    db.submoduleSubscriptions().delete(
+        db.submoduleSubscriptions().bySuperProjectProject(
+            project.getNameKey()));
+  }
 }
