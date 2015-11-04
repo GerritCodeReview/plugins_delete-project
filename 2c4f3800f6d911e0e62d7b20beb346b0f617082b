@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "76564647_d7b9fcee",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2015-11-04T14:10:02Z",
+      "side": 1,
+      "message": "I was wondering what was the consensus about \u0027just-in-time\u0027 vs \u0027explicit\u0027 binding?\n\nThe dev guide doesn\u0027t mention anything regarding this so I looked in the past review comments and I found couple of occurrence where it was asked to use explicit binding.\n\nIn this module, there are explicit binding, line 44, 52 and 53.\n\nShould we define what is the standard to make modules more uniform?",
+      "parentUuid": "16342adb_6c16bb2a",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16342adb_8c09e709",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 1
