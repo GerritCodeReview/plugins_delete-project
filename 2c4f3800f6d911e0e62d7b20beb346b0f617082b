@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "f6bdd6ca_f3b990ee",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-11-04T14:28:21Z",
+      "side": 1,
+      "message": "\u003e Should we define what is the standard to make modules more uniform?\n\n+1\n\nLooks like until now it was always a personal preference of the contributor whether to use a just-in-time or an explicit binding.",
+      "parentUuid": "76564647_d7b9fcee",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16342adb_8c09e709",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 1
