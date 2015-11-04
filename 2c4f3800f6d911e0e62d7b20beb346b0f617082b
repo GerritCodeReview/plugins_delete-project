@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "76564647_37c6786f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2015-11-04T15:00:07Z",
+      "side": 1,
+      "message": "I added more people to this change to get their opinion on just-in-time vs explicit binding",
+      "parentUuid": "f6bdd6ca_f3b990ee",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16342adb_8c09e709",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 1
