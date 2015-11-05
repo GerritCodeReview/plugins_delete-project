@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "f66b162f_83b2be0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2015-11-05T14:27:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16342adb_ccffef1b",
+      "range": {
+        "startLine": 12,
+        "startChar": 23,
+        "endLine": 12,
+        "endChar": 29
+      },
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16342adb_6c16bb2a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
         "patchSetId": 1
@@ -184,6 +208,24 @@
     },
     {
       "key": {
+        "uuid": "f66b162f_a3afbaa1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2015-11-05T14:27:34Z",
+      "side": 1,
+      "message": "I use eclipse \u0027code format\u0027 and I get the same indentation.\n\nIs it possible there is an issue in the goole code formatter?",
+      "parentUuid": "16342adb_8c09e709",
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f62eb68f_0b827db7",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 1
@@ -195,6 +237,30 @@
       "writtenOn": "2015-11-03T12:43:14Z",
       "side": 1,
       "message": "Wrong indentation.",
+      "range": {
+        "startLine": 127,
+        "startChar": 1,
+        "endLine": 130,
+        "endChar": 27
+      },
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16718a1c_e4b9baee",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2015-11-05T14:27:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f62eb68f_0b827db7",
       "range": {
         "startLine": 127,
         "startChar": 1,
