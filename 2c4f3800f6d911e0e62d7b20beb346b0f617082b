@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "967d7aef_08c6e76e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Module.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2015-11-05T06:51:38Z",
+      "side": 1,
+      "message": "For this change I\u0027d just follow the convention of the existing code.\n\nAnother change can be proposed later to use just in time binding here and in the existing ones, and the discussion can be deferred to there.",
+      "parentUuid": "76564647_37c6786f",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "2c4f3800f6d911e0e62d7b20beb346b0f617082b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16342adb_8c09e709",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 1
