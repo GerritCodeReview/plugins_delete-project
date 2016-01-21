@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7b88e3e_10d94447",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-01-21T07:49:44Z",
+      "side": 1,
+      "message": "Why was this changed to SNAPSHOT?\n\nFixed in https://gerrit-review.googlesource.com/74116",
+      "range": {
+        "startLine": 25,
+        "startChar": 16,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "01d989dc33ea6f0527394d533e6e4234e60a92c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
