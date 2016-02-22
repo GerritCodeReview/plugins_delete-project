@@ -18,5 +18,5 @@ gerrit_plugin(
 
 java_library(
   name = 'classpath',
-  deps = [':delete-project__plugin'],
+  deps = [':delete-project__plugin'] + GERRIT_PLUGIN_API,
 )
