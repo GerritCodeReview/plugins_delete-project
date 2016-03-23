@@ -110,15 +110,6 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  public void assertCanDelete(Project project)
-      throws CannotDeleteProjectException, OrmException {
-    if (db.submoduleSubscriptions().bySubmoduleProject(project.getNameKey())
-        .iterator().hasNext()) {
-      throw new CannotDeleteProjectException(
-          "Project is subscribed by other projects.");
-    }
-  }
-
   public void atomicDelete(Project project) throws OrmException {
     List<ChangeData> changes =
         queryProvider.get().byProject(project.getNameKey());
@@ -126,9 +117,5 @@ public class DatabaseDeleteHandler {
 
     db.accountProjectWatches().delete(
         db.accountProjectWatches().byProject(project.getNameKey()));
-
-    db.submoduleSubscriptions().delete(
-        db.submoduleSubscriptions().bySuperProjectProject(
-            project.getNameKey()));
   }
 }
