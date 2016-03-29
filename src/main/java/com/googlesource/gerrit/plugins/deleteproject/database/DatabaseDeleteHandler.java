@@ -19,6 +19,8 @@ import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.git.GitRepositoryManager;
+import com.google.gerrit.server.git.SubmoduleOp;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
@@ -38,12 +40,18 @@ import java.util.List;
 public class DatabaseDeleteHandler {
   private final ReviewDb db;
   private final Provider<InternalChangeQuery> queryProvider;
+  private final GitRepositoryManager repoManager;
+  private final Provider<SubmoduleOp> subOpProvider;
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
-      Provider<InternalChangeQuery> queryProvider) {
+      Provider<InternalChangeQuery> queryProvider,
+      GitRepositoryManager repoManager,
+      Provider<SubmoduleOp> subOpProvider) {
     this.db = db;
     this.queryProvider = queryProvider;
+    this.repoManager = repoManager;
+    this.subOpProvider = subOpProvider;
   }
 
   public Collection<String> getWarnings(Project project) throws OrmException {
@@ -112,10 +120,15 @@ public class DatabaseDeleteHandler {
 
   public void assertCanDelete(Project project)
       throws CannotDeleteProjectException, OrmException {
-    if (db.submoduleSubscriptions().bySubmoduleProject(project.getNameKey())
-        .iterator().hasNext()) {
-      throw new CannotDeleteProjectException(
-          "Project is subscribed by other projects.");
+    SubmoduleOp sub = subOpProvider.get();
+    try (Repository repo = repoManager.openRepository(project);) {
+      for (Branch.NameKey b : repo.getRefDatabase().getRefs(
+          RefNames.REFS_HEADS).values()) {
+        for (!sub.superProjectSubscriptionsForSubmoduleBranch(b)) {
+          throw new CannotDeleteProjectException(
+              "Project is subscribed by other projects.");
+        }
+      }
     }
   }
 
@@ -126,9 +139,5 @@ public class DatabaseDeleteHandler {
 
     db.accountProjectWatches().delete(
         db.accountProjectWatches().byProject(project.getNameKey()));
-
-    db.submoduleSubscriptions().delete(
-        db.submoduleSubscriptions().bySuperProjectProject(
-            project.getNameKey()));
   }
 }
