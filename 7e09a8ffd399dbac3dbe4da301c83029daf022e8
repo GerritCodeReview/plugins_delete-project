@@ -17,6 +17,24 @@
       "revId": "7e09a8ffd399dbac3dbe4da301c83029daf022e8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "911751d8_18c82570",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1017837
+      },
+      "writtenOn": "2016-03-29T17:44:06Z",
+      "side": 1,
+      "message": "Total bogus.\n\nI thought I\u0027d need to iterate over the output of superProjectSubscriptionsForSubmoduleBranch but then it occured to me we only need to check for its emptiness; so it is a mixture of iterating over the results and checking if it is not empty.",
+      "parentUuid": "b120d52e_19b10b0a",
+      "revId": "7e09a8ffd399dbac3dbe4da301c83029daf022e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
