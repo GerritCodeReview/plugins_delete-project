@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88dc84fe_305d881b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2016-04-19T15:36:08Z",
+      "side": 0,
+      "message": "Shouldn\u0027t there be some new code which deletes the stars from notedb?",
+      "revId": "dd9c10e0a74b7f7f380b39b23516ffea15acd23e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
