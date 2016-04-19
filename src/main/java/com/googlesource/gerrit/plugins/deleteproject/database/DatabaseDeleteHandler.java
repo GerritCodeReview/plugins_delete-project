@@ -21,8 +21,10 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.StarredChangesUtil;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.SubmoduleOp;
+import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
@@ -49,16 +51,20 @@ public class DatabaseDeleteHandler {
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
   private final Provider<SubmoduleOp> subOpProvider;
+  private final StarredChangesUtil starredChangesUtil;
+
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
-      Provider<SubmoduleOp> subOpProvider) {
+      Provider<SubmoduleOp> subOpProvider,
+      StarredChangesUtil starredChangesUtil) {
     this.db = db;
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
     this.subOpProvider = subOpProvider;
+    this.starredChangesUtil = starredChangesUtil;
   }
 
   public Collection<String> getWarnings(Project project) throws OrmException {
@@ -109,8 +115,12 @@ public class DatabaseDeleteHandler {
       // In the future, use schemaVersion to decide what to delete.
       db.patchComments().delete(db.patchComments().byChange(id));
       db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
+      try {
+        starredChangesUtil.unstarAll(cd.project(), id);   	
+      } catch (NoSuchChangeException e) {
+        // we can ignore the exception during delete
+      }
       db.changeMessages().delete(db.changeMessages().byChange(id));
-      db.starredChanges().delete(db.starredChanges().byChange(id));
       db.changes().delete(Collections.singleton(cd.change()));
     }
   }
