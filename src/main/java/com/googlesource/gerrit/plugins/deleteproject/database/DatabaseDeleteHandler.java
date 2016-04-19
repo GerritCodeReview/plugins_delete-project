@@ -110,7 +110,6 @@ public class DatabaseDeleteHandler {
       db.patchComments().delete(db.patchComments().byChange(id));
       db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
       db.changeMessages().delete(db.changeMessages().byChange(id));
-      db.starredChanges().delete(db.starredChanges().byChange(id));
       db.changes().delete(Collections.singleton(cd.change()));
     }
   }
