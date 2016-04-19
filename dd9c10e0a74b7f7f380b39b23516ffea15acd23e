@@ -16,6 +16,24 @@
       "revId": "dd9c10e0a74b7f7f380b39b23516ffea15acd23e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88dc84fe_f03e20b9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-04-19T15:56:38Z",
+      "side": 0,
+      "message": "I am not sure this is strictly required. With old db, the change could get deleted (from db) as long as there were references from the starred changes. \nOtherwise calling unstarAll seems the correct way to go, correct? I can try to get a patch ready tomorrow.",
+      "parentUuid": "88dc84fe_305d881b",
+      "revId": "dd9c10e0a74b7f7f380b39b23516ffea15acd23e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
