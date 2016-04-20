@@ -52,6 +52,24 @@
       "revId": "dd9c10e0a74b7f7f380b39b23516ffea15acd23e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28d0f83a_95098483",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-04-20T06:53:18Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "48d52c29_36e078de",
+      "revId": "dd9c10e0a74b7f7f380b39b23516ffea15acd23e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
