@@ -23,6 +23,7 @@ import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.StarredChangesUtil;
 import com.google.gerrit.server.git.GitRepositoryManager;
+import com.google.gerrit.server.git.MergeOpRepoManager;
 import com.google.gerrit.server.git.SubmoduleOp;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.change.ChangeData;
@@ -50,6 +51,7 @@ public class DatabaseDeleteHandler {
   private final ReviewDb db;
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
+  private final Provider<MergeOpRepoManager> ormProvider;
   private final Provider<SubmoduleOp> subOpProvider;
   private final StarredChangesUtil starredChangesUtil;
 
@@ -57,11 +59,13 @@ public class DatabaseDeleteHandler {
   public DatabaseDeleteHandler(ReviewDb db,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
+      Provider<MergeOpRepoManager> ormProvider,
       Provider<SubmoduleOp> subOpProvider,
       StarredChangesUtil starredChangesUtil) {
     this.db = db;
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
+    this.ormProvider = ormProvider;
     this.subOpProvider = subOpProvider;
     this.starredChangesUtil = starredChangesUtil;
   }
@@ -135,14 +139,16 @@ public class DatabaseDeleteHandler {
   }
 
   public void assertCanDelete(Project project)
-      throws CannotDeleteProjectException, OrmException {
+      throws CannotDeleteProjectException {
     SubmoduleOp sub = subOpProvider.get();
+
     Project.NameKey proj = project.getNameKey();
-    try (Repository repo = repoManager.openRepository(proj);) {
+    try (Repository repo = repoManager.openRepository(proj);
+         MergeOpRepoManager orm = ormProvider.get();) {
       for (Ref ref : repo.getRefDatabase().getRefs(
           RefNames.REFS_HEADS).values()) {
         Branch.NameKey b = new Branch.NameKey(proj, ref.getName());
-        if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
+        if (!sub.superProjectSubscriptionsForSubmoduleBranch(b, orm).isEmpty()) {
           throw new CannotDeleteProjectException(
               "Project is subscribed by other projects.");
         }
