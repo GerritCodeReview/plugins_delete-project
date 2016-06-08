@@ -51,22 +51,22 @@ public class DatabaseDeleteHandler {
   private final ReviewDb db;
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
+  private final SubmoduleOp.Factory subOpFactory;
   private final Provider<MergeOpRepoManager> ormProvider;
-  private final Provider<SubmoduleOp> subOpProvider;
   private final StarredChangesUtil starredChangesUtil;
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
+      SubmoduleOp.Factory subOpFactory,
       Provider<MergeOpRepoManager> ormProvider,
-      Provider<SubmoduleOp> subOpProvider,
       StarredChangesUtil starredChangesUtil) {
     this.db = db;
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
+    this.subOpFactory = subOpFactory;
     this.ormProvider = ormProvider;
-    this.subOpProvider = subOpProvider;
     this.starredChangesUtil = starredChangesUtil;
   }
 
@@ -140,15 +140,15 @@ public class DatabaseDeleteHandler {
 
   public void assertCanDelete(Project project)
       throws CannotDeleteProjectException {
-    SubmoduleOp sub = subOpProvider.get();
 
     Project.NameKey proj = project.getNameKey();
     try (Repository repo = repoManager.openRepository(proj);
-         MergeOpRepoManager orm = ormProvider.get();) {
+         MergeOpRepoManager orm = ormProvider.get()) {
+      SubmoduleOp sub = subOpFactory.create(orm);
       for (Ref ref : repo.getRefDatabase().getRefs(
           RefNames.REFS_HEADS).values()) {
         Branch.NameKey b = new Branch.NameKey(proj, ref.getName());
-        if (!sub.superProjectSubscriptionsForSubmoduleBranch(b, orm).isEmpty()) {
+        if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
           throw new CannotDeleteProjectException(
               "Project is subscribed by other projects.");
         }
