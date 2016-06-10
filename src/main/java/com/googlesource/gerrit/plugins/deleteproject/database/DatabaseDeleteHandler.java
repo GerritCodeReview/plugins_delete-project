@@ -28,6 +28,7 @@ import com.google.gerrit.server.git.SubmoduleOp;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
+import com.google.gerrit.server.schema.DisabledChangesReviewDbWrapper;
 import com.google.gwtorm.jdbc.JdbcSchema;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.ResultSet;
@@ -62,7 +63,7 @@ public class DatabaseDeleteHandler {
       SubmoduleOp.Factory subOpFactory,
       Provider<MergeOpRepoManager> ormProvider,
       StarredChangesUtil starredChangesUtil) {
-    this.db = db;
+    this.db = unwrap(db);
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
     this.subOpFactory = subOpFactory;
@@ -103,6 +104,13 @@ public class DatabaseDeleteHandler {
       }
       throw new OrmException(e);
     }
+  }
+
+  private static ReviewDb unwrap(ReviewDb db) {
+    if (db instanceof DisabledChangesReviewDbWrapper) {
+      db = ((DisabledChangesReviewDbWrapper) db).unsafeGetDelegate();
+    }
+    return db;
   }
 
   private final void deleteChanges(List<ChangeData> changeData)
