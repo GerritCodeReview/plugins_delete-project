@@ -18,10 +18,12 @@ import com.google.common.collect.Lists;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.StarredChangesUtil;
+import com.google.gerrit.server.change.AccountPatchReviewStore;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.MergeOpRepoManager;
 import com.google.gerrit.server.git.SubmoduleOp;
@@ -55,6 +57,7 @@ public class DatabaseDeleteHandler {
   private final SubmoduleOp.Factory subOpFactory;
   private final Provider<MergeOpRepoManager> ormProvider;
   private final StarredChangesUtil starredChangesUtil;
+  private final DynamicItem<AccountPatchReviewStore> accountPatchReviewStore;
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
@@ -62,13 +65,15 @@ public class DatabaseDeleteHandler {
       GitRepositoryManager repoManager,
       SubmoduleOp.Factory subOpFactory,
       Provider<MergeOpRepoManager> ormProvider,
-      StarredChangesUtil starredChangesUtil) {
+      StarredChangesUtil starredChangesUtil,
+      DynamicItem<AccountPatchReviewStore> accountPatchReviewStore) {
     this.db = unwrap(db);
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
     this.subOpFactory = subOpFactory;
     this.ormProvider = ormProvider;
     this.starredChangesUtil = starredChangesUtil;
+    this.accountPatchReviewStore = accountPatchReviewStore;
   }
 
   public Collection<String> getWarnings(Project project) throws OrmException {
@@ -139,9 +144,7 @@ public class DatabaseDeleteHandler {
   private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets)
       throws OrmException {
     for (PatchSet patchSet : patchSets) {
-      db.accountPatchReviews().delete(
-          db.accountPatchReviews().byPatchSet(patchSet.getId()));
-
+      accountPatchReviewStore.get().clearReviewed(patchSet.getId());
       db.patchSets().delete(Collections.singleton(patchSet));
     }
   }
