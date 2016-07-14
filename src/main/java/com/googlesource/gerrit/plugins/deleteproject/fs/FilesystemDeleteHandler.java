@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
@@ -121,6 +122,11 @@ public class FilesystemDeleteHandler {
       @Override
       public String getProjectName() {
         return project.get();
+      }
+
+      @Override
+      public NotifyHandling getNotify() {
+        return NotifyHandling.NONE;
       }
     };
     for (ProjectDeletedListener l : deletedListener) {
