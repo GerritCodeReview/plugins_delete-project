@@ -49,6 +49,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 public class DatabaseDeleteHandler {
   private final ReviewDb db;
@@ -148,10 +150,13 @@ public class DatabaseDeleteHandler {
     Project.NameKey proj = project.getNameKey();
     try (Repository repo = repoManager.openRepository(proj);
          MergeOpRepoManager orm = ormProvider.get()) {
-      SubmoduleOp sub = subOpFactory.create(orm);
+      Set<Branch.NameKey> branches = new HashSet<>();
       for (Ref ref : repo.getRefDatabase().getRefs(
           RefNames.REFS_HEADS).values()) {
-        Branch.NameKey b = new Branch.NameKey(proj, ref.getName());
+        branches.add(new Branch.NameKey(proj, ref.getName()));
+      }
+      SubmoduleOp sub = subOpFactory.create(branches, orm);
+      for (Branch.NameKey b : branches) {
         if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
           throw new CannotDeleteProjectException(
               "Project is subscribed by other projects.");
