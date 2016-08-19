@@ -19,6 +19,7 @@ import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.index.ChangeIndexer;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
@@ -29,6 +30,10 @@ import com.google.inject.Provider;
 
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -36,14 +41,20 @@ import java.util.Collections;
 import java.util.List;
 
 public class DatabaseDeleteHandler {
+  private static final Logger log =
+      LoggerFactory.getLogger(DatabaseDeleteHandler.class);
+
   private final ReviewDb db;
   private final Provider<InternalChangeQuery> queryProvider;
+  private final ChangeIndexer indexer;
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
-      Provider<InternalChangeQuery> queryProvider) {
+      Provider<InternalChangeQuery> queryProvider,
+      ChangeIndexer indexer) {
     this.db = db;
     this.queryProvider = queryProvider;
+    this.indexer = indexer;
   }
 
   public Collection<String> getWarnings(Project project) throws OrmException {
@@ -97,6 +108,14 @@ public class DatabaseDeleteHandler {
       db.changeMessages().delete(db.changeMessages().byChange(id));
       db.starredChanges().delete(db.starredChanges().byChange(id));
       db.changes().delete(Collections.singleton(cd.change()));
+
+      // Delete from the secondary index
+      try {
+        indexer.delete(id);
+      } catch (IOException e) {
+        log.error(
+            String.format("Failed to delete change %s from index", id), e);
+      }
     }
   }
 
