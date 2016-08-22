@@ -5,4 +5,4 @@
   src_roots = java, resources
 
 [project]
-  ignore = .git
+  ignore = .git, eclipse-out
