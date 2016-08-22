@@ -28,6 +28,7 @@ import com.google.gerrit.server.change.AccountPatchReviewStore;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.MergeOpRepoManager;
 import com.google.gerrit.server.git.SubmoduleOp;
+import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
@@ -42,6 +43,8 @@ import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectExceptio
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -53,6 +56,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class DatabaseDeleteHandler {
+  private static final Logger log =
+      LoggerFactory.getLogger(DatabaseDeleteHandler.class);
+
   private final ReviewDb db;
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
@@ -60,6 +66,7 @@ public class DatabaseDeleteHandler {
   private final Provider<MergeOpRepoManager> ormProvider;
   private final StarredChangesUtil starredChangesUtil;
   private final DynamicItem<AccountPatchReviewStore> accountPatchReviewStore;
+  private final ChangeIndexer indexer;
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
@@ -68,7 +75,8 @@ public class DatabaseDeleteHandler {
       SubmoduleOp.Factory subOpFactory,
       Provider<MergeOpRepoManager> ormProvider,
       StarredChangesUtil starredChangesUtil,
-      DynamicItem<AccountPatchReviewStore> accountPatchReviewStore) {
+      DynamicItem<AccountPatchReviewStore> accountPatchReviewStore,
+      ChangeIndexer indexer) {
     this.db = ReviewDbUtil.unwrapDb(db);
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
@@ -76,6 +84,7 @@ public class DatabaseDeleteHandler {
     this.ormProvider = ormProvider;
     this.starredChangesUtil = starredChangesUtil;
     this.accountPatchReviewStore = accountPatchReviewStore;
+    this.indexer = indexer;
   }
 
   public Collection<String> getWarnings(Project project) throws OrmException {
@@ -133,6 +142,14 @@ public class DatabaseDeleteHandler {
       }
       db.changeMessages().delete(db.changeMessages().byChange(id));
       db.changes().delete(Collections.singleton(cd.change()));
+
+      // Delete from the secondary index
+      try {
+        indexer.delete(id);
+      } catch (IOException e) {
+        log.error(
+            String.format("Failed to delete change %s from index", id), e);
+      }
     }
   }
 
