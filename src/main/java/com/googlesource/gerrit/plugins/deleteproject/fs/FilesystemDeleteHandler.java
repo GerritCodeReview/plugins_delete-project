@@ -188,8 +188,9 @@ public class FilesystemDeleteHandler {
     }
     if (file.listFiles().length == 0) {
       File parent = file.getParentFile();
-      file.delete();
-      recursiveDeleteParent(parent, until);
+      if (file.delete()) {
+        recursiveDeleteParent(parent, until);
+      }
     }
   }
 }
