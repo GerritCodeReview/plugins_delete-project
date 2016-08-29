@@ -106,8 +106,10 @@ public class FilesystemDeleteHandler {
       final File repoFile) throws IOException {
     // Delete the repository from disk
     Path trash = moveToTrash(repoFile.toPath(), project);
+    boolean ok = false;
     try {
       recursiveDelete(trash);
+      ok = true;
     } catch (IOException e) {
       // Only log if delete failed - repo already moved to trash.
       // Otherwise, listeners are never called.
@@ -115,7 +117,9 @@ public class FilesystemDeleteHandler {
     }
 
     // Delete parent folders if they are (now) empty
-    recursiveDeleteParent(repoFile.getParentFile(), gitDir.toFile());
+    if (ok) {
+      recursiveDeleteParent(repoFile.getParentFile(), gitDir.toFile());
+    }
 
     // Send an event that the repository was deleted
     ProjectDeletedListener.Event event = new ProjectDeletedListener.Event() {
