@@ -49,8 +49,7 @@ public class DeleteTrashFolders implements LifecycleListener {
       // ".deleted". A folder 'f' is renamed to 'f.<currentTimeMillis>.deleted'.
       // <currentTimeMillis> happens to be exactly 13 digits for commits created
       // between 2002 (before git was born) and 2285.
-      if (fName.endsWith(".deleted")
-          && fName.matches(".*\\d{13}.deleted$")) {
+      if (fName.matches(".*\\.\\d{13}.deleted")) {
         log.warn("Will delete this folder: {}", dir);
         recursiveDelete(dir);
         return FileVisitResult.SKIP_SUBTREE;
