@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8599e695_62eab671",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-08-29T13:55:56Z",
+      "side": 1,
+      "message": "This move is not a good idea, as the error generated (in case of a failure) is then wrong. Trash got successfully deleted, only the empty parent removal may have failed.",
+      "revId": "5a6a52c9c834bd845af38061f89cf0a37f1b11aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
