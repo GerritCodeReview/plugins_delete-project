@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45628e90_a87c3be3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2016-08-29T12:59:30Z",
+      "side": 1,
+      "message": "- should we log a warning if this fails ?\n- in recursiveDelete() we use Files.delete(file) instead of the old file.delete(), maybe we should use the same here ?",
+      "revId": "f9a0d2e062d557878aa79a6cd01b1ae5a419ec47",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
