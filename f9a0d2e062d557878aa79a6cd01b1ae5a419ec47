@@ -16,6 +16,24 @@
       "revId": "f9a0d2e062d557878aa79a6cd01b1ae5a419ec47",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45628e90_086c6730",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2016-08-29T13:19:50Z",
+      "side": 1,
+      "message": "Done.\n\nUsing Files.delete will throw a DirectoryNotEmpty exception (which is a subtype of the IOException). Moved the calling places inside an existing try-catch block to reuse logging of a warning.",
+      "parentUuid": "45628e90_a87c3be3",
+      "revId": "f9a0d2e062d557878aa79a6cd01b1ae5a419ec47",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
