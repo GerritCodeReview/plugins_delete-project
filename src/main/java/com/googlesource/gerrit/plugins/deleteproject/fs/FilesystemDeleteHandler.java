@@ -118,7 +118,11 @@ public class FilesystemDeleteHandler {
 
     // Delete parent folders if they are (now) empty
     if (ok) {
-      recursiveDeleteParent(repoFile.getParentFile(), gitDir.toFile());
+      try {
+        recursiveDeleteParent(repoFile.getParentFile(), gitDir.toFile());
+      } catch (IOException e) {
+        log.warn("Couldn't delete (empty) parents of " + repoFile, e);
+      }
     }
 
     // Send an event that the repository was deleted
@@ -186,13 +190,13 @@ public class FilesystemDeleteHandler {
    * have a tree structure such as a/b/c/d.git and a/b/e.git - if we delete
    * a/b/c/d.git, we no longer need a/b/c/.
    */
-  private void recursiveDeleteParent(File file, File until) {
+  private void recursiveDeleteParent(File file, File until) throws IOException {
     if (file.equals(until)) {
       return;
     }
     if (file.listFiles().length == 0) {
       File parent = file.getParentFile();
-      file.delete();
+      Files.delete(file.toPath());
       recursiveDeleteParent(parent, until);
     }
   }
