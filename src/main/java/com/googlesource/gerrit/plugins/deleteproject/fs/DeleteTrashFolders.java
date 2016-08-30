@@ -42,11 +42,18 @@ public class DeleteTrashFolders implements LifecycleListener {
    * <currentTimeMillis> happens to be exactly 13 digits for commits created
    * between 2002 (before git was born) and 2285.
    */
-  private static final Pattern TRASH = Pattern.compile(".*\\.\\d{13}.deleted");
+  private static final Pattern TRASH_1 = Pattern.compile(".*\\.\\d{13}.deleted");
+
+  /**
+   * New trash folder name format. It adds % chars around the "deleted" string
+   * and keeps the ".git" extension.
+   */
+  private static final Pattern TRASH_2 = Pattern.compile(".*\\.\\d{13}.%deleted%.git");
 
   @VisibleForTesting
   static final boolean isTrashFolderName(String fName) {
-    return TRASH.matcher(fName).matches();
+    return TRASH_1.matcher(fName).matches()
+        || TRASH_2.matcher(fName).matches();
   }
 
   private Path gitDir;

@@ -149,7 +149,7 @@ public class FilesystemDeleteHandler {
   private Path moveToTrash(Path directory, Project.NameKey nameKey)
       throws IOException {
     Path trashRepo = gitDir.resolve(nameKey.get() + "."
-        + System.currentTimeMillis() + ".deleted");
+        + System.currentTimeMillis() + ".%deleted%.git");
     return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
