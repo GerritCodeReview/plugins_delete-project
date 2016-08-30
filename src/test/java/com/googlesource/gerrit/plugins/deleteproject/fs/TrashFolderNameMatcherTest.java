@@ -26,6 +26,10 @@ public class TrashFolderNameMatcherTest {
     matches("a.1234567890123.deleted");
     matches("aa.1234567890123.deleted");
     matches("a.b.c.1234567890123.deleted");
+
+    matches("a.1234567890123.%deleted%.git");
+    matches("aa.1234567890123.%deleted%.git");
+    matches("a.b.c.1234567890123.%deleted%.git");
   }
 
   @Test
@@ -40,6 +44,13 @@ public class TrashFolderNameMatcherTest {
     // additional characters after the "deleted" suffix
     doesNotMatch("a.1234567890123.deleted.");
     doesNotMatch("a.1234567890123.deleted.git");
+
+    // missing .git suffix
+    doesNotMatch("a.1234567890123.%deleted%");
+
+    // additional characters after the "git" suffix
+    doesNotMatch("a.1234567890123.%deleted%.git.");
+    doesNotMatch("a.1234567890123.%deleted%.git.git");
   }
 
   private void matches(String name) {
