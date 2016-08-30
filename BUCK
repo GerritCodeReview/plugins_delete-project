@@ -22,3 +22,11 @@ java_library(
     ':delete-project__plugin',
   ],
 )
+
+java_test(
+  name = 'delete-project_tests',
+  srcs = glob(['src/test/java/**/*.java']),
+  labels = ['delete-project'],
+  deps = GERRIT_PLUGIN_API + GERRIT_TESTS + [':delete-project__plugin'],
+  source_under_test = [':delete-project__plugin'],
+)
