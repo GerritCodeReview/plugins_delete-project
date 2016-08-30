@@ -22,6 +22,30 @@
       "revId": "c2d8534c6c0152384e2475a6b6c42ea3bf92ab2c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e51aa224_5569ec1f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-08-30T06:24:50Z",
+      "side": 1,
+      "message": "Never mind, I see that you did that in the next change and it was undone in a later patch set.",
+      "parentUuid": "c513de0f_94726411",
+      "range": {
+        "startLine": 121,
+        "startChar": 6,
+        "endLine": 121,
+        "endChar": 71
+      },
+      "revId": "c2d8534c6c0152384e2475a6b6c42ea3bf92ab2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
