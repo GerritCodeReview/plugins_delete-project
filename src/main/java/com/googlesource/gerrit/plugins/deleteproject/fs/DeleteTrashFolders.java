@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.regex.Pattern;
 
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.RepositoryCache.FileKey;
@@ -26,6 +27,7 @@ import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.SitePaths;
@@ -33,6 +35,20 @@ import com.google.inject.Inject;
 
 public class DeleteTrashFolders implements LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
+
+  /**
+   * Search for name which end with a dot, 13 digits and the string
+   * ".deleted". A folder 'f' is renamed to 'f.<currentTimeMillis>.deleted'.
+   * <currentTimeMillis> happens to be exactly 13 digits for commits created
+   * between 2002 (before git was born) and 2285.
+   */
+  private static final Pattern TRASH = Pattern.compile(".*\\.\\d{13}.deleted");
+
+  @VisibleForTesting
+  static final boolean isTrashFolderName(String fName) {
+    return TRASH.matcher(fName).matches();
+  }
+
   private Path gitDir;
 
   @Inject
@@ -41,15 +57,12 @@ public class DeleteTrashFolders implements LifecycleListener {
   }
 
   class TrashFolderRemover extends SimpleFileVisitor<Path> {
+
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
         throws IOException {
       String fName = dir.getFileName().toString();
-      // Search for directories which end with a dot, 13 digits and the string
-      // ".deleted". A folder 'f' is renamed to 'f.<currentTimeMillis>.deleted'.
-      // <currentTimeMillis> happens to be exactly 13 digits for commits created
-      // between 2002 (before git was born) and 2285.
-      if (fName.matches(".*\\.\\d{13}.deleted")) {
+      if (isTrashFolderName(fName)) {
         log.warn("Will delete this folder: {}", dir);
         recursiveDelete(dir);
         return FileVisitResult.SKIP_SUBTREE;
