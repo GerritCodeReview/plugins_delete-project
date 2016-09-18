@@ -12,3 +12,11 @@ maven_jar(
   license = 'Apache2.0',
 )
 
+maven_jar(
+  name = 'acceptance-framework',
+  id = 'com.google.gerrit:gerrit-acceptance-framework:' + VER,
+  sha1 = '817f207b4ee175f5a6aba60ad30d6b25b35d5872',
+  license = 'Apache2.0',
+  attach_source = False,
+  repository = REPO,
+)
