@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -153,9 +154,19 @@ public class FilesystemDeleteHandler {
     return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
-  private void cleanCache(final Repository repository) {
-    repository.close();
+  private void cleanCache(Repository repository) {
+    doClose(repository);
     RepositoryCache.close(repository);
+  }
+
+  private void doClose(Repository repository) {
+    try {
+      Method doClose = Repository.class.getDeclaredMethod("doClose");
+      doClose.setAccessible(true);
+      doClose.invoke(repository);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
