@@ -69,6 +69,24 @@
       "revId": "97f56a1571693706e74cbda77dde61b86129a5a3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b091cf63_6bda0169",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2016-09-21T11:56:26Z",
+      "side": 1,
+      "message": "so with this change in JGit we don\u0027t need a patch in delete-project plugin but just consume JGit 4.5 release",
+      "parentUuid": "9084cb25_aab06f4a",
+      "revId": "97f56a1571693706e74cbda77dde61b86129a5a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
