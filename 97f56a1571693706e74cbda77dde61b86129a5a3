@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b091cf63_2b939907",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2016-09-21T08:47:14Z",
+      "side": 1,
+      "message": "I think we should first remove the repository from JGit\u0027s repository cache by calling RepositoryCache.unregister(repository). Otherwise we end up with a closed repository still residing in the JGit repository cache.",
+      "revId": "97f56a1571693706e74cbda77dde61b86129a5a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
