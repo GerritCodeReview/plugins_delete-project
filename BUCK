@@ -28,5 +28,4 @@ java_test(
   srcs = glob(['src/test/java/**/*.java']),
   labels = ['delete-project'],
   deps = GERRIT_PLUGIN_API + GERRIT_TESTS + [':delete-project__plugin'],
-  source_under_test = [':delete-project__plugin'],
 )
