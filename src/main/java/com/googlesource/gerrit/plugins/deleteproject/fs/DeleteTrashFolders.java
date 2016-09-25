@@ -17,8 +17,11 @@ import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collections;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.eclipse.jgit.lib.Config;
@@ -28,8 +31,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Sets;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
+import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 
@@ -56,11 +61,15 @@ public class DeleteTrashFolders implements LifecycleListener {
         || TRASH_2.matcher(fName).matches();
   }
 
-  private Path gitDir;
+  private Set<String> repoFolders;
 
   @Inject
-  public DeleteTrashFolders(SitePaths site, @GerritServerConfig Config cfg) {
-    gitDir = site.resolve(cfg.getString("gerrit", null, "basePath"));
+  public DeleteTrashFolders(SitePaths site,
+      @GerritServerConfig Config cfg,
+      RepositoryConfig repositoryCfg) {
+    repoFolders = Sets.newHashSet(
+        site.resolve(cfg.getString("gerrit", null, "basePath")).toString());
+    Collections.addAll(repoFolders, repositoryCfg.getAllBasePaths());
   }
 
   class TrashFolderRemover extends SimpleFileVisitor<Path> {
@@ -115,10 +124,17 @@ public class DeleteTrashFolders implements LifecycleListener {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        try {
-          Files.walkFileTree(gitDir, new TrashFolderRemover());
-        } catch (IOException e) {
-          log.warn("Exception occured while trying to delete trash folders", e);
+        for (String folder : repoFolders) {
+          Path basePath = Paths.get(folder);
+          if (Files.notExists(basePath)) {
+            log.debug("Base path {} does not exist", basePath);
+            continue;
+          }
+          try {
+            Files.walkFileTree(basePath, new TrashFolderRemover());
+          } catch (IOException e) {
+            log.warn("Exception while trying to delete trash folders", e);
+          }
         }
       }
     }, "DeleteTrashFolders").start();
