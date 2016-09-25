@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
@@ -36,9 +36,7 @@ import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
-import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
@@ -49,7 +47,6 @@ public class FilesystemDeleteHandler {
   private static final Logger log = LoggerFactory
       .getLogger(FilesystemDeleteHandler.class);
 
-  private final Path gitDir;
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListener;
   private final PluginConfigFactory cfgFactory;
@@ -57,12 +54,9 @@ public class FilesystemDeleteHandler {
 
   @Inject
   public FilesystemDeleteHandler(GitRepositoryManager repoManager,
-      SitePaths site,
-      @GerritServerConfig Config cfg,
       DynamicSet<ProjectDeletedListener> deletedListener,
       PluginConfigFactory cfgFactory,
       @PluginName String pluginName) {
-    gitDir = site.resolve(cfg.getString("gerrit", null, "basePath"));
     this.repoManager = repoManager;
     this.deletedListener = deletedListener;
     this.cfgFactory = cfgFactory;
@@ -105,7 +99,8 @@ public class FilesystemDeleteHandler {
   private void deleteGitRepository(final Project.NameKey project,
       final File repoFile) throws IOException {
     // Delete the repository from disk
-    Path trash = moveToTrash(repoFile.toPath(), project);
+    Path basePath = getBasePath(repoFile.toPath(), project);
+    Path trash = moveToTrash(repoFile.toPath(), basePath, project);
     boolean ok = false;
     try {
       recursiveDelete(trash);
@@ -119,7 +114,7 @@ public class FilesystemDeleteHandler {
     // Delete parent folders if they are (now) empty
     if (ok) {
       try {
-        recursiveDeleteParent(repoFile.getParentFile(), gitDir.toFile());
+        recursiveDeleteParent(repoFile.getParentFile(), basePath.toFile());
       } catch (IOException e) {
         log.warn("Couldn't delete (empty) parents of " + repoFile, e);
       }
@@ -146,9 +141,15 @@ public class FilesystemDeleteHandler {
     }
   }
 
-  private Path moveToTrash(Path directory, Project.NameKey nameKey)
+  private Path getBasePath(Path repo, Project.NameKey project) {
+    Path projectPath = Paths.get(project.get());
+    return repo.getRoot().resolve(
+        repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
+  }
+
+  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
       throws IOException {
-    Path trashRepo = gitDir.resolve(nameKey.get() + "."
+    Path trashRepo = basePath.resolve(nameKey.get() + "."
         + System.currentTimeMillis() + ".%deleted%.git");
     return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
