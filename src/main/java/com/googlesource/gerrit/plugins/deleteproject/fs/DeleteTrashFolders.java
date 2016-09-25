@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.eclipse.jgit.lib.Config;
@@ -28,8 +29,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Sets;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
+import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 
@@ -56,11 +59,15 @@ public class DeleteTrashFolders implements LifecycleListener {
         || TRASH_2.matcher(fName).matches();
   }
 
-  private Path gitDir;
+  private Set<Path> repoFolders;
 
   @Inject
-  public DeleteTrashFolders(SitePaths site, @GerritServerConfig Config cfg) {
-    gitDir = site.resolve(cfg.getString("gerrit", null, "basePath"));
+  public DeleteTrashFolders(SitePaths site,
+      @GerritServerConfig Config cfg,
+      RepositoryConfig repositoryCfg) {
+    repoFolders = Sets.newHashSet(
+        site.resolve(cfg.getString("gerrit", null, "basePath")));
+    repoFolders.addAll(repositoryCfg.getAllBasePaths());
   }
 
   class TrashFolderRemover extends SimpleFileVisitor<Path> {
@@ -115,10 +122,16 @@ public class DeleteTrashFolders implements LifecycleListener {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        try {
-          Files.walkFileTree(gitDir, new TrashFolderRemover());
-        } catch (IOException e) {
-          log.warn("Exception occured while trying to delete trash folders", e);
+        for (Path folder : repoFolders) {
+          if (Files.notExists(folder)) {
+            log.debug("Base path {} does not exist", folder);
+            continue;
+          }
+          try {
+            Files.walkFileTree(folder, new TrashFolderRemover());
+          } catch (IOException e) {
+            log.warn("Exception while trying to delete trash folders", e);
+          }
         }
       }
     }, "DeleteTrashFolders").start();
