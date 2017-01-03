@@ -192,8 +192,5 @@ public class DatabaseDeleteHandler {
     List<ChangeData> changes =
         queryProvider.get().byProject(project.getNameKey());
     deleteChanges(changes);
-
-    db.accountProjectWatches().delete(
-        db.accountProjectWatches().byProject(project.getNameKey()));
   }
 }
