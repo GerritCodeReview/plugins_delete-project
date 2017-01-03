@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1ba32a_3e652dc8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2017-01-03T14:23:42Z",
+      "side": 1,
+      "message": "You don\u0027t need any change in Gerrit core for this. com.google.gerrit.server.mail.send.ProjectWatch#getWatchers shows how you can find all project watches for a project. Then for each account that has a project watch for this project use WatchConfig.Accessor to delete the project watches.",
+      "range": {
+        "startLine": 13,
+        "startChar": 31,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "605938714955c2a05690d606aaaa9de64b4cc6d8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
