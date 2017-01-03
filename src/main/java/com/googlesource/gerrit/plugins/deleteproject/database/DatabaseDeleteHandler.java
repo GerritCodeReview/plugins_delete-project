@@ -14,22 +14,30 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.database;
 
+import static java.util.Collections.singleton;
+
 import com.google.common.collect.Lists;
+import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.reviewdb.client.Account;
+import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.extensions.registration.DynamicItem;
-import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.reviewdb.server.ReviewDbUtil;
 import com.google.gerrit.server.StarredChangesUtil;
+import com.google.gerrit.server.account.AccountState;
+import com.google.gerrit.server.account.WatchConfig;
+import com.google.gerrit.server.account.WatchConfig.Accessor;
+import com.google.gerrit.server.account.WatchConfig.ProjectWatchKey;
 import com.google.gerrit.server.change.AccountPatchReviewStore;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.MergeOpRepoManager;
 import com.google.gerrit.server.git.SubmoduleOp;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.project.NoSuchChangeException;
+import com.google.gerrit.server.query.account.InternalAccountQuery;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
@@ -40,6 +48,7 @@ import com.google.inject.Provider;
 
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
@@ -51,9 +60,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 public class DatabaseDeleteHandler {
   private static final Logger log =
@@ -67,6 +76,8 @@ public class DatabaseDeleteHandler {
   private final StarredChangesUtil starredChangesUtil;
   private final DynamicItem<AccountPatchReviewStore> accountPatchReviewStore;
   private final ChangeIndexer indexer;
+  private final Provider<InternalAccountQuery> accountQueryProvider;
+  private final Provider<Accessor> watchConfig;
 
   @Inject
   public DatabaseDeleteHandler(ReviewDb db,
@@ -76,7 +87,11 @@ public class DatabaseDeleteHandler {
       Provider<MergeOpRepoManager> ormProvider,
       StarredChangesUtil starredChangesUtil,
       DynamicItem<AccountPatchReviewStore> accountPatchReviewStore,
-      ChangeIndexer indexer) {
+      ChangeIndexer indexer,
+      Provider<InternalAccountQuery> accountQueryProvider,
+      Provider<WatchConfig.Accessor> watchConfig) {
+    this.accountQueryProvider = accountQueryProvider;
+    this.watchConfig = watchConfig;
     this.db = ReviewDbUtil.unwrapDb(db);
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
@@ -193,7 +208,20 @@ public class DatabaseDeleteHandler {
         queryProvider.get().byProject(project.getNameKey());
     deleteChanges(changes);
 
-    db.accountProjectWatches().delete(
-        db.accountProjectWatches().byProject(project.getNameKey()));
+    for (AccountState a : accountQueryProvider.get()
+        .byWatchedProject(project.getNameKey())) {
+      Account.Id accountId = a.getAccount().getId();
+      for (ProjectWatchKey watchKey : a.getProjectWatches().keySet()) {
+        if (project.getNameKey().equals(watchKey.project())) {
+          try {
+            watchConfig.get().deleteProjectWatches(accountId,
+                singleton(watchKey));
+          } catch (IOException | ConfigInvalidException e) {
+            log.error("Removing watch entry for user {} in project {} failed.",
+                a.getUserName(), project.getName(), e);
+          }
+        }
+      }
+    }
   }
 }
