@@ -1,63 +1,37 @@
 Build
 =====
 
-This plugin is built with Buck.
-
-Two build modes are supported: Standalone and in Gerrit tree. Standalone
-build mode is recommended, as this mode doesn't require local Gerrit
-tree to exist.
-
-Build standalone
-----------------
-
-Clone bucklets library:
-
-```
-  git clone https://gerrit.googlesource.com/bucklets
-
-```
-and link it to delete-project directory:
-
-```
-  cd delete-project && ln -s ../bucklets .
-```
-
-Add link to the .buckversion file:
-
-```
-  cd delete_project && ln -s bucklets/buckversion .buckversion
-```
-
-To build the plugin, issue the following command:
-
-
-```
-  buck build plugin
-```
-
-The output is created in
-
-```
-  buck-out/gen/delete-project/delete-project.jar
-```
-
-Build in Gerrit tree
---------------------
+This plugin is built with Bazel. Only the Gerrit in-tree build is
+supported.
 
 Clone or link this plugin to the plugins directory of Gerrit's source
 tree, and issue the command:
 
 ```
-  buck build plugins/delete-project:delete-project
+  bazel build plugins/@PLUGIN@
 ```
 
 The output is created in
 
 ```
-  buck-out/gen/plugins/delete-project/delete-project.jar
+  bazel-genfiles/plugins/@PLUGIN@/@PLUGIN@.jar
 ```
 
-This project can be imported into the Eclipse IDE:
+To execute the tests run:
+
+```
+  bazel test plugins/@PLUGIN@:delete_project_tests
+```
+
+or filtering using the comma separated tags:
+
+````
+  bazel test --test_tag_filters=@PLUGIN@ //...
+````
+
+This project can be imported into the Eclipse IDE.
+Add the plugin name to the `CUSTOM_PLUGINS` set in
+Gerrit core in `tools/bzl/plugins.bzl`, and execute:
 
 ```
   ./tools/eclipse/project.py
