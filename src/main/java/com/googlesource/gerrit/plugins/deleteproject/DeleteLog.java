@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.MultimapBuilder;
 import com.google.gerrit.audit.AuditEvent;
 import com.google.gerrit.audit.AuditService;
 import com.google.gerrit.common.TimeUtil;
@@ -94,7 +94,8 @@ class DeleteLog extends PluginLogFile {
 
   private void audit(IdentifiedUser user, long ts, Project.NameKey project,
       DeleteProject.Input options, Exception ex) {
-    Multimap<String, Object> params = HashMultimap.create();
+    ListMultimap<String, Object> params =
+        MultimapBuilder.hashKeys().arrayListValues().build();
     params.put("class", DeleteLog.class);
     params.put("project", project.get());
     if (options != null) {
