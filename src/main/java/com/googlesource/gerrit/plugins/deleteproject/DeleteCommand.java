@@ -23,12 +23,10 @@ import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
-
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
 import java.io.IOException;
 import java.util.Collection;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
 
 @CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
@@ -82,7 +80,7 @@ public final class DeleteCommand extends SshCommand {
           msgBuilder.append("There are warnings against deleting ");
           msgBuilder.append(rsrc.getName());
           msgBuilder.append(":\n");
-          for (String warning: warnings) {
+          for (String warning : warnings) {
             msgBuilder.append(" * ");
             msgBuilder.append(warning);
             msgBuilder.append("\n");
@@ -95,8 +93,11 @@ public final class DeleteCommand extends SshCommand {
       }
 
       deleteProject.doDelete(rsrc, input);
-    } catch (AuthException | ResourceNotFoundException
-        | ResourceConflictException | OrmException | IOException e) {
+    } catch (AuthException
+        | ResourceNotFoundException
+        | ResourceConflictException
+        | OrmException
+        | IOException e) {
       die(e);
     }
   }

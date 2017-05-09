@@ -13,6 +13,13 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Sets;
+import com.google.gerrit.extensions.events.LifecycleListener;
+import com.google.gerrit.server.config.GerritServerConfig;
+import com.google.gerrit.server.config.RepositoryConfig;
+import com.google.gerrit.server.config.SitePaths;
+import com.google.inject.Inject;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -21,52 +28,39 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Set;
 import java.util.regex.Pattern;
-
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.RepositoryCache.FileKey;
 import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Sets;
-import com.google.gerrit.extensions.events.LifecycleListener;
-import com.google.gerrit.server.config.GerritServerConfig;
-import com.google.gerrit.server.config.RepositoryConfig;
-import com.google.gerrit.server.config.SitePaths;
-import com.google.inject.Inject;
-
 public class DeleteTrashFolders implements LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
 
   /**
-   * Search for name which ends with a dot, 13 digits and the string
-   * ".deleted". A folder 'f' is renamed to 'f.<currentTimeMillis>.deleted'.
-   * <currentTimeMillis> happens to be exactly 13 digits for commits created
-   * between 2002 (before git was born) and 2285.
+   * Search for name which ends with a dot, 13 digits and the string ".deleted". A folder 'f' is
+   * renamed to 'f.<currentTimeMillis>.deleted'. <currentTimeMillis> happens to be exactly 13 digits
+   * for commits created between 2002 (before git was born) and 2285.
    */
   private static final Pattern TRASH_1 = Pattern.compile(".*\\.\\d{13}.deleted");
 
   /**
-   * New trash folder name format. It adds % chars around the "deleted" string
-   * and keeps the ".git" extension.
+   * New trash folder name format. It adds % chars around the "deleted" string and keeps the ".git"
+   * extension.
    */
   private static final Pattern TRASH_2 = Pattern.compile(".*\\.\\d{13}.%deleted%.git");
 
   @VisibleForTesting
   static final boolean isTrashFolderName(String fName) {
-    return TRASH_1.matcher(fName).matches()
-        || TRASH_2.matcher(fName).matches();
+    return TRASH_1.matcher(fName).matches() || TRASH_2.matcher(fName).matches();
   }
 
   private Set<Path> repoFolders;
 
   @Inject
-  public DeleteTrashFolders(SitePaths site,
-      @GerritServerConfig Config cfg,
-      RepositoryConfig repositoryCfg) {
-    repoFolders = Sets.newHashSet(
-        site.resolve(cfg.getString("gerrit", null, "basePath")));
+  public DeleteTrashFolders(
+      SitePaths site, @GerritServerConfig Config cfg, RepositoryConfig repositoryCfg) {
+    repoFolders = Sets.newHashSet(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
   }
 
@@ -94,51 +88,51 @@ public class DeleteTrashFolders implements LifecycleListener {
      * @throws IOException
      */
     private void recursiveDelete(Path file) throws IOException {
-      Files.walkFileTree(file, new SimpleFileVisitor<Path>() {
-          @Override
-          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-              throws IOException {
-            Files.delete(file);
-            return FileVisitResult.CONTINUE;
-          }
-
-          @Override
-          public FileVisitResult postVisitDirectory(Path dir, IOException e)
-              throws IOException {
-            if (e != null) {
-              throw e;
+      Files.walkFileTree(
+          file,
+          new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                throws IOException {
+              Files.delete(file);
+              return FileVisitResult.CONTINUE;
             }
-            Files.delete(dir);
-            return FileVisitResult.CONTINUE;
-          }
-      });
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
+              if (e != null) {
+                throw e;
+              }
+              Files.delete(dir);
+              return FileVisitResult.CONTINUE;
+            }
+          });
     }
   }
 
-
-
   @Override
   public void start() {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        for (Path folder : repoFolders) {
-          if (Files.notExists(folder)) {
-            log.debug("Base path {} does not exist", folder);
-            continue;
-          }
-          try {
-            Files.walkFileTree(folder, new TrashFolderRemover());
-          } catch (IOException e) {
-            log.warn("Exception while trying to delete trash folders", e);
-          }
-        }
-      }
-    }, "DeleteTrashFolders").start();
+    new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                for (Path folder : repoFolders) {
+                  if (Files.notExists(folder)) {
+                    log.debug("Base path {} does not exist", folder);
+                    continue;
+                  }
+                  try {
+                    Files.walkFileTree(folder, new TrashFolderRemover());
+                  } catch (IOException e) {
+                    log.warn("Exception while trying to delete trash folders", e);
+                  }
+                }
+              }
+            },
+            "DeleteTrashFolders")
+        .start();
   }
 
   @Override
-  public void stop() {
-  }
+  public void stop() {}
 }
-

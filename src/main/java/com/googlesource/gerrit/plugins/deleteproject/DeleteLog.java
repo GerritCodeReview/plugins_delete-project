@@ -27,7 +27,6 @@ import com.google.gerrit.server.util.PluginLogFile;
 import com.google.gerrit.server.util.SystemLog;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -47,40 +46,38 @@ class DeleteLog extends PluginLogFile {
   private final AuditService auditService;
 
   @Inject
-  public DeleteLog(SystemLog systemLog,
-      ServerInformation serverInfo,
-      AuditService auditService) {
+  public DeleteLog(SystemLog systemLog, ServerInformation serverInfo, AuditService auditService) {
     super(systemLog, serverInfo, DELETE_LOG_NAME, new DeleteLogLayout());
     this.auditService = auditService;
   }
 
-  public void onDelete(IdentifiedUser user, Project.NameKey project,
-      DeleteProject.Input options, Exception ex) {
+  public void onDelete(
+      IdentifiedUser user, Project.NameKey project, DeleteProject.Input options, Exception ex) {
     long ts = TimeUtil.nowMs();
-    LoggingEvent event = new LoggingEvent( //
-        Logger.class.getName(), // fqnOfCategoryClass
-        log, // logger
-        ts, // when
-        ex == null // level
-            ? Level.INFO
-            : Level.ERROR,
-        ex == null // message text
-            ? "OK"
-            : "FAIL",
-        Thread.currentThread().getName(), // thread name
-        null, // exception information
-        null, // current NDC string
-        null, // caller location
-        null // MDC properties
-        );
+    LoggingEvent event =
+        new LoggingEvent( //
+            Logger.class.getName(), // fqnOfCategoryClass
+            log, // logger
+            ts, // when
+            ex == null // level
+                ? Level.INFO
+                : Level.ERROR,
+            ex == null // message text
+                ? "OK"
+                : "FAIL",
+            Thread.currentThread().getName(), // thread name
+            null, // exception information
+            null, // current NDC string
+            null, // caller location
+            null // MDC properties
+            );
 
     event.setProperty(ACCOUNT_ID, user.getAccountId().toString());
     event.setProperty(USER_NAME, user.getUserName());
     event.setProperty(PROJECT_NAME, project.get());
 
     if (options != null) {
-      event.setProperty(OPTIONS,
-          OutputFormat.JSON_COMPACT.newGson().toJson(options));
+      event.setProperty(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
     }
 
     if (ex != null) {
@@ -92,10 +89,13 @@ class DeleteLog extends PluginLogFile {
     audit(user, ts, project, options, ex);
   }
 
-  private void audit(IdentifiedUser user, long ts, Project.NameKey project,
-      DeleteProject.Input options, Exception ex) {
-    ListMultimap<String, Object> params =
-        MultimapBuilder.hashKeys().arrayListValues().build();
+  private void audit(
+      IdentifiedUser user,
+      long ts,
+      Project.NameKey project,
+      DeleteProject.Input options,
+      Exception ex) {
+    ListMultimap<String, Object> params = MultimapBuilder.hashKeys().arrayListValues().build();
     params.put("class", DeleteLog.class);
     params.put("project", project.get());
     if (options != null) {
@@ -114,7 +114,6 @@ class DeleteLog extends PluginLogFile {
             params, // params
             ex != null // result
                 ? ex.toString()
-                : "OK"
-        ));
+                : "OK"));
   }
 }

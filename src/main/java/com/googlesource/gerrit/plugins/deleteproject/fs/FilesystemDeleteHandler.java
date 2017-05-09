@@ -14,23 +14,6 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
-
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
@@ -40,12 +23,25 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
-
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.RepositoryCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FilesystemDeleteHandler {
-  private static final Logger log = LoggerFactory
-      .getLogger(FilesystemDeleteHandler.class);
+  private static final Logger log = LoggerFactory.getLogger(FilesystemDeleteHandler.class);
 
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListener;
@@ -53,7 +49,8 @@ public class FilesystemDeleteHandler {
   private final String pluginName;
 
   @Inject
-  public FilesystemDeleteHandler(GitRepositoryManager repoManager,
+  public FilesystemDeleteHandler(
+      GitRepositoryManager repoManager,
       DynamicSet<ProjectDeletedListener> deletedListener,
       PluginConfigFactory cfgFactory,
       @PluginName String pluginName) {
@@ -66,8 +63,7 @@ public class FilesystemDeleteHandler {
   public void delete(Project project, boolean preserveGitRepository)
       throws IOException, RepositoryNotFoundException {
     // Remove from the jgit cache
-    Repository repository =
-        repoManager.openRepository(project.getNameKey());
+    Repository repository = repoManager.openRepository(project.getNameKey());
     File repoFile = repository.getDirectory();
     cleanCache(repository);
     if (!preserveGitRepository) {
@@ -78,26 +74,26 @@ public class FilesystemDeleteHandler {
   public void assertCanDelete(ProjectResource rsrc, boolean preserveGitRepository)
       throws CannotDeleteProjectException {
     if (!preserveGitRepository
-        && !cfgFactory.getFromGerritConfig(pluginName).getBoolean(
-            "allowDeletionOfReposWithTags", true)) {
+        && !cfgFactory
+            .getFromGerritConfig(pluginName)
+            .getBoolean("allowDeletionOfReposWithTags", true)) {
       assertHasNoTags(rsrc);
     }
   }
 
-  private void assertHasNoTags(ProjectResource rsrc)
-      throws CannotDeleteProjectException {
+  private void assertHasNoTags(ProjectResource rsrc) throws CannotDeleteProjectException {
     try (Repository repo = repoManager.openRepository(rsrc.getNameKey())) {
       if (!repo.getRefDatabase().getRefs(Constants.R_TAGS).isEmpty()) {
-        throw new CannotDeleteProjectException(String.format(
-            "Project %s has tags", rsrc.getName()));
+        throw new CannotDeleteProjectException(
+            String.format("Project %s has tags", rsrc.getName()));
       }
     } catch (IOException e) {
       throw new CannotDeleteProjectException(e);
     }
   }
 
-  private void deleteGitRepository(final Project.NameKey project,
-      final File repoFile) throws IOException {
+  private void deleteGitRepository(final Project.NameKey project, final File repoFile)
+      throws IOException {
     // Delete the repository from disk
     Path basePath = getBasePath(repoFile.toPath(), project);
     Path trash = moveToTrash(repoFile.toPath(), basePath, project);
@@ -121,17 +117,18 @@ public class FilesystemDeleteHandler {
     }
 
     // Send an event that the repository was deleted
-    ProjectDeletedListener.Event event = new ProjectDeletedListener.Event() {
-      @Override
-      public String getProjectName() {
-        return project.get();
-      }
+    ProjectDeletedListener.Event event =
+        new ProjectDeletedListener.Event() {
+          @Override
+          public String getProjectName() {
+            return project.get();
+          }
 
-      @Override
-      public NotifyHandling getNotify() {
-        return NotifyHandling.NONE;
-      }
-    };
+          @Override
+          public NotifyHandling getNotify() {
+            return NotifyHandling.NONE;
+          }
+        };
     for (ProjectDeletedListener l : deletedListener) {
       try {
         l.onProjectDeleted(event);
@@ -143,14 +140,14 @@ public class FilesystemDeleteHandler {
 
   private Path getBasePath(Path repo, Project.NameKey project) {
     Path projectPath = Paths.get(project.get());
-    return repo.getRoot().resolve(
-        repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
+    return repo.getRoot()
+        .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
   }
 
   private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
       throws IOException {
-    Path trashRepo = basePath.resolve(nameKey.get() + "."
-        + System.currentTimeMillis() + ".%deleted%.git");
+    Path trashRepo =
+        basePath.resolve(nameKey.get() + "." + System.currentTimeMillis() + ".%deleted%.git");
     return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
@@ -165,31 +162,31 @@ public class FilesystemDeleteHandler {
    * @throws IOException
    */
   private void recursiveDelete(Path file) throws IOException {
-    Files.walkFileTree(file, new SimpleFileVisitor<Path>() {
-      @Override
-      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-          throws IOException {
-        Files.delete(file);
-        return FileVisitResult.CONTINUE;
-      }
+    Files.walkFileTree(
+        file,
+        new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+              throws IOException {
+            Files.delete(file);
+            return FileVisitResult.CONTINUE;
+          }
 
-      @Override
-      public FileVisitResult postVisitDirectory(Path dir, IOException e)
-          throws IOException {
-        if (e != null) {
-          throw e;
-        }
-        Files.delete(dir);
-        return FileVisitResult.CONTINUE;
-      }
-    });
+          @Override
+          public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
+            if (e != null) {
+              throw e;
+            }
+            Files.delete(dir);
+            return FileVisitResult.CONTINUE;
+          }
+        });
   }
 
   /**
-   * Recursively delete the specified file and its parent files until we hit the
-   * file {@code Until} or the parent file is populated. This is used when we
-   * have a tree structure such as a/b/c/d.git and a/b/e.git - if we delete
-   * a/b/c/d.git, we no longer need a/b/c/.
+   * Recursively delete the specified file and its parent files until we hit the file {@code Until}
+   * or the parent file is populated. This is used when we have a tree structure such as a/b/c/d.git
+   * and a/b/e.git - if we delete a/b/c/d.git, we no longer need a/b/c/.
    */
   private void recursiveDeleteParent(File file, File until) throws IOException {
     if (file.equals(until)) {

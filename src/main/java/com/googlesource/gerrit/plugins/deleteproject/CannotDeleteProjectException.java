@@ -17,10 +17,7 @@ package com.googlesource.gerrit.plugins.deleteproject;
 public class CannotDeleteProjectException extends Exception {
   private static final long serialVersionUID = 1L;
 
-  /**
-   * Thrown when trying to delete a project which can not
-   * be currently deleted.
-   */
+  /** Thrown when trying to delete a project which can not be currently deleted. */
   public CannotDeleteProjectException(String message) {
     super(message);
   }

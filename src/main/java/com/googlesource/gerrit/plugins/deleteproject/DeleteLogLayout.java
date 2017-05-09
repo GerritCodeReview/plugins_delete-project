@@ -14,14 +14,13 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import org.apache.log4j.Layout;
-import org.apache.log4j.spi.LoggingEvent;
-import org.eclipse.jgit.util.QuotedString;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import org.apache.log4j.Layout;
+import org.apache.log4j.spi.LoggingEvent;
+import org.eclipse.jgit.util.QuotedString;
 
 final class DeleteLogLayout extends Layout {
   private final Calendar calendar;
@@ -29,7 +28,7 @@ final class DeleteLogLayout extends Layout {
   private final char[] lastTimeString = new char[20];
   private final char[] timeZone;
 
- public DeleteLogLayout() {
+  public DeleteLogLayout() {
     TimeZone tz = TimeZone.getDefault();
     calendar = Calendar.getInstance(tz);
 
@@ -41,14 +40,12 @@ final class DeleteLogLayout extends Layout {
   /**
    * Formats the events in the delete log.
    *
-   * A successful project deletion will result in a log entry like this:
-   *   [2015-03-05 09:13:28,912 +0100] INFO 1000000 admin OK \
-   *   myProject {"preserve":false,"force":false}
+   * <p>A successful project deletion will result in a log entry like this: [2015-03-05 09:13:28,912
+   * +0100] INFO 1000000 admin OK \ myProject {"preserve":false,"force":false}
    *
-   * The log entry for a failed project deletion will look like this:
-   *   [2015-03-05 12:14:30,180 +0100] ERROR 1000000 admin FAIL \
-   *   myProject {"preserve":false,"force":false} com.google.gwtorm.server.OrmException: \
-   *   Failed to access the database
+   * <p>The log entry for a failed project deletion will look like this: [2015-03-05 12:14:30,180
+   * +0100] ERROR 1000000 admin FAIL \ myProject {"preserve":false,"force":false}
+   * com.google.gwtorm.server.OrmException: \ Failed to access the database
    */
   @Override
   public String format(LoggingEvent event) {
@@ -138,6 +135,5 @@ final class DeleteLogLayout extends Layout {
   }
 
   @Override
-  public void activateOptions() {
-  }
+  public void activateOptions() {}
 }
