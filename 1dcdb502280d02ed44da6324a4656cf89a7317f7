@@ -22,6 +22,30 @@
       "revId": "1dcdb502280d02ed44da6324a4656cf89a7317f7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "552e6b8b_9b35df7d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-09T12:59:05Z",
+      "side": 1,
+      "message": "Done.\n\nFor future reference, this command does it:\n\n  git ls-files | grep java$ | xargs sed -i \u0027\u0027 \u0027s/\" + \"//g\u0027",
+      "parentUuid": "3c7ce76e_dec3fcb0",
+      "range": {
+        "startLine": 76,
+        "startChar": 41,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "1dcdb502280d02ed44da6324a4656cf89a7317f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
