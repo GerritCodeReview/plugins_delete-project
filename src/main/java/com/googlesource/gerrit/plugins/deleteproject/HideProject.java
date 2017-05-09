@@ -26,16 +26,15 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectConfig;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.CreateProject;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
+import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-
-import java.io.IOException;
 
 @Singleton
 class HideProject {
@@ -61,8 +60,8 @@ class HideProject {
     this.pluginName = pluginName;
   }
 
-  public void apply(ProjectResource rsrc) throws ResourceNotFoundException,
-      ResourceConflictException, IOException {
+  public void apply(ProjectResource rsrc)
+      throws ResourceNotFoundException, ResourceConflictException, IOException {
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey());
 
@@ -75,8 +74,9 @@ class HideProject {
       }
 
       String parentForDeletedProjects =
-          cfgFactory.getFromGerritConfig(pluginName).getString(
-              "parentForDeletedProjects", DEFAULT_PARENT_FOR_DELETED_PROJECTS);
+          cfgFactory
+              .getFromGerritConfig(pluginName)
+              .getString("parentForDeletedProjects", DEFAULT_PARENT_FOR_DELETED_PROJECTS);
       createProjectIfMissing(parentForDeletedProjects);
       p.setParentName(parentForDeletedProjects);
 
@@ -94,12 +94,14 @@ class HideProject {
       throws ResourceConflictException, IOException {
     if (projectCache.get(new Project.NameKey(projectName)) == null) {
       try {
-        createProjectFactory.create(projectName).apply(
-            TopLevelResource.INSTANCE, null);
-      } catch (BadRequestException | UnprocessableEntityException
-          | ResourceNotFoundException | ConfigInvalidException e) {
-        throw new ResourceConflictException(String.format(
-            "Failed to create project %s", projectName));
+        createProjectFactory.create(projectName).apply(TopLevelResource.INSTANCE, null);
+      } catch (BadRequestException
+          | UnprocessableEntityException
+          | ResourceNotFoundException
+          | ConfigInvalidException
+          | PermissionBackendException e) {
+        throw new ResourceConflictException(
+            String.format("Failed to create project %s", projectName));
       }
     }
   }

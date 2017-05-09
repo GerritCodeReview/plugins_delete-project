@@ -18,6 +18,7 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapa
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
@@ -26,27 +27,31 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.permissions.GlobalPermission;
+import com.google.gerrit.server.permissions.PermissionBackend;
+import com.google.gerrit.server.permissions.PermissionBackend.WithUser;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
-
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-
 import java.io.IOException;
 import java.util.Collection;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class DeleteProject implements RestModifyView<ProjectResource, Input> {
+  private static final Logger log = LoggerFactory.getLogger(DeleteProject.class);
+
   static class Input {
     boolean preserve;
     boolean force;
@@ -62,9 +67,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DeleteLog deleteLog;
   private final PluginConfigFactory cfgFactory;
   private final HideProject hideProject;
+  private PermissionBackend permissionBackend;
 
   @Inject
-  DeleteProject(AllProjectsNameProvider allProjectsNameProvider,
+  DeleteProject(
+      AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -73,7 +80,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       @PluginName String pluginName,
       DeleteLog deleteLog,
       PluginConfigFactory cfgFactory,
-      HideProject hideProject) {
+      HideProject hideProject,
+      PermissionBackend permissionBackend) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
@@ -84,20 +92,21 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.deleteLog = deleteLog;
     this.cfgFactory = cfgFactory;
     this.hideProject = hideProject;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
   public Object apply(ProjectResource rsrc, Input input)
-      throws ResourceNotFoundException, ResourceConflictException,
-      OrmException, IOException, AuthException {
+      throws ResourceNotFoundException, ResourceConflictException, OrmException, IOException,
+          AuthException {
     assertDeletePermission(rsrc);
     assertCanDelete(rsrc, input);
 
     if (input == null || !input.force) {
       Collection<String> warnings = getWarnings(rsrc);
       if (!warnings.isEmpty()) {
-        throw new ResourceConflictException(String.format(
-            "Project %s has open changes", rsrc.getName()));
+        throw new ResourceConflictException(
+            String.format("Project %s has open changes", rsrc.getName()));
       }
     }
 
@@ -105,23 +114,27 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     return Response.none();
   }
 
-  public void assertDeletePermission(ProjectResource rsrc)
-      throws AuthException {
+  public void assertDeletePermission(ProjectResource rsrc) throws AuthException {
     if (!canDelete(rsrc)) {
       throw new AuthException("not allowed to delete project");
     }
   }
 
   protected boolean canDelete(ProjectResource rsrc) {
-    CapabilityControl ctl = userProvider.get().getCapabilities();
-    return ctl.canAdministrateServer()
-        || ctl.canPerform(pluginName + "-" + DELETE_PROJECT)
-        || (ctl.canPerform(pluginName + "-" + DELETE_OWN_PROJECT)
-            && rsrc.getControl().isOwner());
+    WithUser userPermission = permissionBackend.user(userProvider.get());
+    try {
+      return userPermission.test(GlobalPermission.ADMINISTRATE_SERVER)
+          || userPermission.test(new PluginPermission(pluginName, DELETE_PROJECT))
+          || (userPermission.test(new PluginPermission(pluginName, DELETE_OWN_PROJECT))
+              && rsrc.getControl().isOwner());
+    } catch (PermissionBackendException e) {
+      log.error(
+          "Permssion backnd failed while resolving permission for {} project.", rsrc.getName(), e);
+      return false;
+    }
   }
 
-  public void assertCanDelete(ProjectResource rsrc, Input input)
-      throws ResourceConflictException {
+  public void assertCanDelete(ProjectResource rsrc, Input input) throws ResourceConflictException {
     try {
       pcHandler.assertCanDelete(rsrc);
       dbHandler.assertCanDelete(rsrc.getControl().getProject());
@@ -131,19 +144,19 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     }
   }
 
-  public Collection<String> getWarnings(ProjectResource rsrc)
-      throws OrmException {
+  public Collection<String> getWarnings(ProjectResource rsrc) throws OrmException {
     return dbHandler.getWarnings(rsrc.getControl().getProject());
   }
 
-  public void doDelete(ProjectResource rsrc, Input input) throws OrmException,
-      IOException, ResourceNotFoundException, ResourceConflictException {
+  public void doDelete(ProjectResource rsrc, Input input)
+      throws OrmException, IOException, ResourceNotFoundException, ResourceConflictException {
     Project project = rsrc.getControl().getProject();
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
     try {
       if (!preserve
-          || !cfgFactory.getFromGerritConfig(pluginName)
+          || !cfgFactory
+              .getFromGerritConfig(pluginName)
               .getBoolean("hideProjectOnPreserve", false)) {
         dbHandler.delete(project);
         try {
@@ -159,8 +172,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       ex = e;
       throw e;
     } finally {
-      deleteLog.onDelete((IdentifiedUser) userProvider.get(),
-          project.getNameKey(), input, ex);
+      deleteLog.onDelete((IdentifiedUser) userProvider.get(), project.getNameKey(), input, ex);
     }
   }
 }
