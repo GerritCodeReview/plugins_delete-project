@@ -22,6 +22,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.SitePaths;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
@@ -59,21 +60,26 @@ public class ProjectConfigDeleteHandler {
   }
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
-    List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
-    if (!children.isEmpty()) {
-      String childrenString =
-          Joiner.on(", ")
-              .join(
-                  Iterables.transform(
-                      children,
-                      new Function<ProjectInfo, String>() {
-                        @Override
-                        public String apply(ProjectInfo info) {
-                          return info.name;
-                        }
-                      }));
+    try {
+      List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
+      if (!children.isEmpty()) {
+        String childrenString =
+            Joiner.on(", ")
+                .join(
+                    Iterables.transform(
+                        children,
+                        new Function<ProjectInfo, String>() {
+                          @Override
+                          public String apply(ProjectInfo info) {
+                            return info.name;
+                          }
+                        }));
+        throw new CannotDeleteProjectException(
+            "Cannot delete project because " + "it has children: " + childrenString);
+      }
+    } catch (PermissionBackendException e) {
       throw new CannotDeleteProjectException(
-          "Cannot delete project because " + "it has children: " + childrenString);
+          "Cannot delete project because " + "of failure in permission backend.");
     }
   }
 }
