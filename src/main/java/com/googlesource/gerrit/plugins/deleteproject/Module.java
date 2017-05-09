@@ -24,7 +24,6 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.internal.UniqueAnnotations;
-
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
@@ -35,9 +34,7 @@ public class Module extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(LifecycleListener.class)
-        .annotatedWith(UniqueAnnotations.create())
-        .to(DeleteLog.class);
+    bind(LifecycleListener.class).annotatedWith(UniqueAnnotations.create()).to(DeleteLog.class);
     bind(LifecycleListener.class)
         .annotatedWith(UniqueAnnotations.create())
         .to(DeleteTrashFolders.class);
@@ -51,14 +48,13 @@ public class Module extends AbstractModule {
     bind(DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
     bind(ProjectConfigDeleteHandler.class);
-    install(new RestApiModule() {
-      @Override
-      protected void configure() {
-        delete(PROJECT_KIND)
-            .to(DeleteProject.class);
-        post(PROJECT_KIND, "delete")
-            .to(DeleteAction.class);
-      }
-    });
+    install(
+        new RestApiModule() {
+          @Override
+          protected void configure() {
+            delete(PROJECT_KIND).to(DeleteProject.class);
+            post(PROJECT_KIND, "delete").to(DeleteAction.class);
+          }
+        });
   }
 }

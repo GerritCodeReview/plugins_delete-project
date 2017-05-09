@@ -45,16 +45,7 @@ import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.ResultSet;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -63,10 +54,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseDeleteHandler {
-  private static final Logger log =
-      LoggerFactory.getLogger(DatabaseDeleteHandler.class);
+  private static final Logger log = LoggerFactory.getLogger(DatabaseDeleteHandler.class);
 
   private final ReviewDb db;
   private final Provider<InternalChangeQuery> queryProvider;
@@ -80,7 +76,8 @@ public class DatabaseDeleteHandler {
   private final Provider<Accessor> watchConfig;
 
   @Inject
-  public DatabaseDeleteHandler(ReviewDb db,
+  public DatabaseDeleteHandler(
+      ReviewDb db,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
       SubmoduleOp.Factory subOpFactory,
@@ -106,8 +103,7 @@ public class DatabaseDeleteHandler {
     Collection<String> ret = Lists.newArrayList();
 
     // Warn against open changes
-    List<ChangeData> openChanges =
-        queryProvider.get().byProjectOpen(project.getNameKey());
+    List<ChangeData> openChanges = queryProvider.get().byProjectOpen(project.getNameKey());
     if (openChanges.iterator().hasNext()) {
       ret.add(project.getName() + " has open changes");
     }
@@ -137,8 +133,7 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteChanges(List<ChangeData> changeData)
-      throws OrmException {
+  private final void deleteChanges(List<ChangeData> changeData) throws OrmException {
     for (ChangeData cd : changeData) {
       Change.Id id = cd.getId();
       ResultSet<PatchSet> patchSets = null;
@@ -162,63 +157,57 @@ public class DatabaseDeleteHandler {
       try {
         indexer.delete(id);
       } catch (IOException e) {
-        log.error(
-            String.format("Failed to delete change %s from index", id), e);
+        log.error(String.format("Failed to delete change %s from index", id), e);
       }
     }
   }
 
-  private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets)
-      throws OrmException {
+  private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets) throws OrmException {
     for (PatchSet patchSet : patchSets) {
       accountPatchReviewStore.get().clearReviewed(patchSet.getId());
       db.patchSets().delete(Collections.singleton(patchSet));
     }
   }
 
-  public void assertCanDelete(Project project)
-      throws CannotDeleteProjectException {
+  public void assertCanDelete(Project project) throws CannotDeleteProjectException {
 
     Project.NameKey proj = project.getNameKey();
     try (Repository repo = repoManager.openRepository(proj);
-         MergeOpRepoManager orm = ormProvider.get()) {
+        MergeOpRepoManager orm = ormProvider.get()) {
       Set<Branch.NameKey> branches = new HashSet<>();
-      for (Ref ref : repo.getRefDatabase().getRefs(
-          RefNames.REFS_HEADS).values()) {
+      for (Ref ref : repo.getRefDatabase().getRefs(RefNames.REFS_HEADS).values()) {
         branches.add(new Branch.NameKey(proj, ref.getName()));
       }
       SubmoduleOp sub = subOpFactory.create(branches, orm);
       for (Branch.NameKey b : branches) {
         if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
-          throw new CannotDeleteProjectException(
-              "Project is subscribed by other projects.");
+          throw new CannotDeleteProjectException("Project is subscribed by other projects.");
         }
       }
     } catch (RepositoryNotFoundException e) {
       // we're trying to delete the repository,
       // so this exception should not stop us
     } catch (IOException e) {
-      throw new CannotDeleteProjectException(
-          "Project is subscribed by other projects.");
+      throw new CannotDeleteProjectException("Project is subscribed by other projects.");
     }
   }
 
   public void atomicDelete(Project project) throws OrmException {
-    List<ChangeData> changes =
-        queryProvider.get().byProject(project.getNameKey());
+    List<ChangeData> changes = queryProvider.get().byProject(project.getNameKey());
     deleteChanges(changes);
 
-    for (AccountState a : accountQueryProvider.get()
-        .byWatchedProject(project.getNameKey())) {
+    for (AccountState a : accountQueryProvider.get().byWatchedProject(project.getNameKey())) {
       Account.Id accountId = a.getAccount().getId();
       for (ProjectWatchKey watchKey : a.getProjectWatches().keySet()) {
         if (project.getNameKey().equals(watchKey.project())) {
           try {
-            watchConfig.get().deleteProjectWatches(accountId,
-                singleton(watchKey));
+            watchConfig.get().deleteProjectWatches(accountId, singleton(watchKey));
           } catch (IOException | ConfigInvalidException e) {
-            log.error("Removing watch entry for user {} in project {} failed.",
-                a.getUserName(), project.getName(), e);
+            log.error(
+                "Removing watch entry for user {} in project {} failed.",
+                a.getUserName(),
+                project.getName(),
+                e);
           }
         }
       }

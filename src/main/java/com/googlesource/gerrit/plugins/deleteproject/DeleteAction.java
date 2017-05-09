@@ -22,16 +22,15 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
-public class DeleteAction extends DeleteProject implements
-    UiAction<ProjectResource> {
+public class DeleteAction extends DeleteProject implements UiAction<ProjectResource> {
   @Inject
-  DeleteAction(AllProjectsNameProvider allProjectsNameProvider,
+  DeleteAction(
+      AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -41,24 +40,32 @@ public class DeleteAction extends DeleteProject implements
       DeleteLog deleteLog,
       PluginConfigFactory cfgFactory,
       HideProject hideProject) {
-    super(allProjectsNameProvider, dbHandler, fsHandler, cacheHandler,
-        pcHandler, userProvider, pluginName, deleteLog, cfgFactory, hideProject);
+    super(
+        allProjectsNameProvider,
+        dbHandler,
+        fsHandler,
+        cacheHandler,
+        pcHandler,
+        userProvider,
+        pluginName,
+        deleteLog,
+        cfgFactory,
+        hideProject);
   }
 
   @Override
   public UiAction.Description getDescription(ProjectResource rsrc) {
     return new UiAction.Description()
         .setLabel("Delete...")
-        .setTitle(isAllProjects(rsrc)
-            ? String.format("No deletion of %s project",
-                allProjectsName)
-            : String.format("Delete project %s", rsrc.getName()))
+        .setTitle(
+            isAllProjects(rsrc)
+                ? String.format("No deletion of %s project", allProjectsName)
+                : String.format("Delete project %s", rsrc.getName()))
         .setEnabled(!isAllProjects(rsrc))
         .setVisible(canDelete(rsrc));
   }
 
   private boolean isAllProjects(ProjectResource rsrc) {
-    return (rsrc.getControl().getProject()
-        .getNameKey().equals(allProjectsName));
+    return (rsrc.getControl().getProject().getNameKey().equals(allProjectsName));
   }
 }
