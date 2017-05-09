@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c7ce76e_dec3fcb0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-09T12:03:21Z",
+      "side": 1,
+      "message": "Remove this unnecessary concatenation.\n\ngjf doesn\u0027t handle unwrapping concatenated strings properly:\n\nhttps://github.com/google/google-java-format/issues/122",
+      "range": {
+        "startLine": 76,
+        "startChar": 41,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "1dcdb502280d02ed44da6324a4656cf89a7317f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
