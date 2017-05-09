@@ -26,6 +26,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectConfig;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.CreateProject;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectResource;
@@ -97,7 +98,8 @@ class HideProject {
       } catch (BadRequestException
           | UnprocessableEntityException
           | ResourceNotFoundException
-          | ConfigInvalidException e) {
+          | ConfigInvalidException
+          | PermissionBackendException e) {
         throw new ResourceConflictException(
             String.format("Failed to create project %s", projectName));
       }
