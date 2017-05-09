@@ -18,6 +18,7 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapa
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
@@ -26,10 +27,11 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.permissions.GlobalPermission;
+import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -59,6 +61,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DeleteLog deleteLog;
   private final PluginConfigFactory cfgFactory;
   private final HideProject hideProject;
+  private PermissionBackend permissionBackend;
 
   @Inject
   DeleteProject(
@@ -71,7 +74,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       @PluginName String pluginName,
       DeleteLog deleteLog,
       PluginConfigFactory cfgFactory,
-      HideProject hideProject) {
+      HideProject hideProject,
+      PermissionBackend permissionBackend) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
@@ -82,6 +86,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.deleteLog = deleteLog;
     this.cfgFactory = cfgFactory;
     this.hideProject = hideProject;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
@@ -110,10 +115,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   protected boolean canDelete(ProjectResource rsrc) {
-    CapabilityControl ctl = userProvider.get().getCapabilities();
-    return ctl.canAdministrateServer()
-        || ctl.canPerform(pluginName + "-" + DELETE_PROJECT)
-        || (ctl.canPerform(pluginName + "-" + DELETE_OWN_PROJECT) && rsrc.getControl().isOwner());
+    PermissionBackend.WithUser userPermission = permissionBackend.user(userProvider);
+    return userPermission.testOrFalse(GlobalPermission.ADMINISTRATE_SERVER)
+        || userPermission.testOrFalse(new PluginPermission(pluginName, DELETE_PROJECT))
+        || (userPermission.testOrFalse(new PluginPermission(pluginName, DELETE_OWN_PROJECT))
+            && rsrc.getControl().isOwner());
   }
 
   public void assertCanDelete(ProjectResource rsrc, Input input) throws ResourceConflictException {
