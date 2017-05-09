@@ -19,6 +19,7 @@ import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -39,7 +40,8 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       @PluginName String pluginName,
       DeleteLog deleteLog,
       PluginConfigFactory cfgFactory,
-      HideProject hideProject) {
+      HideProject hideProject,
+      PermissionBackend permissionBackend) {
     super(
         allProjectsNameProvider,
         dbHandler,
@@ -50,7 +52,8 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
         pluginName,
         deleteLog,
         cfgFactory,
-        hideProject);
+        hideProject,
+        permissionBackend);
   }
 
   @Override
