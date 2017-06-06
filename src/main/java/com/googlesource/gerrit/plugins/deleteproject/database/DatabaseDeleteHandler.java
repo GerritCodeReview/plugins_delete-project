@@ -34,6 +34,7 @@ import com.google.gerrit.server.account.WatchConfig.ProjectWatchKey;
 import com.google.gerrit.server.change.AccountPatchReviewStore;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.MergeOpRepoManager;
+import com.google.gerrit.server.git.SubmoduleException;
 import com.google.gerrit.server.git.SubmoduleOp;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -187,8 +188,10 @@ public class DatabaseDeleteHandler {
     } catch (RepositoryNotFoundException e) {
       // we're trying to delete the repository,
       // so this exception should not stop us
+    } catch (SubmoduleException e) {
+    	throw new CannotDeleteProjectException("Project has submodule.");
     } catch (IOException e) {
-      throw new CannotDeleteProjectException("Project is subscribed by other projects.");
+    	throw new CannotDeleteProjectException("Project is subscribed by other projects.");
     }
   }
 
