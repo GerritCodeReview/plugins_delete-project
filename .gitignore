@@ -3,4 +3,5 @@ target
 .project
 /.settings/org.maven.ide.eclipse.prefs
 /.settings/org.eclipse.m2e.core.prefs
-eclipse-out
+/.primary_build_tool
+/bazel-*
