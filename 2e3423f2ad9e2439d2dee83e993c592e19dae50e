@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9062406_144a1c1e",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-07-12T10:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e185462_56240478",
+      "range": {
+        "startLine": 4,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 43
+      },
+      "revId": "2e3423f2ad9e2439d2dee83e993c592e19dae50e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00045c8a_f8a6e857",
         "filename": "tools/eclipse/project.py",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2017-07-12T01:56:24Z",
       "side": 1,
       "message": "Use the one in bazlets?",
+      "revId": "2e3423f2ad9e2439d2dee83e993c592e19dae50e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddd5e97a_c5176953",
+        "filename": "tools/eclipse/project.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-07-12T10:02:18Z",
+      "side": 1,
+      "message": "That would be ideal, haven\u0027t been able to do it though; any hint how to reuse the bazlets one?",
+      "parentUuid": "00045c8a_f8a6e857",
       "revId": "2e3423f2ad9e2439d2dee83e993c592e19dae50e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
