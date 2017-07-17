@@ -81,6 +81,24 @@
       "revId": "2e3423f2ad9e2439d2dee83e993c592e19dae50e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aece34eb_650257b0",
+        "filename": "tools/eclipse/project.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-07-17T11:39:49Z",
+      "side": 1,
+      "message": "I also tried using the one in bazlets when I was working on high-availability plugin and I did not managed to get it to work.\n\nCan we merge this change and make use of project.py in bazlets later in a follow up change?",
+      "parentUuid": "ddd5e97a_c5176953",
+      "revId": "2e3423f2ad9e2439d2dee83e993c592e19dae50e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
