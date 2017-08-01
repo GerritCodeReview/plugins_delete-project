@@ -28,6 +28,6 @@ public class CacheDeleteHandler {
   }
 
   public void delete(Project project) {
-    projectCache.remove(project);
+    projectCache.evict(project);
   }
 }
