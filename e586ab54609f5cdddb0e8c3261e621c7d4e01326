@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fe74d6e_9d606a13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-01T09:33:43Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 7,
+        "startChar": 47,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "e586ab54609f5cdddb0e8c3261e621c7d4e01326",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53d320b4_63f576d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-01T09:33:43Z",
+      "side": 1,
+      "message": "Hmm, I thought I had checked for callers of this method before removing it.\n\nThe implementation of remove was different to evict. Do we need to put it back?  Or does evict work OK for this plugin?",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 64
+      },
+      "revId": "e586ab54609f5cdddb0e8c3261e621c7d4e01326",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
