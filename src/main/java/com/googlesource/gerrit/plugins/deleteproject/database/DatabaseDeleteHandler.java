@@ -136,6 +136,11 @@ public class DatabaseDeleteHandler {
   private final void deleteChanges(List<ChangeData> changeData) throws OrmException {
     for (ChangeData cd : changeData) {
       Change.Id id = cd.getId();
+      try {
+        starredChangesUtil.unstarAll(cd.project(), id);
+      } catch (NoSuchChangeException e) {
+        // we can ignore the exception during delete
+      }
       ResultSet<PatchSet> patchSets = null;
       patchSets = db.patchSets().byChange(id);
       if (patchSets != null) {
@@ -145,11 +150,7 @@ public class DatabaseDeleteHandler {
       // In the future, use schemaVersion to decide what to delete.
       db.patchComments().delete(db.patchComments().byChange(id));
       db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
-      try {
-        starredChangesUtil.unstarAll(cd.project(), id);
-      } catch (NoSuchChangeException e) {
-        // we can ignore the exception during delete
-      }
+
       db.changeMessages().delete(db.changeMessages().byChange(id));
       db.changes().delete(Collections.singleton(cd.change()));
 
