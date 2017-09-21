@@ -60,7 +60,8 @@ public class DeleteTrashFolders implements LifecycleListener {
   @Inject
   public DeleteTrashFolders(
       SitePaths site, @GerritServerConfig Config cfg, RepositoryConfig repositoryCfg) {
-    repoFolders = Sets.newHashSet(site.resolve(cfg.getString("gerrit", null, "basePath")));
+    repoFolders = Sets.newHashSet();
+    repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
   }
 
