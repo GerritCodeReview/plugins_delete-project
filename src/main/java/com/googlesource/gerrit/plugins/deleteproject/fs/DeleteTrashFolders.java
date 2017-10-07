@@ -116,7 +116,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     new Thread(
         () -> {
           for (Path folder : repoFolders) {
-            if (Files.notExists(folder)) {
+            if (!folder.toFile().exists()) {
               log.debug("Base path {} does not exist", folder);
               continue;
             }
