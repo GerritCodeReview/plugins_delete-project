@@ -14,29 +14,15 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
 import org.eclipse.jgit.util.QuotedString;
 
 final class DeleteLogLayout extends Layout {
-  private final Calendar calendar;
-  private long lastTimeMillis;
-  private final char[] lastTimeString = new char[20];
-  private final char[] timeZone;
-
-  public DeleteLogLayout() {
-    TimeZone tz = TimeZone.getDefault();
-    calendar = Calendar.getInstance(tz);
-
-    SimpleDateFormat sdf = new SimpleDateFormat("Z");
-    sdf.setTimeZone(tz);
-    timeZone = sdf.format(new Date()).toCharArray();
-  }
-
   /**
    * Formats the events in the delete log.
    *
@@ -52,9 +38,7 @@ final class DeleteLogLayout extends Layout {
     final StringBuffer buf = new StringBuffer(128);
 
     buf.append('[');
-    formatDate(event.getTimeStamp(), buf);
-    buf.append(' ');
-    buf.append(timeZone);
+    buf.append(formatDate(event.getTimeStamp()));
     buf.append(']');
 
     buf.append(' ');
@@ -74,36 +58,10 @@ final class DeleteLogLayout extends Layout {
     return buf.toString();
   }
 
-  private void formatDate(final long now, final StringBuffer sbuf) {
-    final int millis = (int) (now % 1000);
-    final long rounded = now - millis;
-    if (rounded != lastTimeMillis) {
-      synchronized (calendar) {
-        final int start = sbuf.length();
-        calendar.setTimeInMillis(rounded);
-        sbuf.append(calendar.get(Calendar.YEAR));
-        sbuf.append('-');
-        sbuf.append(toTwoDigits(calendar.get(Calendar.MONTH) + 1));
-        sbuf.append('-');
-        sbuf.append(toTwoDigits(calendar.get(Calendar.DAY_OF_MONTH)));
-        sbuf.append(' ');
-        sbuf.append(toTwoDigits(calendar.get(Calendar.HOUR_OF_DAY)));
-        sbuf.append(':');
-        sbuf.append(toTwoDigits(calendar.get(Calendar.MINUTE)));
-        sbuf.append(':');
-        sbuf.append(toTwoDigits(calendar.get(Calendar.SECOND)));
-        sbuf.append(',');
-        sbuf.getChars(start, sbuf.length(), lastTimeString, 0);
-        lastTimeMillis = rounded;
-      }
-    } else {
-      sbuf.append(lastTimeString);
-    }
-    sbuf.append(String.format("%03d", millis));
-  }
-
-  private String toTwoDigits(int input) {
-    return String.format("%02d", input);
+  private String formatDate(long now) {
+    Instant when = Instant.ofEpochMilli(now);
+    ZonedDateTime zdt = ZonedDateTime.ofInstant(when, ZoneId.systemDefault());
+    return zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS xxxx"));
   }
 
   private void req(String key, StringBuffer buf, LoggingEvent event) {
