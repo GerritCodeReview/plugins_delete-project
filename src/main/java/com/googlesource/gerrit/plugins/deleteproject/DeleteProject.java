@@ -30,6 +30,7 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectResource;
@@ -62,6 +63,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final PluginConfigFactory cfgFactory;
   private final HideProject hideProject;
   private PermissionBackend permissionBackend;
+  private NotesMigration migration;
 
   @Inject
   DeleteProject(
@@ -75,7 +77,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       DeleteLog deleteLog,
       PluginConfigFactory cfgFactory,
       HideProject hideProject,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      NotesMigration migration) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
@@ -87,6 +90,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.cfgFactory = cfgFactory;
     this.hideProject = hideProject;
     this.permissionBackend = permissionBackend;
+    this.migration = migration;
   }
 
   @Override
@@ -146,7 +150,9 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
           || !cfgFactory
               .getFromGerritConfig(pluginName)
               .getBoolean("hideProjectOnPreserve", false)) {
-        dbHandler.delete(project);
+        if (!migration.disableChangeReviewDb()) {
+          dbHandler.delete(project);
+        }
         try {
           fsHandler.delete(project, preserve);
         } catch (RepositoryNotFoundException e) {
