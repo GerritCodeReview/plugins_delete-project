@@ -32,6 +32,7 @@ import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
+import com.google.gerrit.server.permissions.ProjectPermission;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -116,10 +117,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
 
   protected boolean canDelete(ProjectResource rsrc) {
     PermissionBackend.WithUser userPermission = permissionBackend.user(userProvider);
+    PermissionBackend.ForProject projectPermission = userPermission.project(rsrc.getNameKey());
     return userPermission.testOrFalse(GlobalPermission.ADMINISTRATE_SERVER)
         || userPermission.testOrFalse(new PluginPermission(pluginName, DELETE_PROJECT))
         || (userPermission.testOrFalse(new PluginPermission(pluginName, DELETE_OWN_PROJECT))
-            && rsrc.getControl().isOwner());
+            && projectPermission.testOrFalse(ProjectPermission.WRITE_CONFIG));
   }
 
   public void assertCanDelete(ProjectResource rsrc, Input input) throws ResourceConflictException {
