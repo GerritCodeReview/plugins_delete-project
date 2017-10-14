@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31b158ae_5ef99ab2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1019939
+      },
+      "writtenOn": "2017-10-14T02:43:53Z",
+      "side": 1,
+      "message": "This is not working with Gerrit stable-2.15.",
+      "revId": "c8fa4715f8b336df1cff81ccee2adf1c6795bcde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
