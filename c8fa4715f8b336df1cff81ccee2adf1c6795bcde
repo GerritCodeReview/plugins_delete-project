@@ -16,6 +16,24 @@
       "revId": "c8fa4715f8b336df1cff81ccee2adf1c6795bcde",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85dd5291_15722601",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-10-14T09:16:55Z",
+      "side": 1,
+      "message": "We need to ask a maintainer to branch 2.15 at the previous commit as, indeed, this is only present in 2.16 (master).",
+      "parentUuid": "31b158ae_5ef99ab2",
+      "revId": "c8fa4715f8b336df1cff81ccee2adf1c6795bcde",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
