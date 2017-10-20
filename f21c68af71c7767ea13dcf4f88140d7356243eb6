@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb24249b_637b0e74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-10-20T22:45:01Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "81f9f54a_1cfecd44",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "f21c68af71c7767ea13dcf4f88140d7356243eb6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf7996ed_ad3c34ae",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2017-10-20T22:39:04Z",
       "side": 1,
       "message": "ProjectResource now takes a ProjectState rather than a ProjectControl",
+      "revId": "f21c68af71c7767ea13dcf4f88140d7356243eb6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "926dd87d_d2130d3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-10-20T22:45:01Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "bf7996ed_ad3c34ae",
       "revId": "f21c68af71c7767ea13dcf4f88140d7356243eb6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
