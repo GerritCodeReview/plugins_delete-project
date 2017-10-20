@@ -35,6 +35,7 @@ import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.ProjectPermission;
 import com.google.gerrit.server.project.ProjectResource;
+import com.google.gerrit.server.project.ProjectState;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -65,6 +66,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final HideProject hideProject;
   private PermissionBackend permissionBackend;
   private NotesMigration migration;
+  private ProjectState projectState;
 
   @Inject
   DeleteProject(
@@ -79,7 +81,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       PluginConfigFactory cfgFactory,
       HideProject hideProject,
       PermissionBackend permissionBackend,
-      NotesMigration migration) {
+      NotesMigration migration,
+      ProjectState projectState) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
@@ -92,6 +95,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.hideProject = hideProject;
     this.permissionBackend = permissionBackend;
     this.migration = migration;
+    this.projectState = projectState;
   }
 
   @Override
@@ -131,7 +135,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   public void assertCanDelete(ProjectResource rsrc, Input input) throws ResourceConflictException {
     try {
       pcHandler.assertCanDelete(rsrc);
-      dbHandler.assertCanDelete(rsrc.getControl().getProject());
+      dbHandler.assertCanDelete(projectState.getProject());
       fsHandler.assertCanDelete(rsrc, input == null ? false : input.preserve);
     } catch (CannotDeleteProjectException e) {
       throw new ResourceConflictException(e.getMessage());
