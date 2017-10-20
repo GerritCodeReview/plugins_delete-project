@@ -131,7 +131,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   public void assertCanDelete(ProjectResource rsrc, Input input) throws ResourceConflictException {
     try {
       pcHandler.assertCanDelete(rsrc);
-      dbHandler.assertCanDelete(rsrc.getControl().getProject());
+      dbHandler.assertCanDelete(rsrc.getProjectState().getProject());
       fsHandler.assertCanDelete(rsrc, input == null ? false : input.preserve);
     } catch (CannotDeleteProjectException e) {
       throw new ResourceConflictException(e.getMessage());
@@ -139,12 +139,12 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   public Collection<String> getWarnings(ProjectResource rsrc) throws OrmException {
-    return dbHandler.getWarnings(rsrc.getControl().getProject());
+    return dbHandler.getWarnings(rsrc.getProjectState().getProject());
   }
 
   public void doDelete(ProjectResource rsrc, Input input)
       throws OrmException, IOException, ResourceNotFoundException, ResourceConflictException {
-    Project project = rsrc.getControl().getProject();
+    Project project = rsrc.getProjectState().getProject();
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
     try {
