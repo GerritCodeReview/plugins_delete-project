@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b642b1b_3b61d00a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-10-20T22:55:58Z",
+      "side": 1,
+      "message": "Since change I204d7cae3816 ProjectResource takes a ProjectState rather\nthan a ProjectControl\n\n\ni.e. use the abbreviated change-id rather than a sha1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "258e66c74cdc6e0bba50a7e63bcc3ee7c78cd2f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
