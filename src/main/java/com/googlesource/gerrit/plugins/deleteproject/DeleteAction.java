@@ -72,6 +72,6 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
   }
 
   private boolean isAllProjects(ProjectResource rsrc) {
-    return (rsrc.getControl().getProject().getNameKey().equals(allProjectsName));
+    return (rsrc.getProjectState().getProject().getNameKey().equals(allProjectsName));
   }
 }

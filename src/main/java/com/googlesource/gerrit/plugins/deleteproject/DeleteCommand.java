@@ -17,8 +17,8 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
-import com.google.gerrit.server.project.ProjectControl;
 import com.google.gerrit.server.project.ProjectResource;
+import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
@@ -31,7 +31,7 @@ import org.kohsuke.args4j.Option;
 @CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
-  private ProjectControl projectControl;
+  private ProjectState projectState;
 
   @Option(name = "--yes-really-delete", usage = "confirmation to delete the project")
   private boolean yesReallyDelete;
@@ -56,7 +56,7 @@ public final class DeleteCommand extends SshCommand {
       input.force = force;
       input.preserve = preserveGitRepository;
 
-      ProjectResource rsrc = new ProjectResource(projectControl);
+      ProjectResource rsrc = new ProjectResource(projectState);
       deleteProject.assertDeletePermission(rsrc);
       deleteProject.assertCanDelete(rsrc, input);
 
