@@ -53,7 +53,7 @@ public class ProjectConfigDeleteHandler {
   }
 
   private void assertIsNotAllProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
-    Project project = rsrc.getControl().getProject();
+    Project project = rsrc.getProjectState().getProject();
     if (project.getNameKey().equals(allProjectsName)) {
       throw new CannotDeleteProjectException("Perhaps you meant to rm -fR " + site.site_path);
     }
