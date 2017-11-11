@@ -39,5 +39,8 @@ Gerrit.install(function(self) {
         c.br(),
         b));
     }
+    if (window.Polymer) {
+        self.deprecated.install();
+    }
     self.onAction('project', 'delete', onDeleteProject);
   });
