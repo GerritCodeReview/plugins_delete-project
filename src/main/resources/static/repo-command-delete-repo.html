@@ -1,0 +1,47 @@
+<!--
+Copyright 2018 The Chromium Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+
+<dom-module id="repo-command-delete-repo">
+  <template>
+    <gr-repo-command
+        title="Delete Repo"
+        on-command-tap="_handleCommandTap">
+    </gr-repo-command>
+    <gr-overlay id="deleteRepoOverlay" with-backdrop>
+      <gr-confirm-dialog
+          id="deleteRepoDialog"
+          confirm-label="Delete Repo"
+          on-confirm="_handleRepoProject"
+          on-cancel="_handleCloseDeleteRepo">
+        <div class="header">
+          Delete Repo
+        </div>
+        <div class="main">
+          <div class="gr-form-styles">
+            <div id="form">
+              Are you really sure you want to delete the repo: "[[repoName]]"?
+              <section>
+                <section>
+                  <label for="forceDeleteOpenChangesCheckBox">Delete repo even if open changes exist?</label>
+                  <input
+                      type="checkbox"
+                      id="forceDeleteOpenChangesCheckBox">
+                </section>
+                <section>
+                  <label for="preserveGitRepoCheckBox">Preserve GIT Repository?</label>
+                  <input
+                      type="checkbox"
+                      id="preserveGitRepoCheckBox">
+                </section>
+              </section>
+            </div>
+          </div>
+        </div>
+      </gr-confirm-dialog>
+    </gr-overlay>
+  </template>
+  <script src="repo-command-delete-repo.js"></script>
+</dom-module>
