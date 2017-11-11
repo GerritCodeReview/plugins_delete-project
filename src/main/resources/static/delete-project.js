@@ -12,32 +12,91 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-Gerrit.install(function(self) {
-    function onDeleteProject(c) {
-      var f = c.checkbox();
-      var p = c.checkbox();
-      var b = c.button('Delete',
-        {onclick: function(){
-          c.call(
-            {force: f.checked, preserve: p.checked},
-            function(r) {
-              c.hide();
-              window.alert('The project: "'
-                + c.project
-                + '" was deleted.'),
-              Gerrit.go('/admin/projects/');
-            });
-        }});
-      c.popup(c.div(
-        c.msg('Are you really sure you want to delete the project: "'
-          + c.project
-          + '"?'),
-        c.br(),
-        c.label(f, 'Delete project even if open changes exist?'),
-        c.br(),
-        c.label(p, 'Preserve GIT Repository?'),
-        c.br(),
-        b));
+(function(window) {
+  'use strict';
+
+  const ELEMENT = '/static/project-command-delete-project.html';
+
+  // PolyGerrit function
+  class DeleteProjectPlugin {
+    /**
+     * Create an empty DeleteProjectPlugin instance.
+     *
+     * @param {Plugin} gerritPlugin An object used to contain the plugin.
+     *    Schema for Plugin: https://goo.gl/6nfYna.
+     */
+    constructor(gerritPlugin) {
+      this._gerritPlugin = gerritPlugin;
+      this._element = null;
     }
-    self.onAction('project', 'delete', onDeleteProject);
+
+    handleProject() {
+      return this.handleProjectCommand();
+    }
+
+    /** @return {Promise} Resolves when the element is loaded. */
+    loadElement() {
+      return new Promise((resolve, reject) => {
+        console.log(this._gerritPlugin.url(ELEMENT));
+        Polymer.Base.importHref(
+            this._gerritPlugin.url(ELEMENT), resolve, reject);
+      });
+    }
+
+    /**
+     * Initialize and insert the UI element into a Gerrit change page.
+     *
+     * This may reuse an existing element object, so it reloads and resets
+     * the state of the element.
+     */
+    handleProjectCommand() {
+      this.loadElement().then(() => {
+        //
+      }).catch((err) => {
+        console.error('Could not load delete project element', err);
+      });
+    }
+  }
+
+  window.Gerrit.install(function(self) {
+      // GWTUI function
+      function onDeleteProject(c) {
+        var f = c.checkbox();
+        var p = c.checkbox();
+        var b = c.button('Delete',
+          {onclick: function(){
+            c.call(
+              {force: f.checked, preserve: p.checked},
+              function(r) {
+                c.hide();
+                window.alert('The project: "'
+                  + c.project
+                  + '" was deleted.'),
+                Gerrit.go('/admin/projects/');
+              });
+          }});
+        c.popup(c.div(
+          c.msg('Are you really sure you want to delete the project: "'
+            + c.project
+            + '"?'),
+          c.br(),
+          c.label(f, 'Delete project even if open changes exist?'),
+          c.br(),
+          c.label(p, 'Preserve GIT Repository?'),
+          c.br(),
+          b));
+      }
+
+      if (window.Polymer) {
+        // Low-level API
+        var plugin = new DeleteProjectPlugin(self);
+        plugin.handleProject();
+        self.registerCustomComponent(
+            'project-command', 'project-command-delete-project');
+      } else {
+        self.onAction(command, 'delete', onDeleteProject);
+      }
   });
+
+  window.__DeleteProjectPlugin = window.__DeleteProjectPlugin || DeleteProjectPlugin;
+})(window);
