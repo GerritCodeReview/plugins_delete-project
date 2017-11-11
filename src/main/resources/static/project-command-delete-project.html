@@ -1,0 +1,47 @@
+<!--
+Copyright 2017 The Chromium Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+
+<dom-module id="project-command-delete-project">
+  <template>
+    <gr-project-command
+        title="Delete Project"
+        on-command-tap="_handleCommandTap">
+    </gr-project-command>
+    <gr-overlay id="deleteProjectOverlay" with-backdrop>
+      <gr-confirm-dialog
+          id="deleteProjectDialog"
+          confirm-label="Delete Project"
+          on-confirm="_handleDeleteProject"
+          on-cancel="_handleCloseDeleteProject">
+        <div class="header">
+          Delete Project
+        </div>
+        <div class="main">
+          <div class="gr-form-styles">
+            <div id="form">
+              Are you really sure you want to delete the project: "[[projectName]]"?
+              <section>
+                <section>
+                  <label for="forceDeleteOpenChangesCheckBox">Delete project even if open changes exist?</label>
+                  <input
+                      type="checkbox"
+                      id="forceDeleteOpenChangesCheckBox">
+                </section>
+                <section>
+                  <label for="preserveGitRepoCheckBox">Preserve GIT Repository?</label>
+                  <input
+                      type="checkbox"
+                      id="preserveGitRepoCheckBox">
+                </section>
+              </section>
+            </div>
+          </div>
+        </div>
+      </gr-confirm-dialog>
+    </gr-overlay>
+  </template>
+  <script src="project-command-delete-project.js"></script>
+</dom-module>
