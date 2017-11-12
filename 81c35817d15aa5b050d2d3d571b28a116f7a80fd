@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84864a57_413e8cc8",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 12
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-11-12T21:52:49Z",
+      "side": 1,
+      "message": "i wonder should this be in window.Polymer as this is es6 syntax which will break in older browsers?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 3
+      },
+      "revId": "81c35817d15aa5b050d2d3d571b28a116f7a80fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
