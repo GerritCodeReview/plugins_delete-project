@@ -27,6 +27,7 @@ import com.google.gerrit.server.util.PluginLogFile;
 import com.google.gerrit.server.util.SystemLog;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.nio.charset.Charset;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -47,7 +48,7 @@ class DeleteLog extends PluginLogFile {
 
   @Inject
   public DeleteLog(SystemLog systemLog, ServerInformation serverInfo, AuditService auditService) {
-    super(systemLog, serverInfo, DELETE_LOG_NAME, new DeleteLogLayout());
+    super(systemLog, serverInfo, DELETE_LOG_NAME, new DeleteLogLayout(Charset.forName("UTF-8")));
     this.auditService = auditService;
   }
 
