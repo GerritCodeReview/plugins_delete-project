@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baf2593d_0f0841c5",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1024777
+      },
+      "writtenOn": "2018-01-02T20:19:03Z",
+      "side": 1,
+      "message": "If you convert plugin to .html-based, you could use \u003clink rel\u003d\"import\" instead. This pretty much eliminates the need for this class.\n\nTake a look at migration guide on how to make a plugin work in both GWT and PolyGerrit:\n \nhttps://gerrit-review.googlesource.com/Documentation/pg-plugin-migration.html#migration",
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0a1b8c8_711e180e",
+        "filename": "src/main/resources/static/repo-command-delete-repo.html",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1024777
+      },
+      "writtenOn": "2018-01-02T20:19:03Z",
+      "side": 1,
+      "message": "Elements prefixed with gr- are not guaranteed for long-term support.\n\nWhat\u0027s your long-term strategy?",
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cebeb69d_13bae76b",
+        "filename": "src/main/resources/static/repo-command-delete-repo.html",
+        "patchSetId": 17
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1024777
+      },
+      "writtenOn": "2018-01-02T20:19:03Z",
+      "side": 1,
+      "message": "I\u0027m not a lawyer but looks like licenses are different for different files.",
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23a52f0b_47ae1291",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1024777
+      },
+      "writtenOn": "2018-01-02T20:19:03Z",
+      "side": 1,
+      "message": "Gerrit.post is deprecated in favor of plugin.restApi().post",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5609af51_b4474d4f",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1024777
+      },
+      "writtenOn": "2018-01-02T20:19:03Z",
+      "side": 1,
+      "message": "This may break if PolyGerrit stops using pagejs.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
