@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fefb3e5b_1bb09481",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-01-07T00:59:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "baf2593d_0f0841c5",
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0a1b8c8_711e180e",
         "filename": "src/main/resources/static/repo-command-delete-repo.html",
         "patchSetId": 17
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1c7e0a55_72a4329c",
+        "filename": "src/main/resources/static/repo-command-delete-repo.html",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-01-07T00:59:16Z",
+      "side": 1,
+      "message": "Not sure what you mean?\n\nDo you mean for me to prefix this with gr-?\n\nOr do you mean the elements below.\n\nI guess we can update them to the correct name when they are renamed.",
+      "parentUuid": "c0a1b8c8_711e180e",
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cebeb69d_13bae76b",
         "filename": "src/main/resources/static/repo-command-delete-repo.html",
         "patchSetId": 17
@@ -47,6 +83,24 @@
       "writtenOn": "2018-01-02T20:19:03Z",
       "side": 1,
       "message": "I\u0027m not a lawyer but looks like licenses are different for different files.",
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ba91d7_27258dd2",
+        "filename": "src/main/resources/static/repo-command-delete-repo.html",
+        "patchSetId": 17
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-01-07T00:59:16Z",
+      "side": 1,
+      "message": "Ah right. Thanks, fixed it now.",
+      "parentUuid": "cebeb69d_13bae76b",
       "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "c4e2a190_4f2c561c",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-01-07T00:59:16Z",
+      "side": 1,
+      "message": "How do i get access to plugin.restApi().post please?",
+      "parentUuid": "23a52f0b_47ae1291",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5609af51_b4474d4f",
         "filename": "src/main/resources/static/repo-command-delete-repo.js",
         "patchSetId": 17
@@ -87,6 +165,30 @@
       "writtenOn": "2018-01-02T20:19:03Z",
       "side": 1,
       "message": "This may break if PolyGerrit stops using pagejs.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "ebb348d6f3e226d2f683263ef0bc15bb0a8850f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94bfd920_1824c06c",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-01-07T00:59:16Z",
+      "side": 1,
+      "message": "Yep, but that seems a long while away. Not sure how you would make any smooth movements without this library.",
+      "parentUuid": "5609af51_b4474d4f",
       "range": {
         "startLine": 40,
         "startChar": 8,
