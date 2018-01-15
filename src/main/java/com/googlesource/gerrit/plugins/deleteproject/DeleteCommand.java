@@ -98,7 +98,7 @@ public final class DeleteCommand extends SshCommand {
         | ResourceConflictException
         | OrmException
         | IOException e) {
-      die(e);
+      throw die(e);
     }
   }
 }
