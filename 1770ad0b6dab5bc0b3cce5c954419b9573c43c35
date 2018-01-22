@@ -22,6 +22,30 @@
       "revId": "1770ad0b6dab5bc0b3cce5c954419b9573c43c35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b79324_79ba70c7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-01-22T14:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2429367_ee516388",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 8
+      },
+      "revId": "1770ad0b6dab5bc0b3cce5c954419b9573c43c35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
