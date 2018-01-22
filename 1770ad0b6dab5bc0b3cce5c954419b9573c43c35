@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2429367_ee516388",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-01-22T04:05:35Z",
+      "side": 1,
+      "message": "nit: wrong indentation (should be 2 columns, not 4)",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 8
+      },
+      "revId": "1770ad0b6dab5bc0b3cce5c954419b9573c43c35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
