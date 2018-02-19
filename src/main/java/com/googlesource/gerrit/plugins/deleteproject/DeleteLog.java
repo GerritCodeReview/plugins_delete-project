@@ -73,7 +73,9 @@ class DeleteLog extends PluginLogFile {
             );
 
     event.setProperty(ACCOUNT_ID, user.getAccountId().toString());
-    event.setProperty(USER_NAME, user.getUserName());
+    if (user.getUserName().isPresent()) {
+      event.setProperty(USER_NAME, user.getUserName().get());
+    }
     event.setProperty(PROJECT_NAME, project.get());
 
     if (options != null) {

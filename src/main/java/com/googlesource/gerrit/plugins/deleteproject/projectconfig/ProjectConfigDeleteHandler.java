@@ -18,13 +18,14 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.extensions.common.ProjectInfo;
+import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectResource;
+import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
@@ -47,19 +48,22 @@ public class ProjectConfigDeleteHandler {
     this.listChildProjectsProvider = listChildProjectsProvider;
   }
 
-  public void assertCanDelete(ProjectResource rsrc) throws CannotDeleteProjectException {
+  public void assertCanDelete(ProjectResource rsrc)
+      throws CannotDeleteProjectException, ResourceConflictException {
     assertIsNotAllProjects(rsrc);
     assertHasNoChildProjects(rsrc);
   }
 
-  private void assertIsNotAllProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
+  private void assertIsNotAllProjects(ProjectResource rsrc)
+      throws CannotDeleteProjectException, ResourceConflictException {
     Project project = rsrc.getProjectState().getProject();
     if (project.getNameKey().equals(allProjectsName)) {
       throw new CannotDeleteProjectException("Perhaps you meant to rm -fR " + site.site_path);
     }
   }
 
-  private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
+  private void assertHasNoChildProjects(ProjectResource rsrc)
+      throws CannotDeleteProjectException, ResourceConflictException {
     try {
       List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
       if (!children.isEmpty()) {
