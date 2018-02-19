@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.sshd.CommandMetaData;
@@ -93,9 +94,7 @@ public final class DeleteCommand extends SshCommand {
       }
 
       deleteProject.doDelete(rsrc, input);
-    } catch (AuthException
-        | ResourceNotFoundException
-        | ResourceConflictException
+    } catch (RestApiException
         | OrmException
         | IOException e) {
       die(e);
