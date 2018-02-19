@@ -23,6 +23,7 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
@@ -97,7 +98,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   @Override
   public Object apply(ProjectResource rsrc, Input input)
       throws ResourceNotFoundException, ResourceConflictException, OrmException, IOException,
-          AuthException {
+          AuthException, RestApiException {
     assertDeletePermission(rsrc);
     assertCanDelete(rsrc, input);
 
@@ -143,7 +144,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   public void doDelete(ProjectResource rsrc, Input input)
-      throws OrmException, IOException, ResourceNotFoundException, ResourceConflictException {
+      throws OrmException, IOException, ResourceNotFoundException, ResourceConflictException, RestApiException {
     Project project = rsrc.getProjectState().getProject();
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
