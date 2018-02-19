@@ -17,19 +17,18 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import com.google.gerrit.common.data.AccessSection;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.client.ProjectState;
-import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
-import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectConfig;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.CreateProject;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectResource;
+import com.google.gerrit.server.restapi.project.CreateProject;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -60,8 +59,7 @@ class HideProject {
     this.pluginName = pluginName;
   }
 
-  public void apply(ProjectResource rsrc)
-      throws ResourceNotFoundException, ResourceConflictException, IOException {
+  public void apply(ProjectResource rsrc) throws IOException, RestApiException {
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey());
 
@@ -90,16 +88,11 @@ class HideProject {
     }
   }
 
-  private void createProjectIfMissing(String projectName)
-      throws ResourceConflictException, IOException {
+  private void createProjectIfMissing(String projectName) throws IOException, RestApiException {
     if (projectCache.get(new Project.NameKey(projectName)) == null) {
       try {
         createProjectFactory.create(projectName).apply(TopLevelResource.INSTANCE, null);
-      } catch (BadRequestException
-          | UnprocessableEntityException
-          | ResourceNotFoundException
-          | ConfigInvalidException
-          | PermissionBackendException e) {
+      } catch (RestApiException | ConfigInvalidException | PermissionBackendException e) {
         throw new ResourceConflictException(
             String.format("Failed to create project %s", projectName));
       }

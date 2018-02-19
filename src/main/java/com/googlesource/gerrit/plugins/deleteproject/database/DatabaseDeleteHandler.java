@@ -27,10 +27,10 @@ import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.reviewdb.server.ReviewDbUtil;
 import com.google.gerrit.server.StarredChangesUtil;
+import com.google.gerrit.server.UserInitiated;
 import com.google.gerrit.server.account.AccountState;
-import com.google.gerrit.server.account.WatchConfig;
-import com.google.gerrit.server.account.WatchConfig.Accessor;
-import com.google.gerrit.server.account.WatchConfig.ProjectWatchKey;
+import com.google.gerrit.server.account.AccountsUpdate;
+import com.google.gerrit.server.account.ProjectWatches.ProjectWatchKey;
 import com.google.gerrit.server.change.AccountPatchReviewStore;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.MergeOpRepoManager;
@@ -74,7 +74,7 @@ public class DatabaseDeleteHandler {
   private final DynamicItem<AccountPatchReviewStore> accountPatchReviewStore;
   private final ChangeIndexer indexer;
   private final Provider<InternalAccountQuery> accountQueryProvider;
-  private final Provider<Accessor> watchConfig;
+  private final Provider<AccountsUpdate> accountsUpdateProvider;
 
   @Inject
   public DatabaseDeleteHandler(
@@ -87,9 +87,7 @@ public class DatabaseDeleteHandler {
       DynamicItem<AccountPatchReviewStore> accountPatchReviewStore,
       ChangeIndexer indexer,
       Provider<InternalAccountQuery> accountQueryProvider,
-      Provider<WatchConfig.Accessor> watchConfig) {
-    this.accountQueryProvider = accountQueryProvider;
-    this.watchConfig = watchConfig;
+      @UserInitiated Provider<AccountsUpdate> accountsUpdateProvider) {
     this.db = ReviewDbUtil.unwrapDb(db);
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
@@ -98,6 +96,8 @@ public class DatabaseDeleteHandler {
     this.starredChangesUtil = starredChangesUtil;
     this.accountPatchReviewStore = accountPatchReviewStore;
     this.indexer = indexer;
+    this.accountQueryProvider = accountQueryProvider;
+    this.accountsUpdateProvider = accountsUpdateProvider;
   }
 
   public Collection<String> getWarnings(Project project) throws OrmException {
@@ -205,7 +205,12 @@ public class DatabaseDeleteHandler {
       for (ProjectWatchKey watchKey : a.getProjectWatches().keySet()) {
         if (project.getNameKey().equals(watchKey.project())) {
           try {
-            watchConfig.get().deleteProjectWatches(accountId, singleton(watchKey));
+            accountsUpdateProvider
+                .get()
+                .update(
+                    "Delete Project Watches via API",
+                    accountId,
+                    u -> u.deleteProjectWatches(singleton(watchKey)));
           } catch (IOException | ConfigInvalidException e) {
             log.error(
                 "Removing watch entry for user {} in project {} failed.",
