@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0e2d4009_1df9125a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-20T02:52:53Z",
+      "side": 1,
+      "message": "I mean replace them here with RestApiException",
+      "parentUuid": "bf5b3274_c51bd5fe",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8db2ddb2_772dfe4a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 3
