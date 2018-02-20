@@ -17,7 +17,6 @@ package com.googlesource.gerrit.plugins.deleteproject.cache;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
-
 import java.io.IOException;
 
 public class CacheDeleteHandler {
