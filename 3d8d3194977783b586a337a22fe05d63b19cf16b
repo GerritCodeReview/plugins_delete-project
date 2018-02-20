@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e9dd113_5e67b722",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T02:43:44Z",
+      "side": 1,
+      "message": "You mean move these up to run()?",
+      "parentUuid": "8136a824_e9558e97",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8db2ddb2_772dfe4a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 3
