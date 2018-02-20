@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "ab901bf5_af70a5f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T11:22:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "0e2d4009_1df9125a",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8db2ddb2_772dfe4a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 3
@@ -108,6 +132,30 @@
       "writtenOn": "2018-02-20T02:28:43Z",
       "side": 1,
       "message": "Remove these and AuthException; they are covered by RestApiException which is added.",
+      "range": {
+        "startLine": 100,
+        "startChar": 13,
+        "endLine": 100,
+        "endChar": 65
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccadff58_41f84a86",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T11:22:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "8db2ddb2_772dfe4a",
       "range": {
         "startLine": 100,
         "startChar": 13,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "6d2d6ffe_783e9512",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T11:22:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "e1a1c4e0_a4bb12b9",
+      "range": {
+        "startLine": 147,
+        "startChar": 40,
+        "endLine": 147,
+        "endChar": 92
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86ea5f9f_53c64808",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
         "patchSetId": 3
@@ -154,6 +226,30 @@
       "writtenOn": "2018-02-20T02:28:43Z",
       "side": 1,
       "message": "Remove",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 65
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a8dd69_eeb37334",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T11:22:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "86ea5f9f_53c64808",
       "range": {
         "startLine": 65,
         "startChar": 13,
@@ -189,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "243ef93b_96f6aabc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T11:22:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "357579ee_66cd9de6",
+      "range": {
+        "startLine": 95,
+        "startChar": 13,
+        "endLine": 95,
+        "endChar": 38
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86338760_1933b17f",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
         "patchSetId": 3
@@ -200,6 +320,30 @@
       "writtenOn": "2018-02-20T02:28:43Z",
       "side": 1,
       "message": "RestApiException",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 37
+      },
+      "revId": "3d8d3194977783b586a337a22fe05d63b19cf16b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b589aa4_85cad68f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HideProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-02-20T11:22:16Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "86338760_1933b17f",
       "range": {
         "startLine": 100,
         "startChar": 12,
