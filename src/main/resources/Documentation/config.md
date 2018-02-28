@@ -43,3 +43,45 @@ file.
 	is set to true.
 
 	By default `Deleted-Projects`.
+
+<a id="archiveDeletedRepos">
+`plugin.@PLUGIN@.archiveDeletedRepos`
+:	Whether to archive repositories that are going to be deleted.
+
+	Archiving the git repository means that the repository is stored
+	in a folder which is not visible to users before getting deleted.
+	The target folder used to archive the repositories can be set by
+	[archiveFolder](#archiveFolder). The repositories are kept in
+	the archive for a time period which can be set by [deleteArchivedReposAfter](#deleteArchivedReposAfter).
+
+	If the repository has been archived for a time period longer than
+	[deleteArchivedReposAfter](#deleteArchivedReposAfter), it will be
+	deleted from the archive. The cleaning of overdue git repositories
+	is done once a day.
+
+	By default false.
+
+<a id="archiveFolder">
+`plugin.@PLUGIN@.archiveFolder`
+:	The absolute path of the archive folder to store the deleted project.
+
+	The project git repository is archived to this target folder only if
+	[archiveDeletedRepos](#archiveDeletedRepos) is set to true.
+
+	By default `$site_path/data/delete-project`.
+
+<a id="deleteArchivedReposAfter">
+`plugin.@PLUGIN@.deleteArchivedReposAfter`
+:	The time duration for the git repository to be archived.
+
+	The following suffixes are supported to define the time unit:\n
+		1. d, day, days\n
+		2. w, week, weeks (1 week is treated as 7 days)\n
+		3. mon, month, months (1 month is treated as 30 days)\n
+		4. y, year, years (1 year is treated as 365 days)\n
+	If not specified, the default time unit is in days.
+
+	The project git repository is archived to this target folder only if
+	[archiveDeletedRepos](#archiveDeletedRepos) is set to true.
+
+	By default 180 (days).
