@@ -26,6 +26,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.internal.UniqueAnnotations;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.fs.ArchiveRepositoryRemover;
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
@@ -47,6 +48,10 @@ public class Module extends AbstractModule {
         .to(DeleteOwnProjectCapability.class);
     bind(DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
+    bind(LifecycleListener.class)
+        .annotatedWith(UniqueAnnotations.create())
+        .to(ArchiveRepositoryRemover.class);
+
     bind(ProjectConfigDeleteHandler.class);
     install(
         new RestApiModule() {
