@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
@@ -90,6 +91,16 @@ public class FilesystemDeleteHandler {
     // Delete the repository from disk
     Path basePath = getBasePath(repoFile.toPath(), project);
     Path trash = moveToTrash(repoFile.toPath(), basePath, project);
+
+    if (config.shouldArchiveDeletedRepos()) {
+      try {
+        Path archiveRepo = config.getArchiveFolder().resolve(trash.getFileName());
+        recursiveArchive(trash, archiveRepo);
+      } catch (IOException e) {
+        log.warn("Error trying to archive {}, repo already moved to trash.", repoFile.toPath(), e);
+      }
+    }
+
     boolean ok = false;
     try {
       recursiveDelete(trash);
@@ -154,7 +165,7 @@ public class FilesystemDeleteHandler {
    *
    * @throws IOException
    */
-  private void recursiveDelete(Path file) throws IOException {
+  void recursiveDelete(Path file) throws IOException {
     Files.walkFileTree(
         file,
         new SimpleFileVisitor<Path>() {
@@ -171,6 +182,34 @@ public class FilesystemDeleteHandler {
               throw e;
             }
             Files.delete(dir);
+            return FileVisitResult.CONTINUE;
+          }
+        });
+  }
+
+  /**
+   * Recursively archive the specified file and all of its contents.
+   *
+   * @throws IOException
+   */
+  @VisibleForTesting
+  void recursiveArchive(Path file, Path archiveRepo) throws IOException {
+    Files.walkFileTree(
+        file,
+        new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult preVisitDirectory(Path subDir, BasicFileAttributes attrs)
+              throws IOException {
+            Path pathRelative = file.relativize(subDir);
+            Files.copy(subDir, archiveRepo.resolve(pathRelative));
+            return FileVisitResult.CONTINUE;
+          }
+
+          @Override
+          public FileVisitResult visitFile(Path subFile, BasicFileAttributes attrs)
+              throws IOException {
+            Path pathRelative = file.relativize(subFile);
+            Files.copy(subFile, archiveRepo.resolve(pathRelative));
             return FileVisitResult.CONTINUE;
           }
         });
