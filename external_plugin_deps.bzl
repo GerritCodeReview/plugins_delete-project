@@ -31,3 +31,8 @@ def external_plugin_deps():
         artifact = "org.objenesis:objenesis:2.6",
         sha1 = "639033469776fd37c08358c6b92a4761feb2af4b",
     )
+    maven_jar(
+        name = "commons-io",
+        artifact = "commons-io:commons-io:2.6",
+        sha1 = "815893df5f31da2ece4040fe0a12fd44b577afaf",
+   )

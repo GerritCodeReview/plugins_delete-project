@@ -23,13 +23,22 @@ import com.google.gerrit.extensions.config.CapabilityDefinition;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.internal.UniqueAnnotations;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.fs.ArchiveRepositoryRemover;
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
 public class Module extends AbstractModule {
+
+  private final boolean scheduleCleaning;
+
+  @Inject
+  Module(Configuration config) {
+    this.scheduleCleaning = config.getArchiveDuration() > 0;
+  }
 
   @Override
   protected void configure() {
@@ -47,6 +56,12 @@ public class Module extends AbstractModule {
     bind(DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
     bind(DeletePreconditions.class);
+    if (scheduleCleaning) {
+      bind(LifecycleListener.class)
+          .annotatedWith(UniqueAnnotations.create())
+          .to(ArchiveRepositoryRemover.class);
+    }
+
     install(
         new RestApiModule() {
           @Override
