@@ -64,7 +64,11 @@ public class FilesystemDeleteHandler {
     File repoFile = repository.getDirectory();
     cleanCache(repository);
     if (!preserveGitRepository) {
-      deleteGitRepository(project.getNameKey(), repoFile);
+      if (config.shouldArchiveDeletedRepos()) {
+        archiveGitRepository(project.getNameKey(), repoFile);
+      } else {
+        deleteGitRepository(project.getNameKey(), repoFile);
+      }
     }
   }
 
@@ -86,19 +90,49 @@ public class FilesystemDeleteHandler {
     }
   }
 
+  private void archiveGitRepository(final Project.NameKey project, final File repoFile)
+      throws IOException {
+    Path basePath = getBasePath(repoFile.toPath(), project);
+    Path renamedProjectDir =
+        renameProjectDirectory(repoFile.toPath(), basePath, project, "archived");
+    Path archive;
+    try {
+      Path relativePath = basePath.relativize(renamedProjectDir);
+      Path configArchiveRepo = config.getArchiveFolder();
+      archive = configArchiveRepo.resolve(relativePath);
+      if (relativePath.getNameCount() > 1) {
+        Path subPath = relativePath.subpath(0, relativePath.getNameCount() - 1);
+        Path parentFolders = configArchiveRepo.resolve(subPath);
+        if (!Files.exists(parentFolders)) {
+          try {
+            Files.createDirectories(parentFolders);
+          } catch (Exception e) {
+            log.error(
+                "Error trying to create parent folder {}, ignoring the parent folder", subPath);
+            archive = configArchiveRepo.resolve(renamedProjectDir.getFileName());
+          }
+        }
+      }
+      Files.move(renamedProjectDir, archive);
+    } catch (IOException e) {
+      log.warn("Error trying to archive {}", renamedProjectDir, e);
+    }
+  }
+
   private void deleteGitRepository(final Project.NameKey project, final File repoFile)
       throws IOException {
     // Delete the repository from disk
     Path basePath = getBasePath(repoFile.toPath(), project);
-    Path trash = moveToTrash(repoFile.toPath(), basePath, project);
+    Path renamedProjectDir =
+        renameProjectDirectory(repoFile.toPath(), basePath, project, "deleted");
     boolean ok = false;
     try {
-      recursiveDelete(trash);
+      recursiveDelete(renamedProjectDir);
       ok = true;
     } catch (IOException e) {
-      // Only log if delete failed - repo already moved to trash.
+      // Only log if delete failed - repo already renamed based on timestamp.
       // Otherwise, listeners are never called.
-      log.warn("Error trying to delete {}", trash, e);
+      log.warn("Error trying to delete {}", renamedProjectDir, e);
     }
 
     // Delete parent folders if they are (now) empty
@@ -138,11 +172,12 @@ public class FilesystemDeleteHandler {
         .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
   }
 
-  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
-      throws IOException {
-    Path trashRepo =
-        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
-    return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
+  private Path renameProjectDirectory(
+      Path directory, Path basePath, Project.NameKey nameKey, String option) throws IOException {
+    Path newRepo =
+        basePath.resolve(
+            nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%" + option + "%.git");
+    return Files.move(directory, newRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
   private void cleanCache(final Repository repository) {
@@ -155,7 +190,7 @@ public class FilesystemDeleteHandler {
    *
    * @throws IOException
    */
-  private void recursiveDelete(Path file) throws IOException {
+  void recursiveDelete(Path file) throws IOException {
     Files.walkFileTree(
         file,
         new SimpleFileVisitor<Path>() {
