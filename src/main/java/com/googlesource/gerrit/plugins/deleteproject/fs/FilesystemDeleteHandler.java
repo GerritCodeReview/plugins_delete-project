@@ -21,6 +21,7 @@ import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
@@ -39,12 +40,16 @@ public class FilesystemDeleteHandler {
 
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListener;
+  private final Configuration config;
 
   @Inject
   public FilesystemDeleteHandler(
-      GitRepositoryManager repoManager, DynamicSet<ProjectDeletedListener> deletedListener) {
+      GitRepositoryManager repoManager,
+      DynamicSet<ProjectDeletedListener> deletedListener,
+      Configuration config) {
     this.repoManager = repoManager;
     this.deletedListener = deletedListener;
+    this.config = config;
   }
 
   public void delete(Project project, boolean preserveGitRepository)
@@ -53,7 +58,13 @@ public class FilesystemDeleteHandler {
     Repository repository = repoManager.openRepository(project.getNameKey());
     cleanCache(repository);
     if (!preserveGitRepository) {
-      deleteGitRepository(project.getNameKey(), repository.getDirectory());
+      Path repoPath = repository.getDirectory().toPath();
+      String projectName = project.getNameKey().get();
+      if (config.shouldArchiveDeletedRepos()) {
+        archiveGitRepository(projectName, repoPath);
+      } else {
+        deleteGitRepository(projectName, repoPath);
+      }
     }
   }
 
@@ -62,33 +73,64 @@ public class FilesystemDeleteHandler {
     RepositoryCache.close(repository);
   }
 
-  private void deleteGitRepository(final Project.NameKey project, final File repoFile)
-      throws IOException {
+  private void archiveGitRepository(String projectName, Path repoPath) throws IOException {
+    Path basePath = getBasePath(repoPath, projectName);
+    Path renamedProjectDir = renameRepository(repoPath, basePath, projectName, "archived");
+    try {
+      Path archive = getArchivePath(renamedProjectDir, basePath);
+      Files.move(renamedProjectDir, archive);
+    } catch (IOException e) {
+      log.warn("Error trying to archive {}", renamedProjectDir, e);
+    }
+  }
+
+  private Path getArchivePath(Path renamedProjectDir, Path basePath) {
+    Path configArchiveRepo = config.getArchiveFolder();
+    Path relativePath = basePath.relativize(renamedProjectDir);
+    Path archive = configArchiveRepo.resolve(relativePath);
+    if (relativePath.getNameCount() > 1) {
+      Path subPath = relativePath.subpath(0, relativePath.getParent().getNameCount());
+      Path parentFolders = configArchiveRepo.resolve(subPath);
+      try {
+        Files.createDirectories(parentFolders);
+      } catch (IOException e) {
+        log.error(
+            "Error trying to create parent folder {}: {}, ignoring the parent folder",
+            e.getMessage(),
+            subPath);
+        archive = configArchiveRepo.resolve(renamedProjectDir.getFileName());
+      }
+    }
+    return archive;
+  }
+
+  private void deleteGitRepository(String projectName, Path repoPath) throws IOException {
     // Delete the repository from disk
-    Path basePath = getBasePath(repoFile.toPath(), project);
-    Path trash = moveToTrash(repoFile.toPath(), basePath, project);
+    Path basePath = getBasePath(repoPath, projectName);
+    Path trash = renameRepository(repoPath, basePath, projectName, "deleted");
     try {
       MoreFiles.deleteRecursively(trash);
-      recursivelyDeleteEmptyParents(repoFile.getParentFile(), basePath.toFile());
+      recursivelyDeleteEmptyParents(repoPath.toFile().getParentFile(), basePath.toFile());
     } catch (IOException e) {
       // Only log if delete failed - repo already moved to trash.
       log.warn("Error trying to delete {} or its parents", trash, e);
     } finally {
-      sendProjectDeletedEvent(project);
+      sendProjectDeletedEvent(projectName);
     }
   }
 
-  private Path getBasePath(Path repo, Project.NameKey project) {
-    Path projectPath = Paths.get(project.get());
+  private Path getBasePath(Path repo, String projectName) {
+    Path projectPath = Paths.get(projectName);
     return repo.getRoot()
         .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
   }
 
-  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
+  private Path renameRepository(Path directory, Path basePath, String projectName, String option)
       throws IOException {
-    Path trashRepo =
-        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
-    return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
+    Path newRepo =
+        basePath.resolve(
+            projectName + "." + TimeMachine.now().toEpochMilli() + ".%" + option + "%.git");
+    return Files.move(directory, newRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
   /**
@@ -107,12 +149,12 @@ public class FilesystemDeleteHandler {
     }
   }
 
-  private void sendProjectDeletedEvent(Project.NameKey project) {
+  private void sendProjectDeletedEvent(String projectName) {
     ProjectDeletedListener.Event event =
         new ProjectDeletedListener.Event() {
           @Override
           public String getProjectName() {
-            return project.get();
+            return projectName;
           }
 
           @Override
