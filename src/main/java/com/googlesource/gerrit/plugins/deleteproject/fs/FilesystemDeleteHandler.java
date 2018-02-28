@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
@@ -90,15 +91,40 @@ public class FilesystemDeleteHandler {
       throws IOException {
     // Delete the repository from disk
     Path basePath = getBasePath(repoFile.toPath(), project);
-    Path trash = moveToTrash(repoFile.toPath(), basePath, project);
+    Path renamedDirectory = renameProjectDirectory(repoFile.toPath(), basePath, project);
+
+    if (config.shouldArchiveDeletedRepos()) {
+      Path archive;
+      try {
+        Path relativePath = basePath.relativize(renamedDirectory);
+        Path configArchiveRepo = config.getArchiveFolder();
+        archive = configArchiveRepo.resolve(relativePath);
+        if (relativePath.getNameCount() > 1) {
+          Path subPath = relativePath.subpath(0, relativePath.getNameCount() - 1);
+          File parentFolders = configArchiveRepo.resolve(subPath).toFile();
+          if (!parentFolders.exists()) {
+            boolean created = parentFolders.mkdirs();
+            if (!created) {
+              log.error(
+                  "Error trying to create parent folder {}, ignoring the parent folder", subPath);
+              archive = configArchiveRepo.resolve(renamedDirectory.getFileName());
+            }
+          }
+        }
+        recursiveArchive(renamedDirectory, archive);
+      } catch (IOException e) {
+        log.warn("Error trying to archive {}. Repo is now in trash", repoFile.toPath(), e);
+      }
+    }
+
     boolean ok = false;
     try {
-      recursiveDelete(trash);
+      recursiveDelete(renamedDirectory);
       ok = true;
     } catch (IOException e) {
-      // Only log if delete failed - repo already moved to trash.
+      // Only log if delete failed - repo already renamed based on timestamp.
       // Otherwise, listeners are never called.
-      log.warn("Error trying to delete {}", trash, e);
+      log.warn("Error trying to delete {}", renamedDirectory, e);
     }
 
     // Delete parent folders if they are (now) empty
@@ -138,7 +164,7 @@ public class FilesystemDeleteHandler {
         .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
   }
 
-  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
+  private Path renameProjectDirectory(Path directory, Path basePath, Project.NameKey nameKey)
       throws IOException {
     Path trashRepo =
         basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
@@ -155,7 +181,7 @@ public class FilesystemDeleteHandler {
    *
    * @throws IOException
    */
-  private void recursiveDelete(Path file) throws IOException {
+  void recursiveDelete(Path file) throws IOException {
     Files.walkFileTree(
         file,
         new SimpleFileVisitor<Path>() {
@@ -172,6 +198,34 @@ public class FilesystemDeleteHandler {
               throw e;
             }
             Files.delete(dir);
+            return FileVisitResult.CONTINUE;
+          }
+        });
+  }
+
+  /**
+   * Recursively archive the specified file and all of its contents.
+   *
+   * @throws IOException
+   */
+  @VisibleForTesting
+  void recursiveArchive(Path file, Path archiveRepo) throws IOException {
+    Files.walkFileTree(
+        file,
+        new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult preVisitDirectory(Path subDir, BasicFileAttributes attrs)
+              throws IOException {
+            Path pathRelative = file.relativize(subDir);
+            Files.copy(subDir, archiveRepo.resolve(pathRelative));
+            return FileVisitResult.CONTINUE;
+          }
+
+          @Override
+          public FileVisitResult visitFile(Path subFile, BasicFileAttributes attrs)
+              throws IOException {
+            Path pathRelative = file.relativize(subFile);
+            Files.copy(subFile, archiveRepo.resolve(pathRelative));
             return FileVisitResult.CONTINUE;
           }
         });
