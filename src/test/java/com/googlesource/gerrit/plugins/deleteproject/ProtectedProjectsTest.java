@@ -25,6 +25,7 @@ import com.google.gerrit.server.config.AllUsersName;
 import com.google.gerrit.server.config.AllUsersNameProvider;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import java.io.File;
 import java.util.List;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
@@ -44,6 +45,7 @@ public class ProtectedProjectsTest {
   private PluginConfig pluginConfig;
   private Configuration deleteConfig;
   private ProtectedProjects protectedProjects;
+  private File pluginData = new File("data");
 
   @Before
   public void setup() throws Exception {
@@ -51,7 +53,7 @@ public class ProtectedProjectsTest {
     when(allUsersMock.get()).thenReturn(new AllUsersName("All-Users"));
     pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData);
     protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
   }
 
@@ -75,7 +77,7 @@ public class ProtectedProjectsTest {
     List<String> projects = ImmutableList.of("Custom-Parent", "^protected-.*");
     pluginConfig.setStringList("protectedProject", projects);
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData);
     assertThat(deleteConfig.protectedProjects()).hasSize(projects.size());
     protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
 
