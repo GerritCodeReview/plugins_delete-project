@@ -21,9 +21,13 @@ import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.util.stream.Stream;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
@@ -39,6 +43,7 @@ public class FilesystemDeleteHandlerTest {
 
   @Mock private GitRepositoryManager repoManager;
   @Mock private ProjectDeletedListener projectDeleteListener;
+  @Mock private Configuration config;
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
@@ -60,7 +65,8 @@ public class FilesystemDeleteHandlerTest {
     Project.NameKey nameKey = new Project.NameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener);
+    when(config.shouldArchiveDeletedRepos()).thenReturn(false);
+    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
     fsDeleteHandler.delete(project, false);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
@@ -72,7 +78,7 @@ public class FilesystemDeleteHandlerTest {
     Project.NameKey nameKey = new Project.NameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener);
+    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
     fsDeleteHandler.delete(project, false);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
@@ -88,7 +94,7 @@ public class FilesystemDeleteHandlerTest {
     Project.NameKey nameKey = new Project.NameKey(repoToDeleteName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repoToDelete);
-    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener);
+    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
     fsDeleteHandler.delete(project, false);
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
@@ -101,7 +107,7 @@ public class FilesystemDeleteHandlerTest {
     Project.NameKey nameKey = new Project.NameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener);
+    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
     fsDeleteHandler.delete(project, true);
     assertThat(repository.getDirectory().exists()).isTrue();
   }
@@ -111,5 +117,30 @@ public class FilesystemDeleteHandlerTest {
     Repository repository = new FileRepository(repoPath.toFile());
     repository.create(true);
     return (FileRepository) repository;
+  }
+
+  @Test
+  public void archiveRepository() throws Exception {
+    String repoName = "parent_project/p3";
+    Repository repository = createRepository(repoName);
+    Path archiveFolder = basePath.resolve("test_archive");
+    when(config.shouldArchiveDeletedRepos()).thenReturn(true);
+    when(config.getArchiveFolder()).thenReturn(archiveFolder);
+    Project.NameKey nameKey = new Project.NameKey(repoName);
+    Project project = new Project(nameKey);
+    when(repoManager.openRepository(nameKey)).thenReturn(repository);
+    fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
+    fsDeleteHandler.delete(project, false);
+    assertThat(repository.getDirectory().exists()).isFalse();
+    String patternToVerify = archiveFolder.resolve(repoName).toString() + "*%archived%.git";
+    assertThat(pathExistsWithPattern(archiveFolder, patternToVerify)).isTrue();
+  }
+
+  private boolean pathExistsWithPattern(Path archiveFolder, String patternToVerify)
+      throws IOException {
+    PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:" + patternToVerify);
+    try (Stream<Path> stream = Files.walk(archiveFolder)) {
+      return stream.anyMatch(matcher::matches);
+    }
   }
 }
