@@ -14,27 +14,55 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+
+import com.google.common.base.Strings;
+import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.server.config.ConfigUtil;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class Configuration {
-  private static String DELETED_PROJECTS_PARENT = "Deleted-Projects";
+  private static final String DELETED_PROJECTS_PARENT = "Deleted-Projects";
+  private static final Logger log = LoggerFactory.getLogger(Configuration.class);
+  private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
 
   private final boolean allowDeletionWithTags;
-  private final boolean hideProjectOnPreserve;
+  private final boolean archiveDeletedRepos;
+  private final Path archiveFolder;
+  private final long deleteArchivedReposAfter;
   private final String deletedProjectsParent;
+  private final boolean enablePreserveOption;
+  private final boolean hideProjectOnPreserve;
+
+  private PluginConfig cfg;
+  private File pluginData;
 
   @Inject
-  public Configuration(PluginConfigFactory pluginConfigFactory, @PluginName String pluginName) {
-    PluginConfig cfg = pluginConfigFactory.getFromGerritConfig(pluginName);
-    allowDeletionWithTags = cfg.getBoolean("allowDeletionOfReposWithTags", true);
-    hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
-    deletedProjectsParent =
-        cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
+  public Configuration(
+      PluginConfigFactory pluginConfigFactory,
+      @PluginName String pluginName,
+      @PluginData File pluginData) {
+    this.cfg = pluginConfigFactory.getFromGerritConfig(pluginName);
+    this.pluginData = pluginData;
+
+    this.allowDeletionWithTags = cfg.getBoolean("allowDeletionOfReposWithTags", true);
+    this.hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
+    this.deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
+    this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
+    this.deleteArchivedReposAfter = getArchiveDurationFromConfig();
+    this.archiveFolder = getArchiveFolderFromConfig();
+    this.enablePreserveOption = cfg.getBoolean("enablePreserveOption", true);
   }
 
   public boolean deletionWithTagsAllowed() {
@@ -47,5 +75,56 @@ public class Configuration {
 
   public String getDeletedProjectsParent() {
     return deletedProjectsParent;
+  }
+
+  public boolean shouldArchiveDeletedRepos() {
+    return archiveDeletedRepos;
+  }
+
+  public Path getArchiveFolder() {
+    return archiveFolder;
+  }
+
+  public long getArchiveDuration() {
+    return deleteArchivedReposAfter;
+  }
+
+  public boolean enablePreserveOption() {
+    return enablePreserveOption;
+  }
+
+  private long getArchiveDurationFromConfig() {
+    long duration;
+    try {
+      duration =
+          ConfigUtil.getTimeUnit(
+              Strings.nullToEmpty(cfg.getString("deleteArchivedReposAfter")),
+              TimeUnit.DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS),
+              MILLISECONDS);
+    } catch (IllegalArgumentException e) {
+      log.warn(
+          "The configured archive duration is not valid, use the default value: {} days",
+          DEFAULT_ARCHIVE_DURATION_DAYS);
+      duration = TimeUnit.DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS);
+    }
+    return duration;
+  }
+
+  private Path getArchiveFolderFromConfig() {
+    String archiveFolder = cfg.getString("archiveFolder", pluginData.toString());
+    File newDir = new File(archiveFolder);
+    if (!newDir.exists()) {
+      boolean created = newDir.mkdirs();
+      if (created) {
+        log.info("Archive folder {} does not exist, creating it then now", archiveFolder);
+      } else {
+        log.warn(
+            "Archive folder {} does not exist, just failed to create it, so using default path: {}",
+            archiveFolder,
+            pluginData.toString());
+        archiveFolder = pluginData.toString();
+      }
+    }
+    return Paths.get(archiveFolder);
   }
 }
