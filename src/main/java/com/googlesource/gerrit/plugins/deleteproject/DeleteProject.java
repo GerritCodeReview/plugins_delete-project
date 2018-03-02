@@ -29,7 +29,6 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -57,7 +56,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final Provider<CurrentUser> userProvider;
   private final String pluginName;
   private final DeleteLog deleteLog;
-  private final PluginConfigFactory cfgFactory;
+  private final Configuration cfg;
   private final HideProject hideProject;
 
   @Inject
@@ -70,7 +69,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       Provider<CurrentUser> userProvider,
       @PluginName String pluginName,
       DeleteLog deleteLog,
-      PluginConfigFactory cfgFactory,
+      Configuration cfg,
       HideProject hideProject) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
@@ -80,7 +79,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.userProvider = userProvider;
     this.pluginName = pluginName;
     this.deleteLog = deleteLog;
-    this.cfgFactory = cfgFactory;
+    this.cfg = cfg;
     this.hideProject = hideProject;
   }
 
@@ -136,10 +135,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
     try {
-      if (!preserve
-          || !cfgFactory
-              .getFromGerritConfig(pluginName)
-              .getBoolean("hideProjectOnPreserve", false)) {
+      if (!preserve || !cfg.shouldHideProjectOnPreserve()) {
         dbHandler.delete(project);
         try {
           fsHandler.delete(project, preserve);
