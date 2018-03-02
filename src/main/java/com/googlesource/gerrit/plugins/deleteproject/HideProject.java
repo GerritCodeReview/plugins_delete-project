@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.common.data.AccessSection;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
@@ -23,7 +22,6 @@ import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectConfig;
 import com.google.gerrit.server.project.CreateProject;
@@ -37,26 +35,22 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
 class HideProject {
-  private static String DEFAULT_PARENT_FOR_DELETED_PROJECTS = "Deleted-Projects";
 
   private final MetaDataUpdate.Server metaDataUpdateFactory;
   private final ProjectCache projectCache;
   private final CreateProject.Factory createProjectFactory;
-  private final PluginConfigFactory cfgFactory;
-  private final String pluginName;
+  private final Configuration cfg;
 
   @Inject
   HideProject(
       MetaDataUpdate.Server metaDataUpdateFactory,
       ProjectCache projectCache,
       CreateProject.Factory createProjectFactory,
-      PluginConfigFactory cfgFactory,
-      @PluginName String pluginName) {
+      Configuration cfg) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.projectCache = projectCache;
     this.createProjectFactory = createProjectFactory;
-    this.cfgFactory = cfgFactory;
-    this.pluginName = pluginName;
+    this.cfg = cfg;
   }
 
   public void apply(ProjectResource rsrc)
@@ -72,10 +66,7 @@ class HideProject {
         projectConfig.remove(as);
       }
 
-      String parentForDeletedProjects =
-          cfgFactory
-              .getFromGerritConfig(pluginName)
-              .getString("parentForDeletedProjects", DEFAULT_PARENT_FOR_DELETED_PROJECTS);
+      String parentForDeletedProjects = cfg.getDeletedProjectsParent();
       createProjectIfMissing(parentForDeletedProjects);
       p.setParentName(parentForDeletedProjects);
 
