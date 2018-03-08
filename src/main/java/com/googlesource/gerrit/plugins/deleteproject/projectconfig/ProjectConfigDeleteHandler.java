@@ -14,9 +14,8 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.projectconfig;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
+import static java.util.stream.Collectors.joining;
+
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectResource;
@@ -46,19 +45,9 @@ public class ProjectConfigDeleteHandler {
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
     List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
     if (!children.isEmpty()) {
-      String childrenString =
-          Joiner.on(", ")
-              .join(
-                  Iterables.transform(
-                      children,
-                      new Function<ProjectInfo, String>() {
-                        @Override
-                        public String apply(ProjectInfo info) {
-                          return info.name;
-                        }
-                      }));
       throw new CannotDeleteProjectException(
-          "Cannot delete project because it has children: " + childrenString);
+          "Cannot delete project because it has children: "
+              + children.stream().map(info -> info.name).collect(joining(",")));
     }
   }
 }
