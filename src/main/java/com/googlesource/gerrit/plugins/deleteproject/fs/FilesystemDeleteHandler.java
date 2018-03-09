@@ -104,7 +104,7 @@ public class FilesystemDeleteHandler {
     } catch (IOException e) {
       // Only log if delete failed - repo already moved to trash.
       // Otherwise, listeners are never called.
-      log.warn("Error trying to delete " + trash, e);
+      log.warn("Error trying to delete {}", trash, e);
     }
 
     // Delete parent folders if they are (now) empty
@@ -112,7 +112,7 @@ public class FilesystemDeleteHandler {
       try {
         recursiveDeleteParent(repoFile.getParentFile(), basePath.toFile());
       } catch (IOException e) {
-        log.warn("Couldn't delete (empty) parents of " + repoFile, e);
+        log.warn("Couldn't delete (empty) parents of {}", repoFile, e);
       }
     }
 
