@@ -92,7 +92,7 @@ public final class DeleteCommand extends SshCommand {
 
       deleteProject.doDelete(rsrc, input);
     } catch (RestApiException | OrmException | IOException e) {
-      die(e);
+      throw die(e);
     }
   }
 }
