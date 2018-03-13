@@ -63,6 +63,22 @@ public class FilesystemDeleteHandlerTest {
     assertThat(numberOfSubDir(archiveRepo) - 1).isEqualTo(NUMBER_OF_FOLDERS + NUMBER_OF_FILES);
   }
 
+  @Test
+  public void recursiveDeleteTest() throws IOException {
+    assertThat(isDirEmpty(projectRepo)).isTrue();
+
+    projectRepo.resolve("myPj").toFile().mkdir();
+    for (int i = 0; i < NUMBER_OF_FOLDERS; i++) {
+      projectRepo.resolve("myPj" + i).toFile().mkdir();
+    }
+    for (int i = 0; i < NUMBER_OF_FOLDERS; i++) {
+      projectRepo.resolve("newFile" + i + "txt").toFile().createNewFile();
+    }
+    assertThat(isDirEmpty(projectRepo)).isFalse();
+    fsDeleteHandler.recursiveDelete(projectRepo);
+    assertThat(projectRepo.toFile().exists()).isFalse();
+  }
+
   private boolean isDirEmpty(final Path dir) throws IOException {
     try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir)) {
       return !dirStream.iterator().hasNext();
