@@ -100,6 +100,11 @@ public class ArchiveRepositoryRemoverTest {
       }
       verify(fsDeleteHandler, times(NUMBER_OF_RUNS))
           .recursiveDelete(archiveRepo.resolve(CUSTOM_FILE));
+      assertThat(task.toString())
+          .isEqualTo(
+              String.format(
+                  "[%s]: Clean up expired git repositories from the archive [%s]",
+                  PLUGIN_NAME, archiveRepo));
     } finally {
       TimeMachine.useSystemDefaultZoneClock();
     }
