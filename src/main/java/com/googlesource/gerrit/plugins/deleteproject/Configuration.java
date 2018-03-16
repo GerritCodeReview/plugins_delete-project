@@ -42,6 +42,7 @@ public class Configuration {
   private final Path archiveFolder;
   private final long deleteArchivedReposAfter;
   private final String deletedProjectsParent;
+  private final boolean enablePreserveOption;
   private final boolean hideProjectOnPreserve;
 
   private PluginConfig cfg;
@@ -61,6 +62,7 @@ public class Configuration {
     this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
     this.deleteArchivedReposAfter = getArchiveDurationFromConfig();
     this.archiveFolder = getArchiveFolderFromConfig();
+    this.enablePreserveOption = cfg.getBoolean("enablePreserveOption", true);
   }
 
   public boolean deletionWithTagsAllowed() {
@@ -85,6 +87,10 @@ public class Configuration {
 
   public long getArchiveDuration() {
     return deleteArchivedReposAfter;
+  }
+
+  public boolean enablePreserveOption() {
+    return enablePreserveOption;
   }
 
   private long getArchiveDurationFromConfig() {
