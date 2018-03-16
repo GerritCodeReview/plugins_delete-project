@@ -34,6 +34,19 @@ file.
 
 	By default false.
 
+<a id="enablePreserveOption">
+`plugin.@PLUGIN@.enablePreserveOption`
+:	Whether preserve option is enabled for the user on the WebUI and ssh
+	delete-project command.
+
+	Disabling the preserve option means the user does not have access to the
+	preserve option on the WebUI and ssh delete-project command.
+
+	If this is set to false, then preserving deleted git repositories is
+	disabled by default.
+
+	By default true.
+
 <a id="parentForDeletedProjects">
 `plugin.@PLUGIN@.parentForDeletedProjects`
 :	The name of the project that is used as parent for all deleted
