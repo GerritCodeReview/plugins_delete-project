@@ -49,11 +49,13 @@ public final class DeleteCommand extends SshCommand {
   @Option(name = "--preserve-git-repository", usage = "don't delete git repository directory")
   private boolean preserveGitRepository = false;
 
+  private final Configuration cfg;
   private final DeleteProject deleteProject;
   private final DeletePreconditions preConditions;
 
   @Inject
-  protected DeleteCommand(DeleteProject deleteProject, DeletePreconditions preConditions) {
+  protected DeleteCommand(Configuration cfg, DeleteProject deleteProject, DeletePreconditions preConditions) {
+    this.cfg = cfg;
     this.deleteProject = deleteProject;
     this.preConditions = preConditions;
   }
@@ -61,6 +63,13 @@ public final class DeleteCommand extends SshCommand {
   @Override
   public void run() throws Failure {
     try {
+      if (preserveGitRepository && !cfg.enablePreserveOption()) {
+        throw new UnloggedFailure(
+            "Given the enablePreserveOption is configured to be false, "
+                + "the --preserve-git-repository option is not allowed.\n"
+                + "Please remove this option and retry.");
+      }
+
       DeleteProject.Input input = new DeleteProject.Input();
       input.force = force;
       input.preserve = preserveGitRepository;
