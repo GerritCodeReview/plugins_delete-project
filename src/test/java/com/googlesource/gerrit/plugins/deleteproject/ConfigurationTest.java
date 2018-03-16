@@ -65,6 +65,7 @@ public class ConfigurationTest {
     assertThat(deleteConfig.shouldArchiveDeletedRepos()).isFalse();
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
     assertThat(deleteConfig.getArchiveFolder().toString()).isEqualTo(pluginDataDir.toString());
+    assertThat(deleteConfig.enablePreserveOption()).isTrue();
   }
 
   @Test
@@ -74,6 +75,7 @@ public class ConfigurationTest {
     pluginConfig.setBoolean("allowDeletionOfReposWithTags", false);
     pluginConfig.setBoolean("hideProjectOnPreserve", true);
     pluginConfig.setBoolean("archiveDeletedRepos", true);
+    pluginConfig.setBoolean("enablePreserveOption", false);
     pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_DURATION);
     pluginConfig.setString("archiveFolder", customArchiveFolder.toString());
 
@@ -84,6 +86,7 @@ public class ConfigurationTest {
     assertThat(deleteConfig.deletionWithTagsAllowed()).isFalse();
     assertThat(deleteConfig.projectOnPreserveHidden()).isTrue();
     assertThat(deleteConfig.shouldArchiveDeletedRepos()).isTrue();
+    assertThat(deleteConfig.enablePreserveOption()).isFalse();
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(Long.parseLong(CUSTOM_DURATION));
     assertThat(deleteConfig.getArchiveFolder().toString())
         .isEqualTo(customArchiveFolder.toString());
