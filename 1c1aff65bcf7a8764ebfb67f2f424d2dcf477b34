@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a55791e1_8bffdd7b",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-03-22T18:48:03Z",
+      "side": 1,
+      "message": "Are all this deps really needed?\n\nOr just for the tests?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "1c1aff65bcf7a8764ebfb67f2f424d2dcf477b34",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
