@@ -37,22 +37,33 @@ import org.slf4j.LoggerFactory;
 public class DeleteTrashFolders implements LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
 
-  /**
-   * Search for name which ends with a dot, 13 digits and the string ".deleted". A folder 'f' is
-   * renamed to 'f.<currentTimeMillis>.deleted'. <currentTimeMillis> happens to be exactly 13 digits
-   * for commits created between 2002 (before git was born) and 2285.
-   */
-  private static final Pattern TRASH_1 = Pattern.compile(".*\\.\\d{13}.deleted");
+  static class TrashPredicate {
 
-  /**
-   * New trash folder name format. It adds % chars around the "deleted" string and keeps the ".git"
-   * extension.
-   */
-  private static final Pattern TRASH_2 = Pattern.compile(".*\\.\\d{13}.%deleted%.git");
+    private TrashPredicate() {
+      // Avoid this class being instantiated by using the default empty constructor
+    }
 
-  @VisibleForTesting
-  static final boolean isTrashFolderName(String fName) {
-    return TRASH_1.matcher(fName).matches() || TRASH_2.matcher(fName).matches();
+    /**
+     * Search for name which ends with a dot, 13 digits and the string ".deleted". A folder 'f' is
+     * renamed to 'f.<currentTimeMillis>.deleted'. <currentTimeMillis> happens to be exactly 13
+     * digits for commits created between 2002 (before git was born) and 2285.
+     */
+    private static final Pattern TRASH_1 = Pattern.compile(".*\\.\\d{13}.deleted");
+
+    /**
+     * New trash folder name format. It adds % chars around the "deleted" string and keeps the
+     * ".git" extension.
+     */
+    private static final Pattern TRASH_2 = Pattern.compile(".*\\.\\d{13}.%deleted%.git");
+
+    @VisibleForTesting
+    static final boolean isTrashFolderName(String fName) {
+      return TRASH_1.matcher(fName).matches() || TRASH_2.matcher(fName).matches();
+    }
+
+    static boolean isTrashFolder(Path dir) {
+      return isTrashFolderName(dir.getFileName().toString());
+    }
   }
 
   private Set<Path> repoFolders;
@@ -71,7 +82,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
         throws IOException {
       String fName = dir.getFileName().toString();
-      if (isTrashFolderName(fName)) {
+      if (TrashPredicate.isTrashFolderName(fName)) {
         log.warn("Will delete this folder: {}", dir);
         recursiveDelete(dir);
         return FileVisitResult.SKIP_SUBTREE;
