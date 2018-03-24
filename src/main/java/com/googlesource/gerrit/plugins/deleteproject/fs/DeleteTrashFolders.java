@@ -15,24 +15,24 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Sets;
+import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Set;
-import java.util.regex.Pattern;
+
 import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.RepositoryCache.FileKey;
-import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class DeleteTrashFolders implements LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
@@ -76,70 +76,28 @@ public class DeleteTrashFolders implements LifecycleListener {
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
   }
 
-  class TrashFolderRemover extends SimpleFileVisitor<Path> {
+  @Override
+  public void start() {
+    new Thread(() -> repoFolders.stream().forEach(this::evaluateIfTrash), "DeleteTrashFolders")
+        .start();
+  }
 
-    @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
-        throws IOException {
-      String fName = dir.getFileName().toString();
-      if (TrashPredicate.isTrashFolderName(fName)) {
-        log.warn("Will delete this folder: {}", dir);
-        recursiveDelete(dir);
-        return FileVisitResult.SKIP_SUBTREE;
-      } else if (FileKey.isGitRepository(dir.toFile(), FS.DETECTED)) {
-        // We are in a GITDIR and don't expect trash folders inside GITDIR's.
-        return FileVisitResult.SKIP_SUBTREE;
-      }
-
-      return super.preVisitDirectory(dir, attrs);
-    }
-
-    /**
-     * Recursively delete the specified file and all of its contents.
-     *
-     * @throws IOException
-     */
-    private void recursiveDelete(Path file) throws IOException {
-      Files.walkFileTree(
-          file,
-          new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-                throws IOException {
-              Files.delete(file);
-              return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
-              if (e != null) {
-                throw e;
-              }
-              Files.delete(dir);
-              return FileVisitResult.CONTINUE;
-            }
-          });
+  private void evaluateIfTrash(Path folder) {
+    try (Stream<Path> dir = Files.walk(folder, FileVisitOption.FOLLOW_LINKS)) {
+      dir.filter(Files::isDirectory)
+          .filter(TrashPredicate::isTrashFolder)
+          .forEach(this::recursivelyDelete);
+    } catch (IOException e) {
+      log.error("Failed to evaluate {}", folder, e);
     }
   }
 
-  @Override
-  public void start() {
-    new Thread(
-            () -> {
-              for (Path folder : repoFolders) {
-                if (!folder.toFile().exists()) {
-                  log.debug("Base path {} does not exist", folder);
-                  continue;
-                }
-                try {
-                  Files.walkFileTree(folder, new TrashFolderRemover());
-                } catch (IOException e) {
-                  log.warn("Exception while trying to delete trash folders", e);
-                }
-              }
-            },
-            "DeleteTrashFolders")
-        .start();
+  private void recursivelyDelete(Path folder) {
+    try {
+      MoreFiles.deleteRecursively(folder);
+    } catch (IOException e) {
+      log.error("Failed to delete {}", folder, e);
+    }
   }
 
   @Override
