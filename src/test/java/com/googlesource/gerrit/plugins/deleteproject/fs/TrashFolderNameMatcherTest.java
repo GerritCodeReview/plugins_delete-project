@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders.isTrashFolderName;
+import static com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders.TrashPredicate.isTrashFolderName;
 
 import org.junit.Test;
 
