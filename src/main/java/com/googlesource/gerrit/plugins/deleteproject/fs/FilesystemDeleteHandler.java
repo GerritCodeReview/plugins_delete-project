@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
@@ -23,13 +24,10 @@ import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
@@ -53,11 +51,15 @@ public class FilesystemDeleteHandler {
       throws IOException, RepositoryNotFoundException {
     // Remove from the jgit cache
     Repository repository = repoManager.openRepository(project.getNameKey());
-    File repoFile = repository.getDirectory();
     cleanCache(repository);
     if (!preserveGitRepository) {
-      deleteGitRepository(project.getNameKey(), repoFile);
+      deleteGitRepository(project.getNameKey(), repository.getDirectory());
     }
+  }
+
+  private void cleanCache(Repository repository) {
+    repository.close();
+    RepositoryCache.close(repository);
   }
 
   private void deleteGitRepository(final Project.NameKey project, final File repoFile)
@@ -65,26 +67,47 @@ public class FilesystemDeleteHandler {
     // Delete the repository from disk
     Path basePath = getBasePath(repoFile.toPath(), project);
     Path trash = moveToTrash(repoFile.toPath(), basePath, project);
-    boolean ok = false;
     try {
-      recursiveDelete(trash);
-      ok = true;
+      MoreFiles.deleteRecursively(trash);
+      recursivelyDeleteEmptyParents(repoFile.getParentFile(), basePath.toFile());
     } catch (IOException e) {
       // Only log if delete failed - repo already moved to trash.
-      // Otherwise, listeners are never called.
-      log.warn("Error trying to delete {}", trash, e);
+      log.warn("Error trying to delete {} or its parents", trash, e);
+    } finally {
+      sendProjectDeletedEvent(project);
     }
+  }
 
-    // Delete parent folders if they are (now) empty
-    if (ok) {
-      try {
-        recursiveDeleteParent(repoFile.getParentFile(), basePath.toFile());
-      } catch (IOException e) {
-        log.warn("Couldn't delete (empty) parents of {}", repoFile, e);
-      }
+  private Path getBasePath(Path repo, Project.NameKey project) {
+    Path projectPath = Paths.get(project.get());
+    return repo.getRoot()
+        .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
+  }
+
+  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
+      throws IOException {
+    Path trashRepo =
+        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
+    return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
+  }
+
+  /**
+   * Recursively delete the specified file and its parent files until we hit the file {@code Until}
+   * or the parent file is populated. This is used when we have a tree structure such as a/b/c/d.git
+   * and a/b/e.git - if we delete a/b/c/d.git, we no longer need a/b/c/.
+   */
+  private void recursivelyDeleteEmptyParents(File file, File until) throws IOException {
+    if (file.equals(until)) {
+      return;
     }
+    if (file.listFiles().length == 0) {
+      File parent = file.getParentFile();
+      Files.delete(file.toPath());
+      recursivelyDeleteEmptyParents(parent, until);
+    }
+  }
 
-    // Send an event that the repository was deleted
+  private void sendProjectDeletedEvent(Project.NameKey project) {
     ProjectDeletedListener.Event event =
         new ProjectDeletedListener.Event() {
           @Override
@@ -103,67 +126,6 @@ public class FilesystemDeleteHandler {
       } catch (RuntimeException e) {
         log.warn("Failure in ProjectDeletedListener", e);
       }
-    }
-  }
-
-  private Path getBasePath(Path repo, Project.NameKey project) {
-    Path projectPath = Paths.get(project.get());
-    return repo.getRoot()
-        .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
-  }
-
-  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
-      throws IOException {
-    Path trashRepo =
-        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
-    return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
-  }
-
-  private void cleanCache(final Repository repository) {
-    repository.close();
-    RepositoryCache.close(repository);
-  }
-
-  /**
-   * Recursively delete the specified file and all of its contents.
-   *
-   * @throws IOException
-   */
-  private void recursiveDelete(Path file) throws IOException {
-    Files.walkFileTree(
-        file,
-        new SimpleFileVisitor<Path>() {
-          @Override
-          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-              throws IOException {
-            Files.delete(file);
-            return FileVisitResult.CONTINUE;
-          }
-
-          @Override
-          public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
-            if (e != null) {
-              throw e;
-            }
-            Files.delete(dir);
-            return FileVisitResult.CONTINUE;
-          }
-        });
-  }
-
-  /**
-   * Recursively delete the specified file and its parent files until we hit the file {@code Until}
-   * or the parent file is populated. This is used when we have a tree structure such as a/b/c/d.git
-   * and a/b/e.git - if we delete a/b/c/d.git, we no longer need a/b/c/.
-   */
-  private void recursiveDeleteParent(File file, File until) throws IOException {
-    if (file.equals(until)) {
-      return;
-    }
-    if (file.listFiles().length == 0) {
-      File parent = file.getParentFile();
-      Files.delete(file.toPath());
-      recursiveDeleteParent(parent, until);
     }
   }
 }
