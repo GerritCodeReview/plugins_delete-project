@@ -56,6 +56,7 @@ public class DeleteTrashFolders implements LifecycleListener {
   }
 
   private Set<Path> repoFolders;
+  private Thread thread;
 
   @Inject
   public DeleteTrashFolders(
@@ -113,7 +114,8 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   @Override
   public void start() {
-    new Thread(
+    thread =
+        new Thread(
             () -> {
               for (Path folder : repoFolders) {
                 if (!folder.toFile().exists()) {
@@ -127,8 +129,13 @@ public class DeleteTrashFolders implements LifecycleListener {
                 }
               }
             },
-            "DeleteTrashFolders")
-        .start();
+            "DeleteTrashFolders");
+    thread.start();
+  }
+
+  @VisibleForTesting
+  Thread getWorkerThread() {
+    return thread;
   }
 
   @Override
