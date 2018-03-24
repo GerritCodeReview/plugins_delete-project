@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders.isTrashFolderName;
+import static com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders.TrashFolderPredicate.match;
 
 import org.junit.Test;
 
@@ -54,10 +54,10 @@ public class TrashFolderNameMatcherTest {
   }
 
   private void matches(String name) {
-    assertThat(isTrashFolderName(name)).isTrue();
+    assertThat(match(name)).isTrue();
   }
 
   private void doesNotMatch(String name) {
-    assertThat(isTrashFolderName(name)).isFalse();
+    assertThat(match(name)).isFalse();
   }
 }
