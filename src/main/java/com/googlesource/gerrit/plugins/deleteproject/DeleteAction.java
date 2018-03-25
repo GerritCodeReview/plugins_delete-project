@@ -14,7 +14,6 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.project.ProjectResource;
@@ -23,7 +22,6 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
 public class DeleteAction extends DeleteProject implements UiAction<ProjectResource> {
   private final ProtectedProjects protectedProjects;
@@ -34,20 +32,18 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
-      ProjectConfigDeleteHandler pcHandler,
       Provider<CurrentUser> userProvider,
-      @PluginName String pluginName,
       DeleteLog deleteLog,
+      DeletePreconditions preConditions,
       Configuration cfg,
       HideProject hideProject) {
     super(
         dbHandler,
         fsHandler,
         cacheHandler,
-        pcHandler,
         userProvider,
-        pluginName,
         deleteLog,
+        preConditions,
         cfg,
         hideProject);
     this.protectedProjects = protectedProjects;
@@ -62,6 +58,6 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
                 ? String.format("Not allowed to delete %s", rsrc.getName())
                 : String.format("Delete project %s", rsrc.getName()))
         .setEnabled(!protectedProjects.isProtected(rsrc))
-        .setVisible(canDelete(rsrc));
+        .setVisible(preConditions.canDelete(rsrc));
   }
 }
