@@ -19,10 +19,7 @@ import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
-import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
-import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +31,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
 import org.slf4j.Logger;
@@ -45,16 +41,12 @@ public class FilesystemDeleteHandler {
 
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListener;
-  private final Configuration config;
 
   @Inject
   public FilesystemDeleteHandler(
-      GitRepositoryManager repoManager,
-      DynamicSet<ProjectDeletedListener> deletedListener,
-      Configuration config) {
+      GitRepositoryManager repoManager, DynamicSet<ProjectDeletedListener> deletedListener) {
     this.repoManager = repoManager;
     this.deletedListener = deletedListener;
-    this.config = config;
   }
 
   public void delete(Project project, boolean preserveGitRepository)
@@ -65,24 +57,6 @@ public class FilesystemDeleteHandler {
     cleanCache(repository);
     if (!preserveGitRepository) {
       deleteGitRepository(project.getNameKey(), repoFile);
-    }
-  }
-
-  public void assertCanDelete(ProjectResource rsrc, boolean preserveGitRepository)
-      throws CannotDeleteProjectException {
-    if (!preserveGitRepository && !config.deletionWithTagsAllowed()) {
-      assertHasNoTags(rsrc);
-    }
-  }
-
-  private void assertHasNoTags(ProjectResource rsrc) throws CannotDeleteProjectException {
-    try (Repository repo = repoManager.openRepository(rsrc.getNameKey())) {
-      if (!repo.getRefDatabase().getRefs(Constants.R_TAGS).isEmpty()) {
-        throw new CannotDeleteProjectException(
-            String.format("Project %s has tags", rsrc.getName()));
-      }
-    } catch (IOException e) {
-      throw new CannotDeleteProjectException(e);
     }
   }
 
