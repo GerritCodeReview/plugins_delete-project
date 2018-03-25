@@ -28,7 +28,6 @@ import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
 public class Module extends AbstractModule {
 
@@ -47,7 +46,7 @@ public class Module extends AbstractModule {
         .to(DeleteOwnProjectCapability.class);
     bind(DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
-    bind(ProjectConfigDeleteHandler.class);
+    bind(DeletePreconditions.class);
     install(
         new RestApiModule() {
           @Override
