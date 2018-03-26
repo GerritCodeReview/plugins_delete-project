@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e979216a_43fe5c9d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-26T19:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4875ac4e_2f5af2c6",
+      "range": {
+        "startLine": 138,
+        "startChar": 14,
+        "endLine": 138,
+        "endChar": 31
+      },
+      "revId": "eb46a06d3827963a44069079f650bf371ab5ec8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f39a66d_6f947238",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-22T21:49:46Z",
       "side": 1,
       "message": "Can you assert in some way if it was really archived?",
+      "range": {
+        "startLine": 189,
+        "startChar": 14,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "eb46a06d3827963a44069079f650bf371ab5ec8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "349a188a_8391a03d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-26T19:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f39a66d_6f947238",
       "range": {
         "startLine": 189,
         "startChar": 14,
