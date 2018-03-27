@@ -255,9 +255,15 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
-  public void deleteProjectWithParentFolder() throws Exception {
-    String projectName = createProject("pj1").get();
-    projectDir = verifyProjectRepoExists(Project.NameKey.parse(projectName));
+  @GerritConfig(name = "plugin.delete-project.archiveDeletedRepos", value = "true")
+  @GerritConfig(name = "plugin.delete-project.archiveFolder", value = ARCHIVE_FOLDER)
+  public void testDeleteAndArchiveProjectWithParentFolder() throws Exception {
+    assertThat(archiveFolder.exists()).isTrue();
+    assertThat(isEmpty(archiveFolder.toPath())).isTrue();
+
+    String name = "pj1";
+    String projectName = createProject(name).get();
+    File projectDir = verifyProjectRepoExists(Project.NameKey.parse(projectName));
 
     Path parentFolder = projectDir.toPath().getParent().resolve(PARENT_FOLDER).resolve(projectName);
     parentFolder.toFile().mkdirs();
@@ -270,6 +276,12 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
     String cmd = createDeleteCommand(PARENT_FOLDER + "/" + projectName);
     adminSshSession.exec(cmd);
+
+    assertThat(isEmpty(archiveFolder.toPath())).isFalse();
+    assertThat(containsDeletedProject(archiveFolder.toPath().resolve(PARENT_FOLDER), name))
+        .isTrue();
+    assertThat(projectDir.exists()).isFalse();
+    assertThat(adminSshSession.getError()).isNull();
 
     assertThat(projectDir.exists()).isFalse();
     assertThat(parentFolder.toFile().exists()).isFalse();
