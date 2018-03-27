@@ -95,10 +95,24 @@ public class FilesystemDeleteHandler {
 
     if (config.shouldArchiveDeletedRepos()) {
       try {
-        Path archiveRepo = config.getArchiveFolder().resolve(trash.getFileName());
+        Path relativePath = basePath.relativize(trash);
+        Path archiveRepo = config.getArchiveFolder();
+        if (relativePath.getNameCount() <= 1) {
+          archiveRepo = archiveRepo.resolve(relativePath);
+        } else {
+          Path subPath = relativePath.subpath(0, relativePath.getNameCount() - 1);
+          boolean created = archiveRepo.resolve(subPath).toFile().mkdirs();
+          if (created) {
+            archiveRepo = archiveRepo.resolve(relativePath);
+          } else {
+            log.error(
+                "Error trying to create parent folder {}, ignoring the parent folder", subPath);
+            archiveRepo = archiveRepo.resolve(trash.getFileName());
+          }
+        }
         recursiveArchive(trash, archiveRepo);
       } catch (IOException e) {
-        log.warn("Error trying to archive {}, repo already moved to trash.", repoFile.toPath(), e);
+        log.warn("Error trying to archive {}. Repo is now in trash", repoFile.toPath(), e);
       }
     }
 
