@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddc6f37a_8f99aaa5",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1055597
+      },
+      "writtenOn": "2018-03-27T12:44:26Z",
+      "side": 1,
+      "message": "Can we reuse the method verifyProjectRepo here?",
+      "range": {
+        "startLine": 228,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 47
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ead04844_eb4d3996",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1055597
+      },
+      "writtenOn": "2018-03-27T12:44:26Z",
+      "side": 1,
+      "message": "May be rename to verifyProjectExists - would reflect its purpose more clearly?",
+      "range": {
+        "startLine": 311,
+        "startChar": 14,
+        "endLine": 311,
+        "endChar": 31
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0483a4b3_7d60ce5c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1055597
+      },
+      "writtenOn": "2018-03-27T12:44:26Z",
+      "side": 1,
+      "message": "Here also, clear -\u003e deleteTheFiles ??",
+      "range": {
+        "startLine": 318,
+        "startChar": 15,
+        "endLine": 318,
+        "endChar": 20
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d4b282_f79eaf5e",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1055597
+      },
+      "writtenOn": "2018-03-27T12:44:26Z",
+      "side": 1,
+      "message": "containsDeletedProject?",
+      "range": {
+        "startLine": 368,
+        "startChar": 18,
+        "endLine": 368,
+        "endChar": 39
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
