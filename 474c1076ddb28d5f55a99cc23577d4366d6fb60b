@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eaf23bfd_a9964559",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-27T17:43:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddc6f37a_8f99aaa5",
+      "range": {
+        "startLine": 228,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 47
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ead04844_eb4d3996",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-27T12:44:26Z",
       "side": 1,
       "message": "May be rename to verifyProjectExists - would reflect its purpose more clearly?",
+      "range": {
+        "startLine": 311,
+        "startChar": 14,
+        "endLine": 311,
+        "endChar": 31
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44574b28_a50a4b95",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-27T17:43:13Z",
+      "side": 1,
+      "message": "I renamed this to be verifyProjectRepoExists. Does it make sense to you?",
+      "parentUuid": "ead04844_eb4d3996",
       "range": {
         "startLine": 311,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e0df9a4a_2faa5efd",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-27T17:43:13Z",
+      "side": 1,
+      "message": "What do you think of \"deleteFolderContents\"?",
+      "parentUuid": "0483a4b3_7d60ce5c",
+      "range": {
+        "startLine": 318,
+        "startChar": 15,
+        "endLine": 318,
+        "endChar": 20
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39d4b282_f79eaf5e",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-27T12:44:26Z",
       "side": 1,
       "message": "containsDeletedProject?",
+      "range": {
+        "startLine": 368,
+        "startChar": 18,
+        "endLine": 368,
+        "endChar": 39
+      },
+      "revId": "474c1076ddb28d5f55a99cc23577d4366d6fb60b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48fbb34b_33d22dc4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-27T17:43:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d4b282_f79eaf5e",
       "range": {
         "startLine": 368,
         "startChar": 18,
