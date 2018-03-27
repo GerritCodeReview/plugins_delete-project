@@ -290,8 +290,14 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
-  public void deleteProjectWithParentFolder() throws Exception {
-    String projectName = createProject("pj1").get();
+  @GerritConfig(name = "plugin.delete-project.archiveDeletedRepos", value = "true")
+  @GerritConfig(name = "plugin.delete-project.archiveFolder", value = ARCHIVE_FOLDER)
+  public void deleteAndArchiveProjectWithParentFolder() throws Exception {
+    assertThat(archiveFolder.exists()).isTrue();
+    assertThat(isDirEmpty(archiveFolder.toPath())).isTrue();
+
+    String name = "pj1";
+    String projectName = createProject(name).get();
     File projectDir = verifyProjectRepoExists(Project.NameKey.parse(projectName));
 
     Path parentFolder = projectDir.toPath().getParent().resolve(PARENT_FOLDER).resolve(projectName);
@@ -301,6 +307,11 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
     cmd = createCommand("delete", "--yes-really-delete", PARENT_FOLDER + "/" + projectName);
     adminSshSession.exec(cmd);
+
+    assertThat(isDirEmpty(archiveFolder.toPath())).isFalse();
+    assertThat(containsDeletedProject(archiveFolder.toPath().resolve(PARENT_FOLDER), name))
+        .isTrue();
+    assertThat(projectDir.exists()).isFalse();
 
     assertThat(projectDir.exists()).isFalse();
     assertThat(parentFolder.toFile().exists()).isFalse();
@@ -363,9 +374,15 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     }
   }
 
-  private boolean containsDeletedProject(final Path dir, String projectName) throws IOException {
-    try (Stream<Path> dirStream = Files.list(dir)) {
-      return dirStream.iterator().next().toString().contains(projectName);
+  private boolean containsDeletedProject(final Path dir, String projectName) {
+    File[] directoryListing = dir.toFile().listFiles();
+    if (directoryListing != null) {
+      for (File child : directoryListing) {
+        if (child.toString().contains(projectName)) {
+          return true;
+        }
+      }
     }
+    return false;
   }
 }
