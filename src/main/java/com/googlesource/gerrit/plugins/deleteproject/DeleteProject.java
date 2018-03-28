@@ -120,7 +120,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   protected boolean canDelete(ProjectResource rsrc) {
-    PermissionBackend.WithUser userPermission = permissionBackend.user(userProvider);
+    PermissionBackend.WithUser userPermission = permissionBackend.currentUser();
     PermissionBackend.ForProject projectPermission = userPermission.project(rsrc.getNameKey());
     return userPermission.testOrFalse(GlobalPermission.ADMINISTRATE_SERVER)
         || userPermission.testOrFalse(new PluginPermission(pluginName, DELETE_PROJECT))
