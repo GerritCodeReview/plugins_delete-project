@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "294049a2_7b6b3b08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T18:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b2f56fb_c38d17dd",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0693fb4_92d037e0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-29T16:07:51Z",
       "side": 1,
       "message": "was archived",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc9b413_c135e77d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T18:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0693fb4_92d037e0",
       "range": {
         "startLine": 10,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "877b8d63_d4bf68f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T18:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77398d9d_0d28c87f",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "463fa7c0_9eb667d5",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1bace661_08a2a27e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T18:29:44Z",
+      "side": 1,
+      "message": "What do you think of ignoring the parent folders if their creation fails?",
+      "parentUuid": "463fa7c0_9eb667d5",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02a05a5c_4e325f9d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2018-03-29T16:07:51Z",
       "side": 1,
       "message": "How do we know for sure that it is the case? The try block span looks wider to me, above.",
+      "range": {
+        "startLine": 110,
+        "startChar": 46,
+        "endLine": 110,
+        "endChar": 73
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3278de9_0414405a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T18:29:44Z",
+      "side": 1,
+      "message": "I changed this message to make it clear. What do you think?",
+      "parentUuid": "02a05a5c_4e325f9d",
       "range": {
         "startLine": 110,
         "startChar": 46,
