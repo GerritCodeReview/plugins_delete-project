@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9800edea_46583386",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "151b8170_d5065078",
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6c91f49_1300f417",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "parentFolder (consistent with above member; no need to abbreviate for me)",
+      "range": {
+        "startLine": 66,
+        "startChar": 47,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f220c344_4d003e40",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6c91f49_1300f417",
       "range": {
         "startLine": 66,
         "startChar": 47,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "22fab656_c3e41487",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8c18159_0c858be9",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 21
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4427d043_423a7f60",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -76,6 +142,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 35
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61864363_24410c64",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4427d043_423a7f60",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "de1826ef_0d06d61c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "735a7607_10d73aab",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 3
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fabb059c_0a479334",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -122,6 +236,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "setUp() {",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 50
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c0999f1_d3ff84c7",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "I named this method like this because of the setUp method in LightweightPluginDaemonTest class extended by this class",
+      "parentUuid": "fabb059c_0a479334",
       "range": {
         "startLine": 84,
         "startChar": 14,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "363d1887_04b12cca",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "716ee868_96ffc436",
+      "range": {
+        "startLine": 95,
+        "startChar": 22,
+        "endLine": 95,
+        "endChar": 45
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7efbaa45_24c31f3e",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -168,6 +330,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "In the previous test method, this is called first in the test. Should this very test method and all others be consistent and do the same? Unless moved to setup, as per previous comment.",
+      "range": {
+        "startLine": 114,
+        "startChar": 22,
+        "endLine": 114,
+        "endChar": 45
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "687f03b0_0968feee",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7efbaa45_24c31f3e",
       "range": {
         "startLine": 114,
         "startChar": 22,
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "3151c32d_fc2a614b",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45a0ffe0_2de86a7c",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 20
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22481e16_818c8b7f",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -214,6 +424,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Duplication, starting here; would refactor across.",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 46
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c82ed864_d71da6b2",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22481e16_818c8b7f",
       "range": {
         "startLine": 117,
         "startChar": 4,
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "2ea7cf76_86dba607",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9bcae40_96b5e8a6",
+      "range": {
+        "startLine": 129,
+        "startChar": 27,
+        "endLine": 129,
+        "endChar": 31
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ca71c42_5399af70",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -260,6 +518,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Could move (be appended) to end of msg built above. Not sure that NEW_LINE as a constant is adding value in this class. It is also not reused everywhere; e.g., the above duplicated \\n\u0027s. But again, would not use a constant myself for that in particular.",
+      "range": {
+        "startLine": 145,
+        "startChar": 74,
+        "endLine": 145,
+        "endChar": 85
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e21c45e_3ea26d11",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ca71c42_5399af70",
       "range": {
         "startLine": 145,
         "startChar": 74,
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "55f822c0_0e06440f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8f617b8_60015764",
+      "range": {
+        "startLine": 154,
+        "startChar": 24,
+        "endLine": 154,
+        "endChar": 32
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee13e331_e99bf222",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -306,6 +612,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Duplicated as well.",
+      "range": {
+        "startLine": 175,
+        "startChar": 34,
+        "endLine": 175,
+        "endChar": 55
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd06054_878e3d38",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee13e331_e99bf222",
       "range": {
         "startLine": 175,
         "startChar": 34,
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "d5ebf9f7_b2b06475",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0425b08_5533b2f4",
+      "range": {
+        "startLine": 317,
+        "startChar": 2,
+        "endLine": 317,
+        "endChar": 8
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02dcac21_b9513361",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -352,6 +706,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Not needed as an argument, always null as (only) called once.",
+      "range": {
+        "startLine": 344,
+        "startChar": 66,
+        "endLine": 344,
+        "endChar": 73
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6f39a9_c8a46ff4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02dcac21_b9513361",
       "range": {
         "startLine": 344,
         "startChar": 66,
@@ -387,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "8745f266_be87a4e4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf6952d7_9ed6d42b",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 21
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d732a64_0ee7991e",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -398,6 +800,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Would extract for readability.",
+      "range": {
+        "startLine": 365,
+        "startChar": 41,
+        "endLine": 365,
+        "endChar": 81
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e64acc74_552e6d1b",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d732a64_0ee7991e",
       "range": {
         "startLine": 365,
         "startChar": 41,
@@ -456,6 +882,54 @@
     },
     {
       "key": {
+        "uuid": "26bc16c3_d2f221f2",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f69260f_9fc22f3f",
+      "range": {
+        "startLine": 368,
+        "startChar": 29,
+        "endLine": 368,
+        "endChar": 34
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f86c21e5_78c255a5",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4be92d1_36016fbe",
+      "range": {
+        "startLine": 368,
+        "startChar": 18,
+        "endLine": 368,
+        "endChar": 28
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4896999_79534436",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
@@ -467,6 +941,30 @@
       "writtenOn": "2018-03-29T15:47:43Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 374,
+        "startChar": 41,
+        "endLine": 374,
+        "endChar": 46
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d294ed18_0cfdcf6c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-03-29T17:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4896999_79534436",
       "range": {
         "startLine": 374,
         "startChar": 41,
