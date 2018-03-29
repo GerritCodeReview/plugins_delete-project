@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b2f56fb_c38d17dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-29T16:07:51Z",
+      "side": 1,
+      "message": "Fix archived repositories not having the full name\n(active form, no final dot, \u003c\u003d 50 chars preferred)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0693fb4_92d037e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-29T16:07:51Z",
+      "side": 1,
+      "message": "was archived",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77398d9d_0d28c87f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-29T16:07:51Z",
+      "side": 1,
+      "message": "Functional failure in fact, right? Would be worse than confusion.",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463fa7c0_9eb667d5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-29T16:07:51Z",
+      "side": 1,
+      "message": "error, to me. Also, if this error happens, can we still rely on archiveRepo next below?",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a05a5c_4e325f9d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-29T16:07:51Z",
+      "side": 1,
+      "message": "How do we know for sure that it is the case? The try block span looks wider to me, above.",
+      "range": {
+        "startLine": 110,
+        "startChar": 46,
+        "endLine": 110,
+        "endChar": 73
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
