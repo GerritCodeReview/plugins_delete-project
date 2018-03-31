@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e9882685_6f0f51ed",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:54:34Z",
+      "side": 1,
+      "message": "I would tend to agree with this, especially since this case is now reported as an error (to eventually fix).",
+      "parentUuid": "1bace661_08a2a27e",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02a05a5c_4e325f9d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 5
