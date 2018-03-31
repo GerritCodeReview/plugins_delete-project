@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecdb92f5_a5fc25a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:51:43Z",
+      "side": 1,
+      "message": "folders, or?",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fe68fb_b978dea6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:51:43Z",
+      "side": 1,
+      "message": "Could we have a test for this specific, unhappy case? I think we need tests for both cases (such creation failure, and success). -Unless we cannot reproduce such a failure artificially or from a test.",
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac30b738_fc9d1c0d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:51:43Z",
+      "side": 1,
+      "message": "This is already done below at current line 111. Btw, currently doing so means that the above archiveRepo setting at (current) line 106 gets overriden by line 111\u0027s.",
+      "range": {
+        "startLine": 108,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
