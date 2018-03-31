@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0458af9_8f51a400",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:25:47Z",
+      "side": 1,
+      "message": "IOException",
+      "range": {
+        "startLine": 72,
+        "startChar": 39,
+        "endLine": 72,
+        "endChar": 48
+      },
+      "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86a4e281_78b537be",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:25:47Z",
+      "side": 1,
+      "message": "assertHttpDeleteProjectForce (1. to not confuse this method with the above true test methods, and 2. adding Force to its name for completeness)",
+      "range": {
+        "startLine": 277,
+        "startChar": 15,
+        "endLine": 277,
+        "endChar": 36
+      },
+      "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7919067_39c8c769",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:25:47Z",
+      "side": 1,
+      "message": "This constant is used only once, here. Would consider directly using its string value instead (right here).",
+      "range": {
+        "startLine": 321,
+        "startChar": 44,
+        "endLine": 321,
+        "endChar": 52
+      },
+      "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

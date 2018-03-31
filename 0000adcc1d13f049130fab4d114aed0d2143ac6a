@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "37e469e9_8cd88a06",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-03-31T15:25:47Z",
+      "side": 1,
+      "message": "Ah ok. This method could also be named after what it does, more exactly. Because we already know that it is an @Before (tests) method.",
+      "parentUuid": "9c0999f1_d3ff84c7",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 50
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "716ee868_96ffc436",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
