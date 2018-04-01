@@ -68,6 +68,52 @@
       "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1102f70_4907f484",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-04-01T22:29:19Z",
+      "side": 1,
+      "message": "Depending on the tree structure, this operation can be expensive as it has to pass through the complete list of items in the stream. A faster way of doing the same is using the iterator:\n\n    return !dirStream.iterator().hasNext();",
+      "range": {
+        "startLine": 327,
+        "startChar": 13,
+        "endLine": 327,
+        "endChar": 36
+      },
+      "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75a8cc7_af00eba4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-04-01T22:29:19Z",
+      "side": 1,
+      "message": "Can be simplified (and speeded up) by using the stream equivalent:\n\n    try (Stream\u003cPath\u003e dirStream \u003d Files.list(dir)) {\n      return dirStream.filter(d -\u003e d.toString().contains(projectName)).findFirst().isPresent();\n    }",
+      "range": {
+        "startLine": 332,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 3
+      },
+      "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
