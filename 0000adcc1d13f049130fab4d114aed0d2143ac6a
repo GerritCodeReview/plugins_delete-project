@@ -296,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "132d1168_71224101",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-02T13:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37e469e9_8cd88a06",
+      "range": {
+        "startLine": 84,
+        "startChar": 14,
+        "endLine": 84,
+        "endChar": 50
+      },
+      "revId": "0000adcc1d13f049130fab4d114aed0d2143ac6a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "716ee868_96ffc436",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 9
