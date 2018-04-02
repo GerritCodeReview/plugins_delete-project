@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "90fcc0c2_d400d294",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-02T15:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9882685_6f0f51ed",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02a05a5c_4e325f9d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 5
@@ -321,6 +345,30 @@
       "side": 1,
       "message": "Should be good now yes; thx.",
       "parentUuid": "f3278de9_0414405a",
+      "range": {
+        "startLine": 110,
+        "startChar": 46,
+        "endLine": 110,
+        "endChar": 73
+      },
+      "revId": "d1f329f8d10d8e60d3cd58527c6c9a4c2e780224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f83de1df_be4fd0af",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-02T15:18:42Z",
+      "side": 1,
+      "message": "thank you",
+      "parentUuid": "9e771a25_da939d20",
       "range": {
         "startLine": 110,
         "startChar": 46,
