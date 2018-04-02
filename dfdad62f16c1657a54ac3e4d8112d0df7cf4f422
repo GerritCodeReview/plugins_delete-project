@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "61aeb3aa_42343d16",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-02T14:44:20Z",
+      "side": 1,
+      "message": "I just made this method compatible with the new ITtest (line 85)",
+      "parentUuid": "86a4e281_78b537be",
+      "range": {
+        "startLine": 277,
+        "startChar": 15,
+        "endLine": 277,
+        "endChar": 36
+      },
+      "revId": "dfdad62f16c1657a54ac3e4d8112d0df7cf4f422",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7919067_39c8c769",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 10
