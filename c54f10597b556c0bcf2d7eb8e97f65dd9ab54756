@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0a771f7d_9a61becd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-03T14:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c50b098a_487d90a4",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4fe68fb_b978dea6",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 6
@@ -120,6 +144,24 @@
       "side": 1,
       "message": "As you wish, for me at least.",
       "parentUuid": "dbd843a2_323c873b",
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded84b37_87554665",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-03T14:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "299420fe_a97a97e2",
       "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -185,6 +227,30 @@
       "side": 1,
       "message": "Are your tests covering all of these paths? And if not, at least manually Please consider also my other new comments that could trigger further refactorings to test again.",
       "parentUuid": "88c3dd7e_93dec2f9",
+      "range": {
+        "startLine": 108,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f18f940_78967ad9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-04-03T14:14:02Z",
+      "side": 1,
+      "message": "My tests cover all of the if-else blocks but the one with log.error. Applying your comments would not need further refactorings to the tests :)",
+      "parentUuid": "662f161d_cd740fe2",
       "range": {
         "startLine": 108,
         "startChar": 10,
