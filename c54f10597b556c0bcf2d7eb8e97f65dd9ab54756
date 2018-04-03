@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c50b098a_487d90a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-04-03T13:20:04Z",
+      "side": 1,
+      "message": "Not what I meant though; cf. other hopefully clearer comment.",
+      "parentUuid": "c34dae6a_d3579b33",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4fe68fb_b978dea6",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
         "patchSetId": 6
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "After investigating into this, I think it is hard to make the creation of parent folders in archive fail from the IT test. Can I leave it for the unit tests (which I think is also hard to reproduce...)?",
       "parentUuid": "d4fe68fb_b978dea6",
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "299420fe_a97a97e2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-04-03T13:20:04Z",
+      "side": 1,
+      "message": "As you wish, for me at least.",
+      "parentUuid": "dbd843a2_323c873b",
       "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -119,6 +161,30 @@
       "side": 1,
       "message": "Sorry I forgot to delete line 111. I realized that deleting line 111 does not make the logic right. Now I think it should be good. What do you think?",
       "parentUuid": "ac30b738_fc9d1c0d",
+      "range": {
+        "startLine": 108,
+        "startChar": 10,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "c54f10597b556c0bcf2d7eb8e97f65dd9ab54756",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662f161d_cd740fe2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-04-03T13:20:04Z",
+      "side": 1,
+      "message": "Are your tests covering all of these paths? And if not, at least manually Please consider also my other new comments that could trigger further refactorings to test again.",
+      "parentUuid": "88c3dd7e_93dec2f9",
       "range": {
         "startLine": 108,
         "startChar": 10,

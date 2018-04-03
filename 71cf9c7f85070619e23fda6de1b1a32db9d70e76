@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44520399_9f8d0781",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-04-03T13:20:04Z",
+      "side": 1,
+      "message": "folders will",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "71cf9c7f85070619e23fda6de1b1a32db9d70e76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7fb5e6_9b710c1f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-04-03T13:20:04Z",
+      "side": 1,
+      "message": "Usually handle the positive or likelier (or otherwise simpler) case first in conditional blocks.",
+      "range": {
+        "startLine": 103,
+        "startChar": 14,
+        "endLine": 103,
+        "endChar": 22
+      },
+      "revId": "71cf9c7f85070619e23fda6de1b1a32db9d70e76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7eb9b82_8744fedc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-04-03T13:20:04Z",
+      "side": 1,
+      "message": "Could consider the above comment also for this (simpler) case -which then could be moved to being the first one handled by this other \u0027if\u0027 statement.",
+      "revId": "71cf9c7f85070619e23fda6de1b1a32db9d70e76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
