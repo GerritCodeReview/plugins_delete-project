@@ -114,19 +114,19 @@ public class DeleteTrashFolders implements LifecycleListener {
   @Override
   public void start() {
     new Thread(
-        () -> {
-          for (Path folder : repoFolders) {
-            if (!folder.toFile().exists()) {
-              log.debug("Base path {} does not exist", folder);
-              continue;
-            }
-            try {
-              Files.walkFileTree(folder, new TrashFolderRemover());
-            } catch (IOException e) {
-              log.warn("Exception while trying to delete trash folders", e);
-            }
-          }
-        },
+            () -> {
+              for (Path folder : repoFolders) {
+                if (!folder.toFile().exists()) {
+                  log.debug("Base path {} does not exist", folder);
+                  continue;
+                }
+                try {
+                  Files.walkFileTree(folder, new TrashFolderRemover());
+                } catch (IOException e) {
+                  log.warn("Exception while trying to delete trash folders", e);
+                }
+              }
+            },
             "DeleteTrashFolders")
         .start();
   }
