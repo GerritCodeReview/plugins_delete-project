@@ -159,7 +159,7 @@ public class DatabaseDeleteHandler {
       try {
         indexer.delete(id);
       } catch (IOException e) {
-        log.error(String.format("Failed to delete change %s from index", id), e);
+        log.error("Failed to delete change {} from index", id, e);
       }
     }
   }
