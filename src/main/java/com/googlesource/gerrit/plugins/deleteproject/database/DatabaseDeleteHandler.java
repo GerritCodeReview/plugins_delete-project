@@ -48,7 +48,9 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -118,7 +120,15 @@ public class DatabaseDeleteHandler {
     try {
       conn.setAutoCommit(false);
       try {
-        atomicDelete(project);
+        PreparedStatement changesForProject =
+            conn.prepareStatement("SELECT change_id FROM changes WHERE dest_project_name = ?");
+        changesForProject.setString(1, project.getName());
+        java.sql.ResultSet resultSet = changesForProject.executeQuery();
+        List<Change.Id> changeIds = new ArrayList<>();
+        while (resultSet.next()) {
+          changeIds.add(new Change.Id(resultSet.getInt(1)));
+        }
+        atomicDelete(project, changeIds);
         conn.commit();
       } finally {
         conn.setAutoCommit(true);
@@ -133,11 +143,12 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteChanges(List<ChangeData> changeData) throws OrmException {
-    for (ChangeData cd : changeData) {
-      Change.Id id = cd.getId();
+  private final void deleteChanges(Project.NameKey project, List<Change.Id> changeIds)
+      throws OrmException {
+
+    for (Change.Id id : changeIds) {
       try {
-        starredChangesUtil.unstarAll(cd.project(), id);
+        starredChangesUtil.unstarAll(project, id);
       } catch (NoSuchChangeException e) {
         // we can ignore the exception during delete
       }
@@ -152,7 +163,7 @@ public class DatabaseDeleteHandler {
       db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
 
       db.changeMessages().delete(db.changeMessages().byChange(id));
-      db.changes().delete(Collections.singleton(cd.change()));
+      db.changes().deleteKeys(Collections.singleton(id));
 
       // Delete from the secondary index
       try {
@@ -193,9 +204,9 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  public void atomicDelete(Project project) throws OrmException {
-    List<ChangeData> changes = queryProvider.get().byProject(project.getNameKey());
-    deleteChanges(changes);
+  public void atomicDelete(Project project, List<Change.Id> changeIds) throws OrmException {
+
+    deleteChanges(project.getNameKey(), changeIds);
 
     for (AccountState a : accountQueryProvider.get().byWatchedProject(project.getNameKey())) {
       Account.Id accountId = a.getAccount().getId();
