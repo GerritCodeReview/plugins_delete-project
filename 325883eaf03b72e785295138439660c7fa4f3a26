@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bb55be0_1e70cdf1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-04-30T03:53:56Z",
+      "side": 1,
+      "message": "Nit: Usually we write keywords in SQL in upper case, so this would be:\n\n  SELECT change_id FROM changes WHERE dest_project_name\u003d?",
+      "range": {
+        "startLine": 125,
+        "startChar": 21,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "325883eaf03b72e785295138439660c7fa4f3a26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e4be005_a5c0422c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-04-30T03:53:56Z",
+      "side": 1,
+      "message": "Optional: Could use prepare statement with bind variable.",
+      "range": {
+        "startLine": 126,
+        "startChar": 26,
+        "endLine": 126,
+        "endChar": 43
+      },
+      "revId": "325883eaf03b72e785295138439660c7fa4f3a26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d560169c_b504172d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-04-30T03:53:56Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 127,
+        "startChar": 28,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "325883eaf03b72e785295138439660c7fa4f3a26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
