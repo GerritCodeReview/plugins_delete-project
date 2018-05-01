@@ -23,6 +23,7 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
+import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -140,7 +141,7 @@ public class FilesystemDeleteHandler {
   private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
       throws IOException {
     Path trashRepo =
-        basePath.resolve(nameKey.get() + "." + System.currentTimeMillis() + ".%deleted%.git");
+        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
     return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
