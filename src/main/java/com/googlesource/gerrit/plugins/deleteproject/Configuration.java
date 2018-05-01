@@ -33,8 +33,7 @@ public class Configuration {
     PluginConfig cfg = pluginConfigFactory.getFromGerritConfig(pluginName);
     allowDeletionWithTags = cfg.getBoolean("allowDeletionOfReposWithTags", true);
     hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
-    deletedProjectsParent =
-        cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
+    deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
   }
 
   public boolean deletionWithTagsAllowed() {
