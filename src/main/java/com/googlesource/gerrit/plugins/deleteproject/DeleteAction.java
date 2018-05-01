@@ -18,7 +18,6 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectResource;
@@ -40,7 +39,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       Provider<CurrentUser> userProvider,
       @PluginName String pluginName,
       DeleteLog deleteLog,
-      PluginConfigFactory cfgFactory,
+      Configuration cfg,
       HideProject hideProject,
       PermissionBackend permissionBackend,
       NotesMigration migration) {
@@ -53,7 +52,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
         userProvider,
         pluginName,
         deleteLog,
-        cfgFactory,
+        cfg,
         hideProject,
         permissionBackend,
         migration);

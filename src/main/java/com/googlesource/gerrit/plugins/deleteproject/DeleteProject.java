@@ -30,7 +30,6 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -62,7 +61,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final Provider<CurrentUser> userProvider;
   private final String pluginName;
   private final DeleteLog deleteLog;
-  private final PluginConfigFactory cfgFactory;
+  private final Configuration cfg;
   private final HideProject hideProject;
   private PermissionBackend permissionBackend;
   private NotesMigration migration;
@@ -77,7 +76,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       Provider<CurrentUser> userProvider,
       @PluginName String pluginName,
       DeleteLog deleteLog,
-      PluginConfigFactory cfgFactory,
+      Configuration cfg,
       HideProject hideProject,
       PermissionBackend permissionBackend,
       NotesMigration migration) {
@@ -89,7 +88,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.userProvider = userProvider;
     this.pluginName = pluginName;
     this.deleteLog = deleteLog;
-    this.cfgFactory = cfgFactory;
+    this.cfg = cfg;
     this.hideProject = hideProject;
     this.permissionBackend = permissionBackend;
     this.migration = migration;
@@ -148,10 +147,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
     try {
-      if (!preserve
-          || !cfgFactory
-              .getFromGerritConfig(pluginName)
-              .getBoolean("hideProjectOnPreserve", false)) {
+      if (!preserve || !cfg.projectOnPreserveHidden()) {
         if (!migration.disableChangeReviewDb()) {
           dbHandler.delete(project);
         }
