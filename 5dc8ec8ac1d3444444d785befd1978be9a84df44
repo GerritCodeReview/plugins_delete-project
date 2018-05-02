@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8515cebc_c8f365e2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-02T17:18:45Z",
+      "side": 1,
+      "message": "you abandoned https://gerrit-review.googlesource.com/#/c/plugins/delete-project/+/168750/ but I do not see the fix from that change here.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "5dc8ec8ac1d3444444d785befd1978be9a84df44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
