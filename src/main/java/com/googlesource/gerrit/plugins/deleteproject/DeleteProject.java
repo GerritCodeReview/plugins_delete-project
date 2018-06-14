@@ -29,6 +29,8 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
+import com.google.gerrit.server.config.AllUsersName;
+import com.google.gerrit.server.config.AllUsersNameProvider;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -49,6 +51,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   protected final AllProjectsName allProjectsName;
+  protected final AllUsersName allUsersName;
   private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
@@ -62,6 +65,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   @Inject
   DeleteProject(
       AllProjectsNameProvider allProjectsNameProvider,
+      AllUsersNameProvider allUsersNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -72,6 +76,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       Configuration cfg,
       HideProject hideProject) {
     this.allProjectsName = allProjectsNameProvider.get();
+    this.allUsersName = allUsersNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;

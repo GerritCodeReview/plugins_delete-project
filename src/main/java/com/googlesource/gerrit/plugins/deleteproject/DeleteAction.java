@@ -16,8 +16,10 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
+import com.google.gerrit.reviewdb.client.Project.NameKey;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
+import com.google.gerrit.server.config.AllUsersNameProvider;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -30,6 +32,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
   @Inject
   DeleteAction(
       AllProjectsNameProvider allProjectsNameProvider,
+      AllUsersNameProvider allUsersNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -41,6 +44,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       HideProject hideProject) {
     super(
         allProjectsNameProvider,
+        allUsersNameProvider,
         dbHandler,
         fsHandler,
         cacheHandler,
@@ -57,14 +61,15 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
     return new UiAction.Description()
         .setLabel("Delete Project")
         .setTitle(
-            isAllProjects(rsrc)
-                ? String.format("No deletion of %s project", allProjectsName)
+            isProtectedProject(rsrc)
+                ? String.format("Not allowed to delete %s", rsrc.getName())
                 : String.format("Delete project %s", rsrc.getName()))
-        .setEnabled(!isAllProjects(rsrc))
+        .setEnabled(!isProtectedProject(rsrc))
         .setVisible(canDelete(rsrc));
   }
 
-  private boolean isAllProjects(ProjectResource rsrc) {
-    return (rsrc.getControl().getProject().getNameKey().equals(allProjectsName));
+  private boolean isProtectedProject(ProjectResource rsrc) {
+    NameKey name = rsrc.getControl().getProject().getNameKey();
+    return (name.equals(allProjectsName) || name.equals(allUsersName));
   }
 }
