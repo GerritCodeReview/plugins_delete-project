@@ -31,6 +31,7 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.util.Collection;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
+@Singleton
 class DeleteProject implements RestModifyView<ProjectResource, Input> {
   static class Input {
     boolean preserve;
