@@ -18,55 +18,38 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.extensions.common.ProjectInfo;
-import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.server.config.AllProjectsName;
-import com.google.gerrit.server.config.AllProjectsNameProvider;
-import com.google.gerrit.server.config.AllUsersName;
-import com.google.gerrit.server.config.AllUsersNameProvider;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
+import com.googlesource.gerrit.plugins.deleteproject.ProtectedProjects;
 import java.util.List;
 
 public class ProjectConfigDeleteHandler {
 
-  protected final AllProjectsName allProjectsName;
-  protected final AllUsersName allUsersName;
-
+  private final ProtectedProjects protectedProjects;
   private final SitePaths site;
   private final Provider<ListChildProjects> listChildProjectsProvider;
 
   @Inject
   public ProjectConfigDeleteHandler(
       SitePaths site,
-      AllProjectsNameProvider allProjectsNameProvider,
-      AllUsersNameProvider allUsersNameProvider,
+      ProtectedProjects protectedProjects,
       Provider<ListChildProjects> listChildProjectsProvider) {
     this.site = site;
-    this.allProjectsName = allProjectsNameProvider.get();
-    this.allUsersName = allUsersNameProvider.get();
+    this.protectedProjects = protectedProjects;
     this.listChildProjectsProvider = listChildProjectsProvider;
   }
 
   public void assertCanDelete(ProjectResource rsrc) throws CannotDeleteProjectException {
-    assertIsNotAllProjects(rsrc);
-    assertIsNotAllUsers(rsrc);
+    assertIsNotProtected(rsrc);
     assertHasNoChildProjects(rsrc);
   }
 
-  private void assertIsNotAllProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
-    Project project = rsrc.getControl().getProject();
-    if (project.getNameKey().equals(allProjectsName)) {
-      throw new CannotDeleteProjectException("Perhaps you meant to rm -fR " + site.site_path);
-    }
-  }
-
-  private void assertIsNotAllUsers(ProjectResource rsrc) throws CannotDeleteProjectException {
-    Project project = rsrc.getControl().getProject();
-    if (project.getNameKey().equals(allUsersName)) {
+  private void assertIsNotProtected(ProjectResource rsrc) throws CannotDeleteProjectException {
+    if (protectedProjects.isProtected(rsrc)) {
       throw new CannotDeleteProjectException("Perhaps you meant to rm -fR " + site.site_path);
     }
   }
