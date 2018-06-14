@@ -55,7 +55,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
   @Override
   public UiAction.Description getDescription(ProjectResource rsrc) {
     return new UiAction.Description()
-        .setLabel("Delete...")
+        .setLabel("Delete Project")
         .setTitle(
             isAllProjects(rsrc)
                 ? String.format("No deletion of %s project", allProjectsName)
