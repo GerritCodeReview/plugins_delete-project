@@ -18,9 +18,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.extensions.common.ProjectInfo;
-import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.server.config.AllProjectsName;
-import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ListChildProjects;
@@ -28,33 +25,32 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
+import com.googlesource.gerrit.plugins.deleteproject.ProtectedProjects;
 import java.util.List;
 
 public class ProjectConfigDeleteHandler {
 
-  protected final AllProjectsName allProjectsName;
-
+  private final ProtectedProjects protectedProjects;
   private final SitePaths site;
   private final Provider<ListChildProjects> listChildProjectsProvider;
 
   @Inject
   public ProjectConfigDeleteHandler(
       SitePaths site,
-      AllProjectsNameProvider allProjectsNameProvider,
+      ProtectedProjects protectedProjects,
       Provider<ListChildProjects> listChildProjectsProvider) {
     this.site = site;
-    this.allProjectsName = allProjectsNameProvider.get();
+    this.protectedProjects = protectedProjects;
     this.listChildProjectsProvider = listChildProjectsProvider;
   }
 
   public void assertCanDelete(ProjectResource rsrc) throws CannotDeleteProjectException {
-    assertIsNotAllProjects(rsrc);
+    assertIsNotProtected(rsrc);
     assertHasNoChildProjects(rsrc);
   }
 
-  private void assertIsNotAllProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
-    Project project = rsrc.getControl().getProject();
-    if (project.getNameKey().equals(allProjectsName)) {
+  private void assertIsNotProtected(ProjectResource rsrc) throws CannotDeleteProjectException {
+    if (protectedProjects.isProtected(rsrc)) {
       throw new CannotDeleteProjectException("Perhaps you meant to rm -fR " + site.site_path);
     }
   }
