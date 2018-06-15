@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8851765_30898435",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-06-15T03:04:50Z",
+      "side": 1,
+      "message": "This should also check for All-Users.",
+      "revId": "1e9ec4c8e7b45ea5dad6edfd8d5f82dc5bec26f4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
