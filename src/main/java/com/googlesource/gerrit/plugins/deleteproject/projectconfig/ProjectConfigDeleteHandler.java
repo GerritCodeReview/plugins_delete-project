@@ -39,15 +39,8 @@ public class ProjectConfigDeleteHandler {
   }
 
   public void assertCanDelete(ProjectResource rsrc) throws CannotDeleteProjectException {
-    assertIsNotProtected(rsrc);
+    protectedProjects.assertIsNotProtected(rsrc);
     assertHasNoChildProjects(rsrc);
-  }
-
-  private void assertIsNotProtected(ProjectResource rsrc) throws CannotDeleteProjectException {
-    if (protectedProjects.isProtected(rsrc)) {
-      throw new CannotDeleteProjectException(
-          "Cannot delete project because it is protected against deletion");
-    }
   }
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
