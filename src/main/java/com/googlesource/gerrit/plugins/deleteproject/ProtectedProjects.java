@@ -28,17 +28,29 @@ import com.google.inject.Singleton;
 public class ProtectedProjects {
   private final AllProjectsName allProjectsName;
   private final AllUsersName allUsersName;
+  private final Configuration config;
 
   @Inject
   ProtectedProjects(
-      AllProjectsNameProvider allProjectsNameProvider, AllUsersNameProvider allUsersNameProvider) {
+      AllProjectsNameProvider allProjectsNameProvider,
+      AllUsersNameProvider allUsersNameProvider,
+      Configuration config) {
     this.allProjectsName = allProjectsNameProvider.get();
     this.allUsersName = allUsersNameProvider.get();
+    this.config = config;
+  }
+
+  private boolean isDefaultProtected(Project.NameKey name) {
+    return name.equals(allProjectsName) || name.equals(allUsersName);
+  }
+
+  private boolean isCustomProtected(Project.NameKey name) {
+    return config.protectedProjects().stream().anyMatch(p -> p.matcher(name.get()).matches());
   }
 
   @VisibleForTesting
   public boolean isProtected(Project.NameKey name) {
-    return name.equals(allProjectsName) || name.equals(allUsersName);
+    return isDefaultProtected(name) || isCustomProtected(name);
   }
 
   public boolean isProtected(ProjectResource rsrc) {

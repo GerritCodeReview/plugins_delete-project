@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
@@ -24,6 +25,7 @@ import com.google.gerrit.server.config.AllUsersName;
 import com.google.gerrit.server.config.AllUsersNameProvider;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import java.util.List;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,15 +41,18 @@ public class ProtectedProjectsTest {
   @Mock private AllUsersNameProvider allUsersMock;
   @Mock private PluginConfigFactory pluginConfigFactoryMock;
 
+  private PluginConfig pluginConfig;
+  private Configuration deleteConfig;
   private ProtectedProjects protectedProjects;
 
   @Before
   public void setup() throws Exception {
     when(allProjectsMock.get()).thenReturn(new AllProjectsName("All-Projects"));
     when(allUsersMock.get()).thenReturn(new AllUsersName("All-Users"));
-    PluginConfig pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
+    pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
-    protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
+    protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
   }
 
   @Test
@@ -63,6 +68,25 @@ public class ProtectedProjectsTest {
   @Test
   public void otherProjectIsNotProtected() throws Exception {
     assertNotProtected("test-project");
+  }
+
+  @Test
+  public void customProjectIsProtected() throws Exception {
+    List<String> projects = ImmutableList.of("Custom-Parent", "^protected-.*");
+    pluginConfig.setStringList("protectedProject", projects);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
+    assertThat(deleteConfig.protectedProjects()).hasSize(projects.size());
+    protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
+
+    assertProtected("protected-project-1");
+    assertProtected("protected-project-2");
+    assertProtected("Custom-Parent");
+    assertNotProtected("test-project");
+    assertNotProtected("protected");
+    assertNotProtected("my-protected-project");
+    assertNotProtected("Another-Custom-Parent");
+    assertNotProtected("Custom-Parent-2");
   }
 
   private void assertProtected(String name) {
