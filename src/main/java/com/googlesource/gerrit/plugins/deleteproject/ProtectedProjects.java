@@ -42,4 +42,11 @@ public class ProtectedProjects {
   public boolean isProtected(ProjectResource rsrc) {
     return isProtected(rsrc.getNameKey());
   }
+
+  public void assertIsNotProtected(ProjectResource rsrc) throws CannotDeleteProjectException {
+    if (isProtected(rsrc)) {
+      throw new CannotDeleteProjectException(
+          "Cannot delete project because it is protected against deletion");
+    }
+  }
 }

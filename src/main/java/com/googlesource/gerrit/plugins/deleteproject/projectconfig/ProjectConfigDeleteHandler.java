@@ -18,7 +18,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.gerrit.extensions.common.ProjectInfo;
-import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ListChildProjects;
 import com.google.gerrit.server.project.ProjectResource;
@@ -31,28 +30,18 @@ import java.util.List;
 public class ProjectConfigDeleteHandler {
 
   private final ProtectedProjects protectedProjects;
-  private final SitePaths site;
   private final Provider<ListChildProjects> listChildProjectsProvider;
 
   @Inject
   public ProjectConfigDeleteHandler(
-      SitePaths site,
-      ProtectedProjects protectedProjects,
-      Provider<ListChildProjects> listChildProjectsProvider) {
-    this.site = site;
+      ProtectedProjects protectedProjects, Provider<ListChildProjects> listChildProjectsProvider) {
     this.protectedProjects = protectedProjects;
     this.listChildProjectsProvider = listChildProjectsProvider;
   }
 
   public void assertCanDelete(ProjectResource rsrc) throws CannotDeleteProjectException {
-    assertIsNotProtected(rsrc);
+    protectedProjects.assertIsNotProtected(rsrc);
     assertHasNoChildProjects(rsrc);
-  }
-
-  private void assertIsNotProtected(ProjectResource rsrc) throws CannotDeleteProjectException {
-    if (protectedProjects.isProtected(rsrc)) {
-      throw new CannotDeleteProjectException("Perhaps you meant to rm -fR " + site.site_path);
-    }
   }
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
