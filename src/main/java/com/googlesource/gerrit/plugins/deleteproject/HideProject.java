@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.common.data.AccessSection;
 import com.google.gerrit.extensions.client.ProjectState;
+import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestApiException;
@@ -38,18 +39,18 @@ class HideProject {
 
   private final MetaDataUpdate.Server metaDataUpdateFactory;
   private final ProjectCache projectCache;
-  private final CreateProject.Factory createProjectFactory;
+  private final CreateProject createProject;
   private final Configuration cfg;
 
   @Inject
   HideProject(
       MetaDataUpdate.Server metaDataUpdateFactory,
       ProjectCache projectCache,
-      CreateProject.Factory createProjectFactory,
+      CreateProject createProject,
       Configuration cfg) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.projectCache = projectCache;
-    this.createProjectFactory = createProjectFactory;
+    this.createProject = createProject;
     this.cfg = cfg;
   }
 
@@ -82,7 +83,7 @@ class HideProject {
   private void createProjectIfMissing(String projectName) throws IOException, RestApiException {
     if (projectCache.get(new Project.NameKey(projectName)) == null) {
       try {
-        createProjectFactory.create(projectName).apply(TopLevelResource.INSTANCE, null);
+        createProject.apply(TopLevelResource.INSTANCE, IdString.fromDecoded(projectName), null);
       } catch (RestApiException | ConfigInvalidException | PermissionBackendException e) {
         throw new ResourceConflictException(
             String.format("Failed to create project %s", projectName));
