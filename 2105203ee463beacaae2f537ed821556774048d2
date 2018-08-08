@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31a3900b_600eb2e1",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 25
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-08T12:34:04Z",
+      "side": 1,
+      "message": "Optional: I find it easier to grasp, if this condition would be written positively and inverted in the end (or alternatively, have variable visible and invert it hidden \u003d !visible):\n\n  this.hidden \u003d !(this.config \u0026\u0026\n        this.config.actions[\u0027delete-project~delete\u0027] \u0026\u0026\n        this.repoName !\u003d\u003d \u0027All-Projects\u0027 \u0026\u0026 \n        this.repoName !\u003d\u003d \u0027All-Users\u0027);",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "2105203ee463beacaae2f537ed821556774048d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656edd27_09d4fb3e",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 25
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-08T12:34:04Z",
+      "side": 1,
+      "message": "This check shoudn\u0027t be needed, repoName is always there. In attached() above it is already unconditionally checked against.",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "2105203ee463beacaae2f537ed821556774048d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "069a1eab_81a73a28",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-08T12:34:04Z",
+      "side": 1,
+      "message": "Remove commented out line.",
+      "revId": "2105203ee463beacaae2f537ed821556774048d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
