@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd47a6d5_e71a9bb0",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 25
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1024846
+      },
+      "writtenOn": "2018-08-08T15:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31a3900b_600eb2e1",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "2105203ee463beacaae2f537ed821556774048d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "656edd27_09d4fb3e",
         "filename": "src/main/resources/static/repo-command-delete-repo.js",
         "patchSetId": 25
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e71e3bba_5cefc87b",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 25
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1024846
+      },
+      "writtenOn": "2018-08-08T15:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "656edd27_09d4fb3e",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 37
+      },
+      "revId": "2105203ee463beacaae2f537ed821556774048d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "069a1eab_81a73a28",
         "filename": "src/main/resources/static/repo-command-delete-repo.js",
         "patchSetId": 25
@@ -62,6 +110,24 @@
       "revId": "2105203ee463beacaae2f537ed821556774048d2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da9cef37_02b9615e",
+        "filename": "src/main/resources/static/repo-command-delete-repo.js",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1024846
+      },
+      "writtenOn": "2018-08-08T15:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "069a1eab_81a73a28",
+      "revId": "2105203ee463beacaae2f537ed821556774048d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
