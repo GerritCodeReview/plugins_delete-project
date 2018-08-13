@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
 public class DatabaseDeleteHandler {
   private static final Logger log = LoggerFactory.getLogger(DatabaseDeleteHandler.class);
 
-  private final ReviewDb db;
+  private final Provider<ReviewDb> dbProvider;
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
   private final SubmoduleOp.Factory subOpFactory;
@@ -79,7 +79,7 @@ public class DatabaseDeleteHandler {
 
   @Inject
   public DatabaseDeleteHandler(
-      ReviewDb db,
+      Provider<ReviewDb> dbProvider,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
       SubmoduleOp.Factory subOpFactory,
@@ -91,7 +91,7 @@ public class DatabaseDeleteHandler {
       Provider<WatchConfig.Accessor> watchConfig) {
     this.accountQueryProvider = accountQueryProvider;
     this.watchConfig = watchConfig;
-    this.db = ReviewDbUtil.unwrapDb(db);
+    this.dbProvider = dbProvider;
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
     this.subOpFactory = subOpFactory;
@@ -116,7 +116,7 @@ public class DatabaseDeleteHandler {
   public void delete(Project project) throws OrmException {
     // TODO(davido): Why not to use 1.7 features?
     // http://docs.oracle.com/javase/specs/jls/se7/html/jls-14.html#jls-14.20.3.2
-    Connection conn = ((JdbcSchema) db).getConnection();
+    Connection conn = ((JdbcSchema) getDb()).getConnection();
     try {
       conn.setAutoCommit(false);
       try {
@@ -143,6 +143,10 @@ public class DatabaseDeleteHandler {
     }
   }
 
+  private ReviewDb getDb() {
+    return ReviewDbUtil.unwrapDb(dbProvider.get());
+  }
+
   private final void deleteChanges(Project.NameKey project, List<Change.Id> changeIds)
       throws OrmException {
 
@@ -153,17 +157,17 @@ public class DatabaseDeleteHandler {
         // we can ignore the exception during delete
       }
       ResultSet<PatchSet> patchSets = null;
-      patchSets = db.patchSets().byChange(id);
+      patchSets = getDb().patchSets().byChange(id);
       if (patchSets != null) {
         deleteFromPatchSets(patchSets);
       }
 
       // In the future, use schemaVersion to decide what to delete.
-      db.patchComments().delete(db.patchComments().byChange(id));
-      db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
+      getDb().patchComments().delete(getDb().patchComments().byChange(id));
+      getDb().patchSetApprovals().delete(getDb().patchSetApprovals().byChange(id));
 
-      db.changeMessages().delete(db.changeMessages().byChange(id));
-      db.changes().deleteKeys(Collections.singleton(id));
+      getDb().changeMessages().delete(getDb().changeMessages().byChange(id));
+      getDb().changes().deleteKeys(Collections.singleton(id));
 
       // Delete from the secondary index
       try {
@@ -177,7 +181,7 @@ public class DatabaseDeleteHandler {
   private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets) throws OrmException {
     for (PatchSet patchSet : patchSets) {
       accountPatchReviewStore.get().clearReviewed(patchSet.getId());
-      db.patchSets().delete(Collections.singleton(patchSet));
+      getDb().patchSets().delete(Collections.singleton(patchSet));
     }
   }
 
