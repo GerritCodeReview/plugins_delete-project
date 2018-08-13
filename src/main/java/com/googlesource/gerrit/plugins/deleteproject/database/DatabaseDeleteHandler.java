@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
 public class DatabaseDeleteHandler {
   private static final Logger log = LoggerFactory.getLogger(DatabaseDeleteHandler.class);
 
-  private final ReviewDb db;
+  private final Provider<ReviewDb> dbProvider;
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
   private final SubmoduleOp.Factory subOpFactory;
@@ -79,7 +79,7 @@ public class DatabaseDeleteHandler {
 
   @Inject
   public DatabaseDeleteHandler(
-      ReviewDb db,
+      Provider<ReviewDb> dbProvider,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
       SubmoduleOp.Factory subOpFactory,
@@ -91,7 +91,7 @@ public class DatabaseDeleteHandler {
       Provider<WatchConfig.Accessor> watchConfig) {
     this.accountQueryProvider = accountQueryProvider;
     this.watchConfig = watchConfig;
-    this.db = ReviewDbUtil.unwrapDb(db);
+    this.dbProvider = dbProvider;
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
     this.subOpFactory = subOpFactory;
@@ -116,6 +116,7 @@ public class DatabaseDeleteHandler {
   public void delete(Project project) throws OrmException {
     // TODO(davido): Why not to use 1.7 features?
     // http://docs.oracle.com/javase/specs/jls/se7/html/jls-14.html#jls-14.20.3.2
+    ReviewDb db = ReviewDbUtil.unwrapDb(dbProvider.get());
     Connection conn = ((JdbcSchema) db).getConnection();
     try {
       conn.setAutoCommit(false);
@@ -128,7 +129,7 @@ public class DatabaseDeleteHandler {
         while (resultSet.next()) {
           changeIds.add(new Change.Id(resultSet.getInt(1)));
         }
-        atomicDelete(project, changeIds);
+        atomicDelete(db, project, changeIds);
         conn.commit();
       } finally {
         conn.setAutoCommit(true);
@@ -143,7 +144,7 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteChanges(Project.NameKey project, List<Change.Id> changeIds)
+  private final void deleteChanges(ReviewDb db, Project.NameKey project, List<Change.Id> changeIds)
       throws OrmException {
 
     for (Change.Id id : changeIds) {
@@ -152,10 +153,9 @@ public class DatabaseDeleteHandler {
       } catch (NoSuchChangeException e) {
         // we can ignore the exception during delete
       }
-      ResultSet<PatchSet> patchSets = null;
-      patchSets = db.patchSets().byChange(id);
+      ResultSet<PatchSet> patchSets = db.patchSets().byChange(id);
       if (patchSets != null) {
-        deleteFromPatchSets(patchSets);
+        deleteFromPatchSets(db, patchSets);
       }
 
       // In the future, use schemaVersion to decide what to delete.
@@ -174,7 +174,8 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteFromPatchSets(final ResultSet<PatchSet> patchSets) throws OrmException {
+  private final void deleteFromPatchSets(ReviewDb db, final ResultSet<PatchSet> patchSets)
+      throws OrmException {
     for (PatchSet patchSet : patchSets) {
       accountPatchReviewStore.get().clearReviewed(patchSet.getId());
       db.patchSets().delete(Collections.singleton(patchSet));
@@ -204,9 +205,10 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  public void atomicDelete(Project project, List<Change.Id> changeIds) throws OrmException {
+  public void atomicDelete(ReviewDb db, Project project, List<Change.Id> changeIds)
+      throws OrmException {
 
-    deleteChanges(project.getNameKey(), changeIds);
+    deleteChanges(db, project.getNameKey(), changeIds);
 
     for (AccountState a : accountQueryProvider.get().byWatchedProject(project.getNameKey())) {
       Account.Id accountId = a.getAccount().getId();
