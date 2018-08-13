@@ -114,22 +114,12 @@ public class DatabaseDeleteHandler {
   }
 
   public void delete(Project project) throws OrmException {
-    // TODO(davido): Why not to use 1.7 features?
-    // http://docs.oracle.com/javase/specs/jls/se7/html/jls-14.html#jls-14.20.3.2
     ReviewDb db = ReviewDbUtil.unwrapDb(dbProvider.get());
     Connection conn = ((JdbcSchema) db).getConnection();
     try {
       conn.setAutoCommit(false);
       try {
-        PreparedStatement changesForProject =
-            conn.prepareStatement("SELECT change_id FROM changes WHERE dest_project_name = ?");
-        changesForProject.setString(1, project.getName());
-        java.sql.ResultSet resultSet = changesForProject.executeQuery();
-        List<Change.Id> changeIds = new ArrayList<>();
-        while (resultSet.next()) {
-          changeIds.add(new Change.Id(resultSet.getInt(1)));
-        }
-        atomicDelete(db, project, changeIds);
+        atomicDelete(db, project, getChangesList(project, conn));
         conn.commit();
       } finally {
         conn.setAutoCommit(true);
@@ -141,6 +131,22 @@ public class DatabaseDeleteHandler {
         throw new OrmException(ex);
       }
       throw new OrmException(e);
+    }
+  }
+
+  private List<Change.Id> getChangesList(Project project, Connection conn) throws SQLException {
+    try (PreparedStatement changesForProject =
+        conn.prepareStatement("SELECT change_id FROM changes WHERE dest_project_name = ?")) {
+      changesForProject.setString(1, project.getName());
+      try (java.sql.ResultSet resultSet = changesForProject.executeQuery()) {
+        List<Change.Id> changeIds = new ArrayList<>();
+        while (resultSet.next()) {
+          changeIds.add(new Change.Id(resultSet.getInt(1)));
+        }
+        return changeIds;
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Unable to get list of changes for project " + project.getName(), e);
     }
   }
 
