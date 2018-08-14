@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0975dfa_7c158d6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T04:48:36Z",
+      "side": 1,
+      "message": "Nit: ReviewDb, here and below.",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "b9754934b83ac615cfe7ec07fc93fe48483a38ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61d8c271_7f2bfdf3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T04:48:36Z",
+      "side": 1,
+      "message": "I agree with your analysis, thanks for tracking this down.",
+      "revId": "b9754934b83ac615cfe7ec07fc93fe48483a38ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d68977d_ef62bd9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T04:48:36Z",
+      "side": 1,
+      "message": "It should be also sufficient to materialize the ReviewDb Provider only once, when DatabaseDeleteHandler#delete() is called.",
+      "revId": "b9754934b83ac615cfe7ec07fc93fe48483a38ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e7d1635_c1211c68",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T04:48:36Z",
+      "side": 1,
+      "message": "Can we avoid calling the Provider.get() multiple times? I mean in the same method it shouldn\u0027t be a problem, just define a variable: ReviewDb db \u003d getDb();\n\nSecond option is to do it only once across different methods when entry method in handler is called: delete(Project project), we could retrieve the actual ReviewDb instance and pass it in corresponding methods.",
+      "revId": "b9754934b83ac615cfe7ec07fc93fe48483a38ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
