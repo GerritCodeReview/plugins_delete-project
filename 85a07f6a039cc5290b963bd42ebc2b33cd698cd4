@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c685da6b_7fa1b7cc",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T06:33:00Z",
+      "side": 1,
+      "message": "You can\u0027t do that as this transitively added virtually everything from gerrit core:\n\n  $ bazel build plugins/delete-project\n  INFO: Analysed target //plugins/delete-project:delete-project (0 packages loaded).\n  INFO: Found 1 target...\n  Target //plugins/delete-project:delete-project up-to-date:\n    bazel-genfiles/plugins/delete-project/delete-project.jar\n  INFO: Elapsed time: 0.382s, Critical Path: 0.26s\n  INFO: 0 processes.\n  INFO: Build completed successfully, 1 total action\n\nBut now:\n\n  $ ls -all bazel-genfiles/plugins/delete-project/delete-project.jar\n  -r-xr-xr-x 1 davido users 41556717 Aug 14 08:25 bazel-genfiles/plugins/delete-project/delete-project.jar\n\nIf you inspect the content of final artifact (that you always should do after changing the build tool chain):\n\n  $ unzip -t bazel-genfiles/plugins/delete-project/delete-project.jar\n  [...]\n\nYou would notice, that now the delete-project.jar would contain everything that //java/com/google/gerrit/server/audit depends on.",
+      "revId": "85a07f6a039cc5290b963bd42ebc2b33cd698cd4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
