@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18e0e1d4_61bd90f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T21:23:50Z",
+      "side": 1,
+      "message": "So, we have GWT und PG plugins loaded here on the same page. Those plugins are not compatible. If I load repository page on PG UI, I\u0027m seeing a popup with this error on the console during the load of GWT plugin:\n\n  Plugin install error: TypeError: self.onAction is not a function gr-public-js-api.js:616\n\nI think that loading of GWT plugin on PG page should be skipped to avoid this annoying error. I think in other cases we avoided this error by checking if we are currently in PG or GWT use case?",
+      "range": {
+        "startLine": 26,
+        "startChar": 42,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58f8ce5_6859ed48",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T21:23:50Z",
+      "side": 1,
+      "message": "So you put three files in src/main/resources/static directory:\n\n* delete-project.html\n* repo-command-delete-repo.html\n* repo-command-delete-repo.js\n\nWhy are we not using the new and shiny polygerrit_plugin bazel rule, that was added during the work on codemirror-editor plugin? Untested, but something like: [1]. The idea would be to manage the assets in the same way it\u0027s done in codemirror-editor:\n\n* plugin.html in the root of the plugin\n* Sub-Directory with assets, for example: gr-repo-command and there the two files:\n* gr-repo-command/delete-repo.html\n* gr-repo-command/delete-repo.js\n\n* [1] http://paste.openstack.org/show/728059",
+      "range": {
+        "startLine": 28,
+        "startChar": 42,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c349bd_8baffe2c",
+        "filename": "src/main/resources/static/repo-command-delete-repo.html",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-14T21:23:50Z",
+      "side": 1,
+      "message": "Does this actually work on master? I\u0027m testing this plugin on this commit: a09d96286753e165d1a7ed20ceda3cbf6da26e41 in gerrit core, and I see overlay without any buttons: [1]. What am I missing?\n\n* [1] https://imgur.com/a/U7XWgGU",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
