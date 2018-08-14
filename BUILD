@@ -16,7 +16,6 @@ gerrit_plugin(
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule",
     ],
     resources = glob(["src/main/resources/**/*"]),
-    deps = ["//java/com/google/gerrit/server/audit"],
 )
 
 junit_tests(
