@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0db1dfb_deaba08b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-15T07:09:58Z",
+      "side": 1,
+      "message": "I meant these changes, that you have done on Chromium\u0027s PG-Gerrit plugins: [1], [2].\n\nThe idea to do the opposite for GWT plugin:\n\n  if (!window.Polymer) {\n    Gerrit.install(function(self) {\n    [...]\n  }\n\nsomething like this seems to fix the breakage (loading GWT plugin on PG page): [3]. Another question is, why there is no breakage in the opposite direction? Why something like [1], [2] is not needed for PG plugin to not break GWT page?\n\n* [1] https://chromium-review.googlesource.com/c/infra/gerrit-plugins/tricium/+/862642/4/src/main/resources/static/tricium.js#7\n* [2] https://chromium-review.googlesource.com/c/infra/gerrit-plugins/buildbucket/+/861887/3/src/main/resources/static/buildbucket.js#7\n* [3] http://paste.openstack.org/show/728092",
+      "parentUuid": "18e0e1d4_61bd90f3",
+      "range": {
+        "startLine": 26,
+        "startChar": 42,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a58f8ce5_6859ed48",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
         "patchSetId": 26
