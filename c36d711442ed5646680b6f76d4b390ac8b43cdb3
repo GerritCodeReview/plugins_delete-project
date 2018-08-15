@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38c2cb37_9126e73e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-15T12:49:29Z",
+      "side": 1,
+      "message": "This local variable is hiding the field declared at line 42 and it should be renamed.",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "881e164b_7417b453",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-15T12:49:29Z",
+      "side": 1,
+      "message": "Instead of using the File API, why not using the newest (recommended) Path API and avoiding the conversion in the return line?",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f752465_9e7da65f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-15T12:49:29Z",
+      "side": 1,
+      "message": "No need to call toString as the log formatter does it.",
+      "range": {
+        "startLine": 124,
+        "startChar": 22,
+        "endLine": 124,
+        "endChar": 33
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea9b278_32481a99",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/ArchiveRepositoryRemover.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-15T12:49:29Z",
+      "side": 1,
+      "message": "Do we really need to calculate the current time inside the loop? Isn\u0027t enough if we calculated once at the start of the method?",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 81
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e302759_bb169d92",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-15T12:49:29Z",
+      "side": 1,
+      "message": "Finally, from a high-level point of view, we don\u0027t need to move to trash if the archive option is enabled. That amounts to archiving the same repository twice. We can, instead, verify if archiving is enabled and, only if it\u0027s not, move the repository to the trash. This could also simplify a bit the code for archiving as we can probably use the basePath instead of the trash one to resolve the new path.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 5
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
