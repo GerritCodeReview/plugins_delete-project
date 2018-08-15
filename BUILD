@@ -43,6 +43,27 @@ polygerrit_plugin(
     app = "plugin.html",
 )
 
+genrule2(
+    name = "gr-delete-repo-static",
+    srcs = [":gr-delete-repo"],
+    outs = ["gr-delete-repo-static.jar"],
+    cmd = " && ".join([
+        "mkdir $$TMP/static",
+        "cp -r $(locations :gr-delete-repo) $$TMP/static",
+        "cd $$TMP",
+        "zip -Drq $$ROOT/$@ -g .",
+    ]),
+)
+
+polygerrit_plugin(
+    name = "gr-delete-repo",
+    srcs = glob([
+        "gr-delete-repo/*.html",
+        "gr-delete-repo/*.js",
+    ]),
+    app = "plugin.html",
+)
+
 junit_tests(
     name = "delete_project_tests",
     srcs = glob(["src/test/java/**/*.java"]),
