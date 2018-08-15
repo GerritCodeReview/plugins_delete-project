@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c8c7db3d_707b5e14",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T12:29:14Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "a0db1dfb_deaba08b",
+      "range": {
+        "startLine": 26,
+        "startChar": 42,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a58f8ce5_6859ed48",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
         "patchSetId": 26
@@ -120,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "8531f8a6_e3bd3bd8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T12:29:14Z",
+      "side": 1,
+      "message": "ok, thanks.",
+      "parentUuid": "619ab905_5640c1ef",
+      "range": {
+        "startLine": 28,
+        "startChar": 42,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0c349bd_8baffe2c",
         "filename": "src/main/resources/static/repo-command-delete-repo.html",
         "patchSetId": 26
@@ -140,6 +188,30 @@
       "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ec4c358_62fa6829",
+        "filename": "src/main/resources/static/repo-command-delete-repo.html",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T12:29:14Z",
+      "side": 1,
+      "message": "It\u0027s because gr-confirm-dialog was renamed to gr-dialog in https://github.com/GerritCodeReview/gerrit/commit/2960db0adc8fe38f2b694431b2197f709b658dd4",
+      "parentUuid": "d0c349bd_8baffe2c",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
