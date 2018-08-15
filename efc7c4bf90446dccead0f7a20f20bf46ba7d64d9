@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2c5062d9_6086192e",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T22:53:06Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "66f0ab17_0d7513d1",
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fab79e5_d98b299e",
         "filename": "gr-delete-repo/gr-delete-repo.html",
         "patchSetId": 29
@@ -39,6 +57,30 @@
       "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c95ee13_93bd1485",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T22:53:06Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "0fab79e5_d98b299e",
+      "range": {
+        "startLine": 26,
+        "startChar": 25,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "7cb8643d_c692e263",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T22:53:06Z",
+      "side": 1,
+      "message": "Removed per your recommendation in your paste.",
+      "parentUuid": "fe20a499_f7a3718b",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc224aa_0bff5fde",
         "filename": "gr-delete-repo/gr-delete-repo.html",
         "patchSetId": 29
@@ -85,6 +151,30 @@
       "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d11a421_ef63bff3",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T22:53:06Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "fcc224aa_0bff5fde",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
