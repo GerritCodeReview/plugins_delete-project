@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66f0ab17_0d7513d1",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-15T19:02:45Z",
+      "side": 1,
+      "message": "I think we can improve the dialog, what do you think? Current: [1], my suggestion: [2]. Here is my version: [3].\n\n* [1] https://imgur.com/a/wXFjBCM\n* [2] https://imgur.com/a/oD23tGh\n* [3] http://paste.openstack.org/show/728134/",
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fab79e5_d98b299e",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-15T19:02:45Z",
+      "side": 1,
+      "message": "Just Delete",
+      "range": {
+        "startLine": 26,
+        "startChar": 25,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe20a499_f7a3718b",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-15T19:02:45Z",
+      "side": 1,
+      "message": "Do we really need yet anther title?",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcc224aa_0bff5fde",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 29
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-15T19:02:45Z",
+      "side": 1,
+      "message": "Swap the order: first checkbox, second label, like it\u0027s done in GWT dialog.",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "efc7c4bf90446dccead0f7a20f20bf46ba7d64d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
