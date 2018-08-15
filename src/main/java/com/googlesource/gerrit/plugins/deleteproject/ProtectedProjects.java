@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
@@ -35,6 +36,7 @@ public class ProtectedProjects {
     this.allUsersName = allUsersNameProvider.get();
   }
 
+  @VisibleForTesting
   public boolean isProtected(Project.NameKey name) {
     return name.equals(allProjectsName) || name.equals(allUsersName);
   }
