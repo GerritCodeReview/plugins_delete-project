@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b625d85a_aeaf9285",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-15T11:39:31Z",
+      "side": 1,
+      "message": "Is that rule in 2.15?",
+      "parentUuid": "a58f8ce5_6859ed48",
+      "range": {
+        "startLine": 28,
+        "startChar": 42,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "8cfdc33d09cc6f29d79023a332404edf278110cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0c349bd_8baffe2c",
         "filename": "src/main/resources/static/repo-command-delete-repo.html",
         "patchSetId": 26
