@@ -17,7 +17,6 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectResource;
@@ -29,9 +28,11 @@ import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.projectconfig.ProjectConfigDeleteHandler;
 
 public class DeleteAction extends DeleteProject implements UiAction<ProjectResource> {
+  private final ProtectedProjects protectedProjects;
+
   @Inject
   DeleteAction(
-      AllProjectsNameProvider allProjectsNameProvider,
+      ProtectedProjects protectedProjects,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -44,7 +45,6 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       PermissionBackend permissionBackend,
       NotesMigration migration) {
     super(
-        allProjectsNameProvider,
         dbHandler,
         fsHandler,
         cacheHandler,
@@ -56,21 +56,18 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
         hideProject,
         permissionBackend,
         migration);
+    this.protectedProjects = protectedProjects;
   }
 
   @Override
   public UiAction.Description getDescription(ProjectResource rsrc) {
     return new UiAction.Description()
-        .setLabel("Delete...")
+        .setLabel("Delete Project")
         .setTitle(
-            isAllProjects(rsrc)
-                ? String.format("No deletion of %s project", allProjectsName)
+            protectedProjects.isProtected(rsrc)
+                ? String.format("Not allowed to delete %s", rsrc.getName())
                 : String.format("Delete project %s", rsrc.getName()))
-        .setEnabled(!isAllProjects(rsrc))
+        .setEnabled(!protectedProjects.isProtected(rsrc))
         .setVisible(canDelete(rsrc));
-  }
-
-  private boolean isAllProjects(ProjectResource rsrc) {
-    return (rsrc.getProjectState().getProject().getNameKey().equals(allProjectsName));
   }
 }

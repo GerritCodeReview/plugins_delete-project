@@ -28,8 +28,6 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.config.AllProjectsName;
-import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -38,6 +36,7 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
@@ -47,13 +46,13 @@ import java.io.IOException;
 import java.util.Collection;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
+@Singleton
 class DeleteProject implements RestModifyView<ProjectResource, Input> {
   static class Input {
     boolean preserve;
     boolean force;
   }
 
-  protected final AllProjectsName allProjectsName;
   private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
@@ -68,7 +67,6 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
 
   @Inject
   DeleteProject(
-      AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -80,7 +78,6 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       HideProject hideProject,
       PermissionBackend permissionBackend,
       NotesMigration migration) {
-    this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
