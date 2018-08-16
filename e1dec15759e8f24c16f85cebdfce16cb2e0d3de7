@@ -73,6 +73,29 @@
     },
     {
       "key": {
+        "uuid": "0e698eee_a27498fa",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 30
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-16T09:53:31Z",
+      "side": 1,
+      "message": "Why are we hard code the plugin endpoin on the client side, instead of using action id, that server sent to client in JSON actions entity:\n\n  config:\n    actions:\n      delete-project~delete:\n        [...]\n\nAfter saving the ednpoint id in say deleteActionEndpoint variable in attached() method, you do something like:\n\n   var pluginRestApi \u003d \u0027/projects/\u0027 +\n       encodeURIComponent(this.repoName) +\n       \u0027/\u0027 +\n       this.deleteActionEndpoint;\n\nActually the action has all information: the method (POST in that case) and the endpoint, and the fact that it is project related. There should be even simpler to fire request. I don\u0027t know if PG plugin API already supports that.",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "e1dec15759e8f24c16f85cebdfce16cb2e0d3de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53ddd624_fdc9e44a",
         "filename": "gr-delete-repo/gr-delete-repo.js",
         "patchSetId": 30
