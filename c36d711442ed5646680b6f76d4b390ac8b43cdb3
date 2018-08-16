@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "9e89a5b0_a4dd9cfb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-08-16T18:23:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bab03833_471a8818",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f752465_9e7da65f",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
         "patchSetId": 11
@@ -306,6 +330,30 @@
       "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4fa78a1_0b7281e8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060002
+      },
+      "writtenOn": "2018-08-16T18:23:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17050746_14d09c65",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 5
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
