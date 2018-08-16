@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ce41726_029c20fb",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 30
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-16T06:24:13Z",
+      "side": 1,
+      "message": "Forgot to mention how actions JSON entity looks for non-protected project, note enabled: true:\n\n  config\n  actions:\n    delete-project~delete:\n      enabled: true\n      label: \"Delete...\"\n      method: \"POST\"\n      title: \"Delete project test_project42\"",
+      "parentUuid": "142d35b6_835bf4b0",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "e1dec15759e8f24c16f85cebdfce16cb2e0d3de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53ddd624_fdc9e44a",
         "filename": "gr-delete-repo/gr-delete-repo.js",
         "patchSetId": 30
