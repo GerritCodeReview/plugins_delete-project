@@ -116,6 +116,30 @@
       "revId": "e1dec15759e8f24c16f85cebdfce16cb2e0d3de7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72a9e3fa_023fbb2e",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 30
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-16T20:43:41Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "53ddd624_fdc9e44a",
+      "range": {
+        "startLine": 54,
+        "startChar": 54,
+        "endLine": 54,
+        "endChar": 55
+      },
+      "revId": "e1dec15759e8f24c16f85cebdfce16cb2e0d3de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
