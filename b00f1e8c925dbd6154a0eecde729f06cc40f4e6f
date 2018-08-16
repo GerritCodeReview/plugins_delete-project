@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a0280c4_40701c95",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:32:16Z",
+      "side": 1,
+      "message": "this is not the latest:\n\ngit log 4a4cff4b437e60abd38c6229fabd79692e7fbd7d..origin/stable-2.15 --oneline \n3995849 (HEAD -\u003e stable-2.15, origin/stable-2.15) Update API to 2.15.3\neb34d2f Merge branch \u0027stable-2.14\u0027 into stable-2.15\ndcd3bfb Fix call to the fail skylark global in junit.bzl\n5e0b58a Format .bzl files with buildifier version 0.12.0\nff156b9 Update API to 2.14.10\n624936f Set snapshot version to 2.14.11-SNAPSHOT\n104b913 Merge branch \u0027stable-2.14\u0027 into stable-2.15\na5cf07a Upgrade API version to 2.14.9\n7ce9a3f Merge branch \u0027stable-2.14\u0027 into stable-2.15\ne21be8f Adjust names of prolog dependencies\nad9df4d Add optional dir_name argument to gerrit_plugin\n315103d gerrit_plugin: Improve stamping error message",
+      "range": {
+        "startLine": 6,
+        "startChar": 14,
+        "endLine": 6,
+        "endChar": 54
+      },
+      "revId": "b00f1e8c925dbd6154a0eecde729f06cc40f4e6f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
