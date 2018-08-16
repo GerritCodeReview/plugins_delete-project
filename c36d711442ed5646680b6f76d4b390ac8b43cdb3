@@ -282,6 +282,30 @@
       "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17050746_14d09c65",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-16T12:28:50Z",
+      "side": 1,
+      "message": "One more thing: If we have set the option to archive in the configuration then we don\u0027t really need to delete the repository, we just archive it for a limited amount of time. That means the archiving operation is an alternative to the deletion, not another one on top of it. You could, then, just decide based on the configuration option you\u0027re adding if we archive or delete a repository.",
+      "parentUuid": "de2bc068_1ecfece1",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 5
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
