@@ -28,8 +28,6 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.config.AllProjectsName;
-import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -53,7 +51,6 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     boolean force;
   }
 
-  protected final AllProjectsName allProjectsName;
   private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
@@ -63,12 +60,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DeleteLog deleteLog;
   private final Configuration cfg;
   private final HideProject hideProject;
-  private PermissionBackend permissionBackend;
-  private NotesMigration migration;
+  private final PermissionBackend permissionBackend;
+  private final NotesMigration migration;
 
   @Inject
   DeleteProject(
-      AllProjectsNameProvider allProjectsNameProvider,
       DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
@@ -80,7 +76,6 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       HideProject hideProject,
       PermissionBackend permissionBackend,
       NotesMigration migration) {
-    this.allProjectsName = allProjectsNameProvider.get();
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
