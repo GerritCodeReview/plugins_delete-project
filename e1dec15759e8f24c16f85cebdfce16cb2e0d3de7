@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "142d35b6_835bf4b0",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 30
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-16T06:22:41Z",
+      "side": 1,
+      "message": "Actually, this is not client responsibility to check against protected project name. That\u0027s the server side responsibility. And in fact, server already does that check against All-Projects plugin and remove enabled: true from the JSON entity sent to the client and set the corresponding title, e.g.:\n\n  config\n  actions:\n    delete-project~delete:\n      label: \"Delete...\"\n      method: \"POST\"\n      title: \"No deletion of All-Projects project\"\n\nUX advantage is clear: Users can still see that button, and it\u0027s disabled, and the tooltip telling her why that button is disabled.\n\nI tried to do something like: [1], but enabled: false is not respected. probably I\u0027m missing something. In any event, we should check for enabled and use it for now for setting hidden attribute (that is working) and put a comment saying, find a way to disable the button, e.g.:\n\n  attached() {\n      if (this.config \u0026\u0026 this.config.actions[\u0027delete-project~delete\u0027]) {\n        if (!this.config.actions[\u0027delete-project~delete\u0027].enabled) {\n           // TODO(davido): Find a way to disable the button\n           this.hidden \u003d true;\n        }\n      } else {\n        this.hidden \u003d true;\n      }\n    },\n\nUnrelated to this change, but the check for protected project name currently doesn\u0027t respect All-Users project. I fixed it here: [2]. This change should be rebased on top of it.\n\n* [1] http://paste.openstack.org/show/728151\n* [2] https://gerrit-review.googlesource.com/c/plugins/delete-project/+/193030",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "e1dec15759e8f24c16f85cebdfce16cb2e0d3de7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53ddd624_fdc9e44a",
         "filename": "gr-delete-repo/gr-delete-repo.js",
         "patchSetId": 30
