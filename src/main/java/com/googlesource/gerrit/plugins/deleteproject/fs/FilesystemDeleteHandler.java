@@ -77,7 +77,7 @@ public class FilesystemDeleteHandler {
 
   private void assertHasNoTags(ProjectResource rsrc) throws CannotDeleteProjectException {
     try (Repository repo = repoManager.openRepository(rsrc.getNameKey())) {
-      if (!repo.getRefDatabase().getRefs(Constants.R_TAGS).isEmpty()) {
+      if (!repo.getRefDatabase().getRefsByPrefix(Constants.R_TAGS).isEmpty()) {
         throw new CannotDeleteProjectException(
             String.format("Project %s has tags", rsrc.getName()));
       }

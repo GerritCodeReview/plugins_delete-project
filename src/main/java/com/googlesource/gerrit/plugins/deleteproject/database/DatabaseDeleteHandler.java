@@ -195,7 +195,7 @@ public class DatabaseDeleteHandler {
     try (Repository repo = repoManager.openRepository(proj);
         MergeOpRepoManager orm = ormProvider.get()) {
       Set<Branch.NameKey> branches = new HashSet<>();
-      for (Ref ref : repo.getRefDatabase().getRefs(RefNames.REFS_HEADS).values()) {
+      for (Ref ref : repo.getRefDatabase().getRefsByPrefix(RefNames.REFS_HEADS)) {
         branches.add(new Branch.NameKey(proj, ref.getName()));
       }
       SubmoduleOp sub = subOpFactory.create(branches, orm);
