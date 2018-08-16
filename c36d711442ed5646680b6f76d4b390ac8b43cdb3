@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "bab03833_471a8818",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-16T02:08:49Z",
+      "side": 1,
+      "message": "We use JDK8 in this project... and the methods are located in the Files object",
+      "parentUuid": "ef1da0bd_858b4e09",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f752465_9e7da65f",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
         "patchSetId": 11
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "I think that the moveToTrash does not really archive the project to the trash folder. It actually renames the project in the same git folder to a specific format (name + timestamp + .%deleted%.git). Since is just a renaming mechanism, I don\u0027t think it amounts to archiving the same repository twice. Moreover, I think we need the archived project to have such name format, so I think we still need this method even if the archive option is selected. \n\nI renamed the moveToTrash to renameProjectDirectory to avoid such confusion.",
       "parentUuid": "4e302759_bb169d92",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 5
+      },
+      "revId": "c36d711442ed5646680b6f76d4b390ac8b43cdb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2bc068_1ecfece1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-16T02:08:49Z",
+      "side": 1,
+      "message": "Right, but don\u0027t think we need to rename it. Another thing, do we really need to take the modified name as the name of the archive? Shouldn\u0027t be clear that the archived repos correspond to previously deleted projects? You could use repoFile directly.u",
+      "parentUuid": "a77614a6_19b100ee",
       "range": {
         "startLine": 96,
         "startChar": 4,
