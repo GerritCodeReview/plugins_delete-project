@@ -46,6 +46,30 @@
       "revId": "c2734b552cd15691ad52d3d1e2374e3895976752",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9e38021_d019b14d",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 31
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-24T11:13:27Z",
+      "side": 1,
+      "message": "It is failing with:\n\nCompiling 3 JavaScript files to plugins/delete-project/gr-delete-repo_bin.js failed (Exit 1)\nbazel-out/darwin-fastbuild/bin/plugins/delete-project/gr-delete-repo_combined.js:55: ERROR - variable plugin is undeclared\n      return plugin.restApi().post(pluginRestApi, json).then(projectDeleted \u003d\u003e {\n             ^\n  ProTip: \"JSC_UNDEFINED_VARIABLE\" or \"checkVars\" or \"missingSourcesWarnings\" or \"undefinedVars\" can be added to the `suppress` attribute of:\n  //plugins/delete-project:gr-delete-repo_closure_lib\n  Alternatively /** @suppress {undefinedVars} */ can be added to the source file.\n\n1 error(s), 0 warning(s)",
+      "parentUuid": "baf82cbb_3be3bc74",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "c2734b552cd15691ad52d3d1e2374e3895976752",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
