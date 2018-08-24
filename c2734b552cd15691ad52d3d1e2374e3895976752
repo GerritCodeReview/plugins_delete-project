@@ -22,6 +22,30 @@
       "revId": "c2734b552cd15691ad52d3d1e2374e3895976752",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baf82cbb_3be3bc74",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 31
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-24T07:25:18Z",
+      "side": 1,
+      "message": "What\u0027s the problem with using plugin.restApi().post() as suggested in the deprecation notice?",
+      "parentUuid": "a86c3533_07ae40cf",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "c2734b552cd15691ad52d3d1e2374e3895976752",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
