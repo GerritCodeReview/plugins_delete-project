@@ -70,6 +70,30 @@
       "revId": "c2734b552cd15691ad52d3d1e2374e3895976752",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "774e6509_755ffa51",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 31
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-24T11:17:09Z",
+      "side": 1,
+      "message": "Actually adding \"this\" fixed that. Thanks, done.",
+      "parentUuid": "d9e38021_d019b14d",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "c2734b552cd15691ad52d3d1e2374e3895976752",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
