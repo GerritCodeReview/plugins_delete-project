@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9127773c_67dfc490",
+        "filename": "gr-delete-repo/gr-delete-repo.html",
+        "patchSetId": 32
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "Title could be used from this.action.label. Also note, that we would like to pass in tooltip, but current gr-repo-command doesn\u0027t allow it. Having the right tooltip is especially important, when the button is disabled, with something like: \"No deletion of All-Project project.\". Currently gr-repo-command doesn\u0027t support tooltip. I fixed it here: [1]\n\nWith that Gerrit core change in place something like that should work:\n\n  \u003cgr-repo-command\n        title\u003d\"[[action.label]]\"\n        tooltip\u003d\"[[action.title]]\"\n        disabled\u003d\"[[!action.enabled]]\"\n        on-command-tap\u003d\"_handleCommandTap\"\u003e\n    \u003c/gr-repo-command\u003e\n\n* [1] https://gerrit-review.googlesource.com/c/gerrit/+/194043 gr-repo-command: Add support for tooltips",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5e0f0b_fc354458",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "This name confusing. Endpoint is calculated on line 46, that I would rather not call pluginRestApim but simple endpoint. So my suggestion to call this one actionId.\n\nI would also like to introduce yet another attribute:\n\n  action: Object,\n\nto hold plugin specific action object with all attributes fetched from the plugin server-side action description.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d315f4_ea33d98b",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 32
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "This is the plugin name, that client shouldn\u0027t hard code. This is what: this.plugin.getPluginName() returns.\n\nWith this comment about deleteActionEndpoint above, this line would now be:\n\n  this.actionId \u003d this.plugin.getPluginName() + \u0027~delete\u0027;\n  this.action \u003d this.config.actions[this.actionId];",
+      "range": {
+        "startLine": 27,
+        "startChar": 35,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7defe2bd_d1df3dee",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 32
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "As mentioned in my previous comment, I would really prefer disabling instead of hiding. There is currently now way to achieve that (disable custom element). I fixed that here: [1].\n\nMoreover, with that PG gr-repo-command fix in place, we can remove all these lines. Why? We hold the JSON entity in this.action and this.action.enabled is just what we need, so that we can invert that in template to get our disabled attribute:\n\n    \u003cgr-repo-command\n        title\u003d\"[[action.label]]\"\n        tooltip\u003d\"[[action.title]]\"\n        disabled\u003d\"[[!action.enabled]]\"\n        on-command-tap\u003d\"_handleCommandTap\"\u003e\n    \u003c/gr-repo-command\u003e\n\n* [1] https://gerrit-review.googlesource.com/c/gerrit/+/194042 PolyGerrit-Plugin-API: Allow to disable custom element",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 67
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb6a198_36cc855c",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 32
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "These can be inlined where they are used:\n\n  var json \u003d {\n        force: this.$.forceDeleteOpenChangesCheckBox.checked,\n        preserve: this.$.preserveGitRepoCheckBox.checked\n      };",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 60
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57f11082_841140db",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "Call that just endpoint:\n\n  var endpoint \u003d \u0027/projects/\u0027 +\n          encodeURIComponent(this.repoName) + \u0027/\u0027 +\n          this.actionId;",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a011e153_5695aa9b",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 32
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "This would silently swallow errors, unfortunately. Our prominent use case: Attempt to delete a project with open changes without (!) checking the right check box. In this case you hit Delete button and nothing happens. The error 409 can only be seen on the console. That obviously sucks. I havn\u0027t found a way other than to pass in the error function to handle the errors in custom element. Here is the core change that does that: [1].\n\nWith that change in place this worked:\n\n  const errFn \u003d response \u003d\u003e {\n        this.fire(\u0027page-error\u0027, {response});\n      };\n\n      return this.plugin.restApi().send(\n\t  this.action.method, endpoint, json, errFn)\n\t    .then(r \u003d\u003e {\n          Gerrit.Nav.navigateToRelativeUrl(\u0027/admin/repos\u0027);\n      });\n\nAh, yes, client shouldn\u0027t know what HTTP method is exposed by the plugin endpoint. That\u0027s what you would get in this.action.method. That why the client should use:\n\n  this.plugin.restApi().send(this.action.method, [...]\n\nas shown in my example.\n\n* [1] https://gerrit-review.googlesource.com/c/gerrit/+/194041 PolyGerrit: Expose error function in plugin rest API",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 9
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2a8570_73abae5c",
+        "filename": "plugin.html",
+        "patchSetId": 32
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-25T21:46:20Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this name is too generic? may be (gr-)delete-repo-command?",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "42eb037621c16ff49a0f632ad8f60ec616e18e04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
