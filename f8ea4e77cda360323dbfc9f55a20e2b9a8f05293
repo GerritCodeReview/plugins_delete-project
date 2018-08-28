@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7cefd11_74b8c133",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-28T20:26:57Z",
+      "side": 1,
+      "message": "Something wrong here?",
+      "range": {
+        "startLine": 11,
+        "startChar": 31,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "f8ea4e77cda360323dbfc9f55a20e2b9a8f05293",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccdddddf_a3ea219a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-28T20:26:57Z",
+      "side": 1,
+      "message": "It seems that this class doesn\u0027t maintain any state and can be annotated as @Singleton?",
+      "revId": "f8ea4e77cda360323dbfc9f55a20e2b9a8f05293",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82dc9af5_e2cd0c32",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-28T20:26:57Z",
+      "side": 1,
+      "message": "Some methods throw AuthException, and other throw ResourceConflictException, so that it seems a bit arbitrary. Was that logic driven by the caller sites?",
+      "range": {
+        "startLine": 83,
+        "startChar": 59,
+        "endLine": 83,
+        "endChar": 72
+      },
+      "revId": "f8ea4e77cda360323dbfc9f55a20e2b9a8f05293",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "657570be_63588ee2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-28T20:26:57Z",
+      "side": 1,
+      "message": "In base version the condition was: \n\n  fsHandler.assertCanDelete(rsrc, input \u003d\u003d null ? false : input.preserve);\n\nis this the same? in the new version, if input \u003d\u003d null, then it would evaluate to true, isn\u0027t it? Or what am I missing?",
+      "range": {
+        "startLine": 102,
+        "startChar": 43,
+        "endLine": 102,
+        "endChar": 74
+      },
+      "revId": "f8ea4e77cda360323dbfc9f55a20e2b9a8f05293",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff784fdf_df8bdafa",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-08-28T20:26:57Z",
+      "side": 1,
+      "message": "Same here?",
+      "range": {
+        "startLine": 103,
+        "startChar": 43,
+        "endLine": 103,
+        "endChar": 71
+      },
+      "revId": "f8ea4e77cda360323dbfc9f55a20e2b9a8f05293",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
