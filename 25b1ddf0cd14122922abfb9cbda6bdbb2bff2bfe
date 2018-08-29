@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ec50ac0_b3f6234b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteCommand.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-29T01:36:24Z",
+      "side": 1,
+      "message": "nit: long line",
+      "revId": "25b1ddf0cd14122922abfb9cbda6bdbb2bff2bfe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e678f9_6fefa652",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditionsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-29T01:36:24Z",
+      "side": 1,
+      "message": "Optional: Use @Rule and ExpectedException",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 39
+      },
+      "revId": "25b1ddf0cd14122922abfb9cbda6bdbb2bff2bfe",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
