@@ -151,7 +151,7 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteChanges(ReviewDb db, Project.NameKey project, List<Change.Id> changeIds)
+  private void deleteChanges(ReviewDb db, Project.NameKey project, List<Change.Id> changeIds)
       throws OrmException {
 
     for (Change.Id id : changeIds) {
@@ -181,8 +181,7 @@ public class DatabaseDeleteHandler {
     }
   }
 
-  private final void deleteFromPatchSets(ReviewDb db, final ResultSet<PatchSet> patchSets)
-      throws OrmException {
+  private void deleteFromPatchSets(ReviewDb db, ResultSet<PatchSet> patchSets) throws OrmException {
     for (PatchSet patchSet : patchSets) {
       accountPatchReviewStore.get().clearReviewed(patchSet.getId());
       db.patchSets().delete(Collections.singleton(patchSet));
