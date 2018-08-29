@@ -22,6 +22,30 @@
       "revId": "1cb0ca3db1220c99c95b0af1e0fb66fd1776fb1f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3722240f_43c10f31",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 34
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2018-08-29T21:06:08Z",
+      "side": 1,
+      "message": "Oh never mind i was running last weeks gerrit master.",
+      "parentUuid": "b7b968c0_8df72ad8",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "1cb0ca3db1220c99c95b0af1e0fb66fd1776fb1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
