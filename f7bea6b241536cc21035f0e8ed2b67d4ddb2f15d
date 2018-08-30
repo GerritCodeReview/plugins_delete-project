@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47e7b38d_ea6a6fad",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditionsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-30T00:55:21Z",
+      "side": 1,
+      "message": "Move this before the call to .expect -- we might find that ErrorProne chokes on this when the expected exception checker is enabled.\n\n(It might also be necessary to flip the order of calls to .expect and .expectMessage).",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 100
+      },
+      "revId": "f7bea6b241536cc21035f0e8ed2b67d4ddb2f15d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
