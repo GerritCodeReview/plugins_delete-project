@@ -22,6 +22,30 @@
       "revId": "5207ff1a9c3c1d029767aeaeeb246135a18ec171",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dedcda8_ee68417b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-08-31T15:33:06Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure given that according to the documentation: \"On a file system that supports symbolic links, it is possible for an insecure recursive delete to delete files and directories that are outside the directory being deleted.\"\n\nI know this possibility is almost inexistent in a modern Linux distro but I\u0027m not familiar with NTFS handling of this so I wanted to go on the safe side. WDYT?",
+      "parentUuid": "758a1ce9_1926c1fb",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 40
+      },
+      "revId": "5207ff1a9c3c1d029767aeaeeb246135a18ec171",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
