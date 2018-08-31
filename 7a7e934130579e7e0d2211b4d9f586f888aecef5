@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fac1a2d5_6c41ca1d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandlerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-31T00:31:35Z",
+      "side": 1,
+      "message": "Is this assertion repeated intentionally?",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 60
+      },
+      "revId": "7a7e934130579e7e0d2211b4d9f586f888aecef5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
