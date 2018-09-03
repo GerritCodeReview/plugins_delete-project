@@ -5,9 +5,6 @@ load(
     "PLUGIN_TEST_DEPS",
     "gerrit_plugin",
 )
-load("//tools/bzl:genrule2.bzl", "genrule2")
-load("//tools/bzl:js.bzl", "polygerrit_plugin")
-
 
 gerrit_plugin(
     name = "delete-project",
@@ -19,28 +16,6 @@ gerrit_plugin(
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule",
     ],
     resources = glob(["src/main/resources/**/*"]),
-    resource_jars = [":gr-delete-repo-static"],
-)
-
-genrule2(
-    name = "gr-delete-repo-static",
-    srcs = [":gr-delete-repo"],
-    outs = ["gr-delete-repo-static.jar"],
-    cmd = " && ".join([
-        "mkdir $$TMP/static",
-        "cp -r $(locations :gr-delete-repo) $$TMP/static",
-        "cd $$TMP",
-        "zip -Drq $$ROOT/$@ -g .",
-    ]),
-)
-
-polygerrit_plugin(
-    name = "gr-delete-repo",
-    srcs = glob([
-        "gr-delete-repo/*.html",
-        "gr-delete-repo/*.js",
-    ]),
-    app = "plugin.html",
 )
 
 junit_tests(
