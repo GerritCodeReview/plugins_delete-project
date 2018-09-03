@@ -3,9 +3,22 @@ workspace(name = "delete_project")
 load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "3b11ba0958518214703091bc307113a78f98c11a",
+    commit = "04a02500d4c5fabc4634a3502aa05a0081c9ceb4",
     #    local_path = "/home/<user>/projects/bazlets",
 )
+
+# Polymer dependencies
+load(
+    "@com_googlesource_gerrit_bazlets//:gerrit_polymer.bzl",
+    "gerrit_polymer",
+)
+
+gerrit_polymer()
+
+# Load closure compiler with transitive dependencies
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
+
+closure_repositories()
 
 #Snapshot Plugin API
 load(
