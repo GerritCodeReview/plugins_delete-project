@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c876e5a_124b2e6b",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-09-03T07:46:57Z",
+      "side": 1,
+      "message": "This now breaks in gerrit tree build, but standalone build works. I will look later ho to address that, so that both modes work.",
+      "revId": "d47366bf80ae58ecf861d115cd2c0bbaa3a7b954",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
