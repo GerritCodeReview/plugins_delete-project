@@ -1,6 +1,18 @@
 load("//tools/bzl:maven_jar.bzl", "maven_jar")
+load("//tools/bzl:js.bzl", "GERRIT", "npm_binary")
+ 
+def external_plugin_deps(omit_polymer_dependencies = True):
+    if not omit_polymer_dependencies:
+        npm_binary(
+            name = "polymer-bundler",
+            repository = GERRIT,
+        )
 
-def external_plugin_deps():
+        npm_binary(
+            name = "crisper",
+            repository = GERRIT,
+        )
+
     maven_jar(
         name = "mockito",
         artifact = "org.mockito:mockito-core:2.16.0",
