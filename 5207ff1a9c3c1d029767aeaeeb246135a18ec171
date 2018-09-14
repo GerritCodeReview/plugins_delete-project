@@ -46,6 +46,30 @@
       "revId": "5207ff1a9c3c1d029767aeaeeb246135a18ec171",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "246c69d3_fe77e26f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-09-14T13:13:06Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "9dedcda8_ee68417b",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 40
+      },
+      "revId": "5207ff1a9c3c1d029767aeaeeb246135a18ec171",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
