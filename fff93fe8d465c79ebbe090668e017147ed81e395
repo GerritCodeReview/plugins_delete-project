@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "881ff1a1_280121f4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-09-14T19:44:31Z",
+      "side": 1,
+      "message": "This was missed to be removed. I\u0027m getting this warning in Eclipse (when I open tip of stable-2.14 branch):\n\n  Description\tResource\tPath\tLocation\tType\n  The value of the parameter queryProvider is not used\tDatabaseDeleteHandler.java\t/gerrit/plugins/delete-project/src/main/java/com/googlesource/gerrit/plugins/deleteproject/database\t \n  line 65 Java Problem",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 50
+      },
+      "revId": "fff93fe8d465c79ebbe090668e017147ed81e395",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
