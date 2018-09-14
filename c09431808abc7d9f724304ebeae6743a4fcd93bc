@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f07adabf_f701fca3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-09-14T20:27:51Z",
+      "side": 1,
+      "message": "Maybe name that class TrashFolderPredicate?",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "c09431808abc7d9f724304ebeae6743a4fcd93bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7743b0c3_2b12e62f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-09-14T20:27:51Z",
+      "side": 1,
+      "message": "Now, that this method is a part of well named class, this could be just called match(), right? When the caller say something like\n\n  TrashFolderPredicate.match(foo);\n\nthen the intent is clear.",
+      "range": {
+        "startLine": 60,
+        "startChar": 25,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "c09431808abc7d9f724304ebeae6743a4fcd93bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a50f4e9_6d187efe",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-09-14T20:27:51Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 64,
+        "startChar": 19,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "c09431808abc7d9f724304ebeae6743a4fcd93bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
