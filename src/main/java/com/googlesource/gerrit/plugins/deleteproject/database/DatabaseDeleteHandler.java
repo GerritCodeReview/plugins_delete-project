@@ -32,7 +32,6 @@ import com.google.gerrit.server.change.AccountPatchReviewStore;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.account.InternalAccountQuery;
-import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.ResultSet;
@@ -62,7 +61,6 @@ public class DatabaseDeleteHandler {
   @Inject
   public DatabaseDeleteHandler(
       Provider<ReviewDb> dbProvider,
-      Provider<InternalChangeQuery> queryProvider,
       StarredChangesUtil starredChangesUtil,
       DynamicItem<AccountPatchReviewStore> accountPatchReviewStore,
       ChangeIndexer indexer,
