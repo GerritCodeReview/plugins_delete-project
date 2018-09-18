@@ -13,6 +13,8 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Sets;
 import com.google.common.io.MoreFiles;
@@ -99,7 +101,7 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   private void recursivelyDelete(Path folder) {
     try {
-      MoreFiles.deleteRecursively(folder);
+      MoreFiles.deleteRecursively(folder, ALLOW_INSECURE);
     } catch (IOException e) {
       log.error("Failed to delete {}", folder, e);
     }
