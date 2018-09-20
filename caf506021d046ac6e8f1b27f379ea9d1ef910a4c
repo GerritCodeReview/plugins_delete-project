@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2fdba24_8cbb9329",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandler.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2018-09-20T06:28:35Z",
+      "side": 1,
+      "message": "recently (yesterday :D) I have implemented very similar feature (included plugin as library and introduced MoveHandler) and was wondering if I should open source it :D anyway getting to the point. I would be glad to use open source version of it (less maintenance on our side) but we have quite specific requirements in terms of how it should be implemented:\n1. TimeMachine.now().toEpochMillis() is not human readable. We would prefer `YYYYMMDDHHmmss\u0027 - there is no chance that 2 repos will be created with the same name and deleted (apart from unit tests coded for that)\n2. we have external demon cleaning up archived repositories (in shared gitroot reality there is no point in having several Gerrit servers trying to clean archived repos in similar time) - how about adding `0` to deleteArchivedReposAfter property which would mean never delete and don\u0027t even try doing that?\n\nI understand that this is maybe not sth that is especially profitable for open source but at least `renameRepository` method protected would be sufficient for me to implement what I need without copying most of the code over :D.",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 3
+      },
+      "revId": "caf506021d046ac6e8f1b27f379ea9d1ef910a4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
