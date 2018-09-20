@@ -108,6 +108,10 @@ public class FilesystemDeleteHandler {
   }
 
   private void sendProjectDeletedEvent(Project.NameKey project) {
+    if (!deletedListeners.iterator().hasNext()) {
+      return;
+    }
+
     ProjectDeletedListener.Event event =
         new ProjectDeletedListener.Event() {
           @Override
