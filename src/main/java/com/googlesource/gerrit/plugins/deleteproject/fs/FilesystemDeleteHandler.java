@@ -38,13 +38,13 @@ public class FilesystemDeleteHandler {
   private static final Logger log = LoggerFactory.getLogger(FilesystemDeleteHandler.class);
 
   private final GitRepositoryManager repoManager;
-  private final DynamicSet<ProjectDeletedListener> deletedListener;
+  private final DynamicSet<ProjectDeletedListener> deletedListeners;
 
   @Inject
   public FilesystemDeleteHandler(
-      GitRepositoryManager repoManager, DynamicSet<ProjectDeletedListener> deletedListener) {
+      GitRepositoryManager repoManager, DynamicSet<ProjectDeletedListener> deletedListeners) {
     this.repoManager = repoManager;
-    this.deletedListener = deletedListener;
+    this.deletedListeners = deletedListeners;
   }
 
   public void delete(Project project, boolean preserveGitRepository)
@@ -120,7 +120,7 @@ public class FilesystemDeleteHandler {
             return NotifyHandling.NONE;
           }
         };
-    for (ProjectDeletedListener l : deletedListener) {
+    for (ProjectDeletedListener l : deletedListeners) {
       try {
         l.onProjectDeleted(event);
       } catch (RuntimeException e) {
