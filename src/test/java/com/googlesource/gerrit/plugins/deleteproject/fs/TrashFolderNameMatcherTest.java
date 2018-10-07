@@ -27,9 +27,9 @@ public class TrashFolderNameMatcherTest {
     matches("aa.1234567890123.deleted");
     matches("a.b.c.1234567890123.deleted");
 
-    matches("a.1234567890123.%deleted%.git");
-    matches("aa.1234567890123.%deleted%.git");
-    matches("a.b.c.1234567890123.%deleted%.git");
+    matches("a.20181010120101.%deleted%.git");
+    matches("aa.20181010120101.%deleted%.git");
+    matches("a.b.c.20181010120101.%deleted%.git");
   }
 
   @Test
@@ -46,11 +46,11 @@ public class TrashFolderNameMatcherTest {
     doesNotMatch("a.1234567890123.deleted.git");
 
     // missing .git suffix
-    doesNotMatch("a.1234567890123.%deleted%");
+    doesNotMatch("a.20181010120101.%deleted%");
 
     // additional characters after the "git" suffix
-    doesNotMatch("a.1234567890123.%deleted%.git.");
-    doesNotMatch("a.1234567890123.%deleted%.git.git");
+    doesNotMatch("a.20181010120101.%deleted%.git.");
+    doesNotMatch("a.20181010120101.%deleted%.git.git");
   }
 
   private void matches(String name) {
