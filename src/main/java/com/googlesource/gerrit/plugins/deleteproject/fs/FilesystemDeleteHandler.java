@@ -28,6 +28,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
@@ -36,6 +38,8 @@ import org.slf4j.LoggerFactory;
 
 public class FilesystemDeleteHandler {
   private static final Logger log = LoggerFactory.getLogger(FilesystemDeleteHandler.class);
+  private static final DateTimeFormatter FORMAT =
+      DateTimeFormatter.ofPattern("YYYYMMddHHmmss").withZone(ZoneId.of("UTC"));
 
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListeners;
@@ -87,7 +91,7 @@ public class FilesystemDeleteHandler {
   private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
       throws IOException {
     Path trashRepo =
-        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
+        basePath.resolve(nameKey.get() + "." + FORMAT.format(TimeMachine.now()) + ".%deleted%.git");
     return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
