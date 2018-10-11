@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70514623_6500f0ff",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/TrashFolderNameMatcherTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-10-11T00:07:23Z",
+      "side": 0,
+      "message": "If you agree with my other comment, then we should keep these tests and add the ones with the date",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "392541186f7979cabd1ba32945cac0f5662b85fc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

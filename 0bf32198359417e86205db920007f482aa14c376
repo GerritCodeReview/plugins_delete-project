@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f4a7c64_98a07518",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-10-11T00:07:23Z",
+      "side": 1,
+      "message": "Correct me if I am wrong but I think you cannot change this pattern, you need to add another one instead (TRASH_3) otherwise the trash folders created with the version of the plugin prior to this change won\u0027t get deleted as they won\u0027t match the new pattern.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 89
+      },
+      "revId": "0bf32198359417e86205db920007f482aa14c376",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
