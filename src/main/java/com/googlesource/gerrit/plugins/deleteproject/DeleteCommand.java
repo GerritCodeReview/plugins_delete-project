@@ -24,12 +24,19 @@ import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import java.io.IOException;
-import java.util.Collection;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
 @CommandMetaData(name = "delete", description = "Delete specific project")
 public final class DeleteCommand extends SshCommand {
+  private static final String FORCE_DELETE =
+      "%s - To really delete '%s', re-run with the --force flag.";
+  private static final String REALLY_DELETE =
+      "Really delete '%s'?\n"
+          + "This is an operation which permanently deletes data. This cannot be undone!\n"
+          + "If you are sure you wish to delete this project, re-run with the "
+          + "--yes-really-delete flag.\n";
+
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
   private ProjectControl projectControl;
 
@@ -42,56 +49,48 @@ public final class DeleteCommand extends SshCommand {
   @Option(name = "--preserve-git-repository", usage = "don't delete git repository directory")
   private boolean preserveGitRepository = false;
 
+  private final Configuration cfg;
   private final DeleteProject deleteProject;
+  private final DeletePreconditions preConditions;
 
   @Inject
-  protected DeleteCommand(DeleteProject deleteProject) {
+  protected DeleteCommand(
+      Configuration cfg, DeleteProject deleteProject, DeletePreconditions preConditions) {
+    this.cfg = cfg;
     this.deleteProject = deleteProject;
+    this.preConditions = preConditions;
   }
 
   @Override
   public void run() throws Failure {
     try {
+      if (preserveGitRepository && !cfg.enablePreserveOption()) {
+        throw new UnloggedFailure(
+            "Given the enablePreserveOption is configured to be false, "
+                + "the --preserve-git-repository option is not allowed.\n"
+                + "Please remove this option and retry.");
+      }
+
       DeleteProject.Input input = new DeleteProject.Input();
       input.force = force;
       input.preserve = preserveGitRepository;
 
       ProjectResource rsrc = new ProjectResource(projectControl);
-      deleteProject.assertDeletePermission(rsrc);
-      deleteProject.assertCanDelete(rsrc, input);
+      preConditions.assertDeletePermission(rsrc);
 
       if (!yesReallyDelete) {
-        StringBuilder msgBuilder = new StringBuilder();
-        msgBuilder.append("Really delete ");
-        msgBuilder.append(rsrc.getName());
-        msgBuilder.append("?\n");
-        msgBuilder.append("This is an operation which permanently deletes ");
-        msgBuilder.append("data. This cannot be undone!\n");
-        msgBuilder.append("If you are sure you wish to delete this project, ");
-        msgBuilder.append("re-run\n");
-        msgBuilder.append("with the --yes-really-delete flag.\n");
-        throw new UnloggedFailure(msgBuilder.toString());
+        throw new UnloggedFailure(String.format(REALLY_DELETE, rsrc.getName()));
       }
 
       if (!force) {
-        Collection<String> warnings = deleteProject.getWarnings(rsrc);
-        if (warnings != null && !warnings.isEmpty()) {
-          StringBuilder msgBuilder = new StringBuilder();
-          msgBuilder.append("There are warnings against deleting ");
-          msgBuilder.append(rsrc.getName());
-          msgBuilder.append(":\n");
-          for (String warning : warnings) {
-            msgBuilder.append(" * ");
-            msgBuilder.append(warning);
-            msgBuilder.append("\n");
-          }
-          msgBuilder.append("To really delete ");
-          msgBuilder.append(rsrc.getName());
-          msgBuilder.append(", re-run with the --force flag.");
-          throw new UnloggedFailure(msgBuilder.toString());
+        try {
+          preConditions.assertHasOpenChanges(rsrc.getNameKey(), false);
+        } catch (CannotDeleteProjectException e) {
+          throw new UnloggedFailure(String.format(FORCE_DELETE, e.getMessage(), rsrc.getName()));
         }
       }
 
+      preConditions.assertCanBeDeleted(rsrc, input);
       deleteProject.doDelete(rsrc, input);
     } catch (AuthException
         | ResourceNotFoundException
