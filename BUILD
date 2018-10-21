@@ -16,6 +16,7 @@ gerrit_plugin(
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule",
     ],
     resources = glob(["src/main/resources/**/*"]),
+    deps = ["@commons-io//jar"],
 )
 
 junit_tests(
@@ -31,6 +32,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
+        "@commons-io//jar",
         "@mockito//jar",
     ],
 )
