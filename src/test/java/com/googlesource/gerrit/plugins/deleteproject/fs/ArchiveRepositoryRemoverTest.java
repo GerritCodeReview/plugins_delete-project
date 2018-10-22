@@ -16,6 +16,8 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -24,6 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.google.common.base.Joiner;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
@@ -33,9 +36,11 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.StreamSupport;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
@@ -94,7 +99,7 @@ public class ArchiveRepositoryRemoverTest {
               String.format(
                   "[%s]: Clean up expired git repositories from the archive [%s]",
                   PLUGIN_NAME, archiveRepo));
-      assertThat(isDirEmpty(archiveRepo)).isTrue();
+      assertDirectoryContents(archiveRepo, true);
     } finally {
       TimeMachine.useSystemDefaultZoneClock();
     }
@@ -122,7 +127,7 @@ public class ArchiveRepositoryRemoverTest {
     for (int i = 0; i < NUMBER_OF_REPOS; i++) {
       createRepository("Repo_" + i);
     }
-    assertThat(isDirEmpty(archiveRepo)).isFalse();
+    assertDirectoryContents(archiveRepo, false);
   }
 
   private FileRepository createRepository(String repoName) throws IOException {
@@ -132,9 +137,17 @@ public class ArchiveRepositoryRemoverTest {
     return (FileRepository) repository;
   }
 
-  private boolean isDirEmpty(final Path dir) throws IOException {
+  private void assertDirectoryContents(Path dir, boolean expectEmpty) throws IOException {
     try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir)) {
-      return !dirStream.iterator().hasNext();
+      List<Path> paths = StreamSupport.stream(dirStream.spliterator(), false).collect(toList());
+      if (expectEmpty && !paths.isEmpty()) {
+        fail(
+            String.format(
+                "Expected dir [%s] to be empty but it contains: %s",
+                dir, Joiner.on(", ").join(paths)));
+      } else if (!expectEmpty && paths.isEmpty()) {
+        fail(String.format("Expected dir [%s] to be non-empty but it is empty", dir));
+      }
     }
   }
 }
