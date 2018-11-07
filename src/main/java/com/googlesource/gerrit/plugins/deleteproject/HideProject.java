@@ -41,24 +41,27 @@ class HideProject {
   private final ProjectCache projectCache;
   private final CreateProject createProject;
   private final Configuration cfg;
+  private final ProjectConfig.Factory projectConfigFactory;
 
   @Inject
   HideProject(
       MetaDataUpdate.Server metaDataUpdateFactory,
       ProjectCache projectCache,
       CreateProject createProject,
-      Configuration cfg) {
+      Configuration cfg,
+      ProjectConfig.Factory projectConfigFactory) {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.projectCache = projectCache;
     this.createProject = createProject;
     this.cfg = cfg;
+    this.projectConfigFactory = projectConfigFactory;
   }
 
   public void apply(ProjectResource rsrc) throws IOException, RestApiException {
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey());
 
-      ProjectConfig projectConfig = ProjectConfig.read(md);
+      ProjectConfig projectConfig = projectConfigFactory.read(md);
       Project p = projectConfig.getProject();
       p.setState(ProjectState.HIDDEN);
 
