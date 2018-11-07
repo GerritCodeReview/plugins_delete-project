@@ -58,7 +58,7 @@ class HideProject {
     try {
       MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey());
 
-      ProjectConfig projectConfig = ProjectConfig.read(md);
+      ProjectConfig projectConfig = new ProjectConfig.Factory().read(md);
       Project p = projectConfig.getProject();
       p.setState(ProjectState.HIDDEN);
 
