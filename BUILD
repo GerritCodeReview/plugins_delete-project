@@ -46,7 +46,9 @@ junit_tests(
     name = "delete_project_tests",
     srcs = glob(["src/test/java/**/*.java"]),
     tags = ["delete-project"],
-    deps = [":delete-project__plugin_test_deps"],
+    deps = [
+        ":delete-project__plugin_test_deps",
+    ],
 )
 
 java_library(
@@ -55,6 +57,5 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
-        "@mockito//jar",
     ],
 )
