@@ -8,7 +8,6 @@ load(
 load("//tools/bzl:genrule2.bzl", "genrule2")
 load("//tools/bzl:js.bzl", "polygerrit_plugin")
 
-
 gerrit_plugin(
     name = "delete-project",
     srcs = glob(["src/main/java/**/*.java"]),
@@ -18,8 +17,8 @@ gerrit_plugin(
         "Gerrit-HttpModule: com.googlesource.gerrit.plugins.deleteproject.HttpModule",
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule",
     ],
-    resources = glob(["src/main/resources/**/*"]),
     resource_jars = [":gr-delete-repo-static"],
+    resources = glob(["src/main/resources/**/*"]),
 )
 
 genrule2(
@@ -47,7 +46,10 @@ junit_tests(
     name = "delete_project_tests",
     srcs = glob(["src/test/java/**/*.java"]),
     tags = ["delete-project"],
-    deps = [":delete-project__plugin_test_deps"],
+    deps = [
+        ":delete-project__plugin_test_deps",
+        "//lib/mockito",
+    ],
 )
 
 java_library(
@@ -56,6 +58,5 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
-        "@mockito//jar",
     ],
 )
