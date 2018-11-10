@@ -35,4 +35,4 @@ def external_plugin_deps():
         name = "commons-io",
         artifact = "commons-io:commons-io:2.6",
         sha1 = "815893df5f31da2ece4040fe0a12fd44b577afaf",
-   )
+    )
