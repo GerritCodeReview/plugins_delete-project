@@ -14,11 +14,16 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import static java.util.stream.Collectors.toList;
+
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
 
 @Singleton
 public class Configuration {
@@ -27,6 +32,7 @@ public class Configuration {
   private final boolean allowDeletionWithTags;
   private final boolean hideProjectOnPreserve;
   private final String deletedProjectsParent;
+  private final List<Pattern> protectedProjects;
 
   @Inject
   public Configuration(PluginConfigFactory pluginConfigFactory, @PluginName String pluginName) {
@@ -34,6 +40,11 @@ public class Configuration {
     allowDeletionWithTags = cfg.getBoolean("allowDeletionOfReposWithTags", true);
     hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
     deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
+    protectedProjects =
+        Arrays.asList(cfg.getStringList("protectedProject"))
+            .stream()
+            .map(Pattern::compile)
+            .collect(toList());
   }
 
   public boolean deletionWithTagsAllowed() {
@@ -46,5 +57,9 @@ public class Configuration {
 
   public String getDeletedProjectsParent() {
     return deletedProjectsParent;
+  }
+
+  public List<Pattern> protectedProjects() {
+    return protectedProjects;
   }
 }

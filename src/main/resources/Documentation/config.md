@@ -43,3 +43,13 @@ file.
 	is set to true.
 
 	By default `Deleted-Projects`.
+
+<a id="protectedProject">
+`plugin.@PLUGIN@.protectedProject`
+:	The name of a project that is protected against deletion. May be an exact
+	name or a regular expression.
+
+	May be specified more than once to specify multiple project names or
+	patterns.
+
+	By default not set.
