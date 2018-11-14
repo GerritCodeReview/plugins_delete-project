@@ -16,6 +16,24 @@
       "revId": "f015d2d29f3330ab90922c719792bd6af8ba06b5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3632375e_03cd6afb",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-14T18:46:56Z",
+      "side": 1,
+      "message": "Not sure why buildifier left it like this after I removed mockito.  Anyway, I\u0027d rather not make a new patch set which will also require a new PS on the core change.",
+      "parentUuid": "86b0bfe8_1a4e0171",
+      "revId": "f015d2d29f3330ab90922c719792bd6af8ba06b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
