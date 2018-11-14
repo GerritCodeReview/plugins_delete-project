@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2eb10cb6_56b19ef4",
+        "filename": "BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-11-14T18:02:55Z",
+      "side": 1,
+      "message": "Not needed, see my comment in core change. If this dep is exported in acceptance:lib library in core, then it would be included in PLUGIN_TEST_DEPS and transitively in delete-project__plugin_test_deps and this also here, because this test rules already depends on delete-project__plugin_test_deps.",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "df2d99c6196b6b07c9b64cc1a7be4c96ad9dbcc3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
