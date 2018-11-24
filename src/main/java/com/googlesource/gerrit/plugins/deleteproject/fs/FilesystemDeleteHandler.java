@@ -103,7 +103,7 @@ public class FilesystemDeleteHandler {
     Path basePath = getBasePath(repoPath, projectName);
     Path trash = renameRepository(repoPath, basePath, projectName, "deleted");
     try {
-      MoreFiles.deleteRecursively(trash);
+      MoreFiles.deleteRecursively(trash, ALLOW_INSECURE);
       recursivelyDeleteEmptyParents(repoPath.toFile().getParentFile(), basePath.toFile());
     } catch (IOException e) {
       // Only log if delete failed - repo already moved to trash.

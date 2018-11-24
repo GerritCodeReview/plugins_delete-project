@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -102,7 +103,7 @@ class RepositoryCleanupTask implements Runnable {
   private void cleanUpOverdueRepositories() {
     for (Path path : listOverdueFiles(config.getArchiveDuration())) {
       try {
-        MoreFiles.deleteRecursively(path);
+        MoreFiles.deleteRecursively(path, ALLOW_INSECURE);
       } catch (IOException e) {
         logger.warn("Error trying to clean the archived git repository: {}", path, e);
       }
