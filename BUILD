@@ -20,6 +20,7 @@ gerrit_plugin(
     ],
     resources = glob(["src/main/resources/**/*"]),
     resource_jars = [":gr-delete-repo-static"],
+    deps = ["@commons-io//jar"],
 )
 
 genrule2(
@@ -56,6 +57,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
+        "@commons-io//jar",
         "@mockito//jar",
     ],
 )
