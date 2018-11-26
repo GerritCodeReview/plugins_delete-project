@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ec3d5e_ac8fb290",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-11-26T22:18:05Z",
+      "side": 1,
+      "message": "Can the preserve-disabled case be broken within the new/polygerrit UI case? -AFAIK, above, gr-delete-repo.html has no preserve-disabled flavor yet implemented. If so, I\u0027d be fine with submitting a Monorail issue about this and still move on with merging this change as is/above.",
+      "revId": "b2706b916abe4db33d81107487cdc1b5aeb90dd8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
