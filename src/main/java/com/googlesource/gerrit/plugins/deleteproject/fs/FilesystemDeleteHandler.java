@@ -14,27 +14,27 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
+
+import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
-import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
 import org.slf4j.Logger;
@@ -42,18 +42,20 @@ import org.slf4j.LoggerFactory;
 
 public class FilesystemDeleteHandler {
   private static final Logger log = LoggerFactory.getLogger(FilesystemDeleteHandler.class);
+  private static final DateTimeFormatter FORMAT =
+      DateTimeFormatter.ofPattern("YYYYMMddHHmmss").withZone(ZoneId.of("UTC"));
 
   private final GitRepositoryManager repoManager;
-  private final DynamicSet<ProjectDeletedListener> deletedListener;
+  private final DynamicSet<ProjectDeletedListener> deletedListeners;
   private final Configuration config;
 
   @Inject
   public FilesystemDeleteHandler(
       GitRepositoryManager repoManager,
-      DynamicSet<ProjectDeletedListener> deletedListener,
+      DynamicSet<ProjectDeletedListener> deletedListeners,
       Configuration config) {
     this.repoManager = repoManager;
-    this.deletedListener = deletedListener;
+    this.deletedListeners = deletedListeners;
     this.config = config;
   }
 
@@ -61,120 +63,68 @@ public class FilesystemDeleteHandler {
       throws IOException, RepositoryNotFoundException {
     // Remove from the jgit cache
     Repository repository = repoManager.openRepository(project.getNameKey());
-    File repoFile = repository.getDirectory();
     cleanCache(repository);
     if (!preserveGitRepository) {
-      deleteGitRepository(project.getNameKey(), repoFile);
-    }
-  }
-
-  public void assertCanDelete(ProjectResource rsrc, boolean preserveGitRepository)
-      throws CannotDeleteProjectException {
-    if (!preserveGitRepository && !config.deletionWithTagsAllowed()) {
-      assertHasNoTags(rsrc);
-    }
-  }
-
-  private void assertHasNoTags(ProjectResource rsrc) throws CannotDeleteProjectException {
-    try (Repository repo = repoManager.openRepository(rsrc.getNameKey())) {
-      if (!repo.getRefDatabase().getRefsByPrefix(Constants.R_TAGS).isEmpty()) {
-        throw new CannotDeleteProjectException(
-            String.format("Project %s has tags", rsrc.getName()));
-      }
-    } catch (IOException e) {
-      throw new CannotDeleteProjectException(e);
-    }
-  }
-
-  private void deleteGitRepository(final Project.NameKey project, final File repoFile)
-      throws IOException {
-    // Delete the repository from disk
-    Path basePath = getBasePath(repoFile.toPath(), project);
-    Path trash = moveToTrash(repoFile.toPath(), basePath, project);
-    boolean ok = false;
-    try {
-      recursiveDelete(trash);
-      ok = true;
-    } catch (IOException e) {
-      // Only log if delete failed - repo already moved to trash.
-      // Otherwise, listeners are never called.
-      log.warn("Error trying to delete {}", trash, e);
-    }
-
-    // Delete parent folders if they are (now) empty
-    if (ok) {
-      try {
-        recursiveDeleteParent(repoFile.getParentFile(), basePath.toFile());
-      } catch (IOException e) {
-        log.warn("Couldn't delete (empty) parents of {}", repoFile, e);
-      }
-    }
-
-    // Send an event that the repository was deleted
-    ProjectDeletedListener.Event event =
-        new ProjectDeletedListener.Event() {
-          @Override
-          public String getProjectName() {
-            return project.get();
-          }
-
-          @Override
-          public NotifyHandling getNotify() {
-            return NotifyHandling.NONE;
-          }
-        };
-    for (ProjectDeletedListener l : deletedListener) {
-      try {
-        l.onProjectDeleted(event);
-      } catch (RuntimeException e) {
-        log.warn("Failure in ProjectDeletedListener", e);
+      Path repoPath = repository.getDirectory().toPath();
+      String projectName = project.getNameKey().get();
+      if (config.shouldArchiveDeletedRepos()) {
+        archiveGitRepository(projectName, repoPath);
+      } else {
+        deleteGitRepository(projectName, repoPath);
       }
     }
   }
 
-  private Path getBasePath(Path repo, Project.NameKey project) {
-    Path projectPath = Paths.get(project.get());
-    return repo.getRoot()
-        .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
-  }
-
-  private Path moveToTrash(Path directory, Path basePath, Project.NameKey nameKey)
-      throws IOException {
-    Path trashRepo =
-        basePath.resolve(nameKey.get() + "." + TimeMachine.now().toEpochMilli() + ".%deleted%.git");
-    return Files.move(directory, trashRepo, StandardCopyOption.ATOMIC_MOVE);
-  }
-
-  private void cleanCache(final Repository repository) {
+  private void cleanCache(Repository repository) {
     repository.close();
     RepositoryCache.close(repository);
   }
 
-  /**
-   * Recursively delete the specified file and all of its contents.
-   *
-   * @throws IOException
-   */
-  private void recursiveDelete(Path file) throws IOException {
-    Files.walkFileTree(
-        file,
-        new SimpleFileVisitor<Path>() {
-          @Override
-          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-              throws IOException {
-            Files.delete(file);
-            return FileVisitResult.CONTINUE;
-          }
+  private void archiveGitRepository(String projectName, Path repoPath) throws IOException {
+    Path basePath = getBasePath(repoPath, projectName);
+    Path renamedProjectDir = renameRepository(repoPath, basePath, projectName, "archived");
+    try {
+      Path archive = getArchivePath(renamedProjectDir, basePath);
+      FileUtils.copyDirectory(renamedProjectDir.toFile(), archive.toFile());
+      MoreFiles.deleteRecursively(renamedProjectDir, ALLOW_INSECURE);
+    } catch (IOException e) {
+      log.warn("Error trying to archive {}", renamedProjectDir, e);
+    }
+  }
 
-          @Override
-          public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
-            if (e != null) {
-              throw e;
-            }
-            Files.delete(dir);
-            return FileVisitResult.CONTINUE;
-          }
-        });
+  private Path getArchivePath(Path renamedProjectDir, Path basePath) {
+    Path configArchiveRepo = config.getArchiveFolder().toAbsolutePath();
+    Path relativePath = basePath.relativize(renamedProjectDir);
+    return configArchiveRepo.resolve(relativePath);
+  }
+
+  private void deleteGitRepository(String projectName, Path repoPath) throws IOException {
+    // Delete the repository from disk
+    Path basePath = getBasePath(repoPath, projectName);
+    Path trash = renameRepository(repoPath, basePath, projectName, "deleted");
+    try {
+      MoreFiles.deleteRecursively(trash, ALLOW_INSECURE);
+      recursivelyDeleteEmptyParents(repoPath.toFile().getParentFile(), basePath.toFile());
+    } catch (IOException e) {
+      // Only log if delete failed - repo already moved to trash.
+      log.warn("Error trying to delete {} or its parents", trash, e);
+    } finally {
+      sendProjectDeletedEvent(projectName);
+    }
+  }
+
+  private Path getBasePath(Path repo, String projectName) {
+    Path projectPath = Paths.get(projectName);
+    return repo.getRoot()
+        .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
+  }
+
+  private Path renameRepository(Path directory, Path basePath, String projectName, String option)
+      throws IOException {
+    Path newRepo =
+        basePath.resolve(
+            projectName + "." + FORMAT.format(TimeMachine.now()) + ".%" + option + "%.git");
+    return Files.move(directory, newRepo, StandardCopyOption.ATOMIC_MOVE);
   }
 
   /**
@@ -182,14 +132,39 @@ public class FilesystemDeleteHandler {
    * or the parent file is populated. This is used when we have a tree structure such as a/b/c/d.git
    * and a/b/e.git - if we delete a/b/c/d.git, we no longer need a/b/c/.
    */
-  private void recursiveDeleteParent(File file, File until) throws IOException {
+  private void recursivelyDeleteEmptyParents(File file, File until) throws IOException {
     if (file.equals(until)) {
       return;
     }
     if (file.listFiles().length == 0) {
       File parent = file.getParentFile();
       Files.delete(file.toPath());
-      recursiveDeleteParent(parent, until);
+      recursivelyDeleteEmptyParents(parent, until);
+    }
+  }
+
+  private void sendProjectDeletedEvent(String projectName) {
+    if (!deletedListeners.iterator().hasNext()) {
+      return;
+    }
+    ProjectDeletedListener.Event event =
+        new ProjectDeletedListener.Event() {
+          @Override
+          public String getProjectName() {
+            return projectName;
+          }
+
+          @Override
+          public NotifyHandling getNotify() {
+            return NotifyHandling.NONE;
+          }
+        };
+    for (ProjectDeletedListener l : deletedListeners) {
+      try {
+        l.onProjectDeleted(event);
+      } catch (RuntimeException e) {
+        log.warn("Failure in ProjectDeletedListener", e);
+      }
     }
   }
 }
