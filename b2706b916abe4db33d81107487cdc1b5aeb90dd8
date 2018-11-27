@@ -16,6 +16,24 @@
       "revId": "b2706b916abe4db33d81107487cdc1b5aeb90dd8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f173e4ca_176bbeeb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-27T03:40:13Z",
+      "side": 1,
+      "message": "Ack. Reported as issue 10095",
+      "parentUuid": "33ec3d5e_ac8fb290",
+      "revId": "b2706b916abe4db33d81107487cdc1b5aeb90dd8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
