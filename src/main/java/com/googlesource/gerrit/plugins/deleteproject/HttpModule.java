@@ -18,13 +18,26 @@ import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.webui.JavaScriptPlugin;
 import com.google.gerrit.extensions.webui.WebUiPlugin;
 import com.google.gerrit.httpd.plugins.HttpPluginModule;
+import com.google.inject.Inject;
 
 public class HttpModule extends HttpPluginModule {
+  private final Configuration cfg;
+
+  @Inject
+  HttpModule(Configuration cfg) {
+    this.cfg = cfg;
+  }
+
   @Override
   protected void configureServlets() {
-    DynamicSet.bind(binder(), WebUiPlugin.class)
-        .toInstance(new JavaScriptPlugin("delete-project.js"));
-    DynamicSet.bind(binder(), WebUiPlugin.class)
-        .toInstance(new JavaScriptPlugin("gr-delete-repo.html"));
+    if (cfg.enablePreserveOption()) {
+      DynamicSet.bind(binder(), WebUiPlugin.class)
+          .toInstance(new JavaScriptPlugin("delete-project.js"));
+      DynamicSet.bind(binder(), WebUiPlugin.class)
+          .toInstance(new JavaScriptPlugin("gr-delete-repo.html"));
+    } else {
+      DynamicSet.bind(binder(), WebUiPlugin.class)
+          .toInstance(new JavaScriptPlugin("delete-project-with-preserve-disabled.js"));
+    }
   }
 }
