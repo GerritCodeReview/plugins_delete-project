@@ -14,9 +14,12 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import static com.google.gerrit.reviewdb.client.RefNames.REFS_HEADS;
+import static com.google.gerrit.reviewdb.client.RefNames.REFS_TAGS;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toSet;
 
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
@@ -25,7 +28,6 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;
@@ -45,12 +47,9 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 
 @Singleton
@@ -153,10 +152,15 @@ class DeletePreconditions {
       throws CannotDeleteProjectException {
     try (Repository repo = repoManager.openRepository(projectNameKey);
         MergeOpRepoManager mergeOp = mergeOpProvider.get()) {
-      Set<Branch.NameKey> branches = new HashSet<>();
-      for (Ref ref : repo.getRefDatabase().getRefs(RefNames.REFS_HEADS).values()) {
-        branches.add(new Branch.NameKey(projectNameKey, ref.getName()));
-      }
+      Set<Branch.NameKey> branches =
+          repo.getRefDatabase()
+              .getRefsByPrefix(REFS_HEADS)
+              .stream()
+              .map(
+                  r ->
+                      new Branch.NameKey(
+                          projectNameKey, r.getName().substring(REFS_HEADS.length())))
+              .collect(toSet());
       SubmoduleOp sub = subOpFactory.create(branches, mergeOp);
       for (Branch.NameKey b : branches) {
         if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
@@ -180,7 +184,7 @@ class DeletePreconditions {
 
   private void assertHasNoTags(Project.NameKey projectNameKey) throws CannotDeleteProjectException {
     try (Repository repo = repoManager.openRepository(projectNameKey)) {
-      if (!repo.getRefDatabase().getRefs(Constants.R_TAGS).isEmpty()) {
+      if (!repo.getRefDatabase().getRefsByPrefix(REFS_TAGS).isEmpty()) {
         throw new CannotDeleteProjectException(
             String.format("Project %s has tags", projectNameKey));
       }
