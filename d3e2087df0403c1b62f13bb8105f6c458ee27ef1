@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbe5edf1_a6ef949b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-11T17:21:51Z",
+      "side": 1,
+      "message": "Indeed. Would wrap this sha onto its own line and add a final /sentence dot to it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 73
+      },
+      "revId": "d3e2087df0403c1b62f13bb8105f6c458ee27ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
