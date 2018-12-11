@@ -21,15 +21,12 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.project.ProjectResource;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import java.io.IOException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -43,27 +40,22 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
 
   protected final DeletePreconditions preConditions;
 
-  private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
   private final Provider<CurrentUser> userProvider;
   private final DeleteLog deleteLog;
   private final Configuration cfg;
   private final HideProject hideProject;
-  private NotesMigration migration;
 
   @Inject
   DeleteProject(
-      DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
       Provider<CurrentUser> userProvider,
       DeleteLog deleteLog,
       DeletePreconditions preConditions,
       Configuration cfg,
-      HideProject hideProject,
-      NotesMigration migration) {
-    this.dbHandler = dbHandler;
+      HideProject hideProject) {
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
     this.userProvider = userProvider;
@@ -71,12 +63,10 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.preConditions = preConditions;
     this.cfg = cfg;
     this.hideProject = hideProject;
-    this.migration = migration;
   }
 
   @Override
-  public Object apply(ProjectResource rsrc, Input input)
-      throws OrmException, IOException, RestApiException {
+  public Object apply(ProjectResource rsrc, Input input) throws IOException, RestApiException {
     preConditions.assertDeletePermission(rsrc);
     preConditions.assertCanBeDeleted(rsrc, input);
 
@@ -84,16 +74,12 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     return Response.none();
   }
 
-  public void doDelete(ProjectResource rsrc, Input input)
-      throws OrmException, IOException, RestApiException {
+  public void doDelete(ProjectResource rsrc, Input input) throws IOException, RestApiException {
     Project project = rsrc.getProjectState().getProject();
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
     try {
       if (!preserve || !cfg.projectOnPreserveHidden()) {
-        if (!migration.disableChangeReviewDb()) {
-          dbHandler.delete(project);
-        }
         try {
           fsHandler.delete(project, preserve);
         } catch (RepositoryNotFoundException e) {

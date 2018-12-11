@@ -19,7 +19,6 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import java.io.IOException;
 import org.kohsuke.args4j.Argument;
@@ -90,7 +89,7 @@ public final class DeleteCommand extends SshCommand {
 
       preConditions.assertCanBeDeleted(rsrc, input);
       deleteProject.doDelete(rsrc, input);
-    } catch (RestApiException | OrmException | IOException e) {
+    } catch (RestApiException | IOException e) {
       throw die(e);
     }
   }
