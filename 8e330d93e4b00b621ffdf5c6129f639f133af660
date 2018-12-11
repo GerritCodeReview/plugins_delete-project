@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cee7cc02_e0fabd9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-11T19:41:09Z",
+      "side": 1,
+      "message": "Not according to my remote debugging of a local gerrit test site daemon server. My other comment details this.",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "8e330d93e4b00b621ffdf5c6129f639f133af660",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faa0d642_859b9648",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-11T19:41:09Z",
+      "side": 1,
+      "message": "ref.getName()\n\n-should be enough. I can confirm this when manually testing a project deletion while debugging this code. Even if we strip the prefix as per above, the Branch.NameKey construction code ends up re-appending that prefix to the resulting NameKey\u0027s branchName -through a RefNames.fullName call.",
+      "range": {
+        "startLine": 162,
+        "startChar": 42,
+        "endLine": 162,
+        "endChar": 86
+      },
+      "revId": "8e330d93e4b00b621ffdf5c6129f639f133af660",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
