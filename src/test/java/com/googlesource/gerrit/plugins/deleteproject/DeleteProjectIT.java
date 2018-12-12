@@ -143,31 +143,6 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
-  @GerritConfig(name = "plugin.delete-project.enablePreserveOption", value = "true")
-  public void testSshDeleteProjPreserveGitRepoEnabled() throws Exception {
-    String cmd = createDeleteCommand("--preserve-git-repository", project.get());
-    adminSshSession.exec(cmd);
-
-    assertThat(adminSshSession.getError()).isNull();
-    assertThat(projectDir.exists()).isTrue();
-  }
-
-  @Test
-  @UseLocalDisk
-  @GerritConfig(name = "plugin.delete-project.enablePreserveOption", value = "false")
-  public void testSshDeleteProjPreserveGitRepoNotEnabled() throws Exception {
-    String cmd = createDeleteCommand("--preserve-git-repository", project.get());
-    adminSshSession.exec(cmd);
-    String expected =
-        "Given the enablePreserveOption is configured to be false, "
-            + "the --preserve-git-repository option is not allowed.\n"
-            + "Please remove this option and retry.\n";
-    assertThat(adminSshSession.getError()).isEqualTo(expected);
-    assertThat(projectDir.exists()).isTrue();
-  }
-
-  @Test
-  @UseLocalDisk
   @GerritConfig(name = "plugin.delete-project.hideProjectOnPreserve", value = "true")
   public void testSshHideProject() throws Exception {
     String cmd = createDeleteCommand("--preserve-git-repository", project.get());
