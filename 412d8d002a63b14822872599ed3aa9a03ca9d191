@@ -22,6 +22,30 @@
       "revId": "412d8d002a63b14822872599ed3aa9a03ca9d191",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28dddfa5_8aab8699",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-12-12T19:31:28Z",
+      "side": 1,
+      "message": "Forgot to mention, that on master the situation is even worse as on stable-2.16. Because on master there is no GWT UI any more, and when this options is set to false plugin.NAME.enablePreserveOption, then there is no PG UI and no GWT Ui for this plugin. (It took me quite some time to understand and track it down what is going on.)",
+      "parentUuid": "4b12cf5c_8704eb57",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 67
+      },
+      "revId": "412d8d002a63b14822872599ed3aa9a03ca9d191",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
