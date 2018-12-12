@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b12cf5c_8704eb57",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-12-12T19:27:10Z",
+      "side": 1,
+      "message": "Is this the right conflict resolution? There is no alternative for PG UI in else branch. That means, that PG UI is dead on stable-2.16 (and master), when this setting is active:\n\n  [plugin \"delete-project\"]\n    enablePreserveOption \u003d false\n\nI would expect the following resolution:\n\n  DynamicSet.bind(binder(), WebUiPlugin.class)\n          .toInstance(new JavaScriptPlugin(\"gr-delete-repo.html\"));\n  if (cfg.enablePreserveOption()) {\n      DynamicSet.bind(binder(), WebUiPlugin.class)\n          .toInstance(new JavaScriptPlugin(\"delete-project.js\"));\n  ] else {\n    DynamicSet.bind(binder(), WebUiPlugin.class)\n          .toInstance(new JavaScriptPlugin(\"delete-project-with-preserve-disabled.js\"));\n  }\n\nAnd document in the config, where the option plugin.NAME.enablePreserveOption is documented, that this config option is not yet reflected on the PG UI.\n\nFWIW, that problem was fixed on master in: [1].\n\n+ [1] https://gerrit-review.googlesource.com/c/plugins/delete-project/+/207190",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 67
+      },
+      "revId": "412d8d002a63b14822872599ed3aa9a03ca9d191",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
