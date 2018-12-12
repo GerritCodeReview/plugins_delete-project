@@ -26,6 +26,30 @@
     },
     {
       "key": {
+        "uuid": "d4f221af_056adf02",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2018-12-12T12:09:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9196b670_d510104c",
+      "range": {
+        "startLine": 25,
+        "startChar": 32,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "bf0ea374b5fa6def30fbded616682d80b5251aaf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf5b03a0_0728f275",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
         "patchSetId": 1
@@ -46,6 +70,30 @@
       "revId": "bf0ea374b5fa6def30fbded616682d80b5251aaf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5537b009_0ffcebd7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2018-12-12T12:09:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf5b03a0_0728f275",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 25
+      },
+      "revId": "bf0ea374b5fa6def30fbded616682d80b5251aaf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
