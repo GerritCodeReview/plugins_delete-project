@@ -26,7 +26,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.internal.UniqueAnnotations;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
-import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.ArchiveRepositoryRemover;
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
@@ -53,7 +52,6 @@ public class Module extends AbstractModule {
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(DELETE_OWN_PROJECT))
         .to(DeleteOwnProjectCapability.class);
-    bind(DatabaseDeleteHandler.class);
     bind(FilesystemDeleteHandler.class);
     bind(DeletePreconditions.class);
     if (scheduleCleaning) {
