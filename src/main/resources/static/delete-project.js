@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-if (!window.Polymer) {
+if (!window.Polymer || Polymer) {
   Gerrit.install(function(self) {
       function onDeleteProject(c) {
         var f = c.checkbox();
