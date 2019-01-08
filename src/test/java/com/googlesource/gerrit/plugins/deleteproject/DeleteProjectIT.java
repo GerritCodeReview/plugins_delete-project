@@ -26,11 +26,13 @@ import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
+import com.google.gerrit.acceptance.testsuite.request.RequestScopeOperations;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.server.project.ProjectConfig;
+import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +60,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
   private static final String PLUGIN = "delete-project";
   private static final String ARCHIVE_FOLDER = "archiveFolder";
   private static final String PARENT_FOLDER = "parentFolder";
+
+  @Inject private RequestScopeOperations requestScopeOperations;
 
   private File archiveFolder;
   private File projectDir;
@@ -280,7 +284,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
   }
 
   private RestResponse httpDeleteProjectHelper(boolean force) throws Exception {
-    setApiUser(user);
+    requestScopeOperations.setApiUser(user.getId());
     sender.clear();
     String endPoint = "/projects/" + project.get() + "/delete-project~delete";
     Input i = new Input();
