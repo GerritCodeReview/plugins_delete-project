@@ -21,7 +21,7 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
-import com.google.gerrit.exceptions.OrmException;
+import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
@@ -127,7 +127,7 @@ class DeletePreconditions {
           throw new CannotDeleteProjectException(
               String.format("Project '%s' has open changes.", projectNameKey.get()));
         }
-      } catch (OrmException e) {
+      } catch (StorageException e) {
         throw new CannotDeleteProjectException(
             String.format("Unable to verify if '%s' has open changes.", projectNameKey.get()));
       }

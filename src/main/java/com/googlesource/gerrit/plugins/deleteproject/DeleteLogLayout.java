@@ -34,7 +34,7 @@ final class DeleteLogLayout extends Layout {
    *
    * <p>The log entry for a failed project deletion will look like this: [2015-03-05 12:14:30,180
    * +0100] ERROR 1000000 admin FAIL \ myProject {"preserve":false,"force":false}
-   * com.google.gerrit.exceptions.OrmException: \ Failed to access the database
+   * com.google.gerrit.exceptions.StorageException: \ Failed to access the database
    */
   @Override
   public String format(LoggingEvent event) {

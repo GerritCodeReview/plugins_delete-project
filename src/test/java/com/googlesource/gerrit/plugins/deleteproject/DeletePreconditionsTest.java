@@ -23,7 +23,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gerrit.exceptions.OrmException;
+import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
@@ -159,7 +159,7 @@ public class DeletePreconditionsTest {
   @Test
   public void testUnableToAssertOpenChanges() throws Exception {
     InternalChangeQuery queryChange = mock(InternalChangeQuery.class);
-    doThrow(OrmException.class).when(queryChange).byProjectOpen(PROJECT_NAMEKEY);
+    doThrow(StorageException.class).when(queryChange).byProjectOpen(PROJECT_NAMEKEY);
     when(queryProvider.get()).thenReturn(queryChange);
     String expectedMessage =
         String.format("Unable to verify if '%s' has open changes.", PROJECT_NAMEKEY.get());
