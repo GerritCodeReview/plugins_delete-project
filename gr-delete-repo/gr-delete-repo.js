@@ -39,7 +39,7 @@
     },
 
     _handleDeleteRepo() {
-      const endpoint = '/repos/' +
+      const endpoint = '/projects/' +
           encodeURIComponent(this.repoName) + '/' +
           this.actionId;
 
