@@ -1,2 +1,4 @@
 build --workspace_status_command=./tools/workspace-status.sh
+build --experimental_strict_action_env
+build --action_env=PATH
 test --build_tests_only
