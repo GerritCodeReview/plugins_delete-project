@@ -55,6 +55,7 @@
       return this.plugin.restApi().send(
           this.action.method, endpoint, json, errFn)
             .then(r => {
+              this.plugin.restApi().invalidateReposCache();
               Gerrit.Nav.navigateToRelativeUrl('/admin/repos');
       });
     },
