@@ -72,8 +72,7 @@ public class Configuration {
         getArchiveDurationFromConfig(
             Strings.nullToEmpty(cfg.getString("deleteArchivedReposAfter")));
     this.protectedProjects =
-        Arrays.asList(cfg.getStringList("protectedProject"))
-            .stream()
+        Arrays.asList(cfg.getStringList("protectedProject")).stream()
             .map(Pattern::compile)
             .collect(toList());
   }
