@@ -35,14 +35,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       DeletePreconditions preConditions,
       Configuration cfg,
       HideProject hideProject) {
-    super(
-        fsHandler,
-        cacheHandler,
-        userProvider,
-        deleteLog,
-        preConditions,
-        cfg,
-        hideProject);
+    super(fsHandler, cacheHandler, userProvider, deleteLog, preConditions, cfg, hideProject);
     this.protectedProjects = protectedProjects;
   }
 
