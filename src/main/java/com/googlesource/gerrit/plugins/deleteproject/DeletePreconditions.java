@@ -19,10 +19,12 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 import static java.util.stream.Collectors.joining;
 
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.GerritApi;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.RefNames;
@@ -30,12 +32,10 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.permissions.ProjectPermission;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
-import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
 import com.google.gerrit.server.submit.SubmoduleException;
 import com.google.gerrit.server.submit.SubmoduleOp;
@@ -56,7 +56,6 @@ import org.eclipse.jgit.lib.Repository;
 @Singleton
 class DeletePreconditions {
   private final Configuration config;
-  private final Provider<ListChildProjects> listChildProjectsProvider;
   private final Provider<MergeOpRepoManager> mergeOpProvider;
   private final String pluginName;
   private final Provider<InternalChangeQuery> queryProvider;
@@ -65,11 +64,11 @@ class DeletePreconditions {
   private final Provider<CurrentUser> userProvider;
   private final ProtectedProjects protectedProjects;
   private final PermissionBackend permissionBackend;
+  private final GerritApi gApi;
 
   @Inject
   public DeletePreconditions(
       Configuration config,
-      Provider<ListChildProjects> listChildProjectsProvider,
       Provider<MergeOpRepoManager> mergeOpProvider,
       @PluginName String pluginName,
       Provider<InternalChangeQuery> queryProvider,
@@ -77,9 +76,9 @@ class DeletePreconditions {
       SubmoduleOp.Factory subOpFactory,
       Provider<CurrentUser> userProvider,
       ProtectedProjects protectedProjects,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      GerritApi gApi) {
     this.config = config;
-    this.listChildProjectsProvider = listChildProjectsProvider;
     this.mergeOpProvider = mergeOpProvider;
     this.pluginName = pluginName;
     this.queryProvider = queryProvider;
@@ -88,6 +87,7 @@ class DeletePreconditions {
     this.userProvider = userProvider;
     this.protectedProjects = protectedProjects;
     this.permissionBackend = permissionBackend;
+    this.gApi = gApi;
   }
 
   void assertDeletePermission(ProjectResource rsrc) throws AuthException {
@@ -137,13 +137,14 @@ class DeletePreconditions {
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
     try {
-      List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
+      List<ProjectInfo> children =
+          gApi.projects().query("parent:" + rsrc.getName()).withLimit(10).get();
       if (!children.isEmpty()) {
         throw new CannotDeleteProjectException(
-            "Cannot delete project because it has children: "
+            "Cannot delete project because it has children (show only max 10): "
                 + children.stream().map(info -> info.name).collect(joining(",")));
       }
-    } catch (PermissionBackendException | ResourceConflictException e) {
+    } catch (RestApiException e) {
       throw new CannotDeleteProjectException(
           String.format("Unable to verify if '%s' has children projects.", rsrc.getName()));
     }
