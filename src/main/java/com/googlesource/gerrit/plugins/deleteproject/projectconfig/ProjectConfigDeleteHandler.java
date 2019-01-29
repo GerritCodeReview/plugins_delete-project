@@ -17,10 +17,13 @@ package com.googlesource.gerrit.plugins.deleteproject.projectconfig;
 import static java.util.stream.Collectors.joining;
 
 import com.google.gerrit.extensions.common.ProjectInfo;
+import com.google.gerrit.extensions.restapi.BadRequestException;
+import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.CannotDeleteProjectException;
@@ -48,13 +51,16 @@ public class ProjectConfigDeleteHandler {
   private void assertHasNoChildProjects(ProjectResource rsrc)
       throws CannotDeleteProjectException, ResourceConflictException {
     try {
-      List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
+      ListChildProjects listChildProjects = listChildProjectsProvider.get();
+      listChildProjects.setLimit(10);
+      List<ProjectInfo> children = listChildProjects.apply(rsrc);
       if (!children.isEmpty()) {
         throw new CannotDeleteProjectException(
             "Cannot delete project because it has children: "
                 + children.stream().map(info -> info.name).collect(joining(",")));
       }
-    } catch (PermissionBackendException e) {
+    } catch (PermissionBackendException | BadRequestException | MethodNotAllowedException
+        | OrmException e) {
       throw new CannotDeleteProjectException(
           "Cannot delete project because of failure in permission backend.");
     }

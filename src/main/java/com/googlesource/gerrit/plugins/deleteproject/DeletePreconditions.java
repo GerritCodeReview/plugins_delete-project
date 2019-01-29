@@ -22,6 +22,8 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.BadRequestException;
+import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.Project;
@@ -137,13 +139,16 @@ class DeletePreconditions {
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
     try {
-      List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
+      ListChildProjects listChildProjects = listChildProjectsProvider.get();
+      listChildProjects.setLimit(10);
+      List<ProjectInfo> children = listChildProjects.apply(rsrc);
       if (!children.isEmpty()) {
         throw new CannotDeleteProjectException(
             "Cannot delete project because it has children: "
                 + children.stream().map(info -> info.name).collect(joining(",")));
       }
-    } catch (PermissionBackendException | ResourceConflictException e) {
+    } catch (PermissionBackendException | BadRequestException | MethodNotAllowedException
+        | OrmException | ResourceConflictException e) {
       throw new CannotDeleteProjectException(
           String.format("Unable to verify if '%s' has children projects.", rsrc.getName()));
     }
