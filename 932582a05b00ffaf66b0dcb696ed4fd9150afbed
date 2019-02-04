@@ -22,6 +22,30 @@
       "revId": "932582a05b00ffaf66b0dcb696ed4fd9150afbed",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acaccdf1_1c5aa254",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-04T20:03:38Z",
+      "side": 1,
+      "message": "I was able to reproduce. Mockito\u0027s mock set-up for that test must be extended to be aware of withLimit(1) call, so that this line was missing:\n\n  when(childProjects.withLimit(1)).thenReturn(childProjects);\n\nDone.",
+      "parentUuid": "1826dd0b_de9cd49a",
+      "range": {
+        "startLine": 140,
+        "startChar": 6,
+        "endLine": 140,
+        "endChar": 92
+      },
+      "revId": "932582a05b00ffaf66b0dcb696ed4fd9150afbed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
