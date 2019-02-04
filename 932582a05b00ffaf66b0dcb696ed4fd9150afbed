@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1826dd0b_de9cd49a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T11:51:17Z",
+      "side": 1,
+      "message": "The test is now failing with NPE on this line, but I don\u0027t know if it\u0027s because my build is broken somehow.",
+      "range": {
+        "startLine": 140,
+        "startChar": 6,
+        "endLine": 140,
+        "endChar": 92
+      },
+      "revId": "932582a05b00ffaf66b0dcb696ed4fd9150afbed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
