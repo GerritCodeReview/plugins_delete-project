@@ -71,6 +71,23 @@
     },
     {
       "key": {
+        "uuid": "8d39ab91_75985c9a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T02:59:50Z",
+      "side": 1,
+      "message": "This class is not actually used any more, and can be removed.",
+      "revId": "4d8ca8551b229c7c6960875dd75b60846cb838fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d858a254_822b0502",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
         "patchSetId": 4
