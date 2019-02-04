@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e4f33506_9a287c3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T02:47:22Z",
+      "side": 1,
+      "message": "DeletePreconditions",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "4d8ca8551b229c7c6960875dd75b60846cb838fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "068792c2_2230e512",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
         "patchSetId": 4
@@ -18,6 +41,69 @@
         "startChar": 32,
         "endLine": 143,
         "endChar": 36
+      },
+      "revId": "4d8ca8551b229c7c6960875dd75b60846cb838fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9221bf94_c3960f73",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T02:47:22Z",
+      "side": 1,
+      "message": "This can all be inlined if the setLimit method return type is adjusted per my comment in [1].  Also I agree with Luca\u0027s comment: the limit can be 1.\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/212672/1/java/com/google/gerrit/server/restapi/project/ListChildProjects.java#67",
+      "range": {
+        "startLine": 142,
+        "startChar": 6,
+        "endLine": 144,
+        "endChar": 65
+      },
+      "revId": "4d8ca8551b229c7c6960875dd75b60846cb838fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d858a254_822b0502",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T02:47:22Z",
+      "side": 1,
+      "message": "Why is this method duplicated here?  Can\u0027t we reuse the one from DeletePreconditions?",
+      "revId": "4d8ca8551b229c7c6960875dd75b60846cb838fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268f04fa_5b79b0ff",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/projectconfig/ProjectConfigDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T02:47:22Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 54,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 65
       },
       "revId": "4d8ca8551b229c7c6960875dd75b60846cb838fd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
