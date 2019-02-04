@@ -18,14 +18,15 @@ import static com.google.gerrit.reviewdb.client.RefNames.REFS_HEADS;
 import static com.google.gerrit.reviewdb.client.RefNames.REFS_TAGS;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
+import com.google.common.collect.Iterables;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
@@ -136,13 +137,13 @@ class DeletePreconditions {
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
     try {
-      List<ProjectInfo> children = listChildProjectsProvider.get().apply(rsrc);
+      List<ProjectInfo> children = listChildProjectsProvider.get().withLimit(1).apply(rsrc);
       if (!children.isEmpty()) {
         throw new CannotDeleteProjectException(
-            "Cannot delete project because it has children: "
-                + children.stream().map(info -> info.name).collect(joining(",")));
+            "Cannot delete project because it has at least one child: "
+                + Iterables.getOnlyElement(children));
       }
-    } catch (PermissionBackendException | ResourceConflictException e) {
+    } catch (OrmException | PermissionBackendException | RestApiException e) {
       throw new CannotDeleteProjectException(
           String.format("Unable to verify if '%s' has children projects.", rsrc.getName()));
     }
