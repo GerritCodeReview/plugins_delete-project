@@ -22,6 +22,29 @@
       "revId": "403d47d2f99e26d99f2f729aa05b47882880e940",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92f83141_3f3ca128",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-04T11:39:03Z",
+      "side": 1,
+      "message": "This renders the ProjectInfo object, not the name.",
+      "range": {
+        "startLine": 144,
+        "startChar": 18,
+        "endLine": 144,
+        "endChar": 52
+      },
+      "revId": "403d47d2f99e26d99f2f729aa05b47882880e940",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
