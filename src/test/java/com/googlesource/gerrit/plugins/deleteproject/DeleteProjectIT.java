@@ -195,7 +195,9 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     adminSshSession.exec(cmd);
     assertThat(adminSshSession.getError())
         .isEqualTo(
-            "fatal: Cannot delete project because it has children: " + childrenString + "\n");
+            "fatal: Cannot delete project because it has at least one child: "
+                + childrenString
+                + "\n");
     assertThat(projectDir.exists()).isTrue();
   }
 

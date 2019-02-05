@@ -138,9 +138,10 @@ public class DeletePreconditionsTest {
     doNothing().when(protectedProjects).assertIsNotProtected(rsrc);
     ListChildProjects childProjects = mock(ListChildProjects.class);
     when(listChildProjectsProvider.get()).thenReturn(childProjects);
+    when(childProjects.withLimit(1)).thenReturn(childProjects);
     when(childProjects.apply(rsrc)).thenReturn(ImmutableList.of(new ProjectInfo()));
     expectedException.expect(ResourceConflictException.class);
-    expectedException.expectMessage("Cannot delete project because it has children:");
+    expectedException.expectMessage("Cannot delete project because it has at least one child:");
     preConditions.assertCanBeDeleted(rsrc, new DeleteProject.Input());
   }
 
