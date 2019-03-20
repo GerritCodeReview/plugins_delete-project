@@ -46,6 +46,30 @@
       "revId": "f7d348a86ac14846bf219a70e1ca20a57d8ab2d0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34def050_413f5d94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-03-20T13:17:49Z",
+      "side": 1,
+      "message": "\u003e \u003e I3b89150d1.\n\u003e \u003e \n\u003e \u003e Or so I propose. I.e., to refer to this stable-2.14 cherry-pick of that change originally pushed for master, for branch consistency purposes.\n\u003e \n\u003e I3b89150d1, rather, so the potential merge-ups refer to the original master change, not the previously proposed stable-2.14 one. Locally preparing these amends for convenience; can push them once done verifying.\n\n...Which is the very same reference indeed since cherry-pick ;)\n\nSorry for the unnecessary noise here.",
+      "parentUuid": "1413d35a_4161b429",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 72
+      },
+      "revId": "f7d348a86ac14846bf219a70e1ca20a57d8ab2d0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
