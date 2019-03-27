@@ -18,6 +18,7 @@ import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.LifecycleListener;
@@ -36,8 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class ArchiveRepositoryRemover implements LifecycleListener {
@@ -75,7 +74,7 @@ public class ArchiveRepositoryRemover implements LifecycleListener {
 }
 
 class RepositoryCleanupTask implements Runnable {
-  private static final Logger logger = LoggerFactory.getLogger(RepositoryCleanupTask.class);
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final Configuration config;
   private final String pluginName;
@@ -88,9 +87,9 @@ class RepositoryCleanupTask implements Runnable {
 
   @Override
   public void run() {
-    logger.info("Cleaning up expired git repositories...");
+    logger.atInfo().log("Cleaning up expired git repositories...");
     cleanUpOverdueRepositories();
-    logger.info("Cleaning up expired git repositories... Done");
+    logger.atInfo().log("Cleaning up expired git repositories... Done");
   }
 
   @Override
@@ -105,7 +104,8 @@ class RepositoryCleanupTask implements Runnable {
       try {
         MoreFiles.deleteRecursively(path, ALLOW_INSECURE);
       } catch (IOException e) {
-        logger.warn("Error trying to clean the archived git repository: {}", path, e);
+        logger.atWarning().withCause(e).log(
+            "Error trying to clean the archived git repository: %s", path);
       }
     }
   }
@@ -123,7 +123,8 @@ class RepositoryCleanupTask implements Runnable {
           files.add(repo.toPath());
         }
       } catch (IOException e) {
-        logger.warn("Error trying to get last modified time for file: {} ", repo.toPath(), e);
+        logger.atWarning().withCause(e).log(
+            "Error trying to get last modified time for file: %s", repo.toPath());
       }
     }
     return files;
