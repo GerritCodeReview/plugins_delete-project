@@ -17,6 +17,7 @@ import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Sets;
+import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
@@ -31,11 +32,9 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.eclipse.jgit.lib.Config;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DeleteTrashFolders implements LifecycleListener {
-  private static final Logger log = LoggerFactory.getLogger(DeleteTrashFolders.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   static class TrashFolderPredicate {
 
@@ -98,7 +97,7 @@ public class DeleteTrashFolders implements LifecycleListener {
           .filter(TrashFolderPredicate::match)
           .forEach(this::recursivelyDelete);
     } catch (IOException e) {
-      log.error("Failed to evaluate {}", folder, e);
+      log.atSevere().withCause(e).log("Failed to evaluate %s", folder);
     }
   }
 
@@ -111,7 +110,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     try {
       MoreFiles.deleteRecursively(folder, ALLOW_INSECURE);
     } catch (IOException e) {
-      log.error("Failed to delete {}", folder, e);
+      log.atSevere().withCause(e).log("Failed to delete %s", folder);
     }
   }
 
