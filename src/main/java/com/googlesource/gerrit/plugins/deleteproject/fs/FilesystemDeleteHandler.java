@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
@@ -37,11 +38,9 @@ import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FilesystemDeleteHandler {
-  private static final Logger log = LoggerFactory.getLogger(FilesystemDeleteHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final DateTimeFormatter FORMAT =
       DateTimeFormatter.ofPattern("YYYYMMddHHmmss").withZone(ZoneId.of("UTC"));
 
@@ -88,7 +87,7 @@ public class FilesystemDeleteHandler {
       FileUtils.copyDirectory(renamedProjectDir.toFile(), archive.toFile());
       MoreFiles.deleteRecursively(renamedProjectDir, ALLOW_INSECURE);
     } catch (IOException e) {
-      log.warn("Error trying to archive {}", renamedProjectDir, e);
+      log.atWarning().withCause(e).log("Error trying to archive %s", renamedProjectDir);
     }
   }
 
@@ -107,7 +106,7 @@ public class FilesystemDeleteHandler {
       recursivelyDeleteEmptyParents(repoPath.toFile().getParentFile(), basePath.toFile());
     } catch (IOException e) {
       // Only log if delete failed - repo already moved to trash.
-      log.warn("Error trying to delete {} or its parents", trash, e);
+      log.atWarning().withCause(e).log("Error trying to delete %s or its parents", trash);
     } finally {
       sendProjectDeletedEvent(projectName);
     }
@@ -163,7 +162,7 @@ public class FilesystemDeleteHandler {
       try {
         l.onProjectDeleted(event);
       } catch (RuntimeException e) {
-        log.warn("Failure in ProjectDeletedListener", e);
+        log.atWarning().withCause(e).log("Failure in ProjectDeletedListener");
       }
     }
   }

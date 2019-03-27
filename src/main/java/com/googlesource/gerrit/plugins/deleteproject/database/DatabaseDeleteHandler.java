@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject.database;
 
 import static java.util.Collections.singleton;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
@@ -45,11 +46,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabaseDeleteHandler {
-  private static final Logger log = LoggerFactory.getLogger(DatabaseDeleteHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final Provider<ReviewDb> dbProvider;
   private final StarredChangesUtil starredChangesUtil;
@@ -136,7 +135,7 @@ public class DatabaseDeleteHandler {
       try {
         indexer.delete(id);
       } catch (IOException e) {
-        log.error("Failed to delete change {} from index", id, e);
+        log.atSevere().withCause(e).log("Failed to delete change %s from index", id);
       }
     }
   }
@@ -165,11 +164,9 @@ public class DatabaseDeleteHandler {
                     accountId,
                     u -> u.deleteProjectWatches(singleton(watchKey)));
           } catch (IOException | ConfigInvalidException e) {
-            log.error(
-                "Removing watch entry for user {} in project {} failed.",
-                a.getUserName(),
-                project.getName(),
-                e);
+            log.atSevere().withCause(e).log(
+                "Removing watch entry for user %s in project %s failed.",
+                a.getUserName(), project.getName());
           }
         }
       }

@@ -19,6 +19,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.stream.Collectors.toList;
 
 import com.google.common.base.Strings;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -33,12 +34,10 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class Configuration {
-  private static final Logger log = LoggerFactory.getLogger(Configuration.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String DELETED_PROJECTS_PARENT = "Deleted-Projects";
   private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
 
@@ -113,11 +112,9 @@ public class Configuration {
     try {
       return Files.createDirectories(Paths.get(configValue));
     } catch (Exception e) {
-      log.warn(
-          "Failed to create folder {}: {}; using default path: {}",
-          configValue,
-          e.getMessage(),
-          pluginData);
+      log.atWarning().log(
+          "Failed to create folder %s: %s; using default path: %s",
+          configValue, e.getMessage(), pluginData);
       return pluginData.toPath();
     }
   }
@@ -127,10 +124,9 @@ public class Configuration {
       return ConfigUtil.getTimeUnit(
           configValue, DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS), MILLISECONDS);
     } catch (IllegalArgumentException e) {
-      log.warn(
-          "The configured archive duration is not valid: {}; using the default value: {} days",
-          e.getMessage(),
-          DEFAULT_ARCHIVE_DURATION_DAYS);
+      log.atWarning().log(
+          "The configured archive duration is not valid: %s; using the default value: %d days",
+          e.getMessage(), DEFAULT_ARCHIVE_DURATION_DAYS);
       return DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS);
     }
   }
