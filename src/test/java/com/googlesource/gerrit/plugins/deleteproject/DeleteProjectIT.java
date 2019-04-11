@@ -302,7 +302,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   private void pushTagOldCommitNotForce() throws Exception {
     testRepo = cloneProject(project, user);
-    commitBuilder().ident(user.getIdent()).message("subject (" + System.nanoTime() + ")").create();
+    commitBuilder().ident(user.newIdent()).message("subject (" + System.nanoTime() + ")").create();
     String tagName = "v1_" + System.nanoTime();
 
     grant(project, "refs/for/refs/heads/master", Permission.SUBMIT, false, REGISTERED_USERS);
