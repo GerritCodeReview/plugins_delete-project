@@ -286,7 +286,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
   }
 
   private RestResponse httpDeleteProjectHelper(boolean force) throws Exception {
-    requestScopeOperations.setApiUser(user.getId());
+    requestScopeOperations.setApiUser(user.id());
     sender.clear();
     String endPoint = "/projects/" + project.get() + "/delete-project~delete";
     Input i = new Input();
