@@ -155,7 +155,7 @@ class DeletePreconditions {
         MergeOpRepoManager mergeOp = mergeOpProvider.get()) {
       Set<Branch.NameKey> branches =
           repo.getRefDatabase().getRefsByPrefix(REFS_HEADS).stream()
-              .map(ref -> new Branch.NameKey(projectNameKey, ref.getName()))
+              .map(ref -> Branch.nameKey(projectNameKey, ref.getName()))
               .collect(toSet());
       SubmoduleOp sub = subOpFactory.create(branches, mergeOp);
       for (Branch.NameKey b : branches) {
