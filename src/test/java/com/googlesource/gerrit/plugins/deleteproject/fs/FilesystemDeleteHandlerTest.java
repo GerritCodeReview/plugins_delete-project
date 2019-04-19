@@ -62,7 +62,7 @@ public class FilesystemDeleteHandlerTest {
   public void shouldDeleteRepository() throws Exception {
     String repoName = "testRepo";
     Repository repository = createRepository(repoName);
-    Project.NameKey nameKey = new Project.NameKey(repoName);
+    Project.NameKey nameKey = Project.nameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     when(config.shouldArchiveDeletedRepos()).thenReturn(false);
@@ -75,7 +75,7 @@ public class FilesystemDeleteHandlerTest {
   public void shouldDeleteEmptyParentFolders() throws Exception {
     String repoName = "a/b/c";
     Repository repository = createRepository(repoName);
-    Project.NameKey nameKey = new Project.NameKey(repoName);
+    Project.NameKey nameKey = Project.nameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
@@ -91,7 +91,7 @@ public class FilesystemDeleteHandlerTest {
     String repoToKeepName = "a/b/e";
     Repository repoToKeep = createRepository(repoToKeepName);
 
-    Project.NameKey nameKey = new Project.NameKey(repoToDeleteName);
+    Project.NameKey nameKey = Project.nameKey(repoToDeleteName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repoToDelete);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
@@ -104,7 +104,7 @@ public class FilesystemDeleteHandlerTest {
   public void shouldPreserveRepository() throws Exception {
     String repoName = "preservedRepo";
     Repository repository = createRepository(repoName);
-    Project.NameKey nameKey = new Project.NameKey(repoName);
+    Project.NameKey nameKey = Project.nameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
@@ -126,7 +126,7 @@ public class FilesystemDeleteHandlerTest {
     Path archiveFolder = basePath.resolve("test_archive");
     when(config.shouldArchiveDeletedRepos()).thenReturn(true);
     when(config.getArchiveFolder()).thenReturn(archiveFolder);
-    Project.NameKey nameKey = new Project.NameKey(repoName);
+    Project.NameKey nameKey = Project.nameKey(repoName);
     Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);

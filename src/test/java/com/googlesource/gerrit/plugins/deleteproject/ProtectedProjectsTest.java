@@ -92,10 +92,10 @@ public class ProtectedProjectsTest {
   }
 
   private void assertProtected(String name) {
-    assertThat(protectedProjects.isProtected(new Project.NameKey(name))).isTrue();
+    assertThat(protectedProjects.isProtected(Project.nameKey(name))).isTrue();
   }
 
   private void assertNotProtected(String name) {
-    assertThat(protectedProjects.isProtected(new Project.NameKey(name))).isFalse();
+    assertThat(protectedProjects.isProtected(Project.nameKey(name))).isFalse();
   }
 }

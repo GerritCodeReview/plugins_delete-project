@@ -53,7 +53,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class DeletePreconditionsTest {
   private static final String PLUGIN_NAME = "delete-project";
-  private static final Project.NameKey PROJECT_NAMEKEY = new Project.NameKey("test-project");
+  private static final Project.NameKey PROJECT_NAMEKEY = Project.nameKey("test-project");
 
   @Mock private Configuration config;
   @Mock private Provider<ListChildProjects> listChildProjectsProvider;
