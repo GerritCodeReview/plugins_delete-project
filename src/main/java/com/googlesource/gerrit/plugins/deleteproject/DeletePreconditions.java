@@ -28,7 +28,7 @@ import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.RestApiException;
-import com.google.gerrit.reviewdb.client.Branch;
+import com.google.gerrit.reviewdb.client.BranchNameKey;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -153,12 +153,12 @@ class DeletePreconditions {
       throws CannotDeleteProjectException {
     try (Repository repo = repoManager.openRepository(projectNameKey);
         MergeOpRepoManager mergeOp = mergeOpProvider.get()) {
-      Set<Branch.NameKey> branches =
+      Set<BranchNameKey> branches =
           repo.getRefDatabase().getRefsByPrefix(REFS_HEADS).stream()
-              .map(ref -> Branch.nameKey(projectNameKey, ref.getName()))
+              .map(ref -> BranchNameKey.create(projectNameKey, ref.getName()))
               .collect(toSet());
       SubmoduleOp sub = subOpFactory.create(branches, mergeOp);
-      for (Branch.NameKey b : branches) {
+      for (BranchNameKey b : branches) {
         if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
           throw new CannotDeleteProjectException("Project is subscribed by other projects.");
         }
