@@ -18,7 +18,7 @@ gerrit_plugin(
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule",
     ],
     resource_jars = [":gr-delete-repo-static"],
-    resources = glob(["src/main/resources/**/*"]),
+    resources = glob(["src/main/resources/Documentation/*.md"]),
     deps = ["@commons-io//jar"],
 )
 

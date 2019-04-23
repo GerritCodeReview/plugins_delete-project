@@ -18,11 +18,9 @@ limitations under the License.
 
 <dom-module id="delete-repo">
   <script>
-    if (window.Polymer) {
-      Gerrit.install(function(plugin) {
-          plugin.registerCustomComponent(
-              'repo-command', 'gr-delete-repo');
-      });
-    }
+    Gerrit.install(function(plugin) {
+        plugin.registerCustomComponent(
+            'repo-command', 'gr-delete-repo');
+    });
   </script>
 </dom-module>
