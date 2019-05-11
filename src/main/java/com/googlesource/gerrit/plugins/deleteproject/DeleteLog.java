@@ -27,10 +27,14 @@ import com.google.gerrit.server.util.SystemLog;
 import com.google.gerrit.server.util.time.TimeUtil;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.impl.Log4jLogEvent;
+import org.apache.logging.log4j.message.SimpleMessage;
 
 @Singleton
 class DeleteLog extends PluginLogFile {
@@ -53,40 +57,40 @@ class DeleteLog extends PluginLogFile {
 
   public void onDelete(
       IdentifiedUser user, Project.NameKey project, DeleteProject.Input options, Exception ex) {
-    long ts = TimeUtil.nowMs();
-    LoggingEvent event =
-        new LoggingEvent( //
-            Logger.class.getName(), // fqnOfCategoryClass
-            log, // logger
-            ts, // when
-            ex == null // level
-                ? Level.INFO
-                : Level.ERROR,
-            ex == null // message text
-                ? "OK"
-                : "FAIL",
-            Thread.currentThread().getName(), // thread name
-            null, // exception information
-            null, // current NDC string
-            null, // caller location
-            null // MDC properties
-            );
+    Map<String, String> map = new HashMap<>();
 
-    event.setProperty(ACCOUNT_ID, user.getAccountId().toString());
+    long ts = TimeUtil.nowMs();
+
+    map.put(ACCOUNT_ID, user.getAccountId().toString());
     if (user.getUserName().isPresent()) {
-      event.setProperty(USER_NAME, user.getUserName().get());
+      map.put(USER_NAME, user.getUserName().get());
     }
-    event.setProperty(PROJECT_NAME, project.get());
+    map.put(PROJECT_NAME, project.get());
 
     if (options != null) {
-      event.setProperty(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
+      map.put(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
     }
 
     if (ex != null) {
-      event.setProperty(ERROR, ex.toString());
+      map.put(ERROR, ex.toString());
     }
 
-    log.callAppenders(event);
+    Level lev = ex == null ? Level.INFO : Level.ERROR;
+
+    String mesg = ex == null ? "OK" : "FAIL";
+
+    final LogEvent event =
+        Log4jLogEvent.newBuilder()
+            .setLoggerName(log.toString())
+            .setLoggerFqcn(Logger.class.getName())
+            .setLevel(lev)
+            .setMessage(new SimpleMessage(mesg))
+            .setThreadName(Thread.currentThread().getName())
+            .setTimeMillis(ts)
+            .setContextMap(map)
+            .build();
+
+    //log.callAppenders(event);
 
     audit(user, ts, project, options, ex);
   }
