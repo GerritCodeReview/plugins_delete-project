@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.acceptance.GitUtil.pushHead;
+import static com.google.gerrit.acceptance.testsuite.project.TestProjectUpdate.allow;
 import static com.google.gerrit.server.group.SystemGroupBackend.REGISTERED_USERS;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -191,7 +192,11 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
   @UseLocalDisk
   @GerritConfig(name = "plugin.delete-project.allowDeletionOfReposWithTags", value = "false")
   public void testDeleteProjWithTags() throws Exception {
-    grant(project, "refs/tags/*", Permission.CREATE, false, REGISTERED_USERS);
+    projectOperations
+        .project(project)
+        .forUpdate()
+        .add(allow(Permission.CREATE).ref("refs/tags/*").group(REGISTERED_USERS).force(false))
+        .update();
     pushTagOldCommitNotForce();
 
     String cmd = createDeleteCommand(project.get());
@@ -280,7 +285,15 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     commitBuilder().ident(user.newIdent()).message("subject (" + System.nanoTime() + ")").create();
     String tagName = "v1_" + System.nanoTime();
 
-    grant(project, "refs/for/refs/heads/master", Permission.SUBMIT, false, REGISTERED_USERS);
+    projectOperations
+        .project(project)
+        .forUpdate()
+        .add(
+            allow(Permission.SUBMIT)
+                .ref("refs/for/refs/heads/master")
+                .group(REGISTERED_USERS)
+                .force(false))
+        .update();
     pushHead(testRepo, "refs/for/master%submit");
 
     String tagRef = RefNames.REFS_TAGS + tagName;
