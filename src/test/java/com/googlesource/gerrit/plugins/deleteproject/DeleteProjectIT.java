@@ -28,6 +28,7 @@ import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
+import com.google.gerrit.acceptance.testsuite.project.ProjectOperations;
 import com.google.gerrit.acceptance.testsuite.request.RequestScopeOperations;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.extensions.client.ProjectState;
@@ -63,6 +64,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
   private static final String ARCHIVE_FOLDER = "archiveFolder";
   private static final String PARENT_FOLDER = "parentFolder";
 
+  @Inject private ProjectOperations projectOperations;
   @Inject private RequestScopeOperations requestScopeOperations;
 
   private File archiveFolder;
