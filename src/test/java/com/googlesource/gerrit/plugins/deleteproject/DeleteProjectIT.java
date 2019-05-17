@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.gerrit.acceptance.GitUtil.pushHead;
 import static com.google.gerrit.server.group.SystemGroupBackend.REGISTERED_USERS;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -112,7 +113,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
         String.format(
             "Really delete '%s'?\n"
                 + "This is an operation which permanently deletes data. This cannot be undone!\n"
-                + "If you are sure you wish to delete this project, re-run with the --yes-really-delete flag.\n\n",
+                + "If you are sure you wish to delete this project, re-run with the"
+                + " --yes-really-delete flag.\n\n",
             project.get());
     adminSshSession.exec(cmd);
 
@@ -127,7 +129,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String cmd = createDeleteCommand(project.get());
     String expected =
         String.format(
-            "Project '%s' has open changes. - To really delete '%s', re-run with the --force flag.%n",
+            "Project '%s' has open changes. - To really delete '%s', re-run with the --force"
+                + " flag.%n",
             project.get(), project.get());
     adminSshSession.exec(cmd);
 
@@ -286,7 +289,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String tagRef = RefNames.REFS_TAGS + tagName;
     PushResult r = pushHead(testRepo, tagRef, false, false);
     RemoteRefUpdate refUpdate = r.getRemoteUpdate(tagRef);
-    assertThat(refUpdate.getStatus()).named("LIGHTWEIGHT").isEqualTo(Status.OK);
+    assertWithMessage("LIGHTWEIGHT").that(refUpdate.getStatus()).isEqualTo(Status.OK);
   }
 
   private boolean isEmpty(Path dir) throws IOException {
