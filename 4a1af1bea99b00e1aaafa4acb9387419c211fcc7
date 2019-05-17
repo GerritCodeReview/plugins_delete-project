@@ -16,6 +16,24 @@
       "revId": "4a1af1bea99b00e1aaafa4acb9387419c211fcc7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db853e72_a229b9c8",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1030912
+      },
+      "writtenOn": "2019-05-17T09:40:44Z",
+      "side": 1,
+      "message": "No. I\u0027ll revert it. It\u0027s just part of the next version of google-java-format.",
+      "parentUuid": "a1b2b8d8_3e9bdec5",
+      "revId": "4a1af1bea99b00e1aaafa4acb9387419c211fcc7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
