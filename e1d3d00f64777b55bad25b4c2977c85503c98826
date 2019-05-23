@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a200e20_5b0e6a96",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1010008
+      },
+      "writtenOn": "2019-05-23T15:58:43Z",
+      "side": 1,
+      "message": "Fixed in a followup.",
+      "parentUuid": "1340c63f_1d02793a",
+      "range": {
+        "startLine": 198,
+        "startChar": 80,
+        "endLine": 198,
+        "endChar": 93
+      },
+      "revId": "e1d3d00f64777b55bad25b4c2977c85503c98826",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "900b1d7f_07170b4a",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 1
