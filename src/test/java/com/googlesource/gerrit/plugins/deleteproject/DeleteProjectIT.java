@@ -198,7 +198,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     projectOperations
         .project(project)
         .forUpdate()
-        .add(allow(Permission.CREATE).ref("refs/tags/*").group(REGISTERED_USERS).force(false))
+        .add(allow(Permission.CREATE).ref("refs/tags/*").group(REGISTERED_USERS))
         .update();
     pushTagOldCommitNotForce();
 
@@ -291,11 +291,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     projectOperations
         .project(project)
         .forUpdate()
-        .add(
-            allow(Permission.SUBMIT)
-                .ref("refs/for/refs/heads/master")
-                .group(REGISTERED_USERS)
-                .force(false))
+        .add(allow(Permission.SUBMIT).ref("refs/for/refs/heads/master").group(REGISTERED_USERS))
         .update();
     pushHead(testRepo, "refs/for/master%submit");
 
