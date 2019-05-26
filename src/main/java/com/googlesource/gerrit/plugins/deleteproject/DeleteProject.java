@@ -14,11 +14,11 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.project.ProjectResource;

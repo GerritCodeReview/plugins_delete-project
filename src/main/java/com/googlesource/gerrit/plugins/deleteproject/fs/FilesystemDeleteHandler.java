@@ -18,10 +18,10 @@ import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;

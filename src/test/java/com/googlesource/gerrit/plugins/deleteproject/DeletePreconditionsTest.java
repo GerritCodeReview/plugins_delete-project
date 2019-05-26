@@ -23,12 +23,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;

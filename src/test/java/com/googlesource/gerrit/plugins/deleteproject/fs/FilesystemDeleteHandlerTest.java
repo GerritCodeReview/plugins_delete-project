@@ -17,9 +17,9 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
