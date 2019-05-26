@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.AllProjectsNameProvider;
 import com.google.gerrit.server.config.AllUsersName;

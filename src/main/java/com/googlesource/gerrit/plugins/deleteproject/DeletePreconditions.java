@@ -14,21 +14,21 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import static com.google.gerrit.reviewdb.client.RefNames.REFS_HEADS;
-import static com.google.gerrit.reviewdb.client.RefNames.REFS_TAGS;
+import static com.google.gerrit.entities.RefNames.REFS_HEADS;
+import static com.google.gerrit.entities.RefNames.REFS_TAGS;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 import static java.util.stream.Collectors.toSet;
 
 import com.google.common.collect.Iterables;
+import com.google.gerrit.entities.BranchNameKey;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
-import com.google.gerrit.reviewdb.client.BranchNameKey;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;

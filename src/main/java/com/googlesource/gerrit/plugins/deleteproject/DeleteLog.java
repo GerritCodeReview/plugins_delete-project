@@ -16,9 +16,9 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.systemstatus.ServerInformation;
 import com.google.gerrit.json.OutputFormat;
-import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.AuditEvent;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.audit.AuditService;
