@@ -28,6 +28,7 @@ import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -139,7 +140,7 @@ public class DeletePreconditionsTest {
     ListChildProjects childProjects = mock(ListChildProjects.class);
     when(listChildProjectsProvider.get()).thenReturn(childProjects);
     when(childProjects.withLimit(1)).thenReturn(childProjects);
-    when(childProjects.apply(rsrc)).thenReturn(ImmutableList.of(new ProjectInfo()));
+    when(childProjects.apply(rsrc)).thenReturn(Response.ok(ImmutableList.of(new ProjectInfo())));
     expectedException.expect(ResourceConflictException.class);
     expectedException.expectMessage("Cannot delete project because it has at least one child:");
     preConditions.assertCanBeDeleted(rsrc, new DeleteProject.Input());
