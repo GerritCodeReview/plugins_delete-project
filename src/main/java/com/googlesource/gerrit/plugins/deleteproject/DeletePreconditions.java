@@ -137,7 +137,7 @@ class DeletePreconditions {
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
     try {
-      List<ProjectInfo> children = listChildProjectsProvider.get().withLimit(1).apply(rsrc);
+      List<ProjectInfo> children = listChildProjectsProvider.get().withLimit(1).apply(rsrc).value();
       if (!children.isEmpty()) {
         throw new CannotDeleteProjectException(
             "Cannot delete project because it has at least one child: "
