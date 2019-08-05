@@ -46,6 +46,30 @@
       "revId": "dd045218b39917503dee334cf23654ef96abcc9c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79b4efe2_123ff1f0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1030912
+      },
+      "writtenOn": "2019-08-05T10:59:39Z",
+      "side": 1,
+      "message": "No problem and thanks for adjusting it.",
+      "parentUuid": "8c082a65_2ff5d83e",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "dd045218b39917503dee334cf23654ef96abcc9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
