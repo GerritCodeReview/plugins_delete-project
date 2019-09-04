@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71ac0126_2069ee57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-09-04T13:12:09Z",
+      "side": 1,
+      "message": "Same here, just: --incompatible_load_java_rules_from_bzl.",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "eb75644e2f4259fc91fba421de2eed3bd3bed4b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
