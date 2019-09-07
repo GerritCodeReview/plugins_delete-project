@@ -66,8 +66,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   @Override
-  public Response<?> apply(ProjectResource rsrc, Input input)
-      throws IOException, RestApiException {
+  public Response<?> apply(ProjectResource rsrc, Input input) throws IOException, RestApiException {
     preConditions.assertDeletePermission(rsrc);
     preConditions.assertCanBeDeleted(rsrc, input);
 
