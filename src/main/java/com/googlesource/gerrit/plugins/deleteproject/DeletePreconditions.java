@@ -27,14 +27,12 @@ import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
-import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.BranchNameKey;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.permissions.ProjectPermission;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.server.query.change.ChangeData;
@@ -136,16 +134,17 @@ class DeletePreconditions {
   }
 
   private void assertHasNoChildProjects(ProjectResource rsrc) throws CannotDeleteProjectException {
+    List<ProjectInfo> children;
     try {
-      List<ProjectInfo> children = listChildProjectsProvider.get().withLimit(1).apply(rsrc).value();
-      if (!children.isEmpty()) {
-        throw new CannotDeleteProjectException(
-            "Cannot delete project because it has at least one child: "
-                + Iterables.getOnlyElement(children).name);
-      }
-    } catch (StorageException | PermissionBackendException | RestApiException e) {
+      children = listChildProjectsProvider.get().withLimit(1).apply(rsrc).value();
+    } catch (Exception e) {
       throw new CannotDeleteProjectException(
           String.format("Unable to verify if '%s' has children projects.", rsrc.getName()));
+    }
+    if (!children.isEmpty()) {
+      throw new CannotDeleteProjectException(
+          "Cannot delete project because it has at least one child: "
+              + Iterables.getOnlyElement(children).name);
     }
   }
 
