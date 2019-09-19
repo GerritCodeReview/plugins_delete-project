@@ -1,4 +1,10 @@
 build --workspace_status_command=./tools/workspace-status.sh
-build --experimental_strict_action_env
+
+# Standalone build compatbility with npm requires PATH on action_env (Issue 10372).
 build --action_env=PATH
+
+# See https://github.com/bazelbuild/bazel/issues/7026. Remove when flag is
+# flipped in Bazel again.
+build --incompatible_strict_action_env
+
 test --build_tests_only
