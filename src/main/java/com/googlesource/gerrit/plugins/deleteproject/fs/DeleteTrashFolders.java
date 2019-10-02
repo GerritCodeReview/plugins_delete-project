@@ -58,7 +58,7 @@ public class DeleteTrashFolders implements LifecycleListener {
 
     /**
      * Newer trash folder name format. Besides the changes in TRASH_2, it uses a timestamp format
-     * (YYYYMMddHHmmss) instead of the epoch one for increased readability.
+     * (yyyyMMddHHmmss) instead of the epoch one for increased readability.
      */
     private static final Pattern TRASH_3 = Pattern.compile(".*\\.\\d{14}.%deleted%.git");
 
