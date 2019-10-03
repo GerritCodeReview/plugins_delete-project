@@ -42,7 +42,7 @@ import org.eclipse.jgit.lib.RepositoryCache;
 public class FilesystemDeleteHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final DateTimeFormatter FORMAT =
-      DateTimeFormatter.ofPattern("YYYYMMddHHmmss").withZone(ZoneId.of("UTC"));
+      DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneId.of("UTC"));
 
   private final GitRepositoryManager repoManager;
   private final DynamicSet<ProjectDeletedListener> deletedListeners;
