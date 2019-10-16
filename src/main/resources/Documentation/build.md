@@ -20,7 +20,7 @@ To build the plugin, issue the following command:
 The output is created in
 
 ```
-  bazel-genfiles/@PLUGIN@.jar
+  bazel-bin/@PLUGIN@.jar
 ```
 
 To package the plugin sources run:
@@ -62,7 +62,7 @@ tree, and issue the command:
 The output is created in
 
 ```
-  bazel-genfiles/plugins/@PLUGIN@/@PLUGIN@.jar
+  bazel-bin/plugins/@PLUGIN@/@PLUGIN@.jar
 ```
 
 To execute the tests run:
