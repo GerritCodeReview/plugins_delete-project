@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb41530a_c8b569f9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-10-19T01:24:44Z",
+      "side": 0,
+      "message": "This isn\u0027t the only plugin that does this.\n\nIt seems to be broken when viewing it in gitiles, but what does it look like when it\u0027s rendered inside gerrit?",
+      "revId": "966bab68090393c7c0dade624b27b5884299a24b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
