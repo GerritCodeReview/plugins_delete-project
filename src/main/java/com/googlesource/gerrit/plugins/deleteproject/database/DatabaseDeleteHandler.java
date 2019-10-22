@@ -29,7 +29,11 @@ import com.google.gerrit.server.account.WatchConfig;
 import com.google.gerrit.server.account.WatchConfig.Accessor;
 import com.google.gerrit.server.account.WatchConfig.ProjectWatchKey;
 import com.google.gerrit.server.change.AccountPatchReviewStore;
+import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.index.change.ChangeIndexer;
+import com.google.gerrit.server.notedb.ChangeNotes;
+import com.google.gerrit.server.notedb.ChangeNotes.Factory.ChangeNotesResult;
+import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.query.account.InternalAccountQuery;
 import com.google.gwtorm.jdbc.JdbcSchema;
@@ -43,7 +47,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +63,9 @@ public class DatabaseDeleteHandler {
   private final ChangeIndexer indexer;
   private final Provider<InternalAccountQuery> accountQueryProvider;
   private final Provider<Accessor> watchConfig;
+  private final ChangeNotes.Factory schemaFactoryNoteDb;
+  private final GitRepositoryManager repoManager;
+  private NotesMigration migration;
 
   @Inject
   public DatabaseDeleteHandler(
@@ -64,6 +73,8 @@ public class DatabaseDeleteHandler {
       StarredChangesUtil starredChangesUtil,
       DynamicItem<AccountPatchReviewStore> accountPatchReviewStore,
       ChangeIndexer indexer,
+      ChangeNotes.Factory schemaFactoryNoteDb,
+      GitRepositoryManager repoManager,
       Provider<InternalAccountQuery> accountQueryProvider,
       Provider<WatchConfig.Accessor> watchConfig) {
     this.accountQueryProvider = accountQueryProvider;
@@ -72,26 +83,33 @@ public class DatabaseDeleteHandler {
     this.starredChangesUtil = starredChangesUtil;
     this.accountPatchReviewStore = accountPatchReviewStore;
     this.indexer = indexer;
+    this.schemaFactoryNoteDb = schemaFactoryNoteDb;
+    this.repoManager = repoManager;
   }
 
-  public void delete(Project project) throws OrmException {
+  public void delete(Project project, NotesMigration migration) throws OrmException, IOException {
+    this.migration = migration;
     ReviewDb db = ReviewDbUtil.unwrapDb(dbProvider.get());
-    Connection conn = ((JdbcSchema) db).getConnection();
-    try {
-      conn.setAutoCommit(false);
+    if (isReviewDb()) {
+      Connection conn = ((JdbcSchema) db).getConnection();
       try {
-        atomicDelete(db, project, getChangesList(project, conn));
-        conn.commit();
-      } finally {
-        conn.setAutoCommit(true);
+        conn.setAutoCommit(false);
+        try {
+          atomicDelete(db, project, getChangesList(project, conn));
+          conn.commit();
+        } finally {
+          conn.setAutoCommit(true);
+        }
+      } catch (SQLException e) {
+        try {
+          conn.rollback();
+        } catch (SQLException ex) {
+          throw new OrmException(ex);
+        }
+        throw new OrmException(e);
       }
-    } catch (SQLException e) {
-      try {
-        conn.rollback();
-      } catch (SQLException ex) {
-        throw new OrmException(ex);
-      }
-      throw new OrmException(e);
+    } else {
+      atomicDelete(db, project, getChangeIdsFromNoteDb(project.getNameKey()));
     }
   }
 
@@ -111,6 +129,28 @@ public class DatabaseDeleteHandler {
     }
   }
 
+  private boolean isReviewDb() {
+    return !migration.disableChangeReviewDb();
+  }
+
+  private List<Change.Id> getChangeIdsFromNoteDb(Project.NameKey projectKey) throws IOException {
+    List<Change.Id> changeIds = new ArrayList<>();
+    Stream<ChangeNotesResult> changes =
+        schemaFactoryNoteDb.scan(
+            repoManager.openRepository(projectKey), dbProvider.get(), projectKey);
+    Iterator<ChangeNotesResult> iterator = changes.iterator();
+    while (iterator.hasNext()) {
+      ChangeNotesResult change = iterator.next();
+      Change.Id changeId = change.id();
+      changeIds.add(changeId);
+    }
+    log.debug(
+        "Number of changes in noteDb related to project {} are {}",
+        projectKey.get(),
+        changeIds.size());
+    return changeIds;
+  }
+
   private void deleteChanges(ReviewDb db, Project.NameKey project, List<Change.Id> changeIds)
       throws OrmException {
 
@@ -120,18 +160,19 @@ public class DatabaseDeleteHandler {
       } catch (NoSuchChangeException e) {
         // we can ignore the exception during delete
       }
-      ResultSet<PatchSet> patchSets = db.patchSets().byChange(id);
-      if (patchSets != null) {
-        deleteFromPatchSets(db, patchSets);
+      if (isReviewDb()) {
+        ResultSet<PatchSet> patchSets = db.patchSets().byChange(id);
+        if (patchSets != null) {
+          deleteFromPatchSets(db, patchSets);
+        }
+
+        // In the future, use schemaVersion to decide what to delete.
+        db.patchComments().delete(db.patchComments().byChange(id));
+        db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
+
+        db.changeMessages().delete(db.changeMessages().byChange(id));
+        db.changes().deleteKeys(Collections.singleton(id));
       }
-
-      // In the future, use schemaVersion to decide what to delete.
-      db.patchComments().delete(db.patchComments().byChange(id));
-      db.patchSetApprovals().delete(db.patchSetApprovals().byChange(id));
-
-      db.changeMessages().delete(db.changeMessages().byChange(id));
-      db.changes().deleteKeys(Collections.singleton(id));
-
       // Delete from the secondary index
       try {
         indexer.delete(id);
