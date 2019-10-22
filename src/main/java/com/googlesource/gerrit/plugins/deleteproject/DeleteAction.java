@@ -16,7 +16,6 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -37,8 +36,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       DeleteLog deleteLog,
       DeletePreconditions preConditions,
       Configuration cfg,
-      HideProject hideProject,
-      NotesMigration migration) {
+      HideProject hideProject) {
     super(
         dbHandler,
         fsHandler,
@@ -47,8 +45,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
         deleteLog,
         preConditions,
         cfg,
-        hideProject,
-        migration);
+        hideProject);
     this.protectedProjects = protectedProjects;
   }
 
