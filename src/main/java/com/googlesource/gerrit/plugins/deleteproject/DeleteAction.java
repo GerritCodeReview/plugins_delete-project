@@ -37,8 +37,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       DeleteLog deleteLog,
       DeletePreconditions preConditions,
       Configuration cfg,
-      HideProject hideProject,
-      NotesMigration migration) {
+      HideProject hideProject) {
     super(
         dbHandler,
         fsHandler,
@@ -47,8 +46,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
         deleteLog,
         preConditions,
         cfg,
-        hideProject,
-        migration);
+        hideProject);
     this.protectedProjects = protectedProjects;
   }
 
