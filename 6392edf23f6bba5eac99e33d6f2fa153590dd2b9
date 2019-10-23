@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1b55c3a_1a38673c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-23T20:49:12Z",
+      "side": 1,
+      "message": "DatabaseDeleteHandler:\n- Add (renders as bullet but meaning dash; no indent.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "6392edf23f6bba5eac99e33d6f2fa153590dd2b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f5a68a_c3df6bc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-23T20:49:12Z",
+      "side": 1,
+      "message": "DeleteProjectIT:\n- Add (same as above.)",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 6
+      },
+      "revId": "6392edf23f6bba5eac99e33d6f2fa153590dd2b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2dfc087_f10cdada",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-23T20:49:12Z",
+      "side": 1,
+      "message": "watched-?",
+      "range": {
+        "startLine": 14,
+        "startChar": 34,
+        "endLine": 14,
+        "endChar": 40
+      },
+      "revId": "6392edf23f6bba5eac99e33d6f2fa153590dd2b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd4dd6c_705f4af1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-23T20:49:12Z",
+      "side": 1,
+      "message": "- Add (dash; no indent.)",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 6
+      },
+      "revId": "6392edf23f6bba5eac99e33d6f2fa153590dd2b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7842d68f_5d937386",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-23T20:49:12Z",
+      "side": 1,
+      "message": "Should this change be split into\n1. properly supporting the noteDb case -with test(s), then\n2. fixing the reindex after noteDb project deletion (tested), then\n3. adding more robust test coverage(?)",
+      "revId": "6392edf23f6bba5eac99e33d6f2fa153590dd2b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
