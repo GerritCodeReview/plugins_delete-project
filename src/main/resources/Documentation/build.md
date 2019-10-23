@@ -68,7 +68,7 @@ The output is created in
 To execute the tests run:
 
 ```
-  bazel test plugins/@PLUGIN@:delete_project_tests
+  bazel test plugins/@PLUGIN@:delete-project_tests
 ```
 
 or filtering using the comma separated tags:
