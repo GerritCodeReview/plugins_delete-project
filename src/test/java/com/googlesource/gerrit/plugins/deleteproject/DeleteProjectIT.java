@@ -143,6 +143,17 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
+  public void testSshDeleteProjWithWatchedYesReallyDeleteForce() throws Exception {
+    watch(project.get());
+    createChange();
+    String cmd = createDeleteCommand("--force", project.get());
+    adminSshSession.exec(cmd);
+    assertThat(adminSshSession.getError()).isNull();
+    assertThat(projectDir.exists()).isFalse();
+  }
+
+  @Test
+  @UseLocalDisk
   @GerritConfig(name = "plugin.delete-project.enablePreserveOption", value = "true")
   public void testSshDeleteProjPreserveGitRepoEnabled() throws Exception {
     String cmd = createDeleteCommand("--preserve-git-repository", project.get());
