@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47c9496e_2eace6c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T20:02:55Z",
+      "side": 1,
+      "message": "Add the",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "063219c27bfde30d766acd9452212663d2f29303",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014a9324_ccc6a926",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T20:02:55Z",
+      "side": 1,
+      "message": "watches -rather?",
+      "range": {
+        "startLine": 10,
+        "startChar": 40,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "063219c27bfde30d766acd9452212663d2f29303",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ea4fb1_54952c6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T20:02:55Z",
+      "side": 1,
+      "message": "Needs text refactoring if this is meant as a bullet list of items.\n\nIn fact, this change should be split into three (3) separately scoped changes, with slightly more detailed commit messages for each. Also, let\u0027s mention per-change Issue(s) from Monorail if applicable. No need to create new ones though if unnecessary.",
+      "revId": "063219c27bfde30d766acd9452212663d2f29303",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
