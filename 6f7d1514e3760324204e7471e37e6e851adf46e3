@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26cea70b_e1277112",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T19:54:31Z",
+      "side": 1,
+      "message": "NoteDb, to be consistent with lines 9 and 12.",
+      "range": {
+        "startLine": 13,
+        "startChar": 33,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "6f7d1514e3760324204e7471e37e6e851adf46e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42ff8ed0_a9c49863",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T19:54:31Z",
+      "side": 1,
+      "message": "Should this also become such a variation of the atomicDelete/deleteChanges method duo? -This would be so that the level of abstraction of this delete method remains consistent in both db cases.",
+      "range": {
+        "startLine": 110,
+        "startChar": 6,
+        "endLine": 115,
+        "endChar": 40
+      },
+      "revId": "6f7d1514e3760324204e7471e37e6e851adf46e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d123a5_e3b1447a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T19:54:31Z",
+      "side": 1,
+      "message": "change.id() -would inline as this is a rather trivial variable.",
+      "range": {
+        "startLine": 144,
+        "startChar": 20,
+        "endLine": 144,
+        "endChar": 28
+      },
+      "revId": "6f7d1514e3760324204e7471e37e6e851adf46e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7046fb4f_da07e5c3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-04T19:54:31Z",
+      "side": 1,
+      "message": "to project {}: {}\n\nI think this comment would also apply to a similar change review for the rename-project plugin.",
+      "range": {
+        "startLine": 147,
+        "startChar": 45,
+        "endLine": 147,
+        "endChar": 69
+      },
+      "revId": "6f7d1514e3760324204e7471e37e6e851adf46e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
