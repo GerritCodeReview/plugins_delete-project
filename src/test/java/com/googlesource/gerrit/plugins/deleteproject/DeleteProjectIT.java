@@ -31,6 +31,7 @@ import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.server.git.ProjectConfig;
+import com.google.gwtorm.server.OrmException;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.File;
 import java.io.IOException;
@@ -79,6 +80,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     RestResponse r = httpDeleteProjectHelper(true);
     r.assertNoContent();
     assertThat(projectDir.exists()).isFalse();
+
+    assertIndexDeleted();
   }
 
   @Test
@@ -139,6 +142,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     adminSshSession.exec(cmd);
     assertThat(adminSshSession.getError()).isNull();
     assertThat(projectDir.exists()).isFalse();
+
+    assertIndexDeleted();
   }
 
   @Test
@@ -328,5 +333,10 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     try (Stream<Path> dirStream = Files.list(dir)) {
       return dirStream.anyMatch(d -> d.toString().contains(projectName));
     }
+  }
+
+  private void assertIndexDeleted() throws OrmException {
+    assertThat(projectCache.get(project)).isNull();
+    assertThat(queryProvider.get().byProject(project)).isEmpty();
   }
 }
