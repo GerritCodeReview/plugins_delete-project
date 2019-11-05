@@ -28,6 +28,8 @@ import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.extensions.client.ProjectState;
+import com.google.gerrit.extensions.client.ProjectWatchInfo;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.server.git.ProjectConfig;
@@ -38,6 +40,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.lib.Repository;
@@ -100,6 +103,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     r.assertNoContent();
     assertThat(projectDir.exists()).isFalse();
     assertIndexDeleted();
+    assertWatchRemoved();
   }
 
   @Test
@@ -154,6 +158,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     assertThat(adminSshSession.getError()).isNull();
     assertThat(projectDir.exists()).isFalse();
     assertIndexDeleted();
+    assertWatchRemoved();
   }
 
   @Test
@@ -338,5 +343,10 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   private void assertIndexDeleted() throws OrmException {
     assertThat(queryProvider.get().byProject(project)).isEmpty();
+  }
+
+  private void assertWatchRemoved() throws RestApiException {
+    List<ProjectWatchInfo> watchedProjects = gApi.accounts().self().getWatchedProjects();
+    assertThat(watchedProjects).isEmpty();
   }
 }
