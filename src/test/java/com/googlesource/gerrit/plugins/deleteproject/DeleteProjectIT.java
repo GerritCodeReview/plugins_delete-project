@@ -79,6 +79,9 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     RestResponse r = httpDeleteProjectHelper(true);
     r.assertNoContent();
     assertThat(projectDir.exists()).isFalse();
+
+    assertThat(projectCache.get(project)).isNull();
+    assertThat(queryProvider.get().byProject(project)).isEmpty();
   }
 
   @Test
@@ -139,6 +142,9 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     adminSshSession.exec(cmd);
     assertThat(adminSshSession.getError()).isNull();
     assertThat(projectDir.exists()).isFalse();
+
+    assertThat(projectCache.get(project)).isNull();
+    assertThat(queryProvider.get().byProject(project)).isEmpty();
   }
 
   @Test
