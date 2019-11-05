@@ -28,6 +28,7 @@ import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.extensions.client.ProjectState;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.server.git.ProjectConfig;
@@ -100,6 +101,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     r.assertNoContent();
     assertThat(projectDir.exists()).isFalse();
     assertAllChangesDeletedInIndex();
+    assertWatchRemoved();
   }
 
   @Test
@@ -154,6 +156,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     assertThat(adminSshSession.getError()).isNull();
     assertThat(projectDir.exists()).isFalse();
     assertAllChangesDeletedInIndex();
+    assertWatchRemoved();
   }
 
   @Test
@@ -338,5 +341,9 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   private void assertAllChangesDeletedInIndex() throws OrmException {
     assertThat(queryProvider.get().byProject(project)).isEmpty();
+  }
+
+  private void assertWatchRemoved() throws RestApiException {
+    assertThat(gApi.accounts().self().getWatchedProjects()).isEmpty();
   }
 }
