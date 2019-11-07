@@ -1,4 +1,4 @@
-build --workspace_status_command=./tools/workspace-status.sh
+build --workspace_status_command="python ./tools/workspace_status.py"
 
 # Standalone build compatbility with npm requires PATH on action_env (Issue 10372).
 build --action_env=PATH
