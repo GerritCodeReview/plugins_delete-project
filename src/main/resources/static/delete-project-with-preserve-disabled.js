@@ -12,7 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-if (!window.Polymer) {
+function _getCookie(name) {
+  var key = name + '=';
+  var result = '';
+  document.cookie.split(';').some(c => {
+    c = c.trim();
+    if (c.startsWith(key)) {
+      result = c.substring(key.length);
+      return true;
+    }
+  });
+  return result;
+}
+
+if (!window.Polymer && _getCookie('GERRIT_UI')) {
   Gerrit.install(function(self) {
       function onDeleteProject(c) {
         var f = c.checkbox();
