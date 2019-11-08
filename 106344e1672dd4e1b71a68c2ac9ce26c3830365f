@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84fcfc71_78df850a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:38:40Z",
+      "side": 1,
+      "message": "project (Would delegate nameKey extraction to the method.) -Same level of abstraction as the already designed getChangesList method.",
+      "range": {
+        "startLine": 112,
+        "startChar": 55,
+        "endLine": 112,
+        "endChar": 75
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a51a82a_d903a17d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:38:40Z",
+      "side": 1,
+      "message": "Would move this method to after the method calling it, above.",
+      "range": {
+        "startLine": 132,
+        "startChar": 18,
+        "endLine": 132,
+        "endChar": 28
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c490b5b6_4ec72f90",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:38:40Z",
+      "side": 1,
+      "message": "getChangesListFromNoteDb, to fit with sibling getChangesList.",
+      "range": {
+        "startLine": 136,
+        "startChar": 26,
+        "endLine": 136,
+        "endChar": 48
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "129d53a1_ccfc55b8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:38:40Z",
+      "side": 1,
+      "message": "change.id() -would inline. (Previous comment.)",
+      "range": {
+        "startLine": 145,
+        "startChar": 20,
+        "endLine": 145,
+        "endChar": 28
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c149b2_ca9e8185",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:38:40Z",
+      "side": 1,
+      "message": "Why do we need to add this condition? -Would explain in commit message.",
+      "range": {
+        "startLine": 163,
+        "startChar": 6,
+        "endLine": 163,
+        "endChar": 25
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
