@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "675730f5_105a58c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84fcfc71_78df850a",
+      "range": {
+        "startLine": 112,
+        "startChar": 55,
+        "endLine": 112,
+        "endChar": 75
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a51a82a_d903a17d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d68b0b_55c23eda",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a51a82a_d903a17d",
+      "range": {
+        "startLine": 132,
+        "startChar": 18,
+        "endLine": 132,
+        "endChar": 28
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "caa7ebcc_c5339622",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c490b5b6_4ec72f90",
+      "range": {
+        "startLine": 136,
+        "startChar": 26,
+        "endLine": 136,
+        "endChar": 48
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "129d53a1_ccfc55b8",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "838de7b1_af3d999a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "129d53a1_ccfc55b8",
+      "range": {
+        "startLine": 145,
+        "startChar": 20,
+        "endLine": 145,
+        "endChar": 28
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8c149b2_ca9e8185",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
         "patchSetId": 7
@@ -114,6 +210,30 @@
       "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74a9068e_b37e83e4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8c149b2_ca9e8185",
+      "range": {
+        "startLine": 163,
+        "startChar": 6,
+        "endLine": 163,
+        "endChar": 25
+      },
+      "revId": "106344e1672dd4e1b71a68c2ac9ce26c3830365f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
