@@ -12,7 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-if (!window.Polymer) {
+function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+}
+
+var uiCookie = getCookie('GERRIT_UI');
+
+if (!window.Polymer &&
+    uiCookie !== null &&
+    uiCookie === 'GWT' &&
+    uiCookie !== '') {
   Gerrit.install(function(self) {
       function onDeleteProject(c) {
         var f = c.checkbox();
