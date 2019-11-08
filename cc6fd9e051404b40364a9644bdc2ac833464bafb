@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e378982e_adb600ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:47:25Z",
+      "side": 1,
+      "message": "Would replace this with a more explanatory message, about what exactly is expected -to pass this added test. Also, the code already shows the added test method name, so no need to repeat it here.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e603b034_0904cec4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:47:25Z",
+      "side": 1,
+      "message": "testSshDeleteProjYesReallyDeleteWatched",
+      "range": {
+        "startLine": 146,
+        "startChar": 14,
+        "endLine": 146,
+        "endChar": 57
+      },
+      "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c5b030_d1952937",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:47:25Z",
+      "side": 1,
+      "message": "Are we missing an initial createChange() step, like the similar tests above?",
+      "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
