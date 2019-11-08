@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "61f1a384_4cdcb64a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:23:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e378982e_adb600ea",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e603b034_0904cec4",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ceb78875_818c8eee",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:23:31Z",
+      "side": 1,
+      "message": "would rename it into this to be consistent with its sibling testSshDeleteProjYesReallyDeleteWithWatches",
+      "parentUuid": "e603b034_0904cec4",
+      "range": {
+        "startLine": 146,
+        "startChar": 14,
+        "endLine": 146,
+        "endChar": 57
+      },
+      "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9c5b030_d1952937",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 7
@@ -59,6 +107,24 @@
       "writtenOn": "2019-11-08T19:47:25Z",
       "side": 1,
       "message": "Are we missing an initial createChange() step, like the similar tests above?",
+      "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b2bb4c1_50503453",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-08T21:23:31Z",
+      "side": 1,
+      "message": "No, this test is similar to testHttpDeleteProjectWithWatches but through ssh.",
+      "parentUuid": "d9c5b030_d1952937",
       "revId": "cc6fd9e051404b40364a9644bdc2ac833464bafb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
