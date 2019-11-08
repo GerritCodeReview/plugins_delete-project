@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "821d8f59_427aa449",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:52:43Z",
+      "side": 1,
+      "message": "DeleteProjectIT: Assert reindexing happening after forced delete",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "f5befeca5b66491265ba4bd6418cc1f80148085f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa75e42_7747c20f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:52:43Z",
+      "side": 1,
+      "message": "Would then add a few words about how this change is addressing the previous problem exactly.",
+      "revId": "f5befeca5b66491265ba4bd6418cc1f80148085f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756a336d_1843bfc6",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-08T19:52:43Z",
+      "side": 1,
+      "message": "Code /logic duplication. Would refactor into a reused helper method, giving the latter a significant or meaningful name.",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 65
+      },
+      "revId": "f5befeca5b66491265ba4bd6418cc1f80148085f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
