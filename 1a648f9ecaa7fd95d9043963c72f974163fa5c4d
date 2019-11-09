@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d39d4dd_9785cb1e",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-09T02:53:24Z",
+      "side": 0,
+      "message": "You have not explained this in the commit message, but why wouldn\u0027t this check be enough? Are you saying that in GWT the window.Polymer is set?",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "1a648f9ecaa7fd95d9043963c72f974163fa5c4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
