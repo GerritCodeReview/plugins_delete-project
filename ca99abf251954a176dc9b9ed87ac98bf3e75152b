@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd79284b_74f0fdf4",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T20:12:41Z",
+      "side": 1,
+      "message": "Do we still need this? Or if it is not set, can we remove that?",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "ca99abf251954a176dc9b9ed87ac98bf3e75152b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
