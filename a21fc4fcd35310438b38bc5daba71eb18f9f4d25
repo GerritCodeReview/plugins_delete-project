@@ -45,6 +45,75 @@
       "revId": "a21fc4fcd35310438b38bc5daba71eb18f9f4d25",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab35d43_26670c6c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T23:08:57Z",
+      "side": 1,
+      "message": "Unrelated to this change, it was added in 6826f1cc but why it is not final?",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "a21fc4fcd35310438b38bc5daba71eb18f9f4d25",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3996859_c2eb7120",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T23:08:57Z",
+      "side": 1,
+      "message": "If it is not used in this class, just remove it here, and inject in DatabaseDeleteHandler class instead.",
+      "range": {
+        "startLine": 96,
+        "startChar": 34,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "a21fc4fcd35310438b38bc5daba71eb18f9f4d25",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf6a286_b3396672",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T23:08:57Z",
+      "side": 1,
+      "message": "Why is this added in a method and stored in the instance variable? Just inject it instead passing? Also make it final.",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "a21fc4fcd35310438b38bc5daba71eb18f9f4d25",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
