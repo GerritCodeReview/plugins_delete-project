@@ -39,6 +39,29 @@
       "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f126af7_7e922c68",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-11-13T01:49:44Z",
+      "side": 1,
+      "message": "i think this is equivalent to `uiCookie \u003d\u003d\u003d \"GWT\"`",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
