@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a0182d7_45933abd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:09:59Z",
+      "side": 1,
+      "message": "Now redundant with the above slogan; would remove.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d6422a6_34058923",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:09:59Z",
+      "side": 1,
+      "message": "Remove blank line?",
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "091e8a5c_deee742e",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:09:59Z",
+      "side": 1,
+      "message": "Extra blank line.",
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0a78749_90247ce3",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:09:59Z",
+      "side": 1,
+      "message": "assertWatchRemoved",
+      "range": {
+        "startLine": 350,
+        "startChar": 15,
+        "endLine": 350,
+        "endChar": 35
+      },
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d455b69_bb415659",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:09:59Z",
+      "side": 1,
+      "message": "This added method now needs to be called wherever assertIndexDeleted() gets called.",
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
