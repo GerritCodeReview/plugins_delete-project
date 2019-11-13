@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d4d63452_f7001da3",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-11-13T01:59:11Z",
+      "side": 1,
+      "message": "Thanks, done!",
+      "parentUuid": "8da62280_c168becd",
+      "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf23c304_6db97504",
         "filename": "src/main/resources/static/delete-project.js",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "b37a27c4_514b3bcb",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-11-13T01:59:11Z",
+      "side": 1,
+      "message": "I think we have to use var here as we support IE11/older browsers under GWTUI.\n\nGerrit sets it when switching to GWTUI.\n\nIt\u0027s used to decided which UI to use, when set it uses GWTUI, when not set it uses PolyGerrit.\n\n(It was used for GWTUI -\u003e PolyGerrit. Now it\u0027s used for PolyGerrit -\u003e GWTUI with GWTUI being removed in 3+ now)",
+      "parentUuid": "cf23c304_6db97504",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f126af7_7e922c68",
         "filename": "src/main/resources/static/delete-project.js",
         "patchSetId": 6
@@ -62,6 +104,30 @@
       "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d31544c7_b9127ba1",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-11-13T01:59:11Z",
+      "side": 1,
+      "message": "ah! Thanks, done.",
+      "parentUuid": "1f126af7_7e922c68",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
