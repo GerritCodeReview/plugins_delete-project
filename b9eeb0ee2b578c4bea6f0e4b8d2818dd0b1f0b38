@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8da62280_c168becd",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-11-13T01:47:38Z",
+      "side": 1,
+      "message": "maybe just use what Gerrit core is using instead ? \n\n```\n   _getCookie(name) {\n      const key \u003d name + \u0027\u003d\u0027;\n      let result \u003d \u0027\u0027;\n      document.cookie.split(\u0027;\u0027).some(c \u003d\u003e {\n        c \u003d c.trim();\n        if (c.startsWith(key)) {\n          result \u003d c.substring(key.length);\n          return true;\n        }\n      });\n      return result;\n    },\n```",
+      "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf23c304_6db97504",
+        "filename": "src/main/resources/static/delete-project.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-11-13T01:47:38Z",
+      "side": 1,
+      "message": "const  ?\n\nalso who is setting this cookie ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "b9eeb0ee2b578c4bea6f0e4b8d2818dd0b1f0b38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
