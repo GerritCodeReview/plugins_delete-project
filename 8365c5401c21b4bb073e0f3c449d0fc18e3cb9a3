@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40d6ac90_79156941",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "Assert that after forced delete reindexing happened",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbb25bb_0f64d8ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "didn\u0027t",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2248ddbb_d02837aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "in the index, so querying on a deleted project name returned",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2ec7723_4cf0118c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "Extra blank line, would remove.",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f23a104b_01789e99",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "assertIndexDeleted();",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e7c0c6_c70ed70b",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "Would remove this blank line now.",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ded2e55_1a6f0e73",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "assertIndexDeleted();",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 13
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7971c84_ced6355a",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "assertIndexDeleted();",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "604eeaa8_ea3fa39c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T23:03:11Z",
+      "side": 1,
+      "message": "assertIndexDeleted();",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
