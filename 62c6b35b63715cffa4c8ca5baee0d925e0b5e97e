@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a428835c_04d5853b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:10:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a0182d7_45933abd",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d6422a6_34058923",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
