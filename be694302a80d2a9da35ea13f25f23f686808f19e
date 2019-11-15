@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eef11197_afe76e97",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteAction.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-15T19:12:40Z",
+      "side": 1,
+      "message": "Unused.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "be694302a80d2a9da35ea13f25f23f686808f19e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fd918d1_5c63d77e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-15T19:12:40Z",
+      "side": 1,
+      "message": "Unused.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 54
+      },
+      "revId": "be694302a80d2a9da35ea13f25f23f686808f19e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ebe2c8_841b4206",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-15T19:12:40Z",
+      "side": 1,
+      "message": "Use java stream instead. Import statically:\n\nimport static java.util.stream.Collectors.toList;\n\nand then do this:\n\n  List\u003cChange.Id\u003e changeIds \u003d\n        schemaFactoryNoteDb\n            .scan(repoManager.openRepository(projectKey), dbProvider.get(), projectKey)\n            .map(ChangeNotesResult::id)\n            .collect(toList());",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 5
+      },
+      "revId": "be694302a80d2a9da35ea13f25f23f686808f19e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
