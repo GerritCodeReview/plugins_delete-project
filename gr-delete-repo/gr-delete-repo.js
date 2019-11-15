@@ -14,29 +14,32 @@
 (function() {
   'use strict';
 
-  Polymer({
-    is: 'gr-delete-repo',
+  class GrDeleteRepo extends Polymer.Element {
+    static get is() { return 'gr-delete-repo'; }
 
-    properties: {
-      repoName: String,
-      config: Object,
-      action: Object,
-      actionId: String,
-    },
+    static get properties() {
+      return {
+        repoName: String,
+        config: Object,
+        action: Object,
+        actionId: String,
+      };
+    }
 
-    attached() {
+    connectedCallback() {
+      super.connectedCallback();
       this.actionId = this.plugin.getPluginName() + '~delete';
       this.action = this.config.actions[this.actionId];
       this.hidden = !this.action;
-    },
+    }
 
     _handleCommandTap() {
       this.$.deleteRepoOverlay.open();
-    },
+    }
 
     _handleCloseDeleteRepo() {
       this.$.deleteRepoOverlay.close();
-    },
+    }
 
     _handleDeleteRepo() {
       const endpoint = '/projects/' +
@@ -45,7 +48,7 @@
 
       const json = {
         force: this.$.forceDeleteOpenChangesCheckBox.checked,
-        preserve: this.$.preserveGitRepoCheckBox.checked
+        preserve: this.$.preserveGitRepoCheckBox.checked,
       };
 
       const errFn = response => {
@@ -54,10 +57,12 @@
 
       return this.plugin.restApi().send(
           this.action.method, endpoint, json, errFn)
-            .then(r => {
-              this.plugin.restApi().invalidateReposCache();
-              Gerrit.Nav.navigateToRelativeUrl('/admin/repos');
-      });
-    },
-  });
+          .then(r => {
+            this.plugin.restApi().invalidateReposCache();
+            Gerrit.Nav.navigateToRelativeUrl('/admin/repos');
+          });
+    }
+  }
+
+  customElements.define(GrDeleteRepo.is, GrDeleteRepo);
 })();
