@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92fa4eda_625098be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d6ac90_79156941",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 69
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfbb25bb_0f64d8ec",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb1cd65_f8cb920c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfbb25bb_0f64d8ec",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8917b55f_ee725f87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2248ddbb_d02837aa",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2ec7723_4cf0118c",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
@@ -85,6 +157,24 @@
       "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee6602f_a94f2126",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2ec7723_4cf0118c",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "cc52ff55_54d430e1",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f23a104b_01789e99",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4e7c0c6_c70ed70b",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
@@ -119,6 +227,24 @@
       "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f123112b_c638418e",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4e7c0c6_c70ed70b",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "8b2f2754_23b9d31f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ded2e55_1a6f0e73",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 156,
+        "endChar": 13
+      },
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7971c84_ced6355a",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
@@ -162,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "d2186e19_804a4dc9",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7971c84_ced6355a",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "604eeaa8_ea3fa39c",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
@@ -176,6 +344,24 @@
       "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d2bd22c_a5863c21",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "604eeaa8_ea3fa39c",
+      "revId": "8365c5401c21b4bb073e0f3c449d0fc18e3cb9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
