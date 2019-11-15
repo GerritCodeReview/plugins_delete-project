@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "7fc87fae_877846e2",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:09:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d6422a6_34058923",
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "091e8a5c_deee742e",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
@@ -56,6 +74,24 @@
       "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "738c92fe_26eb8db8",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:09:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091e8a5c_deee742e",
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "35f3c730_735dd6ab",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:09:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0a78749_90247ce3",
+      "range": {
+        "startLine": 350,
+        "startChar": 15,
+        "endLine": 350,
+        "endChar": 35
+      },
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d455b69_bb415659",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 4
@@ -96,6 +156,24 @@
       "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bf6cab5_e92e8acd",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-11-15T16:09:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we only check where project got added to watch? Otherwise checking this is not viable.",
+      "parentUuid": "2d455b69_bb415659",
+      "revId": "62c6b35b63715cffa4c8ca5baee0d925e0b5e97e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
