@@ -11,32 +11,34 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-(function() {
+(function () {
   'use strict';
+    class GrDeleteRepo extends Polymer.GestureEventListeners(
+Polymer.LegacyElementMixin(
+Polymer.Element)) {
+        static get is() { return "gr-delete-repo"; }
 
-  Polymer({
-    is: 'gr-delete-repo',
 
-    properties: {
+        static get properties() { return {
       repoName: String,
       config: Object,
       action: Object,
       actionId: String,
-    },
-
-    attached() {
+    }; }
+        attached() {
+            super.attached();
       this.actionId = this.plugin.getPluginName() + '~delete';
       this.action = this.config.actions[this.actionId];
       this.hidden = !this.action;
-    },
+        }
 
     _handleCommandTap() {
       this.$.deleteRepoOverlay.open();
-    },
+    }
 
     _handleCloseDeleteRepo() {
       this.$.deleteRepoOverlay.close();
-    },
+    }
 
     _handleDeleteRepo() {
       const endpoint = '/projects/' +
@@ -58,6 +60,7 @@
               this.plugin.restApi().invalidateReposCache();
               Gerrit.Nav.navigateToRelativeUrl('/admin/repos');
       });
-    },
-  });
+    }
+    }
+    customElements.define(GrDeleteRepo.is, GrDeleteRepo);
 })();
