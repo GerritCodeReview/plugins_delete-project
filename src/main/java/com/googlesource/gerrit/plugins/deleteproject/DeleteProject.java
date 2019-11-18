@@ -21,7 +21,6 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.notedb.NotesMigration;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -50,7 +49,6 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DeleteLog deleteLog;
   private final Configuration cfg;
   private final HideProject hideProject;
-  private NotesMigration migration;
 
   @Inject
   DeleteProject(
@@ -61,8 +59,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       DeleteLog deleteLog,
       DeletePreconditions preConditions,
       Configuration cfg,
-      HideProject hideProject,
-      NotesMigration migration) {
+      HideProject hideProject) {
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
@@ -71,7 +68,6 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.preConditions = preConditions;
     this.cfg = cfg;
     this.hideProject = hideProject;
-    this.migration = migration;
   }
 
   @Override
@@ -87,13 +83,11 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   public void doDelete(ProjectResource rsrc, Input input)
       throws OrmException, IOException, RestApiException {
     Project project = rsrc.getProjectState().getProject();
-    boolean preserve = input != null && input.preserve;
+    boolean preserve = input!=null && input.preserve;
     Exception ex = null;
     try {
       if (!preserve || !cfg.projectOnPreserveHidden()) {
-        if (!migration.disableChangeReviewDb()) {
-          dbHandler.delete(project);
-        }
+        dbHandler.delete(project);
         try {
           fsHandler.delete(project, preserve);
         } catch (RepositoryNotFoundException e) {
