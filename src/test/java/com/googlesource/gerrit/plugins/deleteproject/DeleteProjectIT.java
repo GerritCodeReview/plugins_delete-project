@@ -28,9 +28,11 @@ import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.extensions.client.ProjectState;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.server.project.ProjectConfig;
+import com.google.gwtorm.server.OrmException;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.File;
 import java.io.IOException;
@@ -79,6 +81,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     RestResponse r = httpDeleteProjectHelper(true);
     r.assertNoContent();
     assertThat(projectDir.exists()).isFalse();
+    assertAllChangesDeletedInIndex();
   }
 
   @Test
@@ -97,6 +100,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     RestResponse r = httpDeleteProjectHelper(true);
     r.assertNoContent();
     assertThat(projectDir.exists()).isFalse();
+    assertAllChangesDeletedInIndex();
+    assertWatchRemoved();
   }
 
   @Test
@@ -139,6 +144,19 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     adminSshSession.exec(cmd);
     assertThat(adminSshSession.getError()).isNull();
     assertThat(projectDir.exists()).isFalse();
+    assertAllChangesDeletedInIndex();
+  }
+
+  @Test
+  @UseLocalDisk
+  public void testSshDeleteProjectWithWatches() throws Exception {
+    watch(project.get());
+    String cmd = createDeleteCommand(project.get());
+    adminSshSession.exec(cmd);
+    assertThat(adminSshSession.getError()).isNull();
+    assertThat(projectDir.exists()).isFalse();
+    assertAllChangesDeletedInIndex();
+    assertWatchRemoved();
   }
 
   @Test
@@ -237,6 +255,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     assertThat(isEmpty(archiveFolder.toPath())).isFalse();
     assertThat(containsDeletedProject(archiveFolder.toPath(), project.get())).isTrue();
     assertThat(projectDir.exists()).isFalse();
+    assertAllChangesDeletedInIndex();
   }
 
   @Test
@@ -268,7 +287,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     assertThat(containsDeletedProject(archiveFolder.toPath().resolve(PARENT_FOLDER), name))
         .isTrue();
     assertThat(projectDir.exists()).isFalse();
-
+    assertAllChangesDeletedInIndex();
     assertThat(parentFolder.toFile().exists()).isFalse();
   }
 
@@ -320,5 +339,13 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     try (Stream<Path> dirStream = Files.list(dir)) {
       return dirStream.anyMatch(d -> d.toString().contains(projectName));
     }
+  }
+
+  private void assertAllChangesDeletedInIndex() throws OrmException {
+    assertThat(queryProvider.get().byProject(project)).isEmpty();
+  }
+
+  private void assertWatchRemoved() throws RestApiException {
+    assertThat(gApi.accounts().self().getWatchedProjects()).isEmpty();
   }
 }
