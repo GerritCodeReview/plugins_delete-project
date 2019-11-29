@@ -20,6 +20,7 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
 public class DeleteAction extends DeleteProject implements UiAction<ProjectResource> {
@@ -28,6 +29,7 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
   @Inject
   DeleteAction(
       ProtectedProjects protectedProjects,
+      DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
       Provider<CurrentUser> userProvider,
@@ -35,7 +37,16 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       DeletePreconditions preConditions,
       Configuration cfg,
       HideProject hideProject) {
-    super(fsHandler, cacheHandler, userProvider, deleteLog, preConditions, cfg, hideProject);
+    super(
+        dbHandler,
+        fsHandler,
+        cacheHandler,
+        userProvider,
+        deleteLog,
+        preConditions,
+        cfg,
+        hideProject);
+
     this.protectedProjects = protectedProjects;
   }
 

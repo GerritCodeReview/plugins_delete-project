@@ -27,6 +27,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
+import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import java.io.IOException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -40,6 +41,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
 
   protected final DeletePreconditions preConditions;
 
+  private final DatabaseDeleteHandler dbHandler;
   private final FilesystemDeleteHandler fsHandler;
   private final CacheDeleteHandler cacheHandler;
   private final Provider<CurrentUser> userProvider;
@@ -49,6 +51,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
 
   @Inject
   DeleteProject(
+      DatabaseDeleteHandler dbHandler,
       FilesystemDeleteHandler fsHandler,
       CacheDeleteHandler cacheHandler,
       Provider<CurrentUser> userProvider,
@@ -56,6 +59,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       DeletePreconditions preConditions,
       Configuration cfg,
       HideProject hideProject) {
+    this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
     this.userProvider = userProvider;
@@ -80,6 +84,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     Exception ex = null;
     try {
       if (!preserve || !cfg.projectOnPreserveHidden()) {
+                dbHandler.delete(project);
         try {
           fsHandler.delete(project, preserve);
         } catch (RepositoryNotFoundException e) {
