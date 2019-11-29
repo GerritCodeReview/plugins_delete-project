@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0d26a5c_9b27ad6e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-29T18:20:10Z",
+      "side": 1,
+      "message": "Extra blank line introduced.",
+      "revId": "263971efd46298a6c4ccdf1805e1cd70c6d17ab1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "497d1535_86d6b108",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-29T18:20:10Z",
+      "side": 1,
+      "message": "Google-java-formatting missing.",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "263971efd46298a6c4ccdf1805e1cd70c6d17ab1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1bbfcc_f15c6766",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-29T18:20:10Z",
+      "side": 1,
+      "message": "Unused. This should be catched by means of the corresponding Eclipse warning. Imports will also need corresponding updates.",
+      "range": {
+        "startLine": 56,
+        "startChar": 43,
+        "endLine": 56,
+        "endChar": 66
+      },
+      "revId": "263971efd46298a6c4ccdf1805e1cd70c6d17ab1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
