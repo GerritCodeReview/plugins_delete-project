@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2554d6e1_4ced4411",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-12-03T00:03:03Z",
+      "side": 1,
+      "message": "Is this file intentionally added back?  It was removed in [1] due to removal of the review Db in 3.0\n\n[1] https://gerrit-review.googlesource.com/c/plugins/delete-project/+/207071",
+      "revId": "d1df1db00f293de3e00dc5f506f6b514a5f000c5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
