@@ -16,6 +16,24 @@
       "revId": "d1df1db00f293de3e00dc5f506f6b514a5f000c5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31da80f7_b2bb6439",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2019-12-03T13:51:54Z",
+      "side": 1,
+      "message": "It is intentional. The functionality of this class is to use indexer and delete all the changes from indexer. Without this step newly introduced unit tests would fail.",
+      "parentUuid": "2554d6e1_4ced4411",
+      "revId": "d1df1db00f293de3e00dc5f506f6b514a5f000c5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
