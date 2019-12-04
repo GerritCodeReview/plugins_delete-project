@@ -34,6 +34,24 @@
       "revId": "d1df1db00f293de3e00dc5f506f6b514a5f000c5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "282ee910_c039f82d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-12-04T01:09:12Z",
+      "side": 1,
+      "message": "OK, then I think we should rename it to something more appropriate in a follow-up commit.",
+      "parentUuid": "31da80f7_b2bb6439",
+      "revId": "d1df1db00f293de3e00dc5f506f6b514a5f000c5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
