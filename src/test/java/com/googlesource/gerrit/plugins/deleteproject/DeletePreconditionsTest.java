@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 import static org.mockito.Mockito.doNothing;
@@ -43,9 +44,7 @@ import com.google.gerrit.server.submit.SubmoduleOp;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Provider;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -67,8 +66,6 @@ public class DeletePreconditionsTest {
   @Mock private ProtectedProjects protectedProjects;
   @Mock private PermissionBackend permissionBackend;
   @Mock private PermissionBackend.WithUser userPermission;
-
-  @Rule public ExpectedException expectedException = ExpectedException.none();
 
   private ProjectResource rsrc;
   private DeletePreconditions preConditions;
@@ -121,16 +118,17 @@ public class DeletePreconditionsTest {
   @Test
   public void testUserCannotDelete() throws Exception {
     when(permissionBackend.user(currentUser)).thenReturn(userPermission);
-    expectedException.expect(AuthException.class);
-    expectedException.expectMessage("not allowed to delete project");
-    preConditions.assertDeletePermission(rsrc);
+    AuthException thrown =
+        assertThrows(AuthException.class, () -> preConditions.assertDeletePermission(rsrc));
+    assertThat(thrown).hasMessageThat().contains("not allowed to delete project");
   }
 
   @Test
   public void testIsProtectedSoCannotBeDeleted() throws Exception {
     doThrow(CannotDeleteProjectException.class).when(protectedProjects).assertIsNotProtected(rsrc);
-    expectedException.expect(ResourceConflictException.class);
-    preConditions.assertCanBeDeleted(rsrc, new DeleteProject.Input());
+    assertThrows(
+        ResourceConflictException.class,
+        () -> preConditions.assertCanBeDeleted(rsrc, new DeleteProject.Input()));
   }
 
   @Test
@@ -140,9 +138,13 @@ public class DeletePreconditionsTest {
     when(listChildProjectsProvider.get()).thenReturn(childProjects);
     when(childProjects.withLimit(1)).thenReturn(childProjects);
     when(childProjects.apply(rsrc)).thenReturn(ImmutableList.of(new ProjectInfo()));
-    expectedException.expect(ResourceConflictException.class);
-    expectedException.expectMessage("Cannot delete project because it has at least one child:");
-    preConditions.assertCanBeDeleted(rsrc, new DeleteProject.Input());
+    ResourceConflictException thrown =
+        assertThrows(
+            ResourceConflictException.class,
+            () -> preConditions.assertCanBeDeleted(rsrc, new DeleteProject.Input()));
+    assertThat(thrown)
+        .hasMessageThat()
+        .contains("Cannot delete project because it has at least one child:");
   }
 
   @Test
@@ -152,9 +154,11 @@ public class DeletePreconditionsTest {
     when(queryChange.byProjectOpen(PROJECT_NAMEKEY)).thenReturn(ImmutableList.of(cd));
     when(queryProvider.get()).thenReturn(queryChange);
     String expectedMessage = String.format("Project '%s' has open changes.", PROJECT_NAMEKEY.get());
-    expectedException.expectMessage(expectedMessage);
-    expectedException.expect(CannotDeleteProjectException.class);
-    preConditions.assertHasOpenChanges(PROJECT_NAMEKEY, false);
+    CannotDeleteProjectException thrown =
+        assertThrows(
+            CannotDeleteProjectException.class,
+            () -> preConditions.assertHasOpenChanges(PROJECT_NAMEKEY, false));
+    assertThat(thrown).hasMessageThat().contains(expectedMessage);
   }
 
   @Test
@@ -164,8 +168,10 @@ public class DeletePreconditionsTest {
     when(queryProvider.get()).thenReturn(queryChange);
     String expectedMessage =
         String.format("Unable to verify if '%s' has open changes.", PROJECT_NAMEKEY.get());
-    expectedException.expectMessage(expectedMessage);
-    expectedException.expect(CannotDeleteProjectException.class);
-    preConditions.assertHasOpenChanges(PROJECT_NAMEKEY, false);
+    CannotDeleteProjectException thrown =
+        assertThrows(
+            CannotDeleteProjectException.class,
+            () -> preConditions.assertHasOpenChanges(PROJECT_NAMEKEY, false));
+    assertThat(thrown).hasMessageThat().contains(expectedMessage);
   }
 }
