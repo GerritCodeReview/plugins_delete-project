@@ -16,12 +16,12 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.common.data.AccessSection;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
+import com.google.gerrit.extensions.types.ProjectState;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
