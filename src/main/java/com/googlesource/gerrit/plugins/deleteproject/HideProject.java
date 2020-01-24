@@ -77,7 +77,7 @@ class HideProject {
       projectConfig.commit(md);
       projectCache.evict(projectConfig.getProject());
     } catch (RepositoryNotFoundException e) {
-      throw new ResourceNotFoundException();
+      throw new ResourceNotFoundException(rsrc.getNameKey().get(), e);
     } catch (ConfigInvalidException e) {
       throw new ResourceConflictException(e.getMessage());
     }
@@ -89,7 +89,7 @@ class HideProject {
         createProject.apply(TopLevelResource.INSTANCE, IdString.fromDecoded(projectName), null);
       } catch (RestApiException | ConfigInvalidException | PermissionBackendException e) {
         throw new ResourceConflictException(
-            String.format("Failed to create project %s", projectName));
+            String.format("Failed to create project %s", projectName), e);
       }
     }
   }

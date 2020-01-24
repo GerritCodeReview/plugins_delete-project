@@ -128,7 +128,7 @@ class DeletePreconditions {
         }
       } catch (StorageException e) {
         throw new CannotDeleteProjectException(
-            String.format("Unable to verify if '%s' has open changes.", projectNameKey.get()));
+            String.format("Unable to verify if '%s' has open changes.", projectNameKey.get()), e);
       }
     }
   }
@@ -139,7 +139,7 @@ class DeletePreconditions {
       children = listChildProjectsProvider.get().withLimit(1).apply(rsrc).value();
     } catch (Exception e) {
       throw new CannotDeleteProjectException(
-          String.format("Unable to verify if '%s' has children projects.", rsrc.getName()));
+          String.format("Unable to verify if '%s' has children projects.", rsrc.getName()), e);
     }
     if (!children.isEmpty()) {
       throw new CannotDeleteProjectException(
@@ -166,7 +166,7 @@ class DeletePreconditions {
       // we're trying to delete the repository,
       // so this exception should not stop us
     } catch (IOException | SubmoduleException e) {
-      throw new CannotDeleteProjectException("Project is subscribed by other projects.");
+      throw new CannotDeleteProjectException("Project is subscribed by other projects.", e);
     }
   }
 
@@ -184,7 +184,8 @@ class DeletePreconditions {
             String.format("Project %s has tags", projectNameKey));
       }
     } catch (IOException e) {
-      throw new CannotDeleteProjectException(e);
+      throw new CannotDeleteProjectException(
+          String.format("Unable to verify if project %s has tags", projectNameKey), e);
     }
   }
 }

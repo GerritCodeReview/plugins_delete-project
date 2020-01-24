@@ -88,7 +88,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
         try {
           fsHandler.delete(project, preserve);
         } catch (RepositoryNotFoundException e) {
-          throw new ResourceNotFoundException();
+          throw new ResourceNotFoundException(project.getName(), e);
         }
         cacheHandler.delete(project);
       } else {
