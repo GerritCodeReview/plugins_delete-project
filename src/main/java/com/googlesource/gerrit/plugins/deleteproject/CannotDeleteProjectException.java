@@ -22,7 +22,7 @@ public class CannotDeleteProjectException extends Exception {
     super(message);
   }
 
-  public CannotDeleteProjectException(Exception e) {
-    super(e);
+  public CannotDeleteProjectException(String message, Throwable why) {
+    super(message, why);
   }
 }
