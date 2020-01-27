@@ -65,17 +65,12 @@ The output is created in
   bazel-bin/plugins/@PLUGIN@/@PLUGIN@.jar
 ```
 
-To execute the tests run:
+To execute the tests run either one of:
 
 ```
-  bazel test plugins/@PLUGIN@:delete-project_tests
-```
-
-or filtering using the comma separated tags:
-
-````
   bazel test --test_tag_filters=@PLUGIN@ //...
-````
+  bazel test plugins/@PLUGIN@:@PLUGIN@_tests
+```
 
 This project can be imported into the Eclipse IDE.
 Add the plugin name to the `CUSTOM_PLUGINS` set in
