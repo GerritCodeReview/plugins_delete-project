@@ -84,7 +84,7 @@ class HideProject {
   }
 
   private void createProjectIfMissing(String projectName) throws IOException, RestApiException {
-    if (projectCache.get(Project.nameKey(projectName)) == null) {
+    if (!projectCache.get(Project.nameKey(projectName)).isPresent()) {
       try {
         createProject.apply(TopLevelResource.INSTANCE, IdString.fromDecoded(projectName), null);
       } catch (RestApiException | ConfigInvalidException | PermissionBackendException e) {
