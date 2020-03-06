@@ -19,6 +19,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.gerrit.acceptance.GitUtil.pushHead;
 import static com.google.gerrit.acceptance.testsuite.project.TestProjectUpdate.allow;
 import static com.google.gerrit.server.group.SystemGroupBackend.REGISTERED_USERS;
+import static com.google.gerrit.server.project.ProjectCache.illegalState;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import com.google.common.base.Joiner;
@@ -173,7 +174,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String cmd = createDeleteCommand("--preserve-git-repository", project.get());
     adminSshSession.exec(cmd);
 
-    ProjectConfig cfg = projectCache.checkedGet(project).getConfig();
+    ProjectConfig cfg = projectCache.get(project).orElseThrow(illegalState(project)).getConfig();
     ProjectState state = cfg.getProject().getState();
 
     assertThat(state).isEqualTo(ProjectState.HIDDEN);
