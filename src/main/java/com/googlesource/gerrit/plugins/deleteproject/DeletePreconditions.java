@@ -39,7 +39,7 @@ import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
-import com.google.gerrit.server.submit.SubmoduleException;
+import com.google.gerrit.server.submit.SubmoduleConflictException;
 import com.google.gerrit.server.submit.SubmoduleOp;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -165,7 +165,7 @@ class DeletePreconditions {
     } catch (RepositoryNotFoundException e) {
       // we're trying to delete the repository,
       // so this exception should not stop us
-    } catch (IOException | SubmoduleException e) {
+    } catch (IOException | SubmoduleConflictException e) {
       throw new CannotDeleteProjectException("Project is subscribed by other projects.", e);
     }
   }
