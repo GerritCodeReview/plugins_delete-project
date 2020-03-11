@@ -17,7 +17,6 @@ package com.googlesource.gerrit.plugins.deleteproject.cache;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
-import java.io.IOException;
 
 public class CacheDeleteHandler {
 
@@ -28,7 +27,7 @@ public class CacheDeleteHandler {
     this.projectCache = projectCache;
   }
 
-  public void delete(Project project) throws IOException {
+  public void delete(Project project) {
     projectCache.remove(project);
   }
 }
