@@ -7,10 +7,10 @@ file.
 ```
   [plugin "@PLUGIN@"]
     allowDeletionOfReposWithTags = true
+
 ```
 
-<a id="allowDeletionOfReposWithTags">
-`plugin.@PLUGIN@.allowDeletionOfReposWithTags`
+plugin.@PLUGIN@.allowDeletionOfReposWithTags
 :	Whether repositories that contain tags can be deleted.
 
 	In some organizations repositories that contain tags must not be
@@ -21,8 +21,7 @@ file.
 
 	By default true.
 
-<a id="hideProjectOnPreserve">
-`plugin.@PLUGIN@.hideProjectOnPreserve`
+plugin.@PLUGIN@.hideProjectOnPreserve
 :	Whether projects should be hidden when the preserve option is used
 	for the deletion.
 
@@ -44,8 +43,7 @@ file.
 
 	By default `Deleted-Projects`.
 
-<a id="protectedProject">
-`plugin.@PLUGIN@.protectedProject`
+plugin.@PLUGIN@.protectedProject
 :	The name of a project that is protected against deletion. May be an exact
 	name or a regular expression.
 
@@ -54,8 +52,8 @@ file.
 
 	By default not set.
 
-<a id="archiveDeletedRepos">
-`plugin.@PLUGIN@.archiveDeletedRepos`
+
+plugin.@PLUGIN@.archiveDeletedRepos
 :	Whether to archive repositories instead of deleting them.
 
 	Archiving the git repository means that the repository is stored
@@ -79,8 +77,7 @@ file.
 
 	By default false.
 
-<a id="archiveFolder">
-`plugin.@PLUGIN@.archiveFolder`
+plugin.@PLUGIN@.archiveFolder
 :	The absolute path of the archive folder to store archived repositories.
 
 	The git repository is archived to this target folder only if
@@ -88,8 +85,7 @@ file.
 
 	By default `$site_path/data/delete-project`.
 
-<a id="deleteArchivedReposAfter">
-`plugin.@PLUGIN@.deleteArchivedReposAfter`
+plugin.@PLUGIN@.deleteArchivedReposAfter
 :	The time duration for the git repository to be archived.
 
 	The following suffixes are supported to define the time unit:\n
