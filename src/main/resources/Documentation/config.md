@@ -33,8 +33,7 @@ plugin.@PLUGIN@.hideProjectOnPreserve
 
 	By default false.
 
-<a id="parentForDeletedProjects">
-`plugin.@PLUGIN@.parentForDeletedProjects`
+plugin.@PLUGIN@.parentForDeletedProjects
 :	The name of the project that is used as parent for all deleted
 	projects that were preserved by hiding them.
 
