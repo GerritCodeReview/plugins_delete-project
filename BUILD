@@ -1,4 +1,5 @@
 load("@rules_java//java:defs.bzl", "java_library")
+load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
 load("//tools/bzl:junit.bzl", "junit_tests")
 load(
     "//tools/bzl:plugin.bzl",
@@ -29,7 +30,7 @@ genrule2(
     outs = ["gr-delete-repo-static.jar"],
     cmd = " && ".join([
         "mkdir $$TMP/static",
-        "cp -r $(locations :gr-delete-repo) $$TMP/static",
+        "cp $(location :gr-delete-repo) $$TMP/static",
         "cd $$TMP",
         "zip -Drq $$ROOT/$@ -g .",
     ]),
@@ -37,11 +38,19 @@ genrule2(
 
 polygerrit_plugin(
     name = "gr-delete-repo",
-    srcs = glob([
-        "gr-delete-repo/*.html",
-        "gr-delete-repo/*.js",
-    ]),
-    app = "plugin.html",
+    app = "delete-project-bundle.js",
+    plugin_name = "delete-project",
+)
+
+rollup_bundle(
+    name = "delete-project-bundle",
+    srcs = glob(["gr-delete-repo/*.js"]),
+    entry_point = "gr-delete-repo/plugin.js",
+    rollup_bin = "//tools/node_tools:rollup-bin",
+    sourcemap = "hidden",
+    deps = [
+        "@tools_npm//rollup-plugin-node-resolve",
+    ],
 )
 
 junit_tests(
