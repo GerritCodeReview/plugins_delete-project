@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56a19ac9_7014d72d",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-22T12:39:21Z",
+      "side": 1,
+      "message": "Good point. I also wonder how feasible would it be for PG team to finalize Polymer 3 migration for core plugins (olnly codemirror-editor plugin left), so that we could remove rules_closure related build tool chain entirely in 3.2? This is the tracking issue: [1] and this is the pending change (doesn\u0027t work yet) for removal of rules_closure: [2].\n\nAll what polygerrit_plugin() is doing here is only JS minification in whitespace only mode. We could do it using rollup with corresponding plugin and don\u0027t need rules_closure for that, correct. Though I havn\u0027t looked into more complex plugins yet (codemirror-edito).\n\n* [1] https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d12535\n* [2] https://gerrit-review.googlesource.com/c/gerrit/+/251805",
+      "parentUuid": "a1058398_9ab5256e",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "018fc4c7_13c97e2d",
         "filename": "package.json",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5a9ce2_3cc9e05e",
+        "filename": "package.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-22T12:39:21Z",
+      "side": 1,
+      "message": "Thanks, I tested your change and it works like a charm! I think we should just submit your change, so that I would just swap the WIP bit and submit it.",
+      "parentUuid": "018fc4c7_13c97e2d",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
