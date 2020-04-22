@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1058398_9ab5256e",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1085901
+      },
+      "writtenOn": "2020-04-22T00:57:28Z",
+      "side": 1,
+      "message": "Looks correct, I think you can submit it.\nBtw, I think we must add a separate rule for js plugins in gerrit build rules in the future (like polygerrit_js_plugin).",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "018fc4c7_13c97e2d",
+        "filename": "package.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1085901
+      },
+      "writtenOn": "2020-04-22T00:57:28Z",
+      "side": 1,
+      "message": "You can run eslint\\eslintfix use dependencies from the gerrit WORKSPACE.\nI made a change on top of this change to show how it can be done.\nYou can merge\\cherry pick my change into yours.",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
