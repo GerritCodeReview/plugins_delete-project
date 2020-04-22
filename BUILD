@@ -1,6 +1,8 @@
 load("@rules_java//java:defs.bzl", "java_library")
 load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
 load("//tools/bzl:junit.bzl", "junit_tests")
+load("//tools/js:eslint.bzl", "eslint")
+
 load(
     "//tools/bzl:plugin.bzl",
     "PLUGIN_DEPS",
@@ -70,5 +72,26 @@ java_library(
         ":delete-project__plugin",
         "@commons-io//jar",
         "@mockito//jar",
+    ],
+)
+
+# Define the eslinter for the plugin
+# The eslint macro creates 2 rules: lint_test and lint_bin
+eslint(
+    name = "lint",
+    srcs = glob([
+        'gr-delete-repo/**/*.js',
+    ]),
+    config = ".eslintrc.json",
+    extensions = [
+        ".js",
+    ],
+    ignore = ".eslintignore",
+    data = [],
+    plugins = [
+        "@npm//eslint-config-google",
+        "@npm//eslint-plugin-html",
+        "@npm//eslint-plugin-import",
+        "@npm//eslint-plugin-jsdoc",
     ],
 )
