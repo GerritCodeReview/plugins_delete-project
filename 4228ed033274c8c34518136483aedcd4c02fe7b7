@@ -22,6 +22,30 @@
       "revId": "4228ed033274c8c34518136483aedcd4c02fe7b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e143579_1f0302ce",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-28T10:40:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f649bf21_491a1475",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "4228ed033274c8c34518136483aedcd4c02fe7b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
