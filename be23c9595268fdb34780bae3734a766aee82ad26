@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "0c0607d5_02c7ec2a",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-04-28T07:24:10Z",
+      "side": 1,
+      "message": "I thought about changing polygerrit_plugin to include the rollup_bundle to support `polymer3` by its own or create a new rule for it.\n\nBut I feel like I don\u0027t really want polygerrit_plugin to do too much. Ideally how you build plugin assets should not be limited by polygerrit_plugin, whether you want to write your plugin in typescript or flow or anything, you can use whatever rule, rullup_bundle, ts_library etc,  you just need to concatenate them and feed the files to polygerrit_plugin to have it set up in the correct place to be served when server starts. And as you can see and have done with the rollup_bundle, its pretty easy and short. This will benefit us as well if we decide to move to typescript, and all you need to do is to change the rollup_bundle for your plugin without affecting any other plugins, I certainly don\u0027t want to create a polygerrit_ts_plugin again.\n\nSo my plan here is to have polygerrit_plugin as the post-compile processor which only do minimum things: js check, naming and renaming, final output path.\n\nAnd what you want to do before that, is totally up to plugin owner.",
+      "parentUuid": "56a19ac9_7014d72d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44689863_48ddc934",
+        "filename": "gr-delete-repo/plugin.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-04-28T07:24:10Z",
+      "side": 1,
+      "message": "should this be 2020 ?",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "018fc4c7_13c97e2d",
         "filename": "package.json",
         "patchSetId": 4
@@ -93,6 +140,23 @@
       "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec5e10cc_ac4ff9f0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-04-28T07:24:10Z",
+      "side": 1,
+      "message": "lets hold this change for a while longer :) as we release to gerrit separately for BE and FE changes, we would love to have FE changes in first. And polygerrit_plugin already support generate a placeholder html file to import the js, so it won\u0027t break anything without this",
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
