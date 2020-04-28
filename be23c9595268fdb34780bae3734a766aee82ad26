@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "37dc8a37_3b9fbe9c",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-28T11:33:17Z",
+      "side": 1,
+      "message": "Fair enough, let\u0027s keep it as is then.",
+      "parentUuid": "0c0607d5_02c7ec2a",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44689863_48ddc934",
         "filename": "gr-delete-repo/plugin.js",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eee4bbb_4d4c3211",
+        "filename": "gr-delete-repo/plugin.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-28T11:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44689863_48ddc934",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -154,6 +202,24 @@
       "writtenOn": "2020-04-28T07:24:10Z",
       "side": 1,
       "message": "lets hold this change for a while longer :) as we release to gerrit separately for BE and FE changes, we would love to have FE changes in first. And polygerrit_plugin already support generate a placeholder html file to import the js, so it won\u0027t break anything without this",
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c286da_f6e2b3a3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-28T11:33:17Z",
+      "side": 1,
+      "message": "\u003e lets hold this change for a while longer [...]\n\nI don\u0027t follow, what should we wait for? googlesource.com doesn\u0027t use this plugin, correct? The goal is to finalize Polymer 3 migration of delete-project plugin before Gerrit 3.2 release.",
+      "parentUuid": "ec5e10cc_ac4ff9f0",
       "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
