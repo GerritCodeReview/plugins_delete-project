@@ -223,6 +223,24 @@
       "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c7237ba_6d666c65",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-04-28T12:25:29Z",
+      "side": 1,
+      "message": "oh did not know that googlesrouce.com doesn\u0027t use this plugin. Then it\u0027s fine. Its more like a google specific issue due to the separate release of the java code and js code..",
+      "parentUuid": "46c286da_f6e2b3a3",
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
