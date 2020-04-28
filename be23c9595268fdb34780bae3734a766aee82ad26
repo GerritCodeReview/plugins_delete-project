@@ -241,6 +241,24 @@
       "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "971c94e9_16595fab",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/HttpModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-04-28T18:41:32Z",
+      "side": 1,
+      "message": "Ah, now I understand what you were trying to say. You were referencing to your change that was submitted recently, that I have not noticed: [1], that generating html placeholder for Polymer 3 plugins. With that change we can now preserve html file again. I even commented on my recent checks plugin fix to revert it: [2]. Will amend that and restore html file. Done.\n\n* [1] https://gerrit-review.googlesource.com/c/gerrit/+/264186\n* [2] https://gerrit-review.googlesource.com/c/plugins/checks/+/263852",
+      "parentUuid": "8c7237ba_6d666c65",
+      "revId": "be23c9595268fdb34780bae3734a766aee82ad26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
