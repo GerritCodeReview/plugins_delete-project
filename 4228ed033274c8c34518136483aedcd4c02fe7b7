@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f649bf21_491a1475",
+        "filename": "gr-delete-repo/gr-delete-repo.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-04-28T10:01:24Z",
+      "side": 1,
+      "message": "maybe also remove this one, you can replace attached with connectedCallback. So when we remove the support for that, no change will be needed on this plugin.",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "4228ed033274c8c34518136483aedcd4c02fe7b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
