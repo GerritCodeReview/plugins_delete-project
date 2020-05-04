@@ -91,7 +91,6 @@
     "prefer-const": "error",
     "prefer-spread": "error",
     "quote-props": ["error", "consistent-as-needed"],
-    "require-jsdoc": "off",
     "semi": [2, "always"],
     "template-curly-spacing": "error",
     "valid-jsdoc": "off",
