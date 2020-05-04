@@ -22,6 +22,30 @@
       "revId": "c0031f8e048557ab907226db13e2b81ac7e9e0e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c23fb56f_2573af9c",
+        "filename": ".eslintrc.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1014252
+      },
+      "writtenOn": "2020-05-04T14:08:12Z",
+      "side": 1,
+      "message": "The .eslintrc.json in core doesn\u0027t have a duplicate key, it only has\n\n    \"require-jsdoc\": 0",
+      "parentUuid": "1f3c775c_638a82ec",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 23
+      },
+      "revId": "c0031f8e048557ab907226db13e2b81ac7e9e0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
