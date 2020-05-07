@@ -12,44 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function _getCookie(name) {
-  var key = name + '=';
-  var result = '';
-  document.cookie.split(';').some(c => {
-    c = c.trim();
-    if (c.indexOf(key, 0) === 0) {
-      result = c.substring(key.length);
-      return true;
-    }
-  });
-  return result;
-}
+Gerrit.install(function(self) {
+  if (window.Polymer) { return; }
 
-if (_getCookie('GERRIT_UI') === 'GWT') {
-  Gerrit.install(function(self) {
-    function onDeleteProject(c) {
-      var f = c.checkbox();
-      var b = c.button('Delete',
-        {onclick: function(){
-          c.call(
-            {force: f.checked, preserve: false},
-            function(r) {
-              c.hide();
-              window.alert('The project: "'
-                + c.project
-                + '" was deleted.'),
-              Gerrit.go('/admin/projects/');
-            });
-        }});
-      c.popup(c.div(
-        c.msg('Are you really sure you want to delete the project: "'
-          + c.project
-          + '"?'),
-        c.br(),
-        c.label(f, 'Delete project even if open changes exist?'),
-        c.br(),
-        b));
-    }
-    self.onAction('project', 'delete', onDeleteProject);
-  });
-}
+  function onDeleteProject(c) {
+    var f = c.checkbox();
+    var b = c.button('Delete',
+      {onclick: function(){
+        c.call(
+          {force: f.checked, preserve: false},
+          function(r) {
+            c.hide();
+            window.alert('The project: "'
+              + c.project
+              + '" was deleted.'),
+            Gerrit.go('/admin/projects/');
+          });
+      }});
+    c.popup(c.div(
+      c.msg('Are you really sure you want to delete the project: "'
+        + c.project
+        + '"?'),
+      c.br(),
+      c.label(f, 'Delete project even if open changes exist?'),
+      c.br(),
+      b));
+  }
+  self.onAction('project', 'delete', onDeleteProject);
+});
