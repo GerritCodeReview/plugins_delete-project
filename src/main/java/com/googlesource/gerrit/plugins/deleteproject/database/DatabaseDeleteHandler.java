@@ -141,8 +141,7 @@ public class DatabaseDeleteHandler {
             .collect(toList());
     log.atFine().log(
         "Number of changes in noteDb related to project %s are %d",
-        projectKey.get(),
-        changeIds.size());
+        projectKey.get(), changeIds.size());
     return changeIds;
   }
 
