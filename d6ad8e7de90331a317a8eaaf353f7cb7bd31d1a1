@@ -1,11 +1,13 @@
 {
   "checks": {
     "zuul-check:plugins_delete-project": {
-      "state": "RUNNING",
-      "message": "Jobs have started running",
+      "state": "FAILED",
+      "message": "Change failed",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/20d397bf2ac6435294d2fc2983e8592f",
       "started": "2020-05-14T07:54:04Z",
+      "finished": "2020-05-14T07:59:17Z",
       "created": "2020-05-14T07:54:04Z",
-      "updated": "2020-05-14T07:54:06Z"
+      "updated": "2020-05-14T07:59:18Z"
     }
   }
 }
