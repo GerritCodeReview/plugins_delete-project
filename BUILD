@@ -49,6 +49,7 @@ rollup_bundle(
     entry_point = "gr-delete-repo/plugin.js",
     rollup_bin = "//tools/node_tools:rollup-bin",
     sourcemap = "hidden",
+    format = "iife",
     deps = [
         "@tools_npm//rollup-plugin-node-resolve",
     ],
