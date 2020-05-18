@@ -158,7 +158,7 @@ class DeletePreconditions {
               .collect(toSet());
       SubmoduleOp sub = subOpFactory.create(branches, mergeOp);
       for (BranchNameKey b : branches) {
-        if (!sub.superProjectSubscriptionsForSubmoduleBranch(b).isEmpty()) {
+        if (!sub.hasSuperproject(b)) {
           throw new CannotDeleteProjectException("Project is subscribed by other projects.");
         }
       }
