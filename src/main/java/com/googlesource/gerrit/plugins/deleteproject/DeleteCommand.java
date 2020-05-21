@@ -25,7 +25,7 @@ import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
 @CommandMetaData(name = "delete", description = "Delete specific project")
-public final class DeleteCommand extends SshCommand {
+final class DeleteCommand extends SshCommand {
   private static final String FORCE_DELETE =
       "%s - To really delete '%s', re-run with the --force flag.";
   private static final String REALLY_DELETE =
@@ -50,7 +50,7 @@ public final class DeleteCommand extends SshCommand {
   private final DeletePreconditions preConditions;
 
   @Inject
-  protected DeleteCommand(DeleteProject deleteProject, DeletePreconditions preConditions) {
+  DeleteCommand(DeleteProject deleteProject, DeletePreconditions preConditions) {
     this.deleteProject = deleteProject;
     this.preConditions = preConditions;
   }
