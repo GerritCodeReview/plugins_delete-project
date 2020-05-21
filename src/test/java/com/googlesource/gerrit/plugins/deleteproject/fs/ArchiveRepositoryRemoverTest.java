@@ -101,7 +101,7 @@ public class ArchiveRepositoryRemoverTest {
                   PLUGIN_NAME, archiveRepo));
       assertDirectoryContents(archiveRepo, true);
     } finally {
-      TimeMachine.useSystemDefaultZoneClock();
+      TimeMachine.useSystemPctZoneClock();
     }
   }
 

@@ -26,7 +26,8 @@ import java.time.ZoneId;
  */
 public class TimeMachine {
 
-  private static Clock clock = Clock.systemDefaultZone();
+  private static ZoneId PACIFIC_TIME_ZONE = ZoneId.of("America/Los_Angeles");
+  private static Clock clock = Clock.system(PACIFIC_TIME_ZONE);
 
   /**
    * Obtain the current instant on the time-line from the system clock using the system default time
@@ -45,12 +46,12 @@ public class TimeMachine {
    */
   @VisibleForTesting
   public static void useFixedClockAt(Instant instant) {
-    clock = Clock.fixed(instant, ZoneId.systemDefault());
+    clock = Clock.fixed(instant, PACIFIC_TIME_ZONE);
   }
 
-  /** Reset the clock to be the system default. */
+  /** Reset the clock to be the system PCT. */
   @VisibleForTesting
-  public static void useSystemDefaultZoneClock() {
-    clock = Clock.systemDefaultZone();
+  public static void useSystemPctZoneClock() {
+    clock = Clock.system(PACIFIC_TIME_ZONE);
   }
 }
