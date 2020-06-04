@@ -47,9 +47,9 @@ rollup_bundle(
     name = "delete-project-bundle",
     srcs = glob(["gr-delete-repo/*.js"]),
     entry_point = "gr-delete-repo/plugin.js",
+    format = "iife",
     rollup_bin = "//tools/node_tools:rollup-bin",
     sourcemap = "hidden",
-    format = "iife",
     deps = [
         "@tools_npm//rollup-plugin-node-resolve",
     ],
