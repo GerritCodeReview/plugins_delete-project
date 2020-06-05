@@ -46,6 +46,7 @@ polygerrit_plugin(
 rollup_bundle(
     name = "delete-project-bundle",
     srcs = glob(["gr-delete-repo/*.js"]),
+    config_file = "//tools/node_tools:plugin.rollup.config.js",
     entry_point = "gr-delete-repo/plugin.js",
     format = "iife",
     rollup_bin = "//tools/node_tools:rollup-bin",
