@@ -16,13 +16,24 @@
  */
 
 export const htmlTemplate = Polymer.html`
-    <style include="gr-form-styles"></style>
-    <gr-repo-command
-        title="[[action.label]]"
-        tooltip="[[action.title]]"
-        disabled="[[!action.enabled]]"
-        on-command-tap="_handleCommandTap">
-    </gr-repo-command>
+    <style include="shared-styles"></style>
+    <style include="gr-form-styles">
+    :host {
+      display: block;
+      margin-bottom: var(--spacing-xxl);
+    }
+    </style>
+    <h3 class="heading-3">
+      [[action.label]]
+    </h3>
+    <gr-button
+      title="[[action.title]]"
+      loading="[[_deleting]]"
+      disabled="[[!action.enabled]]"
+      on-click="_handleCommandTap"
+    >
+      [[action.label]]
+    </gr-button>
     <gr-overlay id="deleteRepoOverlay" with-backdrop>
       <gr-dialog
           id="deleteRepoDialog"
