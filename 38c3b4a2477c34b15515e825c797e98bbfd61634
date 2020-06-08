@@ -1,11 +1,13 @@
 {
   "checks": {
     "zuul-check:plugins_delete-project": {
-      "state": "SCHEDULED",
-      "message": "Change has been enqueued in check",
+      "state": "NOT_RELEVANT",
+      "message": "Project has no jobs configured",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/61b8f751922143bfbeaaf51570d0cdd1",
       "started": "2020-06-08T21:13:15Z",
+      "finished": "2020-06-08T21:13:23Z",
       "created": "2020-06-08T21:13:16Z",
-      "updated": "2020-06-08T21:13:16Z"
+      "updated": "2020-06-08T21:13:23Z"
     }
   }
 }
