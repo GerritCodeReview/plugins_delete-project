@@ -58,14 +58,14 @@ public class FilesystemDeleteHandler {
     this.config = config;
   }
 
-  public void delete(Project project, boolean preserveGitRepository)
+  public void delete(Project.NameKey project, boolean preserveGitRepository)
       throws IOException, RepositoryNotFoundException {
     // Remove from the jgit cache
-    Repository repository = repoManager.openRepository(project.getNameKey());
+    Repository repository = repoManager.openRepository(project);
     cleanCache(repository);
     if (!preserveGitRepository) {
       Path repoPath = repository.getDirectory().toPath();
-      String projectName = project.getNameKey().get();
+      String projectName = project.get();
       if (config.shouldArchiveDeletedRepos()) {
         archiveGitRepository(projectName, repoPath);
       } else {

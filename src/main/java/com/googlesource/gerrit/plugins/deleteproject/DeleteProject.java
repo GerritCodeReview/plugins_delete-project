@@ -86,7 +86,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       if (!preserve || !cfg.projectOnPreserveHidden()) {
         dbHandler.delete(project);
         try {
-          fsHandler.delete(project, preserve);
+          fsHandler.delete(project.getNameKey(), preserve);
         } catch (RepositoryNotFoundException e) {
           throw new ResourceNotFoundException(project.getName(), e);
         }

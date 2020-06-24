@@ -63,11 +63,10 @@ public class FilesystemDeleteHandlerTest {
     String repoName = "testRepo";
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
-    Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     when(config.shouldArchiveDeletedRepos()).thenReturn(false);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
-    fsDeleteHandler.delete(project, false);
+    fsDeleteHandler.delete(nameKey, false);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
 
@@ -76,10 +75,9 @@ public class FilesystemDeleteHandlerTest {
     String repoName = "a/b/c";
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
-    Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
-    fsDeleteHandler.delete(project, false);
+    fsDeleteHandler.delete(nameKey, false);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
 
@@ -92,10 +90,9 @@ public class FilesystemDeleteHandlerTest {
     Repository repoToKeep = createRepository(repoToKeepName);
 
     Project.NameKey nameKey = Project.nameKey(repoToDeleteName);
-    Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repoToDelete);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
-    fsDeleteHandler.delete(project, false);
+    fsDeleteHandler.delete(nameKey, false);
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
   }
@@ -105,10 +102,9 @@ public class FilesystemDeleteHandlerTest {
     String repoName = "preservedRepo";
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
-    Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
-    fsDeleteHandler.delete(project, true);
+    fsDeleteHandler.delete(nameKey, true);
     assertThat(repository.getDirectory().exists()).isTrue();
   }
 
@@ -127,10 +123,9 @@ public class FilesystemDeleteHandlerTest {
     when(config.shouldArchiveDeletedRepos()).thenReturn(true);
     when(config.getArchiveFolder()).thenReturn(archiveFolder);
     Project.NameKey nameKey = Project.nameKey(repoName);
-    Project project = new Project(nameKey);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     fsDeleteHandler = new FilesystemDeleteHandler(repoManager, deletedListener, config);
-    fsDeleteHandler.delete(project, false);
+    fsDeleteHandler.delete(nameKey, false);
     assertThat(repository.getDirectory().exists()).isFalse();
     String patternToVerify = archiveFolder.resolve(repoName).toString() + "*%archived%.git";
     assertThat(pathExistsWithPattern(archiveFolder, patternToVerify)).isTrue();

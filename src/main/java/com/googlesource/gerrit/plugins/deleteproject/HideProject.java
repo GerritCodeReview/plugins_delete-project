@@ -62,8 +62,7 @@ class HideProject {
       MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey());
 
       ProjectConfig projectConfig = projectConfigFactory.read(md);
-      Project p = projectConfig.getProject();
-      p.setState(ProjectState.HIDDEN);
+      projectConfig.updateProject(p -> p.setState(ProjectState.HIDDEN));
 
       for (AccessSection as : projectConfig.getAccessSections()) {
         projectConfig.remove(as);
@@ -71,7 +70,7 @@ class HideProject {
 
       String parentForDeletedProjects = cfg.getDeletedProjectsParent();
       createProjectIfMissing(parentForDeletedProjects);
-      p.setParentName(parentForDeletedProjects);
+      projectConfig.updateProject(p -> p.setParent(parentForDeletedProjects));
 
       md.setMessage("Hide project\n");
       projectConfig.commit(md);
