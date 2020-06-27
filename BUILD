@@ -1,5 +1,5 @@
 load("@rules_java//java:defs.bzl", "java_library")
-load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
+load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 load("//tools/bzl:junit.bzl", "junit_tests")
 load("//tools/js:eslint.bzl", "eslint")
 load(
