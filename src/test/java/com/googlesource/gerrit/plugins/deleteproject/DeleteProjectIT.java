@@ -36,7 +36,7 @@ import com.google.gerrit.entities.Project;
 import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.extensions.restapi.RestApiException;
-import com.google.gerrit.server.project.ProjectConfig;
+import com.google.gerrit.server.project.CachedProjectConfig;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.File;
@@ -174,7 +174,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String cmd = createDeleteCommand("--preserve-git-repository", project.get());
     adminSshSession.exec(cmd);
 
-    ProjectConfig cfg = projectCache.get(project).orElseThrow(illegalState(project)).getConfig();
+    CachedProjectConfig cfg =
+        projectCache.get(project).orElseThrow(illegalState(project)).getConfig();
     ProjectState state = cfg.getProject().getState();
 
     assertThat(state).isEqualTo(ProjectState.HIDDEN);
