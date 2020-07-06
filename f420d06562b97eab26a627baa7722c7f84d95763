@@ -16,6 +16,24 @@
       "revId": "f420d06562b97eab26a627baa7722c7f84d95763",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54951d54_d616ccd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2020-07-06T06:33:44Z",
+      "side": 1,
+      "message": "Is that a footer that the CI recognizes? Could it recognize topics instead?",
+      "parentUuid": "42a7ba7c_054d6fa2",
+      "revId": "f420d06562b97eab26a627baa7722c7f84d95763",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
