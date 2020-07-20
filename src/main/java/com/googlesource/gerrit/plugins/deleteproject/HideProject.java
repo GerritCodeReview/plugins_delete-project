@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import com.google.gerrit.common.data.AccessSection;
+import com.google.gerrit.entities.AccessSection;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.extensions.restapi.IdString;
