@@ -42,7 +42,7 @@ public class ProtectedProjectsTest {
   @Mock private AllUsersNameProvider allUsersMock;
   @Mock private PluginConfigFactory pluginConfigFactoryMock;
 
-  private PluginConfig pluginConfig;
+  private PluginConfig.Update pluginConfig;
   private Configuration deleteConfig;
   private ProtectedProjects protectedProjects;
   private File pluginData = new File("data");
@@ -51,8 +51,9 @@ public class ProtectedProjectsTest {
   public void setup() throws Exception {
     when(allProjectsMock.get()).thenReturn(new AllProjectsName("All-Projects"));
     when(allUsersMock.get()).thenReturn(new AllUsersName("All-Users"));
-    pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData);
     protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
   }
@@ -76,7 +77,8 @@ public class ProtectedProjectsTest {
   public void customProjectIsProtected() throws Exception {
     List<String> projects = ImmutableList.of("Custom-Parent", "^protected-.*");
     pluginConfig.setStringList("protectedProject", projects);
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData);
     assertThat(deleteConfig.protectedProjects()).hasSize(projects.size());
     protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
