@@ -36,7 +36,7 @@ public class ConfigurationTest {
   private static final long DEFAULT_ARCHIVE_DURATION_MS = TimeUnit.DAYS.toMillis(180);
   private static final String CUSTOM_DURATION = "100";
   private static final String CUSTOM_PARENT = "customParent";
-  private static final String INVALID_CUSTOM_FOLDER = "\0";
+  private static final String INVALID_CUSTOM_FOLDER = "//\\\\\\///////";
   private static final String INVALID_ARCHIVE_DURATION = "180weeks180years";
   private static final String PLUGIN_NAME = "delete-project";
 
@@ -56,7 +56,7 @@ public class ConfigurationTest {
   @Test
   public void defaultValuesAreLoaded() {
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
-        .thenReturn(new PluginConfig(PLUGIN_NAME, new Config()));
+        .thenReturn(PluginConfig.create(PLUGIN_NAME, new Config(), null));
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getDeletedProjectsParent()).isEqualTo("Deleted-Projects");
@@ -69,7 +69,7 @@ public class ConfigurationTest {
 
   @Test
   public void customValuesAreLoaded() {
-    PluginConfig pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
     pluginConfig.setString("parentForDeletedProjects", CUSTOM_PARENT);
     pluginConfig.setBoolean("allowDeletionOfReposWithTags", false);
     pluginConfig.setBoolean("hideProjectOnPreserve", true);
@@ -77,7 +77,8 @@ public class ConfigurationTest {
     pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_DURATION);
     pluginConfig.setString("archiveFolder", customArchiveFolder.toString());
 
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getDeletedProjectsParent()).isEqualTo(CUSTOM_PARENT);
@@ -91,10 +92,11 @@ public class ConfigurationTest {
 
   @Test
   public void archiveDurationWithUnitIsLoaded() {
-    PluginConfig pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
     pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_DURATION + "years");
 
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getArchiveDuration())
@@ -103,10 +105,11 @@ public class ConfigurationTest {
 
   @Test
   public void invalidArchiveDuration() {
-    PluginConfig pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
     pluginConfig.setString("deleteArchivedReposAfter", INVALID_ARCHIVE_DURATION);
 
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
@@ -114,10 +117,11 @@ public class ConfigurationTest {
 
   @Test
   public void invalidTargetArchiveFolder() {
-    PluginConfig pluginConfig = new PluginConfig(PLUGIN_NAME, new Config());
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
     pluginConfig.setString("archiveFolder", INVALID_CUSTOM_FOLDER);
 
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME)).thenReturn(pluginConfig);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getArchiveFolder().toString()).isEqualTo(pluginDataDir.toString());
