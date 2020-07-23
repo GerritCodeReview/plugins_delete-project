@@ -58,9 +58,7 @@ class HideProject {
   }
 
   public void apply(ProjectResource rsrc) throws IOException, RestApiException {
-    try {
-      MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey());
-
+    try (MetaDataUpdate md = metaDataUpdateFactory.create(rsrc.getNameKey())) {
       ProjectConfig projectConfig = projectConfigFactory.read(md);
       projectConfig.updateProject(p -> p.setState(ProjectState.HIDDEN));
 
