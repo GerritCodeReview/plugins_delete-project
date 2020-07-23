@@ -34,6 +34,24 @@
       "revId": "64db8df08e855d8367c146bc5071f68f70df5171",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b183c6bb_f6dfc39c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-07-23T12:14:09Z",
+      "side": 1,
+      "message": "ya i guess we have to do the same thing for non-core plugins manually. will send fixes out",
+      "parentUuid": "1435ea06_f0284ee8",
+      "revId": "64db8df08e855d8367c146bc5071f68f70df5171",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
