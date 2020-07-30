@@ -16,6 +16,24 @@
       "revId": "516fbd8aebfcc49b278b0eb985add293d753bb3f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b223afb_1cd93b41",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/ConfigurationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2020-07-30T15:33:20Z",
+      "side": 1,
+      "message": "Yes. This was an invalid git config. But the test just wanted to test for an invalid path, not invalid git config file.",
+      "parentUuid": "df638a2c_bc5eff3d",
+      "revId": "516fbd8aebfcc49b278b0eb985add293d753bb3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
