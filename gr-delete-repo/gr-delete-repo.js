@@ -64,7 +64,11 @@ class GrDeleteRepo extends Polymer.Element {
     };
 
     const errFn = response => {
-      this.fire('page-error', {response});
+      this.dispatchEvent(new CustomEvent('page-error', {
+        detail: {response},
+        bubbles: true,
+        composed: true,
+      }));
     };
 
     return this.plugin.restApi().send(
