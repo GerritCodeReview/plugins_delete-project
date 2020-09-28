@@ -14,15 +14,6 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.gerrit.testing.GerritJUnit.assertThrows;
-import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
-import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.exceptions.StorageException;
@@ -42,13 +33,22 @@ import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
-import com.google.gerrit.server.submit.SubmoduleOp;
+import com.google.gerrit.server.submit.SubscriptionGraph;
 import com.google.inject.Provider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeletePreconditionsTest {
@@ -60,7 +60,7 @@ public class DeletePreconditionsTest {
   @Mock private Provider<MergeOpRepoManager> mergeOpProvider;
   @Mock private Provider<InternalChangeQuery> queryProvider;
   @Mock private GitRepositoryManager repoManager;
-  @Mock private SubmoduleOp.Factory subOpFactory;
+  @Mock private SubscriptionGraph.Factory subscriptionGraphFactory;
   @Mock private CurrentUser currentUser;
   @Mock private Provider<CurrentUser> userProvider;
   @Mock private ProjectState state;
@@ -84,7 +84,7 @@ public class DeletePreconditionsTest {
             PLUGIN_NAME,
             queryProvider,
             repoManager,
-            subOpFactory,
+            subscriptionGraphFactory,
             userProvider,
             protectedProjects,
             permissionBackend);
