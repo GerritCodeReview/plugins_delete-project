@@ -43,6 +43,7 @@ import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
 import com.google.gerrit.server.submit.SubmoduleOp;
+import com.google.gerrit.server.submit.SubscriptionGraph;
 import com.google.inject.Provider;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +61,7 @@ public class DeletePreconditionsTest {
   @Mock private Provider<MergeOpRepoManager> mergeOpProvider;
   @Mock private Provider<InternalChangeQuery> queryProvider;
   @Mock private GitRepositoryManager repoManager;
-  @Mock private SubmoduleOp.Factory subOpFactory;
+  @Mock private SubscriptionGraph.Factory subscriptionGraphFactory;
   @Mock private CurrentUser currentUser;
   @Mock private Provider<CurrentUser> userProvider;
   @Mock private ProjectState state;
@@ -84,7 +85,7 @@ public class DeletePreconditionsTest {
             PLUGIN_NAME,
             queryProvider,
             repoManager,
-            subOpFactory,
+            subscriptionGraphFactory,
             userProvider,
             protectedProjects,
             permissionBackend);
