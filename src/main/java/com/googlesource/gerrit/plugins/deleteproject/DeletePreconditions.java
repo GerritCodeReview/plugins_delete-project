@@ -40,7 +40,7 @@ import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
 import com.google.gerrit.server.submit.SubmoduleConflictException;
-import com.google.gerrit.server.submit.SubmoduleOp;
+import com.google.gerrit.server.submit.SubscriptionGraph;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -59,7 +59,7 @@ class DeletePreconditions {
   private final String pluginName;
   private final Provider<InternalChangeQuery> queryProvider;
   private final GitRepositoryManager repoManager;
-  private final SubmoduleOp.Factory subOpFactory;
+  private final SubscriptionGraph.Factory subscriptionGraphFactory;
   private final Provider<CurrentUser> userProvider;
   private final ProtectedProjects protectedProjects;
   private final PermissionBackend permissionBackend;
@@ -72,7 +72,7 @@ class DeletePreconditions {
       @PluginName String pluginName,
       Provider<InternalChangeQuery> queryProvider,
       GitRepositoryManager repoManager,
-      SubmoduleOp.Factory subOpFactory,
+      SubscriptionGraph.Factory subscriptionGraphFactory,
       Provider<CurrentUser> userProvider,
       ProtectedProjects protectedProjects,
       PermissionBackend permissionBackend) {
@@ -82,7 +82,7 @@ class DeletePreconditions {
     this.pluginName = pluginName;
     this.queryProvider = queryProvider;
     this.repoManager = repoManager;
-    this.subOpFactory = subOpFactory;
+    this.subscriptionGraphFactory = subscriptionGraphFactory;
     this.userProvider = userProvider;
     this.protectedProjects = protectedProjects;
     this.permissionBackend = permissionBackend;
@@ -156,9 +156,9 @@ class DeletePreconditions {
           repo.getRefDatabase().getRefsByPrefix(REFS_HEADS).stream()
               .map(ref -> BranchNameKey.create(projectNameKey, ref.getName()))
               .collect(toSet());
-      SubmoduleOp sub = subOpFactory.create(branches, mergeOp);
+      SubscriptionGraph graph = subscriptionGraphFactory.compute(branches, mergeOp);
       for (BranchNameKey b : branches) {
-        if (sub.hasSuperproject(b)) {
+        if (graph.hasSuperproject(b)) {
           throw new CannotDeleteProjectException("Project is subscribed by other projects.");
         }
       }
