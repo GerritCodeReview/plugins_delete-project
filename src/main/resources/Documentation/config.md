@@ -85,7 +85,7 @@ plugin.@PLUGIN@.archiveFolder
 	By default `$site_path/data/delete-project`.
 
 plugin.@PLUGIN@.deleteArchivedReposAfter
-:	The time duration for the git repository to be archived.
+:	The time duration after which archived git repositories are deleted.
 
 	The following suffixes are supported to define the time unit:\n
 		1. d, day, days\n
