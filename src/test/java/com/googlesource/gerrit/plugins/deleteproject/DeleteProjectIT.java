@@ -103,6 +103,14 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
+  public void testHttpDeleteProjectNotForceUsingHttpDeleteMethod() throws Exception {
+    RestResponse r = httpDeleteProjectHelperUsingHttpDeleteMethod();
+    r.assertNoContent();
+    assertThat(projectDir.exists()).isFalse();
+  }
+
+  @Test
+  @UseLocalDisk
   public void testHttpDeleteProjectWithWatches() throws Exception {
     watch(project.get());
     RestResponse r = httpDeleteProjectHelper(true);
@@ -296,6 +304,14 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     i.force = force;
 
     return adminRestSession.post(endPoint, i);
+  }
+
+  private RestResponse httpDeleteProjectHelperUsingHttpDeleteMethod() throws Exception {
+    requestScopeOperations.setApiUser(user.id());
+    sender.clear();
+    String endPoint = "/projects/" + project.get();
+
+    return adminRestSession.delete(endPoint);
   }
 
   private String createDeleteCommand(String cmd, String... params) {
