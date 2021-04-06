@@ -23,6 +23,6 @@ public class HttpModule extends ServletModule {
   @Override
   protected void configureServlets() {
     DynamicSet.bind(binder(), WebUiPlugin.class)
-        .toInstance(new JavaScriptPlugin("delete-project.html"));
+        .toInstance(new JavaScriptPlugin("delete-project.js"));
   }
 }
