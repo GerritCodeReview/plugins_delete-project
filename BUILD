@@ -1,5 +1,4 @@
 load("@rules_java//java:defs.bzl", "java_library")
-load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 load("//tools/bzl:junit.bzl", "junit_tests")
 load("//tools/js:eslint.bzl", "eslint")
 load(
@@ -8,8 +7,7 @@ load(
     "PLUGIN_TEST_DEPS",
     "gerrit_plugin",
 )
-load("//tools/bzl:genrule2.bzl", "genrule2")
-load("//tools/bzl:js.bzl", "polygerrit_plugin")
+load("//tools/bzl:js.bzl", "gerrit_js_bundle")
 
 gerrit_plugin(
     name = "delete-project",
@@ -20,39 +18,15 @@ gerrit_plugin(
         "Gerrit-HttpModule: com.googlesource.gerrit.plugins.deleteproject.HttpModule",
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.deleteproject.SshModule",
     ],
-    resource_jars = [":gr-delete-repo-static"],
+    resource_jars = [":gr-delete-repo"],
     resources = glob(["src/main/resources/Documentation/*.md"]),
     deps = ["@commons-io//jar"],
 )
 
-genrule2(
-    name = "gr-delete-repo-static",
-    srcs = [":gr-delete-repo"],
-    outs = ["gr-delete-repo-static.jar"],
-    cmd = " && ".join([
-        "mkdir $$TMP/static",
-        "cp $(locations :gr-delete-repo) $$TMP/static",
-        "cd $$TMP",
-        "zip -Drq $$ROOT/$@ -g .",
-    ]),
-)
-
-polygerrit_plugin(
+gerrit_js_bundle(
     name = "gr-delete-repo",
-    app = "delete-project-bundle.js",
-    plugin_name = "delete-project",
-)
-
-rollup_bundle(
-    name = "delete-project-bundle",
     srcs = glob(["gr-delete-repo/*.js"]),
     entry_point = "gr-delete-repo/plugin.js",
-    format = "iife",
-    rollup_bin = "//tools/node_tools:rollup-bin",
-    sourcemap = "hidden",
-    deps = [
-        "@tools_npm//rollup-plugin-node-resolve",
-    ],
 )
 
 junit_tests(
