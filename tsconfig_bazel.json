@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": [
+    ]
+  },
+  "include": [
+    "**/*",
+    "../../polygerrit-ui/app/api/**/*"
+  ],
+  "exclude": [
+  ]
+}

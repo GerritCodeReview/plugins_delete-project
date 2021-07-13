@@ -8,6 +8,7 @@ load(
     "gerrit_plugin",
 )
 load("//tools/bzl:js.bzl", "gerrit_js_bundle")
+load("//polygerrit-ui/app:rules.bzl", "compile_ts")
 
 gerrit_plugin(
     name = "delete-project",
@@ -23,10 +24,21 @@ gerrit_plugin(
     deps = ["@commons-io//jar"],
 )
 
+compiled_ts = compile_ts(
+    name = "ts-compile",
+    srcs = glob([
+        "gr-delete-repo/*.ts",
+    ]),
+    additional_deps = [
+        "//polygerrit-ui/app:api-srcs",
+    ],
+    ts_outdir = "_ts_out",
+)
+
 gerrit_js_bundle(
     name = "gr-delete-repo",
-    srcs = glob(["gr-delete-repo/*.js"]),
-    entry_point = "gr-delete-repo/plugin.js",
+    srcs = compiled_ts,
+    entry_point = "_ts_out/gr-delete-repo/plugin.js",
 )
 
 junit_tests(

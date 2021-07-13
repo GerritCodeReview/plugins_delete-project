@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import './gr-delete-repo.js';
+import '../../../polygerrit-ui/app/api/gerrit';
+import './gr-delete-repo';
 
-Gerrit.install(plugin => {
-  plugin.registerCustomComponent(
-      'repo-command', 'gr-delete-repo');
+window.Gerrit.install(plugin => {
+  plugin.registerCustomComponent('repo-command', 'gr-delete-repo');
 });
