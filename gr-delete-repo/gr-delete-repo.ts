@@ -14,15 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {htmlTemplate} from './gr-delete-repo_html';
+import {PluginApi} from '@gerritcodereview/typescript-api/plugin';
+import {ActionInfo, ConfigInfo, HttpMethod, RepoName} from '@gerritcodereview/typescript-api/rest-api';
+import {ErrorCallback} from '@gerritcodereview/typescript-api/rest';
 
-import {htmlTemplate} from './gr-delete-repo_html.js';
+declare global {
+  namespace Polymer {
+    function html(strings: TemplateStringsArray, ...values: any[]): HTMLTemplateElement;
+    class Element extends HTMLElement {
+      $: any;
+      connectedCallback(): void;
+      disconnectedCallback(): void;
+    }
+  }
+}
 
 class GrDeleteRepo extends Polymer.Element {
-  /** @returns {string} name of the component */
-  static get is() { return 'gr-delete-repo'; }
-
   /** @returns {?} template for this component */
   static get template() { return htmlTemplate; }
+
+  actionId = '';
+  action?: ActionInfo;
+  hidden = false;
+  plugin!: PluginApi;
+  config!: ConfigInfo;
+  repoName!: RepoName;
 
   /**
    * Defines properties of the component
@@ -41,7 +58,7 @@ class GrDeleteRepo extends Polymer.Element {
   connectedCallback() {
     super.connectedCallback();
     this.actionId = this.plugin.getPluginName() + '~delete';
-    this.action = this.config.actions[this.actionId];
+    this.action = this.config.actions?.[this.actionId];
     this.hidden = !this.action;
   }
 
@@ -63,7 +80,7 @@ class GrDeleteRepo extends Polymer.Element {
       preserve: this.$.preserveGitRepoCheckBox.checked,
     };
 
-    const errFn = response => {
+    const errFn: ErrorCallback = (response?: Response | null) => {
       this.dispatchEvent(new CustomEvent('page-error', {
         detail: {response},
         bubbles: true,
@@ -72,12 +89,12 @@ class GrDeleteRepo extends Polymer.Element {
     };
 
     return this.plugin.restApi().send(
-        this.action.method, endpoint, json, errFn)
-        .then(r => {
+        this.action?.method ?? HttpMethod.GET, endpoint, json, errFn)
+        .then(_ => {
           this.plugin.restApi().invalidateReposCache();
-          Gerrit.Nav.navigateToRelativeUrl('/admin/repos');
+          window.location.href = '/admin/repos';
         });
   }
 }
 
-customElements.define(GrDeleteRepo.is, GrDeleteRepo);
+customElements.define('gr-delete-repo', GrDeleteRepo);
