@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {html} from '@polymer/polymer/lib/utils/html-tag';
 
-export const htmlTemplate = Polymer.html`
+export const htmlTemplate = html`
     <style include="shared-styles"></style>
     <style include="gr-form-styles">
     :host {
