@@ -8,6 +8,7 @@ load(
     "gerrit_plugin",
 )
 load("//tools/bzl:js.bzl", "gerrit_js_bundle")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
 
 gerrit_plugin(
     name = "delete-project",
@@ -23,9 +24,31 @@ gerrit_plugin(
     deps = ["@commons-io//jar"],
 )
 
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    deps = [
+        "//plugins:tsconfig-plugins-base.json",
+    ],
+)
+
+ts_project(
+    name = "gr-delete-repo-ts",
+    srcs = glob([
+        "gr-delete-repo/**/*.ts",
+    ]),
+    incremental = True,
+    tsc = "//tools/node_tools:tsc-bin",
+    tsconfig = ":tsconfig",
+    deps = [
+        "@plugins_npm//@gerritcodereview/typescript-api",
+        "@plugins_npm//lit",
+    ],
+)
+
 gerrit_js_bundle(
     name = "gr-delete-repo",
-    srcs = glob(["gr-delete-repo/*.js"]),
+    srcs = [":gr-delete-repo-ts"],
     entry_point = "gr-delete-repo/plugin.js",
 )
 
@@ -49,23 +72,27 @@ java_library(
     ],
 )
 
-# Define the eslinter for the plugin
-# The eslint macro creates 2 rules: lint_test and lint_bin
+# The eslint macro creates 2 rules: lint_test and lint_bin. Typical usage:
+# bazel test $DIR:lint_test
+# bazel run $DIR:lint_bin -- --fix $PATH_TO_SRCS
 eslint(
     name = "lint",
-    srcs = glob([
-        "gr-delete-repo/**/*.js",
-    ]),
-    config = ".eslintrc.json",
-    data = [],
-    extensions = [
-        ".js",
+    srcs = glob(["gr-delete-repo/**/*"]),
+    config = ".eslintrc.js",
+    data = [
+        "tsconfig.json",
+        "//plugins:.eslintrc.js",
+        "//plugins:.prettierrc.js",
+        "//plugins:tsconfig-plugins-base.json",
     ],
-    ignore = ".eslintignore",
+    extensions = [".ts"],
+    ignore = "//plugins:.eslintignore",
     plugins = [
         "@npm//eslint-config-google",
         "@npm//eslint-plugin-html",
         "@npm//eslint-plugin-import",
         "@npm//eslint-plugin-jsdoc",
+        "@npm//eslint-plugin-prettier",
+        "@npm//gts",
     ],
 )
