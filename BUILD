@@ -8,6 +8,7 @@ load(
     "gerrit_plugin",
 )
 load("//tools/bzl:js.bzl", "gerrit_js_bundle")
+load("@npm//@bazel/typescript:index.bzl", "ts_project")
 
 gerrit_plugin(
     name = "delete-project",
@@ -23,9 +24,22 @@ gerrit_plugin(
     deps = ["@commons-io//jar"],
 )
 
+ts_project(
+    name = "gr-delete-repo-ts",
+    srcs = glob([
+        "gr-delete-repo/*.ts",
+    ]),
+    tsc = "//tools/node_tools:tsc-bin",
+    tsconfig = "//plugins:plugin-tsconfig",
+    deps = [
+        "@plugins_npm//@gerritcodereview/typescript-api",
+        "@plugins_npm//@polymer/polymer",
+    ],
+)
+
 gerrit_js_bundle(
     name = "gr-delete-repo",
-    srcs = glob(["gr-delete-repo/*.js"]),
+    srcs = [":gr-delete-repo-ts"],
     entry_point = "gr-delete-repo/plugin.js",
 )
 
