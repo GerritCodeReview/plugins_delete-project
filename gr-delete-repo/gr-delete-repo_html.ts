@@ -14,6 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+declare global {
+  namespace Polymer {
+    function html(strings: TemplateStringsArray, ...values: any[]): HTMLTemplateElement;
+  }
+}
 
 export const htmlTemplate = Polymer.html`
     <style include="shared-styles"></style>
