@@ -93,8 +93,6 @@
     "quote-props": ["error", "consistent-as-needed"],
     "semi": [2, "always"],
     "template-curly-spacing": "error",
-    "valid-jsdoc": "off",
-
     "require-jsdoc": 0,
     "valid-jsdoc": 0,
     "jsdoc/check-alignment": 2,
@@ -134,8 +132,6 @@
     "import/named": 2,
     "import/no-unresolved": 2,
     "import/no-self-import": 2,
-    // The no-cycle rule is slow, because it doesn't cache dependencies.
-    // Disable it.
     "import/no-cycle": 0,
     "import/no-useless-path-segments": 2,
     "import/no-unused-modules": 2,
