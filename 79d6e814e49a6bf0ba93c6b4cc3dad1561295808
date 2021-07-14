@@ -36,6 +36,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5e92b31_829673ec",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-07-14T14:38:23Z",
+      "side": 1,
+      "message": "Correct. I don\u0027t know how Gerrit.Nav came about, but *if* we wanted to expose something to plugins, then we would want to do something like `this.plugin.navApi()` to make that explicit.\n\nFWIW I have only found one other usage (gr-zuul) and one Google internal usage. So I think for now it is best to just remove Gerrit.Nav and re-introduce it properly, if we actually need it.\n\nI think the only problem with location.href is that it does not support the base url.",
+      "parentUuid": "ff1f61f4_3e31f510",
+      "revId": "79d6e814e49a6bf0ba93c6b4cc3dad1561295808",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f80d33a8_c7e444fe",
