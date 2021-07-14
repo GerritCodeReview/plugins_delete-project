@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f80d33a8_c7e444fe",
+        "filename": "rollup.config.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-07-14T13:36:14Z",
+      "side": 1,
+      "message": "It is not great that we have to add these config files to each plugin and repeat ourselves a lot. \n\nMaybe we should put those configs in another npm package and share them? WDYT?",
+      "revId": "79d6e814e49a6bf0ba93c6b4cc3dad1561295808",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
