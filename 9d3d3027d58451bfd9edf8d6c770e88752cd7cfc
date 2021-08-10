@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "9d3d3027d58451bfd9edf8d6c770e88752cd7cfc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa0425ee_8c8cc278",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1085901
+      },
+      "writtenOn": "2021-08-10T10:48:39Z",
+      "side": 1,
+      "message": "Build rules LGTM",
+      "revId": "9d3d3027d58451bfd9edf8d6c770e88752cd7cfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
