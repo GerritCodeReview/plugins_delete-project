@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe28c41e_f57751c4",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-12T09:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c153e937_af6b715b",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "79d6e814e49a6bf0ba93c6b4cc3dad1561295808",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11d32ab0_7fddc14e",
@@ -108,6 +132,24 @@
       "side": 1,
       "message": "We just want to re-use across core plugins, not requiring that all plugins must use our config, right?",
       "parentUuid": "f80d33a8_c7e444fe",
+      "revId": "79d6e814e49a6bf0ba93c6b4cc3dad1561295808",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "104d55d8_7d2dbf71",
+        "filename": "rollup.config.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-12T09:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e28c861_8391bc62",
       "revId": "79d6e814e49a6bf0ba93c6b4cc3dad1561295808",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
