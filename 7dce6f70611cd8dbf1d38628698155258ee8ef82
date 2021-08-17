@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63f05585_4f4ea19a",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2021-08-17T18:06:17Z",
+      "side": 0,
+      "message": "Hmm, this means that it would have broken for sites using a base url so /r/.\n\nCan we somehow inject the baseurl function so we can access it here? And also allow access to GerritNav?",
+      "revId": "7dce6f70611cd8dbf1d38628698155258ee8ef82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
