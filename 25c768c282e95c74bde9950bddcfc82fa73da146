@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed9e1aa2_874da792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2021-08-17T13:19:22Z",
+      "side": 1,
+      "message": "This is much cleaner and less prone to be broken. Great!",
+      "revId": "25c768c282e95c74bde9950bddcfc82fa73da146",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca926ea1_81769d7c",
+        "filename": "gr-delete-repo/plugin.ts",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1085182
+      },
+      "writtenOn": "2021-08-17T13:19:22Z",
+      "side": 1,
+      "message": "Does typescript knows this is PluginAPI?",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "25c768c282e95c74bde9950bddcfc82fa73da146",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
