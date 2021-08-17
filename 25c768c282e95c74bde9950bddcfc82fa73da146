@@ -39,6 +39,30 @@
       },
       "revId": "25c768c282e95c74bde9950bddcfc82fa73da146",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc9c3cf_184d7b91",
+        "filename": "gr-delete-repo/plugin.ts",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-17T13:30:57Z",
+      "side": 1,
+      "message": "Yes! It knows `install` method. No need to explicitly state the type here.",
+      "parentUuid": "ca926ea1_81769d7c",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "25c768c282e95c74bde9950bddcfc82fa73da146",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
