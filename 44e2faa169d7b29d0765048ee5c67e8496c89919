@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47d266c2_b5ec7b1a",
+        "filename": "BUILD",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1119195
+      },
+      "writtenOn": "2021-08-17T11:51:34Z",
+      "side": 1,
+      "message": "should these be reflected in package.json? Or is it expected to use bazel commands for everything?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f4cba4a_dca80538",
         "filename": "gr-delete-repo/gr-delete-repo.ts",
         "patchSetId": 17
