@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f4cba4a_dca80538",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1119195
+      },
+      "writtenOn": "2021-08-17T11:48:33Z",
+      "side": 1,
+      "message": "is this the kind of simple component we would expect to have no tests for in the main repo as well? or is plugin testing lower priority?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad77aaa_131f15c0",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1119195
+      },
+      "writtenOn": "2021-08-17T11:48:33Z",
+      "side": 1,
+      "message": "should this be private?",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 7
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b46cb5_3024e8e8",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1119195
+      },
+      "writtenOn": "2021-08-17T11:48:33Z",
+      "side": 1,
+      "message": "just curious: these gr- components are just expected to be part of the pages custom element registry, right? It\u0027s not part of the plugin package?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f6e2d4_026662ce",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1119195
+      },
+      "writtenOn": "2021-08-17T11:48:33Z",
+      "side": 1,
+      "message": "format",
+      "range": {
+        "startLine": 147,
+        "startChar": 19,
+        "endLine": 147,
+        "endChar": 21
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
