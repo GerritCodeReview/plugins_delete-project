@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4e8797a_de9ab79c",
+        "filename": "BUILD",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-17T12:17:14Z",
+      "side": 1,
+      "message": "They are reflected in //plugins/package.json.\n\nThe problem is that for Bazel to work with node modules you need to add stuff to the top level WORKSPACE file for each package.json \u0026 mode_modules/ directory, which I think does not really scale.\n\nFor now the workaround is to put all the dependencies into the plugins/pacakge.json. And from the individual BUILD target just depend on what\u0027s needed for the specific plugin.",
+      "parentUuid": "47d266c2_b5ec7b1a",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f4cba4a_dca80538",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-17T11:48:33Z",
       "side": 1,
       "message": "is this the kind of simple component we would expect to have no tests for in the main repo as well? or is plugin testing lower priority?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "345f88da_9fd9111c",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-17T12:17:14Z",
+      "side": 1,
+      "message": "I think every plugin should have at least one test. But\n\n1. I am just converting here. There is no existing test, so I am not obliged to create one right now.\n\n2. Setting up Bazel for executing TypeScript tests might be a few hours of work. And I don\u0027t want to blow up this change any further.\n\nYou can expect me to enable TypeScript plugins with tests in the next two weeks.",
+      "parentUuid": "4f4cba4a_dca80538",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbdb401_31bae38b",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-17T12:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ad77aaa_131f15c0",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 7
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27b46cb5_3024e8e8",
@@ -93,6 +165,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed2a928_93e0b848",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-17T12:17:14Z",
+      "side": 1,
+      "message": "There is a TODO at the top to add GrOverlay to the plugin api somehow. The same applies to gr-button. So yes, there is still room for improvement. :-) But for now it is acceptable that plugins just depend on gr-... component that they think are available.",
+      "parentUuid": "27b46cb5_3024e8e8",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00f6e2d4_026662ce",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-08-17T11:48:33Z",
       "side": 1,
       "message": "format",
+      "range": {
+        "startLine": 147,
+        "startChar": 19,
+        "endLine": 147,
+        "endChar": 21
+      },
+      "revId": "44e2faa169d7b29d0765048ee5c67e8496c89919",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e5b482_529d2d48",
+        "filename": "gr-delete-repo/gr-delete-repo.ts",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-08-17T12:17:14Z",
+      "side": 1,
+      "message": "Hey, that is my test case for linting. :-D\n\nDone.",
+      "parentUuid": "00f6e2d4_026662ce",
       "range": {
         "startLine": 147,
         "startChar": 19,
