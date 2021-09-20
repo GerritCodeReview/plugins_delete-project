@@ -5,3 +5,24 @@ REST API or the Project settings screen.
 
 [![Build Status](https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-delete-project-bazel-master/badge/icon
 )](https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-delete-project-bazel-master/)
+
+## JavaScript Plugin
+
+For running unit tests execute:
+
+    bazel test --test_output=all //plugins/delete-project/web:karma_test
+
+For checking or fixing eslint formatter problems run:
+
+    bazel test //plugins/delete-project/web:lint_test
+    bazel run //plugins/delete-project/web:lint_bin -- --fix "$(pwd)/plugins/delete-project/web"
+
+For testing the plugin with
+[Gerrit FE Dev Helper](https://gerrit.googlesource.com/gerrit-fe-dev-helper/)
+build the JavaScript bundle and copy it to the `plugins/` folder:
+
+    bazel build //plugins/delete-project/web:gr-delete-repo
+    cp -f bazel-bin/plugins/delete-project/web/gr-delete-repo.js plugins/
+
+and let the Dev Helper redirect from `.+/plugins/delete-project/static/gr-delete-repo.js` to
+`http://localhost:8081/plugins_/gr-delete-repo.js`.

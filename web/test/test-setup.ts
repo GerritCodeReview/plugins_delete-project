@@ -14,7 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-__plugindir = 'delete-project';
-module.exports = {
-  extends: '../.eslintrc.js',
+import 'chai/chai';
+import '@gerritcodereview/typescript-api/gerrit';
+import {css} from 'lit';
+
+declare global {
+  interface Window {
+    assert: typeof chai.assert;
+    expect: typeof chai.expect;
+    sinon: typeof sinon;
+  }
+  let assert: typeof chai.assert;
+  let expect: typeof chai.expect;
+  let sinon: typeof sinon;
+}
+window.assert = chai.assert;
+window.expect = chai.expect;
+window.sinon = sinon;
+
+window.Gerrit = {
+  install: () => {},
+  styles: {
+    form: css``,
+    menuPage: css``,
+    subPage: css``,
+    table: css``,
+  },
 };

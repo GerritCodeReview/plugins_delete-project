@@ -18,6 +18,7 @@ import {PluginApi} from '@gerritcodereview/typescript-api/plugin';
 import {
   ActionInfo,
   ConfigInfo,
+  HttpMethod,
   RepoName,
 } from '@gerritcodereview/typescript-api/rest-api';
 import {css, html, LitElement} from 'lit';
@@ -36,7 +37,7 @@ declare global {
 }
 
 @customElement('gr-delete-repo')
-class GrDeleteRepo extends LitElement {
+export class GrDeleteRepo extends LitElement {
   @query('#deleteRepoOverlay')
   deleteRepoOverlay?: GrOverlay;
 

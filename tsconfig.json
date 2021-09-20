@@ -1,6 +1,0 @@
-{
-  "extends": "../tsconfig-plugins-base.json",
-  "include": [
-    "gr-delete-repo/**/*",
-  ]
-}
