@@ -36,7 +36,7 @@ declare global {
 }
 
 @customElement('gr-delete-repo')
-class GrDeleteRepo extends LitElement {
+export class GrDeleteRepo extends LitElement {
   @query('#deleteRepoOverlay')
   deleteRepoOverlay?: GrOverlay;
 
