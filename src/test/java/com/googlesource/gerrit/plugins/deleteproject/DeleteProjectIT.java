@@ -46,6 +46,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.RemoteRefUpdate;
@@ -258,7 +259,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String projectName = createProjectOverAPI(name, null, true, null).get();
     File projectDir = verifyProjectRepoExists(Project.NameKey.parse(projectName));
 
-    Path parentFolder = projectDir.toPath().getParent().resolve(PARENT_FOLDER).resolve(projectName);
+    Path parentFolder = projectDir.toPath().getParent().resolve(PARENT_FOLDER).resolve(projectName + Constants.DOT_GIT);
     parentFolder.toFile().mkdirs();
     assertThat(parentFolder.toFile().exists()).isTrue();
     assertThat(isEmpty(parentFolder)).isTrue();
