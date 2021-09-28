@@ -61,7 +61,7 @@ export class GrDeleteRepo extends LitElement {
   @state()
   private error?: string;
 
-  static styles = css`
+  static override styles = css`
     :host {
       display: block;
       margin-bottom: var(--spacing-xxl);
@@ -89,7 +89,7 @@ export class GrDeleteRepo extends LitElement {
     return html`<div class="error">${this.error}</div>`;
   }
 
-  protected render() {
+  override render() {
     if (!this.action) return;
     return html`
       <h3>${this.action.label}</h3>
