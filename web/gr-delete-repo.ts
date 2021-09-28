@@ -163,11 +163,15 @@ export class GrDeleteRepo extends LitElement {
       .then(_ => {
         this.plugin.restApi().invalidateReposCache();
         this.deleteRepoOverlay?.close();
-        window.location.href = '/admin/repos';
+        window.location.href = `${this.getBaseUrl()}/admin/repos`;
       })
       .catch(e => {
         this.error = e;
         this.deleteRepoOverlay?.close();
       });
+  }
+
+  private getBaseUrl() {
+    return window.CANONICAL_PATH || '';
   }
 }
