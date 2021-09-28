@@ -33,6 +33,9 @@ declare global {
   interface HTMLElementTagNameMap {
     'gr-delete-repo': GrDeleteRepo;
   }
+  interface Window {
+    CANONICAL_PATH?: string;
+  }
 }
 
 @customElement('gr-delete-repo')
@@ -163,11 +166,15 @@ export class GrDeleteRepo extends LitElement {
       .then(_ => {
         this.plugin.restApi().invalidateReposCache();
         this.deleteRepoOverlay?.close();
-        window.location.href = '/admin/repos';
+        window.location.href = `${this.getBaseUrl()}/admin/repos`;
       })
       .catch(e => {
         this.error = e;
         this.deleteRepoOverlay?.close();
       });
+  }
+
+  private getBaseUrl() {
+    return window.CANONICAL_PATH || '';
   }
 }
