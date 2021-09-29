@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f21fd055_c3c36f7f",
+        "filename": "web/gr-delete-repo.ts",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2021-09-29T06:06:42Z",
+      "side": 1,
+      "message": "You need this declaration then:\n\n  declare global {\n    interface Window {\n      CANONICAL_PATH?: string;\n    }\n  }",
+      "revId": "df97c56f104305771bdc56ddeaf1d52d8bb1ef5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
