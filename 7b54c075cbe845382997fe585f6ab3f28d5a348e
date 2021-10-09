@@ -1,12 +1,13 @@
 {
   "checks": {
     "zuul-check:plugins_delete-project": {
-      "state": "SCHEDULED",
-      "message": "Change has been enqueued in check",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/320595,1",
+      "state": "FAILED",
+      "message": "Change failed",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/c3ce49fa791b48838196adfb2de96307",
       "started": "2021-10-09T04:54:43Z",
+      "finished": "2021-10-09T04:55:50Z",
       "created": "2021-10-09T04:54:43Z",
-      "updated": "2021-10-09T04:54:43Z"
+      "updated": "2021-10-09T04:55:50Z"
     }
   }
 }
