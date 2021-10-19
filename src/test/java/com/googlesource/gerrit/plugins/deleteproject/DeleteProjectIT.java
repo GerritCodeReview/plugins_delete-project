@@ -58,7 +58,7 @@ import org.junit.Test;
 @UseSsh
 @TestPlugin(
     name = "delete-project",
-    sysModule = "com.googlesource.gerrit.plugins.deleteproject.Module",
+    sysModule = "com.googlesource.gerrit.plugins.deleteproject.PluginModule",
     sshModule = "com.googlesource.gerrit.plugins.deleteproject.SshModule",
     httpModule = "com.googlesource.gerrit.plugins.deleteproject.HttpModule")
 public class DeleteProjectIT extends LightweightPluginDaemonTest {
@@ -259,7 +259,12 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String projectName = createProjectOverAPI(name, null, true, null).get();
     File projectDir = verifyProjectRepoExists(Project.NameKey.parse(projectName));
 
-    Path parentFolder = projectDir.toPath().getParent().resolve(PARENT_FOLDER).resolve(projectName + Constants.DOT_GIT);
+    Path parentFolder =
+        projectDir
+            .toPath()
+            .getParent()
+            .resolve(PARENT_FOLDER)
+            .resolve(projectName + Constants.DOT_GIT);
     parentFolder.toFile().mkdirs();
     assertThat(parentFolder.toFile().exists()).isTrue();
     assertThat(isEmpty(parentFolder)).isTrue();

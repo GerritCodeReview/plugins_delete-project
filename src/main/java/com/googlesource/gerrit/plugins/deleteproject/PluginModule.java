@@ -30,12 +30,12 @@ import com.googlesource.gerrit.plugins.deleteproject.fs.ArchiveRepositoryRemover
 import com.googlesource.gerrit.plugins.deleteproject.fs.DeleteTrashFolders;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 
-public class Module extends AbstractModule {
+public class PluginModule extends AbstractModule {
 
   private final boolean scheduleCleaning;
 
   @Inject
-  Module(Configuration config) {
+  PluginModule(Configuration config) {
     this.scheduleCleaning = config.getArchiveDuration() > 0;
   }
 
