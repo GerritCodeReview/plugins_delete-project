@@ -54,8 +54,8 @@ gerrit_js_bundle(
 
 karma_test(
     name = "karma_test",
-    srcs = ["karma_test.sh"],
     data = [":delete-project-ts-tests"],
+    root = "plugins/delete-project/web/_bazel_ts_out_tests/",
 )
 
 plugin_eslint()
