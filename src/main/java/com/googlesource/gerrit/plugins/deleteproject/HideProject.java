@@ -75,7 +75,7 @@ class HideProject {
 
       md.setMessage("Hide project\n");
       projectConfig.commit(md);
-      projectCache.evict(projectConfig.getProject());
+      projectCache.evictAndReindex(projectConfig.getProject());
     } catch (RepositoryNotFoundException e) {
       throw new ResourceNotFoundException(rsrc.getNameKey().get(), e);
     } catch (ConfigInvalidException e) {
