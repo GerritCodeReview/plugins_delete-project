@@ -26,14 +26,6 @@ import org.kohsuke.args4j.Option;
 
 @CommandMetaData(name = "delete", description = "Delete specific project")
 final class DeleteCommand extends SshCommand {
-  private static final String FORCE_DELETE =
-      "%s - To really delete '%s', re-run with the --force flag.";
-  private static final String REALLY_DELETE =
-      "Really delete '%s'?\n"
-          + "This is an operation which permanently deletes data. This cannot be undone!\n"
-          + "If you are sure you wish to delete this project, re-run with the "
-          + "--yes-really-delete flag.\n";
-
   @Argument(index = 0, required = true, metaVar = "NAME", usage = "project to delete")
   private ProjectState projectState;
 
@@ -66,14 +58,23 @@ final class DeleteCommand extends SshCommand {
       preConditions.assertDeletePermission(rsrc);
 
       if (!yesReallyDelete) {
-        throw new UnloggedFailure(String.format(REALLY_DELETE, rsrc.getName()));
+        throw new UnloggedFailure(
+            String.format(
+                "Really delete '%s'?\n"
+                    + "This is an operation which permanently deletes data. This cannot be undone!\n"
+                    + "If you are sure you wish to delete this project, re-run with the "
+                    + "--yes-really-delete flag.\n",
+                rsrc.getName()));
       }
 
       if (!force) {
         try {
           preConditions.assertHasOpenChanges(rsrc.getNameKey(), false);
         } catch (CannotDeleteProjectException e) {
-          throw new UnloggedFailure(String.format(FORCE_DELETE, e.getMessage(), rsrc.getName()));
+          throw new UnloggedFailure(
+              String.format(
+                  "%s - To really delete '%s', re-run with the --force flag.",
+                  e.getMessage(), rsrc.getName()));
         }
       }
 
