@@ -33,10 +33,10 @@ import java.io.IOException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
-class DeleteProject implements RestModifyView<ProjectResource, Input> {
-  static class Input {
-    boolean preserve;
-    boolean force;
+public class DeleteProject implements RestModifyView<ProjectResource, Input> {
+  public static class Input {
+    public boolean preserve;
+    public boolean force;
   }
 
   protected final DeletePreconditions preConditions;
