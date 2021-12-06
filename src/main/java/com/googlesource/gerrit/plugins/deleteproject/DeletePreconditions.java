@@ -51,8 +51,11 @@ import java.util.Set;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
 
+/**
+ * This class checks if user has permissions to delete project and all project conditions are met.
+ */
 @Singleton
-class DeletePreconditions {
+public class DeletePreconditions {
   private final Configuration config;
   private final Provider<ListChildProjects> listChildProjectsProvider;
   private final Provider<MergeOpRepoManager> mergeOpProvider;
@@ -88,7 +91,13 @@ class DeletePreconditions {
     this.permissionBackend = permissionBackend;
   }
 
-  void assertDeletePermission(ProjectResource rsrc) throws AuthException {
+  /**
+   * Check if user has permissions to delete the project
+   *
+   * @param rsrc project to be deleted
+   * @throws AuthException thrown when user not allowed to delete project
+   */
+  public void assertDeletePermission(ProjectResource rsrc) throws AuthException {
     if (!canDelete(rsrc)) {
       throw new AuthException("not allowed to delete project");
     }
@@ -104,7 +113,15 @@ class DeletePreconditions {
                 .testOrFalse(ProjectPermission.WRITE_CONFIG));
   }
 
-  void assertCanBeDeleted(ProjectResource rsrc, Input input) throws ResourceConflictException {
+  /**
+   * Check if project can be deleted
+   *
+   * @param rsrc project to be deleted
+   * @param input delete parameters
+   * @throws ResourceConflictException thrown when project cannot be deleted
+   */
+  public void assertCanBeDeleted(ProjectResource rsrc, Input input)
+      throws ResourceConflictException {
     try {
       protectedProjects.assertIsNotProtected(rsrc);
       assertHasNoChildProjects(rsrc);
