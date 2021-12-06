@@ -32,11 +32,12 @@ import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import java.io.IOException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
+/** This class allows to delete or hide project from Gerrit and Git repository */
 @Singleton
-class DeleteProject implements RestModifyView<ProjectResource, Input> {
-  static class Input {
-    boolean preserve;
-    boolean force;
+public class DeleteProject implements RestModifyView<ProjectResource, Input> {
+  public static class Input {
+    public boolean preserve;
+    public boolean force;
   }
 
   protected final DeletePreconditions preConditions;
@@ -69,6 +70,9 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.hideProject = hideProject;
   }
 
+  /*
+   * @see com.google.gerrit.extensions.restapi.RestModifyView#apply(com.google.gerrit.extensions.restapi.RestResource, java.lang.Object)
+   */
   @Override
   public Response<?> apply(ProjectResource rsrc, Input input) throws IOException, RestApiException {
     preConditions.assertDeletePermission(rsrc);
@@ -78,6 +82,14 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     return Response.none();
   }
 
+  /**
+   * Delete or hide project based on {@link Input} param
+   *
+   * @param rsrc project to delete/hide
+   * @param input delete parameters
+   * @throws IOException
+   * @throws RestApiException
+   */
   public void doDelete(ProjectResource rsrc, Input input) throws IOException, RestApiException {
     Project project = rsrc.getProjectState().getProject();
     boolean preserve = input != null && input.preserve;
