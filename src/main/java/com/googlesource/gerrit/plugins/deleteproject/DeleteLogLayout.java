@@ -38,7 +38,7 @@ final class DeleteLogLayout extends Layout {
    */
   @Override
   public String format(LoggingEvent event) {
-    final StringBuffer buf = new StringBuffer(128);
+    final StringBuilder buf = new StringBuilder(128);
 
     buf.append(formatDate(event.getTimeStamp()));
 
@@ -64,7 +64,7 @@ final class DeleteLogLayout extends Layout {
     return zdt.format(DATE_FORMATTER);
   }
 
-  private void req(String key, StringBuffer buf, LoggingEvent event) {
+  private void req(String key, StringBuilder buf, LoggingEvent event) {
     Object val = event.getMDC(key);
     buf.append(' ');
     if (val != null) {
@@ -79,7 +79,7 @@ final class DeleteLogLayout extends Layout {
     }
   }
 
-  private void opt(String key, StringBuffer buf, LoggingEvent event) {
+  private void opt(String key, StringBuilder buf, LoggingEvent event) {
     Object val = event.getMDC(key);
     if (val != null) {
       buf.append(' ');
