@@ -14,8 +14,12 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import com.google.gerrit.common.Nullable;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.webui.UiAction;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.config.GerritInstanceId;
+import com.google.gerrit.server.events.EventDispatcher;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,7 +40,9 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
       DeleteLog deleteLog,
       DeletePreconditions preConditions,
       Configuration cfg,
-      HideProject hideProject) {
+      HideProject hideProject,
+      DynamicItem<EventDispatcher> dispatcher,
+      @Nullable @GerritInstanceId String instanceId) {
     super(
         dbHandler,
         fsHandler,
@@ -45,7 +51,9 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
         deleteLog,
         preConditions,
         cfg,
-        hideProject);
+        hideProject,
+        dispatcher,
+        instanceId);
     this.protectedProjects = protectedProjects;
   }
 
