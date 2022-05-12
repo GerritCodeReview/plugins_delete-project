@@ -35,6 +35,28 @@ an event when a project is deleted. The [replication plugin]
 can be configured to listen to the project deletion event and to
 replicate project deletions.
 
+Stream event after project deletion
+-----------------------------------
+
+This plugin generates a stream event after project deletion. Format of
+the event:
+
+=== Project Deleted
+
+Sent after project deletion.
+
+type:: "project-deleted"
+
+projectName:: Name of the deleted project
+
+eventCreatedOn:: Time in seconds since the UNIX epoch when this event was
+created.
+
+*NOTE*: This event will be delivered only to the unrestricted listeners.
+Unrestricted events listeners are implementing
+`com.google.gerrit.server.events.EventListener` which allows to listen
+to events without user visibility restrictions.
+
 Access
 ------
 
