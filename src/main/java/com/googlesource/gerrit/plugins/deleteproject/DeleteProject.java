@@ -14,13 +14,17 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.config.GerritInstanceId;
+import com.google.gerrit.server.events.EventDispatcher;
 import com.google.gerrit.server.project.ProjectResource;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -48,6 +52,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   private final DeleteLog deleteLog;
   private final Configuration cfg;
   private final HideProject hideProject;
+  private final DynamicItem<EventDispatcher> dispatcher;
+  private final String instanceId;
 
   @Inject
   DeleteProject(
@@ -58,7 +64,9 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       DeleteLog deleteLog,
       DeletePreconditions preConditions,
       Configuration cfg,
-      HideProject hideProject) {
+      HideProject hideProject,
+      DynamicItem<EventDispatcher> dispatcher,
+      @Nullable @GerritInstanceId String instanceId) {
     this.dbHandler = dbHandler;
     this.fsHandler = fsHandler;
     this.cacheHandler = cacheHandler;
@@ -67,6 +75,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     this.preConditions = preConditions;
     this.cfg = cfg;
     this.hideProject = hideProject;
+    this.dispatcher = dispatcher;
+    this.instanceId = instanceId;
   }
 
   @Override
@@ -94,6 +104,14 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       } else {
         hideProject.apply(rsrc);
       }
+
+      ProjectDeletedEvent event = new ProjectDeletedEvent();
+      event.projectName = project.getName();
+      event.instanceId = instanceId;
+      // EventDispatcher checks if user has the permission to access the project.
+      // But because this project is already deleted, check will always fail.
+      // That's why this event will be delivered only to the unrestricted listeners.
+      dispatcher.get().postEvent(project.getNameKey(), event);
     } catch (Exception e) {
       ex = e;
       throw e;
