@@ -22,6 +22,7 @@ import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.restapi.RestApiModule;
+import com.google.gerrit.server.events.EventTypes;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.internal.UniqueAnnotations;
@@ -59,6 +60,8 @@ public class PluginModule extends AbstractModule {
           .annotatedWith(UniqueAnnotations.create())
           .to(ArchiveRepositoryRemover.class);
     }
+
+    EventTypes.register(ProjectDeletedEvent.TYPE, ProjectDeletedEvent.class);
 
     install(
         new RestApiModule() {
