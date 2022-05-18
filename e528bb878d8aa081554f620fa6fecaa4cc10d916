@@ -33,6 +33,24 @@
       "message": "Cannot add comment (seems broken) but the newline between Bug and Change-Id needs to be removed.",
       "revId": "e528bb878d8aa081554f620fa6fecaa4cc10d916",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31688ea_050aee6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2022-05-18T08:25:31Z",
+      "side": 1,
+      "message": "experienced the same problem - fixed by wiping the app out (in developer tools) and reloading the page... not sure if that is the correct way to solve it...",
+      "parentUuid": "32a53688_e5bc44f9",
+      "revId": "e528bb878d8aa081554f620fa6fecaa4cc10d916",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
