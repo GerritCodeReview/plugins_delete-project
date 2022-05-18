@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e376ac61_7d3b7ae4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2022-05-18T08:24:27Z",
+      "side": 1,
+      "message": "nit: remove the following empty line so that this one is treated as `footer` and is searchable though `bug` ;)",
+      "revId": "e528bb878d8aa081554f620fa6fecaa4cc10d916",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "32a53688_e5bc44f9",
