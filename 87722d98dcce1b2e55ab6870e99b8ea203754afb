@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "991c1bf9_52600f05",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-06-01T08:33:47Z",
+      "side": 1,
+      "message": "Might be worth specifying what we mean by `unrestricted` listener, i.e.: listener that dont check for permission, for example, the Stream Event listner",
+      "range": {
+        "startLine": 55,
+        "startChar": 49,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "87722d98dcce1b2e55ab6870e99b8ea203754afb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
