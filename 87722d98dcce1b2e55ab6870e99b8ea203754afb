@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9a1d4d_730016be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-07T01:44:36Z",
+      "side": 1,
+      "message": "LGTM, however we need to clarify and possibly also test the situation where a listener will receive the ProjectDeleted event.",
+      "revId": "87722d98dcce1b2e55ab6870e99b8ea203754afb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88fd34c_d899aec8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-07T01:44:36Z",
+      "side": 1,
+      "message": "EventDispatcher is an interface and therefore doesn\u0027t really do any checks.\nEventBroker implements EventDispatcher and checks if the event is visible to the user, which will always be false as you mentioned.\n\nCan you make an example of where the event will be received instead?",
+      "range": {
+        "startLine": 111,
+        "startChar": 9,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "87722d98dcce1b2e55ab6870e99b8ea203754afb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "991c1bf9_52600f05",
@@ -14,6 +54,30 @@
       "writtenOn": "2022-06-01T08:33:47Z",
       "side": 1,
       "message": "Might be worth specifying what we mean by `unrestricted` listener, i.e.: listener that dont check for permission, for example, the Stream Event listner",
+      "range": {
+        "startLine": 55,
+        "startChar": 49,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "87722d98dcce1b2e55ab6870e99b8ea203754afb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2196a569_f790de98",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-07T01:44:36Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "991c1bf9_52600f05",
       "range": {
         "startLine": 55,
         "startChar": 49,
