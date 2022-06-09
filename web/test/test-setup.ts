@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'chai/chai';
+import 'chai/chai.js';
 import '@gerritcodereview/typescript-api/gerrit';
 import {css} from 'lit';
 
