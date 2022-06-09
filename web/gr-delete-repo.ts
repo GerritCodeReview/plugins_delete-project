@@ -21,7 +21,7 @@ import {
   RepoName,
 } from '@gerritcodereview/typescript-api/rest-api';
 import {css, html, LitElement} from 'lit';
-import {customElement, property, query, state} from 'lit/decorators';
+import {customElement, property, query, state} from 'lit/decorators.js';
 
 // TODO: This should be defined and exposed by @gerritcodereview/typescript-api
 type GrOverlay = Element & {
