@@ -93,6 +93,30 @@
       },
       "revId": "57c317000659ab84b69359de5fc5c7f86c0a84c3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82779e9b_068ec093",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-06-21T08:01:06Z",
+      "side": 1,
+      "message": "gosh, I struggle to understand it 😊",
+      "parentUuid": "87e42b68_ca9cfa8c",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "57c317000659ab84b69359de5fc5c7f86c0a84c3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
