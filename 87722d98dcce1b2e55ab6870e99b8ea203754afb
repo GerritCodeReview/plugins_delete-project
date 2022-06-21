@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ee6a98_b3c24440",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProject.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-21T09:36:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88fd34c_d899aec8",
+      "range": {
+        "startLine": 111,
+        "startChar": 9,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "87722d98dcce1b2e55ab6870e99b8ea203754afb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "991c1bf9_52600f05",
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "991c1bf9_52600f05",
+      "range": {
+        "startLine": 55,
+        "startChar": 49,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "87722d98dcce1b2e55ab6870e99b8ea203754afb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1aa6b4a_b7e4bf47",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-21T09:36:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2196a569_f790de98",
       "range": {
         "startLine": 55,
         "startChar": 49,

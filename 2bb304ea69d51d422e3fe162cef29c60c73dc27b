@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b31c266_1bb692be",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-21T09:36:42Z",
+      "side": 1,
+      "message": "Would the \u0027stream-events\u0027 command publish this event? If yes, `Stream` is correct, otherwise it should be removed.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "2bb304ea69d51d422e3fe162cef29c60c73dc27b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
