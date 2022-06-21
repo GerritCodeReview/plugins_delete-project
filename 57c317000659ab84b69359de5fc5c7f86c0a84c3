@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2056bee4_6e13db0f",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-06-21T07:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc79908d_84d16dfc",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 25
+      },
+      "revId": "57c317000659ab84b69359de5fc5c7f86c0a84c3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01f9e972_c1a4634f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-21T07:33:09Z",
       "side": 1,
       "message": "What about something like: \"Unrestricted events listeners implement\n`com.google.gerrit.server.events.EventListener` without performing any permission checking.\" ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "57c317000659ab84b69359de5fc5c7f86c0a84c3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e42b68_ca9cfa8c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-06-21T07:58:31Z",
+      "side": 1,
+      "message": "This part is copied from our documentation 😄: https://gerrit-review.googlesource.com/Documentation/dev-plugins.html",
+      "parentUuid": "01f9e972_c1a4634f",
       "range": {
         "startLine": 56,
         "startChar": 0,
