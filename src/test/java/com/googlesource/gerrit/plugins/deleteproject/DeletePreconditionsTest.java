@@ -15,15 +15,18 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.server.update.context.RefUpdateContext.RefUpdateType.INIT_REPO;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteByCreationTimeCapability.DELETE_BY_CREATION_TIME;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gerrit.entities.AccountGroup.UUID;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.extensions.api.access.PluginPermission;
@@ -32,6 +35,7 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.GroupMembership;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -43,7 +47,23 @@ import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
 import com.google.gerrit.server.submit.SubscriptionGraph;
+import com.google.gerrit.server.update.context.RefUpdateContext;
+import com.google.gerrit.testing.InMemoryRepositoryManager;
 import com.google.inject.Provider;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.CommitBuilder;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectInserter;
+import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.lib.RefUpdate;
+import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,15 +87,26 @@ public class DeletePreconditionsTest {
   @Mock private ProtectedProjects protectedProjects;
   @Mock private PermissionBackend permissionBackend;
   @Mock private PermissionBackend.WithUser userPermission;
+  @Mock private GroupMembership groupMembership;
 
-  private ProjectResource rsrc;
   private DeletePreconditions preConditions;
+  private InMemoryRepositoryManager inMemoryRepositoryManager;
+  private ProjectResource rsrc;
+  Set<UUID> projectOwners;
 
   @Before
-  public void setUp() {
+  public void setUp() throws IOException {
+    projectOwners = new LinkedHashSet<>();
+    projectOwners.add(UUID.parse("user:testUser"));
+    inMemoryRepositoryManager = getInMemoryRepositoryManager();
     when(userProvider.get()).thenReturn(currentUser);
     rsrc = new ProjectResource(state, currentUser);
     when(rsrc.getNameKey()).thenReturn(PROJECT_NAMEKEY);
+    when(rsrc.getProjectState().getOwners()).thenReturn(projectOwners);
+    when(userProvider.get().getEffectiveGroups()).thenReturn(groupMembership);
+    when(permissionBackend.user(currentUser)).thenReturn(userPermission);
+    when(userPermission.testOrFalse(new PluginPermission(PLUGIN_NAME, DELETE_BY_CREATION_TIME)))
+        .thenReturn(true);
     preConditions =
         new DeletePreconditions(
             config,
@@ -91,34 +122,66 @@ public class DeletePreconditionsTest {
   }
 
   @Test
-  public void testUserCanDeleteIfAdmin() {
-    when(permissionBackend.user(currentUser)).thenReturn(userPermission);
-    when(userPermission.testOrFalse(GlobalPermission.ADMINISTRATE_SERVER)).thenReturn(true);
-    assertThat(preConditions.canDelete(rsrc)).isTrue();
+  public void testUserCanDeleteIfAdminAfterPostCreationDeleteTimeEnds()
+      throws IOException, GitAPIException {
+    try (Repository repo = inMemoryRepositoryManager.openRepository(PROJECT_NAMEKEY)) {
+      when(userPermission.testOrFalse(GlobalPermission.ADMINISTRATE_SERVER)).thenReturn(true);
+      when(repoManager.openRepository(PROJECT_NAMEKEY)).thenReturn(repo);
+      when(groupMembership.containsAnyOf(projectOwners)).thenReturn(true);
+      assertThat(preConditions.canDelete(rsrc)).isTrue();
+    }
   }
 
   @Test
-  public void testUserCanDeleteIfHasDeletePermission() {
-    when(permissionBackend.user(currentUser)).thenReturn(userPermission);
-    when(userPermission.testOrFalse(new PluginPermission(PLUGIN_NAME, DELETE_PROJECT)))
-        .thenReturn(true);
-    assertThat(preConditions.canDelete(rsrc)).isTrue();
+  public void testUserCanDeleteIfHasDeletePermissionAfterPostCreationDeleteTimeEnds()
+      throws IOException, GitAPIException {
+    try (Repository repo = inMemoryRepositoryManager.openRepository(PROJECT_NAMEKEY)) {
+      when(repoManager.openRepository(PROJECT_NAMEKEY)).thenReturn(repo);
+      when(userPermission.testOrFalse(new PluginPermission(PLUGIN_NAME, DELETE_PROJECT)))
+          .thenReturn(true);
+      assertThat(preConditions.canDelete(rsrc)).isTrue();
+    }
   }
 
   @Test
-  public void testUserCanDeleteIfIsOwnerAndHasDeleteOwnPermission() {
-    when(permissionBackend.user(currentUser)).thenReturn(userPermission);
-    when(userPermission.testOrFalse(new PluginPermission(PLUGIN_NAME, DELETE_OWN_PROJECT)))
-        .thenReturn(true);
-    PermissionBackend.ForProject projectPermission = mock(PermissionBackend.ForProject.class);
-    when(projectPermission.testOrFalse(ProjectPermission.WRITE_CONFIG)).thenReturn(true);
-    when(userPermission.project(PROJECT_NAMEKEY)).thenReturn(projectPermission);
-    assertThat(preConditions.canDelete(rsrc)).isTrue();
+  public void testUserCanDeleteIfIsOwnerAndHasDeleteOwnPermissionAfterPostCreationDeleteTimeEnds()
+      throws IOException, GitAPIException {
+    try (Repository repo = inMemoryRepositoryManager.openRepository(PROJECT_NAMEKEY)) {
+      when(userPermission.testOrFalse(new PluginPermission(PLUGIN_NAME, DELETE_OWN_PROJECT)))
+          .thenReturn(true);
+      when(repoManager.openRepository(PROJECT_NAMEKEY)).thenReturn(repo);
+      PermissionBackend.ForProject projectPermission = mock(PermissionBackend.ForProject.class);
+      when(projectPermission.testOrFalse(ProjectPermission.WRITE_CONFIG)).thenReturn(true);
+      when(userPermission.project(PROJECT_NAMEKEY)).thenReturn(projectPermission);
+      assertThat(preConditions.canDelete(rsrc)).isTrue();
+    }
   }
 
   @Test
-  public void testUserCannotDelete() throws Exception {
-    when(permissionBackend.user(currentUser)).thenReturn(userPermission);
+  public void testUserCannotDeleteIfNoPermissionsAndAfterPostCreationDeleteTimeEnds()
+      throws IOException {
+    try (Repository repo = inMemoryRepositoryManager.openRepository(PROJECT_NAMEKEY)) {
+      when(repoManager.openRepository(PROJECT_NAMEKEY)).thenReturn(repo);
+      AuthException thrown =
+          assertThrows(AuthException.class, () -> preConditions.assertDeletePermission(rsrc));
+      assertThat(thrown).hasMessageThat().contains("not allowed to delete project");
+    }
+  }
+
+  @Test
+  public void testUserCanDeleteIfIsRepoOwnerBeforePostCreationDeleteTimeEnds()
+      throws IOException, GitAPIException {
+    try (Repository repo = inMemoryRepositoryManager.openRepository(PROJECT_NAMEKEY)) {
+      when(repoManager.openRepository(PROJECT_NAMEKEY)).thenReturn(repo);
+      when(config.gettDeleteProjectTimeDuration()).thenReturn(10L);
+      when(groupMembership.containsAnyOf(projectOwners)).thenReturn(true);
+      assertThat(preConditions.canDelete(rsrc)).isTrue();
+    }
+  }
+
+  @Test
+  public void testUserCannotDeleteIfNotRepoOwnerAndNoPermissionsBeforePostCreationDeleteTimeEnds() {
+    when(groupMembership.containsAnyOf(projectOwners)).thenReturn(false);
     AuthException thrown =
         assertThrows(AuthException.class, () -> preConditions.assertDeletePermission(rsrc));
     assertThat(thrown).hasMessageThat().contains("not allowed to delete project");
@@ -174,5 +237,43 @@ public class DeletePreconditionsTest {
             CannotDeleteProjectException.class,
             () -> preConditions.assertHasOpenChanges(PROJECT_NAMEKEY, false));
     assertThat(thrown).hasMessageThat().contains(expectedMessage);
+  }
+
+  private InMemoryRepositoryManager getInMemoryRepositoryManager() throws IOException {
+    InMemoryRepositoryManager inMemoryRepositoryManager = new InMemoryRepositoryManager();
+    try (RefUpdateContext ctx = RefUpdateContext.open(INIT_REPO)) {
+      final String head = "refs/heads/master";
+      List<String> refs = List.of(head);
+      try (Repository repo = inMemoryRepositoryManager.createRepository(PROJECT_NAMEKEY)) {
+        RefUpdate u = repo.updateRef(Constants.HEAD);
+        u.disableRefLog();
+        u.link(head);
+        try (ObjectInserter oi = repo.newObjectInserter()) {
+
+          long ldtLong =
+              LocalDateTime.now(ZoneId.systemDefault())
+                      .atZone(ZoneId.systemDefault())
+                      .toEpochSecond()
+                  * 1000;
+
+          PersonIdent personIdent = new PersonIdent("testUser", "test.user@test.com", ldtLong, 0);
+
+          CommitBuilder cb = new CommitBuilder();
+          cb.setTreeId(oi.insert(Constants.OBJ_TREE, new byte[] {}));
+          cb.setAuthor(personIdent);
+          cb.setCommitter(personIdent);
+          cb.setMessage("Initial empty repository\n");
+          ObjectId id = oi.insert(cb);
+          oi.flush();
+
+          for (String ref : refs) {
+            RefUpdate ru = repo.updateRef(ref);
+            ru.setNewObjectId(id);
+            ru.update();
+          }
+        }
+      }
+    }
+    return inMemoryRepositoryManager;
   }
 }
