@@ -21,6 +21,7 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 import static java.util.stream.Collectors.toSet;
 
 import com.google.common.collect.Iterables;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.BranchNameKey;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.exceptions.StorageException;
@@ -30,6 +31,7 @@ import com.google.gerrit.extensions.common.ProjectInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.GroupMembership;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.permissions.GlobalPermission;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -46,10 +48,17 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 @Singleton
 class DeletePreconditions {
@@ -88,6 +97,31 @@ class DeletePreconditions {
     this.permissionBackend = permissionBackend;
   }
 
+  private boolean canBeDeletedByTimeCreation(ProjectResource rsrc) {
+    try (Git git = new Git(repoManager.openRepository(rsrc.getNameKey()))) {
+      try {
+        Iterable<RevCommit> commits = git.log().all().call();
+        TreeSet<Long> commitTimesSet = new TreeSet<>();
+        for (RevCommit commit : commits) {
+          commitTimesSet.add((long) commit.getCommitTime());
+        }
+        if (LocalDateTime.ofInstant(
+                Instant.ofEpochSecond(commitTimesSet.first()), ZoneId.of("America/Los_Angeles"))
+            .plusHours(config.gettDeleteProjectTimeDurationHours())
+            .isBefore(LocalDateTime.now(ZoneId.of("America/Los_Angeles")))) {
+          return false;
+        }
+      } catch (GitAPIException e) {
+        e.printStackTrace();
+        return false;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return true;
+  }
+
   void assertDeletePermission(ProjectResource rsrc) throws AuthException {
     if (!canDelete(rsrc)) {
       throw new AuthException("not allowed to delete project");
@@ -95,6 +129,9 @@ class DeletePreconditions {
   }
 
   protected boolean canDelete(ProjectResource rsrc) {
+    if (canBeDeletedByTimeCreation(rsrc) && isRepoOwner(rsrc)) {
+      return true;
+    }
     PermissionBackend.WithUser userPermission = permissionBackend.user(userProvider.get());
     return userPermission.testOrFalse(GlobalPermission.ADMINISTRATE_SERVER)
         || userPermission.testOrFalse(new PluginPermission(pluginName, DELETE_PROJECT))
@@ -102,6 +139,12 @@ class DeletePreconditions {
             && userPermission
                 .project(rsrc.getNameKey())
                 .testOrFalse(ProjectPermission.WRITE_CONFIG));
+  }
+
+  private boolean isRepoOwner(ProjectResource rsrc) {
+    Set<AccountGroup.UUID> projectOwners = rsrc.getProjectState().getOwners();
+    GroupMembership groupMembership = userProvider.get().getEffectiveGroups();
+    return groupMembership.containsAnyOf(projectOwners);
   }
 
   void assertCanBeDeleted(ProjectResource rsrc, Input input) throws ResourceConflictException {
