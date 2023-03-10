@@ -26,6 +26,8 @@ import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
+import java.io.IOException;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 public class DeleteAction extends DeleteProject implements UiAction<ProjectResource> {
   private final ProtectedProjects protectedProjects;
@@ -58,7 +60,8 @@ public class DeleteAction extends DeleteProject implements UiAction<ProjectResou
   }
 
   @Override
-  public UiAction.Description getDescription(ProjectResource rsrc) {
+  public UiAction.Description getDescription(ProjectResource rsrc)
+      throws GitAPIException, IOException {
     return new UiAction.Description()
         .setLabel("Delete Project")
         .setTitle(
