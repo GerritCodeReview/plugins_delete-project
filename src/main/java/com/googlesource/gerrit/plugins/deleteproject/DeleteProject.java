@@ -34,6 +34,7 @@ import com.googlesource.gerrit.plugins.deleteproject.cache.CacheDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.database.DatabaseDeleteHandler;
 import com.googlesource.gerrit.plugins.deleteproject.fs.FilesystemDeleteHandler;
 import java.io.IOException;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
@@ -80,7 +81,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
   }
 
   @Override
-  public Response<?> apply(ProjectResource rsrc, Input input) throws IOException, RestApiException {
+  public Response<?> apply(ProjectResource rsrc, Input input)
+      throws IOException, RestApiException, GitAPIException {
     preConditions.assertDeletePermission(rsrc);
     preConditions.assertCanBeDeleted(rsrc, input);
 
