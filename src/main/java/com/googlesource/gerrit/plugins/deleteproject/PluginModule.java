@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.gerrit.server.project.ProjectResource.PROJECT_KIND;
+import static com.googlesource.gerrit.plugins.deleteproject.DeleteByCreationTimeCapability.DELETE_BY_CREATION_TIME;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteOwnProjectCapability.DELETE_OWN_PROJECT;
 import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapability.DELETE_PROJECT;
 
@@ -47,6 +48,9 @@ public class PluginModule extends AbstractModule {
         .annotatedWith(UniqueAnnotations.create())
         .to(DeleteTrashFolders.class);
     bind(CacheDeleteHandler.class);
+    bind(CapabilityDefinition.class)
+        .annotatedWith(Exports.named(DELETE_BY_CREATION_TIME))
+            .to(DeleteByCreationTimeCapability.class);
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(DELETE_PROJECT))
         .to(DeleteProjectCapability.class);
