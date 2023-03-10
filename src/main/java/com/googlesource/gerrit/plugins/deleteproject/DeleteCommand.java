@@ -21,6 +21,7 @@ import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.inject.Inject;
 import java.io.IOException;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -48,7 +49,7 @@ final class DeleteCommand extends SshCommand {
   }
 
   @Override
-  public void run() throws Failure {
+  public void run() throws Failure, GitAPIException {
     try {
       DeleteProject.Input input = new DeleteProject.Input();
       input.force = force;

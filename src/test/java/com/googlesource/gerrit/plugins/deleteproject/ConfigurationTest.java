@@ -34,7 +34,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationTest {
   private static final long DEFAULT_ARCHIVE_DURATION_MS = TimeUnit.DAYS.toMillis(180);
-  private static final String CUSTOM_DURATION = "100";
+  private static final long DEFAULT_DELETE_DURATION = 12;
+  private static final String CUSTOM_ARCHIVE_DURATION = "100";
+  private static final String CUSTOM_DELETE_DURATION_HOURS = "10";
   private static final String CUSTOM_PARENT = "customParent";
   private static final String INVALID_CUSTOM_FOLDER = "//\\\\\\///////";
   private static final String INVALID_ARCHIVE_DURATION = "180weeks180years";
@@ -64,6 +66,7 @@ public class ConfigurationTest {
     assertThat(deleteConfig.projectOnPreserveHidden()).isFalse();
     assertThat(deleteConfig.shouldArchiveDeletedRepos()).isFalse();
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
+    assertThat(deleteConfig.gettDeleteProjectTimeDuration()).isEqualTo(DEFAULT_DELETE_DURATION);
     assertThat(deleteConfig.getArchiveFolder().toString()).isEqualTo(pluginDataDir.toString());
   }
 
@@ -74,7 +77,8 @@ public class ConfigurationTest {
     pluginConfig.setBoolean("allowDeletionOfReposWithTags", false);
     pluginConfig.setBoolean("hideProjectOnPreserve", true);
     pluginConfig.setBoolean("archiveDeletedRepos", true);
-    pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_DURATION);
+    pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_ARCHIVE_DURATION);
+    pluginConfig.setString("deleteProjectTimeDuration", CUSTOM_DELETE_DURATION_HOURS);
     pluginConfig.setString("archiveFolder", customArchiveFolder.toString());
 
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
@@ -85,7 +89,10 @@ public class ConfigurationTest {
     assertThat(deleteConfig.deletionWithTagsAllowed()).isFalse();
     assertThat(deleteConfig.projectOnPreserveHidden()).isTrue();
     assertThat(deleteConfig.shouldArchiveDeletedRepos()).isTrue();
-    assertThat(deleteConfig.getArchiveDuration()).isEqualTo(Long.parseLong(CUSTOM_DURATION));
+    assertThat(deleteConfig.getArchiveDuration())
+        .isEqualTo(Long.parseLong(CUSTOM_ARCHIVE_DURATION));
+    assertThat(deleteConfig.gettDeleteProjectTimeDuration())
+        .isEqualTo(Long.parseLong(CUSTOM_DELETE_DURATION_HOURS));
     assertThat(deleteConfig.getArchiveFolder().toString())
         .isEqualTo(customArchiveFolder.toString());
   }
@@ -93,14 +100,14 @@ public class ConfigurationTest {
   @Test
   public void archiveDurationWithUnitIsLoaded() {
     PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
-    pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_DURATION + "years");
+    pluginConfig.setString("deleteArchivedReposAfter", CUSTOM_ARCHIVE_DURATION + "years");
 
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getArchiveDuration())
-        .isEqualTo(TimeUnit.DAYS.toMillis(Long.parseLong(CUSTOM_DURATION)) * 365);
+        .isEqualTo(TimeUnit.DAYS.toMillis(Long.parseLong(CUSTOM_ARCHIVE_DURATION)) * 365);
   }
 
   @Test
@@ -113,6 +120,16 @@ public class ConfigurationTest {
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
+  }
+
+  @Test
+  public void defaultDeleteProjectTimeDurationIfBadConfigValue() {
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
+    pluginConfig.setString("deleteProjectTimeDuration", "INCORRECT_VALUE");
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
+    assertThat(deleteConfig.gettDeleteProjectTimeDuration()).isEqualTo(DEFAULT_DELETE_DURATION);
   }
 
   @Test
