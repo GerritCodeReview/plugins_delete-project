@@ -104,3 +104,18 @@ plugin.@PLUGIN@.deleteArchivedReposAfter
 	task.
 
 	By default 180 (days).
+
+plugin.@PLUGIN@.deleteProjectTimeDuration
+:	The time duration that is configured for newly created project to be
+deleted by REST call, if the project was created incorrectly or by mistake.
+
+	This parameter is applicable for newly created projects. Once project
+	is created, user has that amount of time in hours, specified in
+	configuration, to delete the project, if project does not have
+	created changes.
+	After specified time access permissions are applied and standard
+	delete process is used to delete project.
+
+	If not specified, the default time unit is in hours.
+
+	By default 12 (hours).
