@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static java.util.concurrent.TimeUnit.DAYS;
+import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.stream.Collectors.toList;
 
@@ -40,11 +41,13 @@ public class Configuration {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String DELETED_PROJECTS_PARENT = "Deleted-Projects";
   private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
+  private static final long DEFAULT_DELETE_DURATION_HOURS = 12;
 
   private final boolean allowDeletionWithTags;
   private final boolean archiveDeletedRepos;
   private final boolean hideProjectOnPreserve;
   private final long deleteArchivedReposAfter;
+  private final long deleteProjectTimeDuration;
   private final String deletedProjectsParent;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
@@ -68,6 +71,9 @@ public class Configuration {
     this.deleteArchivedReposAfter =
         getArchiveDurationFromConfig(
             Strings.nullToEmpty(cfg.getString("deleteArchivedReposAfter")));
+    this.deleteProjectTimeDuration =
+        getProjectDeleteDurationFromConfig(
+            Strings.nullToEmpty(cfg.getString("deleteProjectTimeDuration")));
     this.protectedProjects =
         Arrays.asList(cfg.getStringList("protectedProject")).stream()
             .map(Pattern::compile)
@@ -102,6 +108,10 @@ public class Configuration {
     return deleteArchivedReposAfter;
   }
 
+  public long getDeleteProjectTimeDuration() {
+    return deleteProjectTimeDuration;
+  }
+
   private Path getArchiveFolderFromConfig(String configValue) {
     try {
       return Files.createDirectories(Paths.get(configValue));
@@ -122,6 +132,17 @@ public class Configuration {
           "The configured archive duration is not valid: %s; using the default value: %d days",
           e.getMessage(), DEFAULT_ARCHIVE_DURATION_DAYS);
       return DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS);
+    }
+  }
+
+  private long getProjectDeleteDurationFromConfig(String configValue) {
+    try {
+      return ConfigUtil.getTimeUnit(configValue, DEFAULT_DELETE_DURATION_HOURS, HOURS);
+    } catch (IllegalArgumentException e) {
+      log.atWarning().log(
+          "The configured project delete duration is not valid: %s; using default value: %h hours",
+          e.getMessage(), DEFAULT_DELETE_DURATION_HOURS);
+      return DEFAULT_DELETE_DURATION_HOURS;
     }
   }
 }
