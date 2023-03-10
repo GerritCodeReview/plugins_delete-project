@@ -43,7 +43,9 @@ import com.google.gerrit.server.query.change.InternalChangeQuery;
 import com.google.gerrit.server.restapi.project.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
 import com.google.gerrit.server.submit.SubscriptionGraph;
+import com.google.gerrit.testing.InMemoryRepositoryManager;
 import com.google.inject.Provider;
+import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,11 +70,13 @@ public class DeletePreconditionsTest {
   @Mock private PermissionBackend permissionBackend;
   @Mock private PermissionBackend.WithUser userPermission;
 
-  private ProjectResource rsrc;
   private DeletePreconditions preConditions;
+  private ProjectResource rsrc;
+  private Repository repository;
 
   @Before
   public void setUp() {
+    repository = InMemoryRepositoryManager.newRepository(PROJECT_NAMEKEY);
     when(userProvider.get()).thenReturn(currentUser);
     rsrc = new ProjectResource(state, currentUser);
     when(rsrc.getNameKey()).thenReturn(PROJECT_NAMEKEY);
@@ -119,6 +123,7 @@ public class DeletePreconditionsTest {
   @Test
   public void testUserCannotDelete() throws Exception {
     when(permissionBackend.user(currentUser)).thenReturn(userPermission);
+    when(repoManager.openRepository(PROJECT_NAMEKEY)).thenReturn(repository);
     AuthException thrown =
         assertThrows(AuthException.class, () -> preConditions.assertDeletePermission(rsrc));
     assertThat(thrown).hasMessageThat().contains("not allowed to delete project");
