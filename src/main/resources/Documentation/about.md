@@ -67,3 +67,20 @@ allowed to delete their own projects if they are member of a group that
 is granted the 'Delete Own Project' capability (provided by this
 plugin).
 
+Note
+------
+When new project is created, user has time duration to delete the project
+by triggering REST or SSH call or using UI menu, if the project does not
+have created changes. It's introduced to give user permissions to delete
+wrongly created project himself/herself. Time duration value is set up
+in gerrit.config. It's described in configuration section
+(plugin.@PLUGIN@.deleteProjectTimeDuration). Time duration value is
+12 hours by default.
+
+Please take into account two preconditions for current functionality:
+1) the option to delete the project according to creation time is
+based on Global Capability "Delete Project by Creation Time". If
+capability is not setup or user does not have this capability, option
+is not allowed.
+2) User should be the owner of created project, otherwise option is
+not allowed.
