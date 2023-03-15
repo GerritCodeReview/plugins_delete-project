@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9521b644_d5000edc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-03-15T19:14:20Z",
+      "side": 1,
+      "message": "you needed to cast it?",
+      "range": {
+        "startLine": 106,
+        "startChar": 29,
+        "endLine": 106,
+        "endChar": 36
+      },
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb341503_a211def2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-03-15T19:14:20Z",
+      "side": 1,
+      "message": "maybe make configurable, make a constant? Dont java support get local time?",
+      "range": {
+        "startLine": 109,
+        "startChar": 74,
+        "endLine": 109,
+        "endChar": 94
+      },
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c11d09e1_5de7e713",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-03-15T19:14:20Z",
+      "side": 1,
+      "message": "Not throwing exceptions? like assert faield",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 26
+      },
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4000e6ad_64336067",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-03-15T19:14:20Z",
+      "side": 1,
+      "message": "will the button appear if the user doesnt have Delete permission?",
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bea0d35_a1ab8bed",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-03-15T19:14:20Z",
+      "side": 1,
+      "message": "THere is also ssh, how doest it work with it?",
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
