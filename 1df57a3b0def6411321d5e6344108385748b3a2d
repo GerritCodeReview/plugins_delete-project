@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b00f44d9_8027f404",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1152600
+      },
+      "writtenOn": "2023-03-16T20:37:57Z",
+      "side": 1,
+      "message": "The method convert time duration to seconds? If it does, I think the method need a more understandable naming. For example something like getDeleteProjectTimeDurationInSeconds",
+      "range": {
+        "startLine": 111,
+        "startChar": 14,
+        "endLine": 111,
+        "endChar": 48
+      },
+      "revId": "1df57a3b0def6411321d5e6344108385748b3a2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
