@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "zuul-check:plugins_delete-project": {
+      "state": "SCHEDULED",
+      "message": "Change has been enqueued in check",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/363356,5",
+      "started": "2023-03-17T14:17:59Z",
+      "created": "2023-03-17T14:18:00Z",
+      "updated": "2023-03-17T14:18:00Z"
+    }
+  }
+}
