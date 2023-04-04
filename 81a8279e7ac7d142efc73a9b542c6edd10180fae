@@ -197,6 +197,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7e5e354_7d154b3a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-04-04T14:47:29Z",
+      "side": 1,
+      "message": "Gerrit logs out user after 23 hours (just checked one of current setup) if there is no activity, even if browser is not closed.\nIn case if user is not logged out but the time for save project deletion has passed, user will receive message in UI that he/she\u0027s not permitted to delete the project as he\u0027s not admin and is not a member of specific access group.",
+      "parentUuid": "bf07fa5c_a261ed07",
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bea0d35_a1ab8bed",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
