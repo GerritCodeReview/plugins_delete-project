@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e1187d_47d9f3b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-04-13T05:51:50Z",
+      "side": 1,
+      "message": "to allow deleting",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "a104497b2559b97b7be269b01eec87d98e3cef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b43efad2_1f95c7e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-04-13T05:51:50Z",
+      "side": 1,
+      "message": "Because this is a conditional ACL based on time, I\u0027d expect to be part of the global capability rather than in the API or UI",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "a104497b2559b97b7be269b01eec87d98e3cef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9f116b8_4fad0452",
@@ -14,6 +60,23 @@
       "writtenOn": "2023-03-20T13:42:17Z",
       "side": 1,
       "message": "I have posted more details regarding this change in \u0027Repo and Gerrit discussion\u0027 channel.\nAppreciate your feedback.",
+      "revId": "a104497b2559b97b7be269b01eec87d98e3cef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5f0064a_762ec167",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-04-13T05:51:50Z",
+      "side": 1,
+      "message": "I have a problem with the overall approach: the code doesn\u0027t match the specifications of the feature.\n\nPlease check my comments on both.",
       "revId": "a104497b2559b97b7be269b01eec87d98e3cef10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
