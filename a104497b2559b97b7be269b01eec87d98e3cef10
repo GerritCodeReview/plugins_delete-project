@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5f7565_5ea70a8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-04-19T11:30:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e1187d_47d9f3b9",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "a104497b2559b97b7be269b01eec87d98e3cef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b43efad2_1f95c7e9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-13T05:51:50Z",
       "side": 1,
       "message": "Because this is a conditional ACL based on time, I\u0027d expect to be part of the global capability rather than in the API or UI",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "a104497b2559b97b7be269b01eec87d98e3cef10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a73035_4cbb8dba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-04-19T11:30:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b43efad2_1f95c7e9",
       "range": {
         "startLine": 10,
         "startChar": 33,
