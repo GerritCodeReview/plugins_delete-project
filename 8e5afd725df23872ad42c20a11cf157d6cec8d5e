@@ -16,6 +16,29 @@
       "message": "Thanks  for valid input.\nIt\u0027s a good idea to make the option as global capability in order to switch it on or off.",
       "revId": "8e5afd725df23872ad42c20a11cf157d6cec8d5e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1fa0c2a_befc6c62",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2023-04-20T15:57:31Z",
+      "side": 1,
+      "message": "Which user(s) does this apply to? Only the one that created the project or everyone granted the new `Delete Project by Creation Time` capability?",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "8e5afd725df23872ad42c20a11cf157d6cec8d5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
