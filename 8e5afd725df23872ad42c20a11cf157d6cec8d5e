@@ -39,6 +39,30 @@
       },
       "revId": "8e5afd725df23872ad42c20a11cf157d6cec8d5e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3498cc32_bb9ef98d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-04-24T10:48:52Z",
+      "side": 1,
+      "message": "According to last improvement basing on Luca\u0027s comment the approach is next:\npermission is granted to user, who is granted the new capability \u0027Delete Project by Creation Time\u0027 and who is the owner of the project.\nThat means if user does not specify project owner when creating the project, nobody has permissions.\nThat\u0027s actually a good point to add to documentation.\nThanks",
+      "parentUuid": "c1fa0c2a_befc6c62",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "8e5afd725df23872ad42c20a11cf157d6cec8d5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
