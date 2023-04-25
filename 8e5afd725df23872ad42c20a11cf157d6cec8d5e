@@ -63,6 +63,30 @@
       },
       "revId": "8e5afd725df23872ad42c20a11cf157d6cec8d5e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14da7f77_b9cc5333",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-04-25T09:24:11Z",
+      "side": 1,
+      "message": "I have added more details in \u0027about\u0027 section.",
+      "parentUuid": "3498cc32_bb9ef98d",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "8e5afd725df23872ad42c20a11cf157d6cec8d5e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

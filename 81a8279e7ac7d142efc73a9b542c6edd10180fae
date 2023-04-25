@@ -213,6 +213,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a480ee39_4f6cf12c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-04-25T09:24:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c7e5e354_7d154b3a",
+      "revId": "81a8279e7ac7d142efc73a9b542c6edd10180fae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bea0d35_a1ab8bed",
