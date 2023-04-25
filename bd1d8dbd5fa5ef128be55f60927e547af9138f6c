@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa095a30_ebf2d3d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "Some nits\n\nYou did run google-java style right?",
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5885eeb_006b2199",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "two \u0027t\u0027",
+      "range": {
+        "startLine": 109,
+        "startChar": 46,
+        "endLine": 109,
+        "endChar": 75
+      },
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d5e9d8e_43a5cb40",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "maybe combine to a method assertCanBeDeletedByCreationTime(rsrc) since line 123 and line 125 checks for \"same\" feature",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 5
+      },
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35dcca1_b42252a5",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "to enable current functionality?",
+      "range": {
+        "startLine": 80,
+        "startChar": 43,
+        "endLine": 80,
+        "endChar": 47
+      },
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed4e7ac_cc692f84",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "you can read the line 63-68, the capability is granted, not sure about setting up.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e74dfbd_af1bbe81",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "the option",
+      "range": {
+        "startLine": 85,
+        "startChar": 58,
+        "endLine": 85,
+        "endChar": 64
+      },
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f57bf2a_3893ab3e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-04-25T20:38:54Z",
+      "side": 1,
+      "message": "line wrap it",
+      "range": {
+        "startLine": 113,
+        "startChar": 66,
+        "endLine": 115,
+        "endChar": 83
+      },
+      "revId": "bd1d8dbd5fa5ef128be55f60927e547af9138f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
