@@ -14,52 +14,33 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
-
-import com.google.common.flogger.FluentLogger;
-import com.google.common.io.MoreFiles;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
-import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import org.apache.commons.io.FileUtils;
+import java.util.Optional;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryCache;
 
 public class FilesystemDeleteHandler {
-  private static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private static final DateTimeFormatter FORMAT =
-      DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneId.of("UTC"));
-
-  private final GitRepositoryManager repoManager;
+  private final RepositoryDelete repositoryDelete;
   private final DynamicSet<ProjectDeletedListener> deletedListeners;
   private final Configuration config;
 
   @Inject
   public FilesystemDeleteHandler(
-      GitRepositoryManager repoManager,
+      RepositoryDelete repositoryDelete,
       DynamicSet<ProjectDeletedListener> deletedListeners,
       Configuration config) {
-    this.repoManager = repoManager;
+    this.repositoryDelete = repositoryDelete;
     this.deletedListeners = deletedListeners;
     this.config = config;
   }
 
   public void delete(Project.NameKey project, boolean preserveGitRepository)
       throws IOException, RepositoryNotFoundException {
+<<<<<<< HEAD   (ecd8f3 Merge branch 'stable-3.8' into stable-3.9)
     // Remove from the jgit cache
     Repository repository = repoManager.openRepository(project);
     cleanCache(repository);
@@ -167,5 +148,13 @@ public class FilesystemDeleteHandler {
         log.atWarning().withCause(e).log("Failure in ProjectDeletedListener");
       }
     }
+=======
+    repositoryDelete.execute(
+        project,
+        preserveGitRepository,
+        config.shouldArchiveDeletedRepos(),
+        Optional.ofNullable(config.getArchiveFolder()),
+        deletedListeners);
+>>>>>>> CHANGE (79674d Extract the repository deletion logic so it becomes reusable)
   }
 }
