@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e699a20c_e5e89ab9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-04-28T08:31:42Z",
+      "side": 1,
+      "message": "As @David pointed out, an alternative for better code reuse would be to move these classes into core gerrit. This would also avoid introducing inter-plugin dependencies. The only reason i did not do this is because the concept of deleting a repo is alien to core gerrit - and therefore it makes sense for the delete-project plugin to retain this capability. Keen to hear opinions.",
+      "revId": "e3ce1d28c5cca9503e030014907a93e2cfaf6a3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
