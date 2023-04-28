@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "648c0dd4_63a3e1d1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-04-28T15:21:53Z",
+      "side": 1,
+      "message": "I don\u0027t see why we need to carry the `Option` this deep into the stack. Can\u0027t we throw after L105, where we have the `basePath` which we mention in our exception? It simplifies this method as we have one less condition to deal with.",
+      "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f3f563_3ecf126d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-04-28T15:21:53Z",
+      "side": 1,
+      "message": "Would it be safer to keep this assignment in `setUp`?\n\nI\u0027m just thinking if a test is added to this class, it will have to move back in there anyway, and it might take the author some time to notice. Conceptually I still think we want this once-per-test rather than once-per-class.",
+      "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9fc7ed9_b180c02e",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-04-28T15:21:53Z",
+      "side": 1,
+      "message": "As in the other test - should this live inside `setUp` too? One of the tests (L150) adds an empty string to it, which will leak into the other tests. I suppose this doesn\u0027t cause test failures (?) but it will change the starting inputs depending on whether they run before or after said test.",
+      "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
