@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf818d0_a66098d2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-04-28T15:55:52Z",
+      "side": 1,
+      "message": "Yup, good call, better to fail fast. Done",
+      "parentUuid": "648c0dd4_63a3e1d1",
+      "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f3f563_3ecf126d",
@@ -35,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0515d497_6a73cc7f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/FilesystemDeleteHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-04-28T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99f3f563_3ecf126d",
+      "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9fc7ed9_b180c02e",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-04-28T15:21:53Z",
       "side": 1,
       "message": "As in the other test - should this live inside `setUp` too? One of the tests (L150) adds an empty string to it, which will leak into the other tests. I suppose this doesn\u0027t cause test failures (?) but it will change the starting inputs depending on whether they run before or after said test.",
+      "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b6d671_39826ee5",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-04-28T15:55:52Z",
+      "side": 1,
+      "message": "good spot, bloody java with its mutability",
+      "parentUuid": "c9fc7ed9_b180c02e",
       "revId": "f506799e98dfb6057bd876d23a06f366ae1371d2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
