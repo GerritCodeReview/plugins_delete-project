@@ -294,6 +294,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8292fe_541c90bd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-03T13:44:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48418a34_f4ab246f",
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81b2b7df_4a752465",
