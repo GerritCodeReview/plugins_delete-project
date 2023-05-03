@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba95673_d9e127ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-03T11:56:13Z",
+      "side": 1,
+      "message": "Done https://gerrit-review.googlesource.com/c/plugins/delete-project/+/372478",
+      "parentUuid": "67bc2448_0b4d2421",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 60
+      },
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38b09566_75e8acbf",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-05-03T10:45:53Z",
       "side": 1,
       "message": "Extract\n(We use the imperative form in commit messages)",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ef3caf_f674ef31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-03T11:56:13Z",
+      "side": 1,
+      "message": "Done (at the CR for master)",
+      "parentUuid": "38b09566_75e8acbf",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -224,6 +272,30 @@
       "side": 1,
       "message": "I just copy-pasted the existing implementation, i can remove.",
       "parentUuid": "81b2b7df_4a752465",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27b82b70_a6f5ec5a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-03T11:56:13Z",
+      "side": 1,
+      "message": "Done (at the CR for master)",
+      "parentUuid": "0144cdb0_9bf8409b",
       "range": {
         "startLine": 84,
         "startChar": 4,
