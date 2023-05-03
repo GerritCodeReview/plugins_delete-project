@@ -168,6 +168,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fde60a3d_83427cf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-05-03T12:42:00Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "8a564970_b32f9a28",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f7930365_a098b381",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -196,6 +220,23 @@
       "writtenOn": "2023-05-03T10:45:53Z",
       "side": 1,
       "message": "Nice, but it should be a change for master.",
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa8594a_f9d96535",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-05-03T12:42:00Z",
+      "side": 1,
+      "message": "Happy to merge once the JavaDoc is amended.",
       "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -231,6 +272,24 @@
       "side": 1,
       "message": "Agreed, I chose to document the `execute` method instead, tbh i wouldn\u0027t add javadoc for the class too as there is not much more to say. I can move to the javadoc from the method to the class (and adapt it a bit ofc) - WDYT?",
       "parentUuid": "cec33fd4_4a2fc118",
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48418a34_f4ab246f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-05-03T12:42:00Z",
+      "side": 1,
+      "message": "Yeah, the method\u0027s JavaDoc should be slimmer and the class\u0027s JavaDoc should give the overall background of what the class is for.",
+      "parentUuid": "53cbe5ec_868b9365",
       "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -343,6 +402,30 @@
       "side": 1,
       "message": "Well, that was my first reaction as well, but no. \nFirst of all this code is copy-pasted, it is the existing implementation. \n\nIf you look at L99 you will see the repo is actually closed. I dont know why we\u0027d open the repo, only to immediately close it, it doesnt make too much sense to me, but I didnt want to touch the implementation as apparently it works.",
       "parentUuid": "871d9519_4dced613",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 25
+      },
+      "revId": "3a1224a5586c873e6136110a1df1016f84b3e518",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "715a8170_cee367d6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-05-03T12:42:00Z",
+      "side": 1,
+      "message": "\u003e Well, that was my first reaction as well, but no. \n\u003e First of all this code is copy-pasted, it is the existing implementation. \n\u003e \n\u003e If you look at L99 you will see the repo is actually closed. \n\nOh man, yes, but that\u0027s so bad and unsafe.\nI\u0027d suggest to fix that with a separate change though.\n\n\u003e I dont know why we\u0027d open the repo, only to immediately close it, it doesnt make too much sense to me, but I didnt want to touch the implementation as apparently it works.\n\nAgreed, it doesn\u0027t make sense. Let\u0027s address that in a separate change.",
+      "parentUuid": "c4c14375_ecd967c5",
       "range": {
         "startLine": 85,
         "startChar": 4,
