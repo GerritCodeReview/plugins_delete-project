@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1726db78_bff9eecc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-05-04T20:59:04Z",
+      "side": 1,
+      "message": "All good with some nits",
+      "revId": "d6d25fdef83be5929e4adb43236323043ad7f8da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09aaca38_83ecb0da",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-05-04T20:59:04Z",
+      "side": 1,
+      "message": "canDeleteByCreationTime since line 107 is not passive (english)",
+      "range": {
+        "startLine": 126,
+        "startChar": 18,
+        "endLine": 126,
+        "endChar": 44
+      },
+      "revId": "d6d25fdef83be5929e4adb43236323043ad7f8da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "401037d5_5e4da1f0",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-05-04T20:59:04Z",
+      "side": 1,
+      "message": "oneself is neutral I think",
+      "range": {
+        "startLine": 75,
+        "startChar": 24,
+        "endLine": 75,
+        "endChar": 39
+      },
+      "revId": "d6d25fdef83be5929e4adb43236323043ad7f8da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
