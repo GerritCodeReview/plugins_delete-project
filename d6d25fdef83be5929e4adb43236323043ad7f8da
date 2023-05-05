@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8cdc545_045416f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeletePreconditions.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-05-05T10:32:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09aaca38_83ecb0da",
+      "range": {
+        "startLine": 126,
+        "startChar": 18,
+        "endLine": 126,
+        "endChar": 44
+      },
+      "revId": "d6d25fdef83be5929e4adb43236323043ad7f8da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "401037d5_5e4da1f0",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-04T20:59:04Z",
       "side": 1,
       "message": "oneself is neutral I think",
+      "range": {
+        "startLine": 75,
+        "startChar": 24,
+        "endLine": 75,
+        "endChar": 39
+      },
+      "revId": "d6d25fdef83be5929e4adb43236323043ad7f8da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b46b62_1395dd04",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2023-05-05T10:32:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "401037d5_5e4da1f0",
       "range": {
         "startLine": 75,
         "startChar": 24,
