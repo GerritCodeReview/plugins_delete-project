@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c897a2b9_f35083f3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-05-11T11:47:33Z",
+      "side": 1,
+      "message": "this name is misleading since value false means it\u0027s not preserving git repos\nhence either name this NO_PRESERVE_GIT_REPO or inline the value",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "08399961d2b424fefa46975af963c03bb9e112c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6654a687_be14d2ff",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-05-11T11:47:33Z",
+      "side": 1,
+      "message": "same problem here, value is false which means deleted repos are not archived\nname this NO_ARCHIVE or inline the value",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "08399961d2b424fefa46975af963c03bb9e112c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
