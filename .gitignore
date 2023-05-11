@@ -5,3 +5,7 @@
 /bazel-*
 /eclipse-out
 /node_modules
+
+# IntelliJ files
+.idea
+*.iml
