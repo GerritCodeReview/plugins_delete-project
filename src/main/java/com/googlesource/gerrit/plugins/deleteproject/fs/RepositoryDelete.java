@@ -99,6 +99,18 @@ public class RepositoryDelete {
     }
   }
 
+  /**
+   * Removes a git repository from the filesystem and the jgit cache. The git repo is neither
+   * preserved (ie kept on disk) nor archived, and no downstream listeners are notified.
+   *
+   * @param project - the git repo name that is eligible for deletion
+   * @throws RepositoryNotFoundException - if the repository does not exist
+   * @throws IOException - if any of the underlying operations during repo deletion fails
+   */
+  public void execute(Project.NameKey project) throws RepositoryNotFoundException, IOException {
+    execute(project, false, false, Optional.empty(), DynamicSet.emptySet());
+  }
+
   private static void cleanCache(Repository repository) {
     repository.close();
     RepositoryCache.close(repository);
