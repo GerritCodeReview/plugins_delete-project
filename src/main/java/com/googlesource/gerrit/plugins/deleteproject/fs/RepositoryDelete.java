@@ -99,6 +99,10 @@ public class RepositoryDelete {
     }
   }
 
+  public void execute(Project.NameKey project) throws RepositoryNotFoundException, IOException {
+    execute(project, false, false, Optional.empty(), DynamicSet.emptySet());
+  }
+
   private static void cleanCache(Repository repository) {
     repository.close();
     RepositoryCache.close(repository);
