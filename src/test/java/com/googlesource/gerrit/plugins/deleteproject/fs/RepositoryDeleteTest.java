@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.extensions.registration.RegistrationHandle;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -46,8 +47,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class RepositoryDeleteTest {
 
-  private static final boolean NO_ARCHIVE = false;
-  private static final boolean NO_PRESERVE_GIT_REPO = false;
   private static final Optional<Path> NO_ARCHIVE_PATH = Optional.empty();
 
   @Mock private GitRepositoryManager repoManager;
@@ -56,12 +55,14 @@ public class RepositoryDeleteTest {
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private DynamicSet<ProjectDeletedListener> deletedListeners;
+  private RegistrationHandle handle;
   private RepositoryDelete repositoryDelete;
   private Path basePath;
 
   @Before
   public void setUp() throws Exception {
     deletedListeners = new DynamicSet<>();
+    handle = deletedListeners.add("testPlugin", projectDeleteListener);
     basePath = tempFolder.newFolder().toPath().resolve("base");
   }
 
@@ -72,8 +73,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
 
@@ -84,8 +84,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
 
@@ -100,8 +99,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoToDeleteName);
     when(repoManager.openRepository(nameKey)).thenReturn(repoToDelete);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey);
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
   }
@@ -109,13 +107,11 @@ public class RepositoryDeleteTest {
   @Test
   public void shouldPreserveRepository() throws Exception {
     String repoName = "preservedRepo";
-    boolean preserveGitRepo = true;
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, preserveGitRepo, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey, true, false, NO_ARCHIVE_PATH, deletedListeners);
     assertThat(repository.getDirectory().exists()).isTrue();
   }
 
@@ -134,8 +130,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, true, Optional.of(archiveFolder), deletedListeners);
+    repositoryDelete.execute(nameKey, false, true, Optional.of(archiveFolder), deletedListeners);
     assertThat(repository.getDirectory().exists()).isFalse();
     String patternToVerify = archiveFolder.resolve(repoName).toString() + "*%archived%.git";
     assertThat(pathExistsWithPattern(archiveFolder, patternToVerify)).isTrue();
@@ -148,9 +143,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    deletedListeners.add("", projectDeleteListener);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey, false, false, NO_ARCHIVE_PATH, deletedListeners);
     Mockito.verify(projectDeleteListener).onProjectDeleted(any());
   }
 
@@ -161,8 +154,8 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    handle.remove();
+    repositoryDelete.execute(nameKey, false, false, NO_ARCHIVE_PATH, deletedListeners);
     Mockito.verify(projectDeleteListener, never()).onProjectDeleted(any());
   }
 
