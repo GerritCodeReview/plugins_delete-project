@@ -53,6 +53,8 @@ public class RepositoryDelete {
     this.repoManager = repoManager;
   }
 
+  private static final boolean PRESERVE_GIT_REPO = false;
+  private static final boolean ARCHIVE_DELETED_REPO = false;
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final DateTimeFormatter FORMAT =
       DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneId.of("UTC"));
@@ -97,6 +99,11 @@ public class RepositoryDelete {
         deleteGitRepository(projectName, repoPath, deletedListeners);
       }
     }
+  }
+
+  public void execute(Project.NameKey project) throws RepositoryNotFoundException, IOException {
+    execute(
+        project, PRESERVE_GIT_REPO, ARCHIVE_DELETED_REPO, Optional.empty(), DynamicSet.emptySet());
   }
 
   private static void cleanCache(Repository repository) {

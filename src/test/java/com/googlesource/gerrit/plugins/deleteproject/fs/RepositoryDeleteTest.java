@@ -72,8 +72,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
 
@@ -84,8 +83,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
 
@@ -100,8 +98,7 @@ public class RepositoryDeleteTest {
     Project.NameKey nameKey = Project.nameKey(repoToDeleteName);
     when(repoManager.openRepository(nameKey)).thenReturn(repoToDelete);
     repositoryDelete = new RepositoryDelete(repoManager);
-    repositoryDelete.execute(
-        nameKey, NO_PRESERVE_GIT_REPO, NO_ARCHIVE, NO_ARCHIVE_PATH, deletedListeners);
+    repositoryDelete.execute(nameKey);
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
   }
