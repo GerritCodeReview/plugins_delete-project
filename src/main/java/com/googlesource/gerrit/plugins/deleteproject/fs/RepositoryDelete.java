@@ -18,6 +18,7 @@ import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
+import com.google.gerrit.common.UsedAt;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
@@ -97,6 +98,19 @@ public class RepositoryDelete {
         deleteGitRepository(projectName, repoPath, deletedListeners);
       }
     }
+  }
+
+  /**
+   * Removes a git repository from the filesystem and the jgit cache. The git repo is neither
+   * preserved (ie kept on disk) nor archived, and no downstream listeners are notified.
+   *
+   * @param project - the git repo name that is eligible for deletion
+   * @throws RepositoryNotFoundException - if the repository does not exist
+   * @throws IOException - if any of the underlying operations during repo deletion fails
+   */
+  @UsedAt(UsedAt.Project.PLUGIN_PULL_REPLICATION)
+  public void execute(Project.NameKey project) throws RepositoryNotFoundException, IOException {
+    execute(project, false, false, Optional.empty(), DynamicSet.emptySet());
   }
 
   private static void cleanCache(Repository repository) {
