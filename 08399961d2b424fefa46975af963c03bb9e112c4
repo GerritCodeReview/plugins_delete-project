@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1345f45_3fc584e5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-11T12:04:15Z",
+      "side": 1,
+      "message": "This is what I had [originally](https://gerrit-review.googlesource.com/c/plugins/pull-replication/+/371855/comment/ef4077ce_9141d0ff/), I think i will simply inline the value",
+      "parentUuid": "c897a2b9_f35083f3",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "08399961d2b424fefa46975af963c03bb9e112c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6654a687_be14d2ff",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-11T11:47:33Z",
       "side": 1,
       "message": "same problem here, value is false which means deleted repos are not archived\nname this NO_ARCHIVE or inline the value",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "08399961d2b424fefa46975af963c03bb9e112c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "676ae535_4cad7c3a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-11T12:04:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6654a687_be14d2ff",
       "range": {
         "startLine": 57,
         "startChar": 31,
