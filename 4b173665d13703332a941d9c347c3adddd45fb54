@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efcdc61a_75c62e3f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-05-12T06:35:56Z",
+      "side": 0,
+      "message": "remove these constants as they are no longer used ?",
+      "range": {
+        "startLine": 76,
+        "startChar": 17,
+        "endLine": 76,
+        "endChar": 66
+      },
+      "revId": "4b173665d13703332a941d9c347c3adddd45fb54",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
