@@ -36,6 +36,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eb83e23_7e340af3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-12T09:46:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0ec59cf1_6faceb31",
+      "revId": "09f6e0fa6dca80ad83e14a3e77c330d915a30ed7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5db557ee_21e53503",
@@ -53,6 +71,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ff46f7_9dfca6c2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-12T09:46:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db557ee_21e53503",
+      "revId": "09f6e0fa6dca80ad83e14a3e77c330d915a30ed7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7d2c1f4_b9727e5c",
@@ -66,6 +102,24 @@
       "writtenOn": "2023-05-12T07:30:18Z",
       "side": 1,
       "message": "Optional: We could also extend `UsedAt` annotation in gerrit-core [1], and annotate it here, to make this inter-plugin dependency more explicit:\n\n```\n  @UsedAt(UsedAt.Project.PLUGIN_PULL_REPLICATION)\n  public void execute(Project.NameKey project)\n  [...]\n```\n\nThis would also ensure, that this method wouldn\u0027t be accidentally removed (as not used in `delete-project` itself, outside of the junit tests, that could be refactored and/or removed).\n\n[1]: https://gerrit.googlesource.com/gerrit/+/refs/heads/master/java/com/google/gerrit/common/UsedAt.java#45",
+      "revId": "09f6e0fa6dca80ad83e14a3e77c330d915a30ed7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d71e039_dbe48043",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-12T09:46:24Z",
+      "side": 1,
+      "message": "ah very nice, I wasn\u0027t aware of this. Can you approve [this CR](https://gerrit-review.googlesource.com/c/gerrit/+/373736) - and once merged I can then annotate the method?",
+      "parentUuid": "e7d2c1f4_b9727e5c",
       "revId": "09f6e0fa6dca80ad83e14a3e77c330d915a30ed7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
