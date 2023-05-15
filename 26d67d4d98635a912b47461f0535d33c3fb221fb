@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3604a2_6337c8b3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-15T11:19:29Z",
+      "side": 1,
+      "message": "I\u0027ve updated to commit msg.",
+      "parentUuid": "e281a090_e49301f0",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 49
+      },
+      "revId": "26d67d4d98635a912b47461f0535d33c3fb221fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d540c06d_1811ba50",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-15T10:07:34Z",
       "side": 1,
       "message": "I believe it was more readable as it was before. It is unclear for the reader to understand what `true` and `false` mean in this test and the other below.",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 49
+      },
+      "revId": "26d67d4d98635a912b47461f0535d33c3fb221fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231c3cb6_7b01fc21",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-15T11:19:29Z",
+      "side": 1,
+      "message": "I have changed this twice already based on feedback from 2 different people, ie its one of those where everyone has a different opinion, so i think it comes down to personal preference. Given they are only part of the test, and that the IDE helps you understand what each arg corresponds to when reading the code, i am inclined to leave it as is.",
+      "parentUuid": "d540c06d_1811ba50",
       "range": {
         "startLine": 114,
         "startChar": 38,
