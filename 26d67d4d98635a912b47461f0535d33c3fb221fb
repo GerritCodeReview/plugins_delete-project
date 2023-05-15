@@ -93,6 +93,30 @@
       },
       "revId": "26d67d4d98635a912b47461f0535d33c3fb221fb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8900d1ab_586cfb36",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-05-15T11:27:10Z",
+      "side": 1,
+      "message": "I see, Matthias had just a remark on the constant name (positive expression) associated with a false (negative boolean expression).\n\nAnyway, I\u0027m not religious about it :-)",
+      "parentUuid": "231c3cb6_7b01fc21",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 49
+      },
+      "revId": "26d67d4d98635a912b47461f0535d33c3fb221fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
