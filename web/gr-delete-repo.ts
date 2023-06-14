@@ -40,8 +40,8 @@ declare global {
 
 @customElement('gr-delete-repo')
 export class GrDeleteRepo extends LitElement {
-  @query('#deleteRepoOverlay')
-  deleteRepoOverlay?: GrOverlay;
+  @query('#deleteRepoModal')
+  deleteRepoModal?: HTMLDialogElement;
 
   @query('#preserveGitRepoCheckBox')
   preserveGitRepoCheckBox?: HTMLInputElement;
@@ -64,20 +64,26 @@ export class GrDeleteRepo extends LitElement {
   @state()
   private error?: string;
 
-  static override styles = css`
-    :host {
-      display: block;
-      margin-bottom: var(--spacing-xxl);
-    }
-    /* TODO: Find a way to use shared styles in lit elements in plugins. */
-    h3 {
-      font: inherit;
-      margin: 0;
-    }
-    .error {
-      color: red;
-    }
-  `;
+  static override get styles() {
+    return [
+      window.Gerrit.styles.font as CSSResult,
+      window.Gerrit.styles.modal as CSSResult,
+      css`
+        :host {
+          display: block;
+          margin-bottom: var(--spacing-xxl);
+        }
+        /* TODO: Find a way to use shared styles in lit elements in plugins. */
+        h3 {
+          font: inherit;
+          margin: 0;
+        }
+        .error {
+          color: red;
+        }
+      `,
+    ];
+  }
 
   get action(): ActionInfo | undefined {
     return this.config.actions?.[this.actionId];
@@ -101,18 +107,18 @@ export class GrDeleteRepo extends LitElement {
         ?disabled="${!this.action.enabled}"
         @click="${() => {
           this.error = undefined;
-          this.deleteRepoOverlay?.open();
+          this.deleteRepoModal?.showModal();
         }}"
       >
         ${this.action.label}
       </gr-button>
       ${this.renderError()}
-      <gr-overlay id="deleteRepoOverlay" with-backdrop>
+      <dialog id="deleteRepoModal">
         <gr-dialog
           id="deleteRepoDialog"
           confirm-label="Delete"
           @confirm="${this.deleteRepo}"
-          @cancel="${() => this.deleteRepoOverlay?.close()}"
+          @cancel="${() => this.deleteRepoModal?.close()}"
         >
           <div class="header" slot="header">
             Are you really sure you want to delete the repo: "${this.repoName}"?
@@ -136,7 +142,7 @@ export class GrDeleteRepo extends LitElement {
             </div>
           </div>
         </gr-dialog>
-      </gr-overlay>
+      </dialog>
     `;
   }
 
