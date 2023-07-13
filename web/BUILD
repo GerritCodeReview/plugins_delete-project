@@ -6,14 +6,6 @@ package_group(
     name = "visibility",
     packages = ["//plugins/delete-project/..."],
 )
-
-package(default_visibility = [":visibility"])
-
-ts_config(
-    name = "tsconfig",
-    src = "tsconfig.json",
-    deps = [
-        "//plugins:tsconfig-plugins-base.json",
     ],
 )
 
