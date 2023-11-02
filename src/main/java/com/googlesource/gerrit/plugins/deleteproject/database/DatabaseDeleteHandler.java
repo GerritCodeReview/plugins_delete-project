@@ -21,7 +21,7 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.server.StarredChangesUtil;
+import com.google.gerrit.server.StarredChangesWriter;
 import com.google.gerrit.server.UserInitiated;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.AccountsUpdate;
@@ -41,7 +41,7 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 public class DatabaseDeleteHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
-  private final StarredChangesUtil starredChangesUtil;
+  private final StarredChangesWriter starredChangesWriter;
   private final ChangeIndexer indexer;
   private final Provider<InternalAccountQuery> accountQueryProvider;
   private final Provider<AccountsUpdate> accountsUpdateProvider;
@@ -50,13 +50,13 @@ public class DatabaseDeleteHandler {
 
   @Inject
   public DatabaseDeleteHandler(
-      StarredChangesUtil starredChangesUtil,
+      StarredChangesWriter starredChangesWriter,
       ChangeIndexer indexer,
       ChangeNotes.Factory schemaFactoryNoteDb,
       GitRepositoryManager repoManager,
       Provider<InternalAccountQuery> accountQueryProvider,
       @UserInitiated Provider<AccountsUpdate> accountsUpdateProvider) {
-    this.starredChangesUtil = starredChangesUtil;
+    this.starredChangesWriter = starredChangesWriter;
     this.indexer = indexer;
     this.accountQueryProvider = accountQueryProvider;
     this.accountsUpdateProvider = accountsUpdateProvider;
@@ -85,7 +85,7 @@ public class DatabaseDeleteHandler {
 
     for (Change.Id id : changeIds) {
       try {
-        starredChangesUtil.unstarAllForChangeDeletion(id);
+        starredChangesWriter.unstarAllForChangeDeletion(id);
       } catch (NoSuchChangeException | IOException e) {
         // we can ignore the exception during delete
       }
