@@ -83,7 +83,9 @@ class HideProject {
   private void createProjectIfMissing(String projectName) throws IOException, RestApiException {
     if (!projectCache.get(Project.nameKey(projectName)).isPresent()) {
       try {
-        createProject.apply(TopLevelResource.INSTANCE, IdString.fromDecoded(projectName), null);
+        @SuppressWarnings("unused")
+        var unused =
+            createProject.apply(TopLevelResource.INSTANCE, IdString.fromDecoded(projectName), null);
       } catch (RestApiException | ConfigInvalidException | PermissionBackendException e) {
         throw new ResourceConflictException(
             String.format("Failed to create project %s", projectName), e);
