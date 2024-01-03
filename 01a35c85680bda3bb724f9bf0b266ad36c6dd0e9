@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9914c36f_f6f56f0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2024-01-03T16:36:31Z",
+      "side": 1,
+      "message": "The build only works together with the Gerrit core change, verified this manually.",
+      "revId": "01a35c85680bda3bb724f9bf0b266ad36c6dd0e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
