@@ -22,6 +22,30 @@
       },
       "revId": "e82a3248a169ec054edc8f863d187b17eb208322",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a513e1e_4310b13d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1071857
+      },
+      "writtenOn": "2024-01-25T12:08:23Z",
+      "side": 1,
+      "message": "Fair, I added you as a Core Maintainer (as Core Maintainers own the Core Plugins) as Luca and Nasser appears to be busy.\nAppreciate you chiming in.\n\nWhen archiving is set, the archiving happens on the Primary (the repository is archived and moved to a separate location, outside of Gerrit. (If you want to keep it in Gerrit, but as a hidden project, there\u0027s the hideProjectOnPreserve option)). Since it is no longer present in Gerrit at all, it seems odd to keep it on the replicas.\n\nIf you would want that functionality, should you just not set replicateProjectDeletions to false in the Replication Plugin? (which is also the default setting).\n\nIn that case, you get the archive on the primary, and the project deletion is not replicated (so you get a backup-ish on replicas). (Which would be the workflow you suggested might be the intention).\n\nBut if you set that you want archiving *and* want projectDeletions...\nThen you\u0027re at a state where you save those backups on the primaries, and you want to keep your replicas clean. Without this change, this workflow isn\u0027t even an option. You either fully delete on all instances, or always keep on all instances, or keep projects hidden in Gerrit under the Deleted-Projects on the Primary, which isn\u0027t really removing it from Gerrit at all, while deleting it from Replicas.\n\nIf I have misunderstood the initial intention, I am fine with abandoning this change, but the full flow doesn\u0027t really make sense, as the replication plugin has it\u0027s own setting for projectDeletions.\n\nThis change only emits the event, and as an Archive outside of Gerrit is an effective Project Deletion (from Gerrit), it seems that it should emit that event. Whether the event is acted upon or not is still up to the configuration of the replication plugins.",
+      "parentUuid": "ae25966e_962f7095",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 21
+      },
+      "revId": "e82a3248a169ec054edc8f863d187b17eb208322",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
