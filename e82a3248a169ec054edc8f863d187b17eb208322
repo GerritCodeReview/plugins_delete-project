@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae25966e_962f7095",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2024-01-25T11:20:54Z",
+      "side": 1,
+      "message": "I have no stakes here (at Google we do not use the delete-project plugin), and I\u0027m also not familiar with how the delete-project plugin works. So sorry if my question doesn\u0027t make sense.\n\nIsn\u0027t it intended that archived repositories are still backed-up on all replicas, so that there is no risk of losing them when the data gets corrupted in the main node?\n\nDo you mean the replicas for the repo under the original name should be removed, but there are new replicas under the new deleted name?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 21
+      },
+      "revId": "e82a3248a169ec054edc8f863d187b17eb208322",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
