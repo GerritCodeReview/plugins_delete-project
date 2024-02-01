@@ -30,7 +30,6 @@ import com.google.inject.Singleton;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -104,7 +103,7 @@ public class Configuration {
 
   private Path getArchiveFolderFromConfig(String configValue) {
     try {
-      return Files.createDirectories(Paths.get(configValue));
+      return Files.createDirectories(Path.of(configValue));
     } catch (Exception e) {
       log.atWarning().log(
           "Failed to create folder %s: %s; using default path: %s",

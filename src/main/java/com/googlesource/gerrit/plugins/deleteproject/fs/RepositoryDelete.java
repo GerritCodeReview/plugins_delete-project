@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -159,7 +158,7 @@ public class RepositoryDelete {
   }
 
   private static Path getBasePath(Path repo, String projectName) {
-    Path projectPath = Paths.get(projectName);
+    Path projectPath = Path.of(projectName);
     return repo.getRoot()
         .resolve(repo.subpath(0, repo.getNameCount() - projectPath.getNameCount()));
   }

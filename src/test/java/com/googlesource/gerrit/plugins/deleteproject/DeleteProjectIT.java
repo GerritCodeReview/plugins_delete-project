@@ -43,7 +43,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.lib.Constants;
@@ -75,7 +74,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Before
   public void setUpArchiveFolder() throws IOException {
-    archiveFolder = Files.createDirectories(Paths.get(ARCHIVE_FOLDER)).toFile();
+    archiveFolder = Files.createDirectories(Path.of(ARCHIVE_FOLDER)).toFile();
     projectDir = verifyProjectRepoExists(project);
   }
 
