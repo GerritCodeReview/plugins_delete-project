@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ab9417a_5178e6ce",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-02-12T14:26:45Z",
+      "side": 1,
+      "message": "Need to pass also `deleteListeners`\n\n\n```suggestion\n        archiveGitRepository(projectName, repoPath, archivedFolder, deleteListeners);\n```",
+      "range": {
+        "startLine": 95,
+        "startChar": 66,
+        "endLine": 95,
+        "endChar": 67
+      },
+      "revId": "89019c9a187b843b0f0dc42dea63ce652dad9144",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "482af626_f19dff08",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-02-12T14:26:45Z",
+      "side": 1,
+      "message": "Need to pass the `DynamicSet\u003cProjectDeletedListener\u003e deletedListeners` as well.\n\n\n```suggestion\n      String projectName, Path repoPath, Optional\u003cPath\u003e archivedFolder, DynamicSet\u003cProjectDeletedListener\u003e deletedListeners) throws IOException {\n```",
+      "range": {
+        "startLine": 121,
+        "startChar": 70,
+        "endLine": 121,
+        "endChar": 71
+      },
+      "revId": "89019c9a187b843b0f0dc42dea63ce652dad9144",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31010d9e_9b95c069",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
         "patchSetId": 3
