@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31010d9e_9b95c069",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-02-12T14:18:00Z",
+      "side": 1,
+      "message": "Needs to be amended to be compatible with master.\n\n\n```suggestion\n      sendProjectDeletedEvent(projectName, deletedListeners);\n```",
+      "revId": "89019c9a187b843b0f0dc42dea63ce652dad9144",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
