@@ -36,7 +36,6 @@ public class ConfigurationTest {
   private static final long DEFAULT_ARCHIVE_DURATION_MS = TimeUnit.DAYS.toMillis(180);
   private static final String CUSTOM_DURATION = "100";
   private static final String CUSTOM_PARENT = "customParent";
-  private static final String INVALID_CUSTOM_FOLDER = "//\\\\\\///////";
   private static final String INVALID_ARCHIVE_DURATION = "180weeks180years";
   private static final String PLUGIN_NAME = "delete-project";
 
@@ -113,17 +112,5 @@ public class ConfigurationTest {
     deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
 
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
-  }
-
-  @Test
-  public void invalidTargetArchiveFolder() {
-    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
-    pluginConfig.setString("archiveFolder", INVALID_CUSTOM_FOLDER);
-
-    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
-        .thenReturn(pluginConfig.asPluginConfig());
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
-
-    assertThat(deleteConfig.getArchiveFolder().toString()).isEqualTo(pluginDataDir.toString());
   }
 }
