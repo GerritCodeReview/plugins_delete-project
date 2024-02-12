@@ -118,7 +118,7 @@ public class RepositoryDelete {
   }
 
   private static void archiveGitRepository(
-      String projectName, Path repoPath, Optional<Path> archivedFolder) throws IOException {
+      String projectName, Path repoPath, Optional<Path> archivedFolder, DynamicSet<ProjectDeletedListener> deletedListeners) throws IOException {
     Path basePath = getBasePath(repoPath, projectName);
     if (archivedFolder.isEmpty()) {
       throw new IllegalArgumentException(
@@ -131,6 +131,8 @@ public class RepositoryDelete {
       MoreFiles.deleteRecursively(renamedProjectDir, ALLOW_INSECURE);
     } catch (IOException e) {
       log.atWarning().withCause(e).log("Error trying to archive %s", renamedProjectDir);
+    } finally {
+      sendProjectDeletedEvent(projectName, deletedListeners);
     }
   }
 
