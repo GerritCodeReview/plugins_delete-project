@@ -131,6 +131,8 @@ public class RepositoryDelete {
       MoreFiles.deleteRecursively(renamedProjectDir, ALLOW_INSECURE);
     } catch (IOException e) {
       log.atWarning().withCause(e).log("Error trying to archive %s", renamedProjectDir);
+    } finally {
+      sendProjectDeletedEvent(projectName);
     }
   }
 
