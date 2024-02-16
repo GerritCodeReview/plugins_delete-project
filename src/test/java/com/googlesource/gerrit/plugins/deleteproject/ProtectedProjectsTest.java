@@ -26,7 +26,6 @@ import com.google.gerrit.server.config.AllUsersNameProvider;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import java.io.File;
-import java.util.List;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +74,7 @@ public class ProtectedProjectsTest {
 
   @Test
   public void customProjectIsProtected() throws Exception {
-    List<String> projects = ImmutableList.of("Custom-Parent", "^protected-.*");
+    ImmutableList<String> projects = ImmutableList.of("Custom-Parent", "^protected-.*");
     pluginConfig.setStringList("protectedProject", projects);
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
