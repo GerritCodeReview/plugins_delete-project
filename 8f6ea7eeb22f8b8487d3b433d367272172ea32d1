@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72fb4680_9bc1a4b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-02-27T17:33:36Z",
+      "side": 1,
+      "message": "This fix was done on master, but then got lost in the stable-3.7 branching.",
+      "revId": "8f6ea7eeb22f8b8487d3b433d367272172ea32d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
