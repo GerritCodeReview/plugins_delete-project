@@ -16,6 +16,24 @@
       "message": "Missing:\n```\n  Add support for newer plugin-node-resolve versions\n```",
       "revId": "f5b9a8bd5afd779030528d759a2bf26bd8ac39da",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f8056e_84ba767d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2024-03-01T19:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7b951f3_3138b16f",
+      "revId": "f5b9a8bd5afd779030528d759a2bf26bd8ac39da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
