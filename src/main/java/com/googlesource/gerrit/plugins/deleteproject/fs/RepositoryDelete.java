@@ -24,6 +24,7 @@ import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.git.GitRepositoryManager;
+import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Repository;
@@ -118,7 +118,11 @@ public class RepositoryDelete {
   }
 
   private static void archiveGitRepository(
-      String projectName, Path repoPath, Optional<Path> archivedFolder, DynamicSet<ProjectDeletedListener> deletedListeners) throws IOException {
+      String projectName,
+      Path repoPath,
+      Optional<Path> archivedFolder,
+      DynamicSet<ProjectDeletedListener> deletedListeners)
+      throws IOException {
     Path basePath = getBasePath(repoPath, projectName);
     if (archivedFolder.isEmpty()) {
       throw new IllegalArgumentException(
