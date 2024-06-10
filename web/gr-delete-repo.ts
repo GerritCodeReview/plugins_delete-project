@@ -68,9 +68,9 @@ export class GrDeleteRepo extends LitElement {
           margin-bottom: var(--spacing-xxl);
         }
         /* TODO: Find a way to use shared styles in lit elements in plugins. */
-        h3 {
-          font: inherit;
-          margin: 0;
+        h2 {
+          margin-top: var(--spacing-xxl);
+          margin-bottom: var(--spacing-s);
         }
         .error {
           color: red;
@@ -95,7 +95,7 @@ export class GrDeleteRepo extends LitElement {
   override render() {
     if (!this.action) return;
     return html`
-      <h3>${this.action.label}</h3>
+      <h2 class="heading-2">${this.action.label}</h2>
       <gr-button
         title="${this.action.title}"
         ?disabled="${!this.action.enabled}"
