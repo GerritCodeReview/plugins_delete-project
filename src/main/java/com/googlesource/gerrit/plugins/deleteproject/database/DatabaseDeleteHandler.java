@@ -27,7 +27,8 @@ import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.AccountsUpdate;
 import com.google.gerrit.server.account.ProjectWatches.ProjectWatchKey;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.index.change.ChangeIndexer;
+import com.google.gerrit.server.index.change.ChangeIndex;
+import com.google.gerrit.server.index.change.ChangeIndexCollection;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.notedb.ChangeNotes.Factory.ChangeNotesResult;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -42,7 +43,7 @@ public class DatabaseDeleteHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final StarredChangesWriter starredChangesWriter;
-  private final ChangeIndexer indexer;
+  private final ChangeIndexCollection indexes;
   private final Provider<InternalAccountQuery> accountQueryProvider;
   private final Provider<AccountsUpdate> accountsUpdateProvider;
   private final ChangeNotes.Factory schemaFactoryNoteDb;
@@ -51,13 +52,13 @@ public class DatabaseDeleteHandler {
   @Inject
   public DatabaseDeleteHandler(
       StarredChangesWriter starredChangesWriter,
-      ChangeIndexer indexer,
+      ChangeIndexCollection indexes,
       ChangeNotes.Factory schemaFactoryNoteDb,
       GitRepositoryManager repoManager,
       Provider<InternalAccountQuery> accountQueryProvider,
       @UserInitiated Provider<AccountsUpdate> accountsUpdateProvider) {
     this.starredChangesWriter = starredChangesWriter;
-    this.indexer = indexer;
+    this.indexes = indexes;
     this.accountQueryProvider = accountQueryProvider;
     this.accountsUpdateProvider = accountsUpdateProvider;
     this.schemaFactoryNoteDb = schemaFactoryNoteDb;
@@ -65,7 +66,9 @@ public class DatabaseDeleteHandler {
   }
 
   public void delete(Project project) throws IOException {
-    atomicDelete(project, getChangesListFromNoteDb(project));
+    deleteChangesFromIndex(project);
+    unstarChanges(getChangesListFromNoteDb(project));
+    deleteProjectWatches(project);
   }
 
   private List<Change.Id> getChangesListFromNoteDb(Project project) throws IOException {
@@ -81,23 +84,23 @@ public class DatabaseDeleteHandler {
     return changeIds;
   }
 
-  private void deleteChanges(List<Change.Id> changeIds) {
+  private void deleteChangesFromIndex(Project project) {
+    for (ChangeIndex i : indexes.getWriteIndexes()) {
+      i.deleteAllForProject(project.getNameKey());
+    }
+  }
 
+  private void unstarChanges(List<Change.Id> changeIds) {
     for (Change.Id id : changeIds) {
       try {
         starredChangesWriter.unstarAllForChangeDeletion(id);
       } catch (NoSuchChangeException | IOException e) {
         // we can ignore the exception during delete
       }
-      // Delete from the secondary index
-      indexer.delete(id);
     }
   }
 
-  public void atomicDelete(Project project, List<Change.Id> changeIds) {
-
-    deleteChanges(changeIds);
-
+  private void deleteProjectWatches(Project project) {
     for (AccountState a : accountQueryProvider.get().byWatchedProject(project.getNameKey())) {
       Account.Id accountId = a.account().id();
       for (ProjectWatchKey watchKey : a.projectWatches().keySet()) {
