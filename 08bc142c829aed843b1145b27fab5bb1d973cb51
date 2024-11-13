@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e8d052_284c3ce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-11-13T23:14:46Z",
+      "side": 1,
+      "message": "verified locally, `bazelisk test plugins/delete-project/...` succeeded",
+      "revId": "08bc142c829aed843b1145b27fab5bb1d973cb51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
