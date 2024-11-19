@@ -162,16 +162,19 @@ export class GrDeleteRepo extends LitElement {
     };
     return this.plugin
       .restApi()
-      .send(this.action.method, endpoint, json)
-      .then(_ => {
-        this.plugin.restApi().invalidateReposCache();
-        this.deleteRepoModal?.close();
-        window.location.href = `${this.getBaseUrl()}/admin/repos`;
-      })
-      .catch(e => {
-        this.error = e;
-        this.deleteRepoModal?.close();
-      });
+      .fetch(this.action.method, endpoint, json)
+      .then(res => this.handleResponse(res));
+  }
+
+  async handleResponse(response: Response | undefined) {
+    if (!response?.ok) {
+      this.error = response?.statusText;
+      this.deleteRepoModal?.close();
+    }
+
+    this.plugin.restApi().invalidateReposCache();
+    this.deleteRepoModal?.close();
+    window.location.href = `${this.getBaseUrl()}/admin/repos`;
   }
 
   private getBaseUrl() {
