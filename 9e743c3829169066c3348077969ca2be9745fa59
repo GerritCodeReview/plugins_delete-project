@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e64ff18c_159ee426",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-19T19:17:07Z",
+      "side": 1,
+      "message": "I don\u0027t believe this is the place for the fix. The PluginRestApi implementation should have checked the HTTP status 204 instead.",
+      "revId": "9e743c3829169066c3348077969ca2be9745fa59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
