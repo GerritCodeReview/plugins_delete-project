@@ -16,6 +16,24 @@
       "message": "Add a reference to the bug: https://issues.gerritcodereview.com/issues/379762004\n\nExample:\n```\nBug: Issue 379762004\n```",
       "revId": "8c7c2be851d7cd48475d0193c5e9067dcfe48835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa16549_4b358f40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2024-11-20T17:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcaf47e5_e9a8b8ae",
+      "revId": "8c7c2be851d7cd48475d0193c5e9067dcfe48835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
