@@ -16,6 +16,24 @@
       "message": "I don\u0027t believe this is the place for the fix. The PluginRestApi implementation should have checked the HTTP status 204 instead.",
       "revId": "9e743c3829169066c3348077969ca2be9745fa59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431d1e85_f4352f12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-20T10:51:29Z",
+      "side": 1,
+      "message": "I was wrong :-( `restApi().send()` is supposed to parse a response: as we do not expect any response it is correct to use the `restApi().fetch()` instead.",
+      "parentUuid": "e64ff18c_159ee426",
+      "revId": "9e743c3829169066c3348077969ca2be9745fa59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
