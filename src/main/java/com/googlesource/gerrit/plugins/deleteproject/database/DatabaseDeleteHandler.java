@@ -38,6 +38,7 @@ import com.google.inject.Provider;
 import java.io.IOException;
 import java.util.List;
 import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.lib.Repository;
 
 public class DatabaseDeleteHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
@@ -73,15 +74,17 @@ public class DatabaseDeleteHandler {
 
   private List<Change.Id> getChangesListFromNoteDb(Project project) throws IOException {
     Project.NameKey projectKey = project.getNameKey();
-    List<Change.Id> changeIds =
-        schemaFactoryNoteDb
-            .scan(repoManager.openRepository(projectKey), projectKey)
-            .map(ChangeNotesResult::id)
-            .collect(toList());
-    log.atFine().log(
-        "Number of changes in noteDb related to project %s are %d",
-        projectKey.get(), changeIds.size());
-    return changeIds;
+    try(Repository repo = repoManager.openRepository(projectKey)) {
+      List<Change.Id> changeIds =
+              schemaFactoryNoteDb
+                      .scan(repo, projectKey)
+                      .map(ChangeNotesResult::id)
+                      .collect(toList());
+      log.atFine().log(
+              "Number of changes in noteDb related to project %s are %d",
+              projectKey.get(), changeIds.size());
+      return changeIds;
+    }
   }
 
   private void deleteChangesFromIndex(Project project) {
