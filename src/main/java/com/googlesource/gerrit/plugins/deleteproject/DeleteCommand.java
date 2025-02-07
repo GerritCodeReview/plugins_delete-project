@@ -61,9 +61,10 @@ final class DeleteCommand extends SshCommand {
         throw new UnloggedFailure(
             String.format(
                 "Really delete '%s'?\n"
-                    + "This is an operation which permanently deletes data. This cannot be undone!\n"
-                    + "If you are sure you wish to delete this project, re-run with the "
-                    + "--yes-really-delete flag.\n",
+                    + "This is an operation which permanently deletes data. This cannot be"
+                    + " undone!\n"
+                    + "If you are sure you wish to delete this project, re-run with the"
+                    + " --yes-really-delete flag.\n",
                 rsrc.getName()));
       }
 
