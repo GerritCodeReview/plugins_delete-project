@@ -74,15 +74,12 @@ public class DatabaseDeleteHandler {
 
   private List<Change.Id> getChangesListFromNoteDb(Project project) throws IOException {
     Project.NameKey projectKey = project.getNameKey();
-    try(Repository repo = repoManager.openRepository(projectKey)) {
+    try (Repository repo = repoManager.openRepository(projectKey)) {
       List<Change.Id> changeIds =
-              schemaFactoryNoteDb
-                      .scan(repo, projectKey)
-                      .map(ChangeNotesResult::id)
-                      .collect(toList());
+          schemaFactoryNoteDb.scan(repo, projectKey).map(ChangeNotesResult::id).collect(toList());
       log.atFine().log(
-              "Number of changes in noteDb related to project %s are %d",
-              projectKey.get(), changeIds.size());
+          "Number of changes in noteDb related to project %s are %d",
+          projectKey.get(), changeIds.size());
       return changeIds;
     }
   }
