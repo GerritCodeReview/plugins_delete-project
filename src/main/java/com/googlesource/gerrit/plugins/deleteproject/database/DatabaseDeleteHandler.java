@@ -73,23 +73,20 @@ public class DatabaseDeleteHandler {
   }
 
   private List<Change.Id> getChangesListFromNoteDb(Project project) throws IOException {
-    Project.NameKey projectKey = project.getNameKey();
-    try(Repository repo = repoManager.openRepository(projectKey)) {
+    Project.NameKey projectKey = project.nameKey();
+    try (Repository repo = repoManager.openRepository(projectKey)) {
       List<Change.Id> changeIds =
-              schemaFactoryNoteDb
-                      .scan(repo, projectKey)
-                      .map(ChangeNotesResult::id)
-                      .collect(toList());
+          schemaFactoryNoteDb.scan(repo, projectKey).map(ChangeNotesResult::id).collect(toList());
       log.atFine().log(
-              "Number of changes in noteDb related to project %s are %d",
-              projectKey.get(), changeIds.size());
+          "Number of changes in noteDb related to project %s are %d",
+          projectKey.get(), changeIds.size());
       return changeIds;
     }
   }
 
   private void deleteChangesFromIndex(Project project) {
     for (ChangeIndex i : indexes.getWriteIndexes()) {
-      i.deleteAllForProject(project.getNameKey());
+      i.deleteAllForProject(project.nameKey());
     }
   }
 
@@ -104,10 +101,10 @@ public class DatabaseDeleteHandler {
   }
 
   private void deleteProjectWatches(Project project) {
-    for (AccountState a : accountQueryProvider.get().byWatchedProject(project.getNameKey())) {
+    for (AccountState a : accountQueryProvider.get().byWatchedProject(project.nameKey())) {
       Account.Id accountId = a.account().id();
       for (ProjectWatchKey watchKey : a.projectWatches().keySet()) {
-        if (project.getNameKey().equals(watchKey.project())) {
+        if (project.nameKey().equals(watchKey.project())) {
           try {
             accountsUpdateProvider
                 .get()
