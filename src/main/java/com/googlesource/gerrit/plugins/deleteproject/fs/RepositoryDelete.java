@@ -118,7 +118,11 @@ public class RepositoryDelete {
   }
 
   private static void archiveGitRepository(
-      String projectName, Path repoPath, Optional<Path> archivedFolder, DynamicSet<ProjectDeletedListener> deletedListeners) throws IOException {
+      String projectName,
+      Path repoPath,
+      Optional<Path> archivedFolder,
+      DynamicSet<ProjectDeletedListener> deletedListeners)
+      throws IOException {
     Path basePath = getBasePath(repoPath, projectName);
     if (archivedFolder.isEmpty()) {
       throw new IllegalArgumentException(

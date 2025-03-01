@@ -96,7 +96,7 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
       if (!preserve || !cfg.projectOnPreserveHidden()) {
         dbHandler.delete(project);
         try {
-          fsHandler.delete(project.getNameKey(), preserve);
+          fsHandler.delete(project.nameKey(), preserve);
         } catch (RepositoryNotFoundException e) {
           throw new ResourceNotFoundException(project.getName(), e);
         }
@@ -117,12 +117,12 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
        * user visibility restrictions. For example these events are going to be delivered to
        * multi-site {@link com.googlesource.gerrit.plugins.multisite.event.EventHandler}
        */
-      dispatcher.get().postEvent(project.getNameKey(), event);
+      dispatcher.get().postEvent(project.nameKey(), event);
     } catch (Exception e) {
       ex = e;
       throw e;
     } finally {
-      deleteLog.onDelete((IdentifiedUser) userProvider.get(), project.getNameKey(), input, ex);
+      deleteLog.onDelete((IdentifiedUser) userProvider.get(), project.nameKey(), input, ex);
     }
   }
 }

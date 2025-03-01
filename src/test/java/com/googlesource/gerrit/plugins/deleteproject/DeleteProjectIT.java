@@ -121,7 +121,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
         String.format(
             "Really delete '%s'?\n"
                 + "This is an operation which permanently deletes data. This cannot be undone!\n"
-                + "If you are sure you wish to delete this project, re-run with the --yes-really-delete flag.\n\n",
+                + "If you are sure you wish to delete this project, re-run with the"
+                + " --yes-really-delete flag.\n\n",
             project.get());
     adminSshSession.exec(cmd);
 
@@ -136,7 +137,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     String cmd = createDeleteCommand(project.get());
     String expected =
         String.format(
-            "Project '%s' has open changes. - To really delete '%s', re-run with the --force flag.%n",
+            "Project '%s' has open changes. - To really delete '%s', re-run with the --force"
+                + " flag.%n",
             project.get(), project.get());
     adminSshSession.exec(cmd);
 
@@ -176,7 +178,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
     CachedProjectConfig cfg =
         projectCache.get(project).orElseThrow(illegalState(project)).getConfig();
-    ProjectState state = cfg.getProject().getState();
+    ProjectState state = cfg.project().state();
 
     assertThat(state).isEqualTo(ProjectState.HIDDEN);
     assertThat(adminSshSession.getError()).isNull();
