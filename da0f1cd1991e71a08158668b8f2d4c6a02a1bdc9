@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "340f2686_801038ef",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteJsonLogLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-04-17T09:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0253ff_3d9bba70",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "da0f1cd1991e71a08158668b8f2d4c6a02a1bdc9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2801bf9e_9c7f720f",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-07T14:50:17Z",
       "side": 1,
       "message": "Wny is this needed? I don\u0027t find `version` in the http/ssh log layout classes",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "da0f1cd1991e71a08158668b8f2d4c6a02a1bdc9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f77b810_ed0701c8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteJsonLogLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-04-17T09:03:22Z",
+      "side": 1,
+      "message": "I have taken that from the error_log.json. I believe there it comes from the old jsonevent-layout we migrated away from some time ago: I3a2bdba5d4b25067d0324fb63438e2a6ec726c68\n\nIn general it would be good to have this in every (json-)log, since some parsers can deal with that and migration between log versions can be more seemless.",
+      "parentUuid": "2801bf9e_9c7f720f",
       "range": {
         "startLine": 50,
         "startChar": 0,
