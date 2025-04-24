@@ -52,10 +52,14 @@ gerrit_js_bundle(
     entry_point = "_bazel_ts_out/plugin.js",
 )
 
-karma_test(
-    name = "karma_test",
-    srcs = ["karma_test.sh"],
-    data = [":delete-project-ts-tests"],
+web_test_runner(
+    name = "web_test_runner",
+    srcs = ["web_test_runner.sh"],
+    data = [
+        ":tsconfig",
+        ":delete-project-ts-tests",
+        "@plugins_npm//:node_modules",
+    ],
 )
 
 plugin_eslint()
