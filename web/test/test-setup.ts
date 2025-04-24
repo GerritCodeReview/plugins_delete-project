@@ -14,30 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'chai/chai.js';
 import '@gerritcodereview/typescript-api/gerrit';
 import {css} from 'lit';
+import sinon from 'sinon';
 
 declare global {
   interface Window {
-    assert: typeof chai.assert;
-    expect: typeof chai.expect;
     sinon: typeof sinon;
   }
-  let assert: typeof chai.assert;
-  let expect: typeof chai.expect;
   let sinon: typeof sinon;
 }
-window.assert = chai.assert;
-window.expect = chai.expect;
 window.sinon = sinon;
 
 window.Gerrit = {
   install: () => {},
   styles: {
+    font: css``,
     form: css``,
+    icon: css``,
     menuPage: css``,
+    spinner: css``,
     subPage: css``,
     table: css``,
+    modal: css``,
   },
 };

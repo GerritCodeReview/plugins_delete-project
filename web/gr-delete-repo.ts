@@ -60,8 +60,8 @@ export class GrDeleteRepo extends LitElement {
 
   static override get styles() {
     return [
-      window.Gerrit.styles.font as CSSResult,
-      window.Gerrit.styles.modal as CSSResult,
+      window.Gerrit?.styles.font as CSSResult,
+      window.Gerrit?.styles.modal as CSSResult,
       css`
         :host {
           display: block;
@@ -80,7 +80,7 @@ export class GrDeleteRepo extends LitElement {
   }
 
   get action(): ActionInfo | undefined {
-    return this.config.actions?.[this.actionId];
+    return this.config?.actions?.[this.actionId];
   }
 
   get actionId(): string {
