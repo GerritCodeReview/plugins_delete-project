@@ -17,6 +17,6 @@
 import '@gerritcodereview/typescript-api/gerrit';
 import './gr-delete-repo';
 
-window.Gerrit.install(plugin => {
+window.Gerrit?.install(plugin => {
   plugin.registerCustomComponent('repo-command', 'gr-delete-repo');
 });

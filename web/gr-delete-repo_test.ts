@@ -24,16 +24,18 @@ import {
   HttpMethod,
   RepoName,
 } from '@gerritcodereview/typescript-api/rest-api';
+import {fixture, html, assert} from '@open-wc/testing';
+import sinon from 'sinon';
 
 suite('gr-delete-repo tests', () => {
   let element: GrDeleteRepo;
-  let sendStub: sinon.SinonStub;
+  let fetchStub: sinon.SinonStub;
 
   setup(async () => {
-    sendStub = sinon.stub();
-    sendStub.returns(Promise.resolve({}));
+    fetchStub = sinon.stub();
+    fetchStub.returns(Promise.resolve({}));
 
-    element = document.createElement('gr-delete-repo');
+    element = await fixture(html`<gr-delete-repo></gr-delete-repo>`);
     element.repoName = 'test-repo-name' as RepoName;
     element.config = {
       actions: {
@@ -49,26 +51,21 @@ suite('gr-delete-repo tests', () => {
       getPluginName: () => 'delete-project',
       restApi: () => {
         return {
-          send: sendStub,
+          fetch: fetchStub,
           invalidateReposCache: () => {},
         };
       },
     } as unknown as PluginApi;
-    document.body.appendChild(element);
     await element.updateComplete;
-  });
-
-  teardown(() => {
-    document.body.removeChild(element);
   });
 
   test('confirm and send', () => {
     const dialog = queryAndAssert<HTMLElement>(element, '#deleteRepoDialog');
     dialog.dispatchEvent(new CustomEvent('confirm'));
-    assert.isTrue(sendStub.called);
-    const method = sendStub.firstCall.args[0] as HttpMethod;
-    const endpoint = sendStub.firstCall.args[1] as string;
-    const json = sendStub.firstCall.args[2];
+    assert.isTrue(fetchStub.called);
+    const method = fetchStub.firstCall.args[0] as HttpMethod;
+    const endpoint = fetchStub.firstCall.args[1] as string;
+    const json = fetchStub.firstCall.args[2];
     assert.equal(method, HttpMethod.DELETE);
     assert.equal(endpoint, '/projects/test-repo-name/delete-project~delete');
     assert.deepEqual(json, {force: false, preserve: false});
