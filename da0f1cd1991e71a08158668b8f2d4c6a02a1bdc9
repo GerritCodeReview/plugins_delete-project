@@ -93,6 +93,30 @@
       },
       "revId": "da0f1cd1991e71a08158668b8f2d4c6a02a1bdc9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "194386f1_5709b97d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/DeleteJsonLogLayout.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2025-04-28T09:14:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f77b810_ed0701c8",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "da0f1cd1991e71a08158668b8f2d4c6a02a1bdc9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
