@@ -40,7 +40,7 @@ import com.google.gerrit.server.project.ProjectResource;
 import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.query.change.InternalChangeQuery;
-import com.google.gerrit.server.restapi.project.ListChildProjects;
+import com.google.gerrit.server.restapi.project.children.ListChildProjects;
 import com.google.gerrit.server.submit.MergeOpRepoManager;
 import com.google.gerrit.server.submit.SubscriptionGraph;
 import com.google.inject.Provider;
