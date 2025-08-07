@@ -16,15 +16,6 @@
  */
 import '@gerritcodereview/typescript-api/gerrit';
 import {css} from 'lit';
-import sinon from 'sinon';
-
-declare global {
-  interface Window {
-    sinon: typeof sinon;
-  }
-  let sinon: typeof sinon;
-}
-window.sinon = sinon;
 
 window.Gerrit = {
   install: () => {},
