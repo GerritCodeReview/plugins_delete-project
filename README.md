@@ -10,7 +10,7 @@ REST API or the Project settings screen.
 
 For running unit tests execute:
 
-    bazel test --test_output=all //plugins/delete-project/web:karma_test
+    bazel test //plugins/delete-project/web:web_test_runner
 
 For checking or fixing eslint formatter problems run:
 

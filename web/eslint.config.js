@@ -14,7 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const {defineConfig} = require('eslint/config');
+
+// eslint-disable-next-line no-undef
 __plugindir = 'delete-project/web';
-module.exports = {
-  extends: '../../.eslintrc.js',
-};
+
+const gerritEslint = require('../../eslint.config.js');
+
+module.exports = defineConfig([
+  {
+    extends: [gerritEslint],
+  },
+]);
