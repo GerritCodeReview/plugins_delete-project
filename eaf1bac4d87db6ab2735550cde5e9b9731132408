@@ -33,6 +33,24 @@
       "message": "you need to update the contents to match something like https://gerrit-review.googlesource.com/c/plugins/codemirror-editor/+/477462",
       "revId": "eaf1bac4d87db6ab2735550cde5e9b9731132408",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b23ee7_36f78cee",
+        "filename": "web/eslint.config.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1148215
+      },
+      "writtenOn": "2025-08-11T11:42:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85912fb5_9f48904c",
+      "revId": "eaf1bac4d87db6ab2735550cde5e9b9731132408",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
