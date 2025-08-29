@@ -20,7 +20,9 @@ import static com.googlesource.gerrit.plugins.deleteproject.DeleteProjectCapabil
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
+import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.LifecycleListener;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.events.EventTypes;
 import com.google.inject.AbstractModule;
@@ -62,6 +64,10 @@ public class PluginModule extends AbstractModule {
     }
 
     EventTypes.register(ProjectDeletedEvent.TYPE, ProjectDeletedEvent.class);
+    EventTypes.register(
+        AllProjectChangesDeletedFromIndexEvent.TYPE, AllProjectChangesDeletedFromIndexEvent.class);
+
+    DynamicSet.bind(binder(), ChangeIndexedListener.class).to(DeleteProject.class);
 
     install(
         new RestApiModule() {

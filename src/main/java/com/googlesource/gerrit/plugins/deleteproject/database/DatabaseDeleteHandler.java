@@ -27,8 +27,7 @@ import com.google.gerrit.server.UserInitiated;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.AccountsUpdate;
 import com.google.gerrit.server.git.GitRepositoryManager;
-import com.google.gerrit.server.index.change.ChangeIndex;
-import com.google.gerrit.server.index.change.ChangeIndexCollection;
+import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.notedb.ChangeNotes.Factory.ChangeNotesResult;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -44,7 +43,7 @@ public class DatabaseDeleteHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final StarredChangesWriter starredChangesWriter;
-  private final ChangeIndexCollection indexes;
+  private final ChangeIndexer indexer;
   private final Provider<InternalAccountQuery> accountQueryProvider;
   private final Provider<AccountsUpdate> accountsUpdateProvider;
   private final ChangeNotes.Factory schemaFactoryNoteDb;
@@ -53,13 +52,13 @@ public class DatabaseDeleteHandler {
   @Inject
   public DatabaseDeleteHandler(
       StarredChangesWriter starredChangesWriter,
-      ChangeIndexCollection indexes,
+      ChangeIndexer indexer,
       ChangeNotes.Factory schemaFactoryNoteDb,
       GitRepositoryManager repoManager,
       Provider<InternalAccountQuery> accountQueryProvider,
       @UserInitiated Provider<AccountsUpdate> accountsUpdateProvider) {
     this.starredChangesWriter = starredChangesWriter;
-    this.indexes = indexes;
+    this.indexer = indexer;
     this.accountQueryProvider = accountQueryProvider;
     this.accountsUpdateProvider = accountsUpdateProvider;
     this.schemaFactoryNoteDb = schemaFactoryNoteDb;
@@ -67,7 +66,7 @@ public class DatabaseDeleteHandler {
   }
 
   public void delete(Project project) throws IOException {
-    deleteChangesFromIndex(project);
+    indexer.deleteAllForProject(project.getNameKey());
     unstarChanges(getChangesListFromNoteDb(project));
     deleteProjectWatches(project);
   }
@@ -81,12 +80,6 @@ public class DatabaseDeleteHandler {
           "Number of changes in noteDb related to project %s are %d",
           projectKey.get(), changeIds.size());
       return changeIds;
-    }
-  }
-
-  private void deleteChangesFromIndex(Project project) {
-    for (ChangeIndex i : indexes.getWriteIndexes()) {
-      i.deleteAllForProject(project.getNameKey());
     }
   }
 
