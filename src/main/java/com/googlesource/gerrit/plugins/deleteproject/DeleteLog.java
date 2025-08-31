@@ -28,10 +28,16 @@ import com.google.gerrit.server.util.SystemLog;
 import com.google.gerrit.server.util.time.TimeUtil;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.impl.Log4jLogEvent;
+import org.apache.logging.log4j.message.SimpleMessage;
 
 @Singleton
 class DeleteLog extends PluginLogFile {
@@ -65,39 +71,45 @@ class DeleteLog extends PluginLogFile {
   public void onDelete(
       IdentifiedUser user, Project.NameKey project, DeleteProject.Input options, Exception ex) {
     long ts = TimeUtil.nowMs();
-    LoggingEvent event =
-        new LoggingEvent( //
-            Logger.class.getName(), // fqnOfCategoryClass
-            log, // logger
-            ts, // when
-            ex == null // level
-                ? Level.INFO
-                : Level.ERROR,
-            ex == null // message text
-                ? "OK"
-                : "FAIL",
-            Thread.currentThread().getName(), // thread name
-            null, // exception information
-            null, // current NDC string
-            null, // caller location
-            null // MDC properties
-            );
 
-    event.setProperty(ACCOUNT_ID, user.getAccountId().toString());
-    if (user.getUserName().isPresent()) {
-      event.setProperty(USER_NAME, user.getUserName().get());
-    }
-    event.setProperty(PROJECT_NAME, project.get());
+    String message = ex == null ? "OK" : "FAIL";
+    Level level = ex == null ? Level.INFO : Level.ERROR;
+
+    // Build the context map (MDC)
+    Map<String, String> contextMap = new HashMap<>();
+    contextMap.put(ACCOUNT_ID, user.getAccountId().toString());
+    user.getUserName().ifPresent(u -> contextMap.put(USER_NAME, u));
+    contextMap.put(PROJECT_NAME, project.get());
 
     if (options != null) {
-      event.setProperty(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
+      contextMap.put(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
     }
 
     if (ex != null) {
-      event.setProperty(ERROR, ex.toString());
+      contextMap.put(ERROR, ex.toString());
     }
 
-    log.callAppenders(event);
+    // Build the LogEvent
+    Log4jLogEvent.Builder builder = Log4jLogEvent.newBuilder()
+        .setLoggerName(DELETE_LOG_NAME)
+        .setLoggerFqcn(DeleteLog.class.getName())
+        .setLevel(level)
+        .setMessage(new SimpleMessage(message))
+        .setTimeMillis(ts)
+        .setThreadName(Thread.currentThread().getName())
+        .setThrown(ex)
+        .setContextMap(contextMap); // <-- set context map here
+
+    LogEvent event = builder.build();
+
+    if (log instanceof org.apache.logging.log4j.core.Logger) {
+      org.apache.logging.log4j.core.Logger coreLogger =
+          (org.apache.logging.log4j.core.Logger) log;
+      coreLogger.logMessage(DeleteLog.class.getName(), event.getLevel(), event.getMarker(),
+          event.getMessage(), event.getThrown());
+    } else {
+      log.error("Logger is not a core Logger, unable to log structured delete event");
+    }
 
     audit(user, ts, project, options, ex);
   }
