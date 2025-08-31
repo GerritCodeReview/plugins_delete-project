@@ -59,23 +59,26 @@ class DeleteLog extends PluginLogFile {
         new DeleteLogLayout(),
         new DeleteLogJsonLayout(),
         config);
+
     this.auditService = auditService;
+
+    // Attach async appenders and explicitly store result to satisfy CheckReturnValue
+    var unused1 = systemLog.createAsyncAppender(
+        DELETE_LOG_NAME, new DeleteLogLayout(), config.shouldRotate(), true);
+    var unused2 = systemLog.createAsyncAppender(
+        DELETE_LOG_NAME + "_json", new DeleteLogJsonLayout(), config.shouldRotate(), true);
   }
 
   public void onDelete(
       IdentifiedUser user, Project.NameKey project, DeleteProject.Input options, Exception ex) {
     long ts = TimeUtil.nowMs();
     LoggingEvent event =
-        new LoggingEvent( //
+        new LoggingEvent(
             Logger.class.getName(), // fqnOfCategoryClass
             log, // logger
             ts, // when
-            ex == null // level
-                ? Level.INFO
-                : Level.ERROR,
-            ex == null // message text
-                ? "OK"
-                : "FAIL",
+            ex == null ? Level.INFO : Level.ERROR, // level
+            ex == null ? "OK" : "FAIL", // message text
             Thread.currentThread().getName(), // thread name
             null, // exception information
             null, // current NDC string
@@ -120,13 +123,10 @@ class DeleteLog extends PluginLogFile {
         new AuditEvent(
             null, // sessionId
             user, // who
-            ex == null // what
-                ? "ProjectDeletion"
-                : "ProjectDeletionFailure",
+            ex == null ? "ProjectDeletion" : "ProjectDeletionFailure", // what
             ts, // when
             params, // params
-            ex != null // result
-                ? ex.toString()
-                : "OK"));
+            ex != null ? ex.toString() : "OK" // result
+            ));
   }
 }
