@@ -28,15 +28,17 @@ import com.google.gerrit.server.util.SystemLog;
 import com.google.gerrit.server.util.time.TimeUtil;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.core.impl.Log4jLogEvent;
+import org.apache.logging.log4j.message.SimpleMessage;
 
 @Singleton
 class DeleteLog extends PluginLogFile {
   private static final String DELETE_LOG_NAME = "delete_log";
-  private static final Logger log = LogManager.getLogger(DELETE_LOG_NAME);
 
   public static final String ACCOUNT_ID = "accountId";
   public static final String USER_NAME = "userName";
@@ -45,6 +47,7 @@ class DeleteLog extends PluginLogFile {
   public static final String ERROR = "error";
 
   private final AuditService auditService;
+  private final Logger log;
 
   @Inject
   public DeleteLog(
@@ -60,44 +63,37 @@ class DeleteLog extends PluginLogFile {
         new DeleteLogJsonLayout(),
         config);
     this.auditService = auditService;
+    this.log = (Logger) LogManager.getLogger(DELETE_LOG_NAME);
   }
 
   public void onDelete(
       IdentifiedUser user, Project.NameKey project, DeleteProject.Input options, Exception ex) {
     long ts = TimeUtil.nowMs();
-    LoggingEvent event =
-        new LoggingEvent( //
-            Logger.class.getName(), // fqnOfCategoryClass
-            log, // logger
-            ts, // when
-            ex == null // level
-                ? Level.INFO
-                : Level.ERROR,
-            ex == null // message text
-                ? "OK"
-                : "FAIL",
-            Thread.currentThread().getName(), // thread name
-            null, // exception information
-            null, // current NDC string
-            null, // caller location
-            null // MDC properties
-            );
 
-    event.setProperty(ACCOUNT_ID, user.getAccountId().toString());
-    if (user.getUserName().isPresent()) {
-      event.setProperty(USER_NAME, user.getUserName().get());
-    }
-    event.setProperty(PROJECT_NAME, project.get());
-
+    Map<String, String> contextData = new HashMap<>();
+    contextData.put(ACCOUNT_ID, user.getAccountId().toString());
+    user.getUserName().ifPresent(u -> contextData.put(USER_NAME, u));
+    contextData.put(PROJECT_NAME, project.get());
     if (options != null) {
-      event.setProperty(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
+      contextData.put(OPTIONS, OutputFormat.JSON_COMPACT.newGson().toJson(options));
     }
-
     if (ex != null) {
-      event.setProperty(ERROR, ex.toString());
+      contextData.put(ERROR, ex.toString());
     }
 
-    log.callAppenders(event);
+    Log4jLogEvent event =
+        Log4jLogEvent.newBuilder()
+            .setLoggerName(log.getName())
+            .setLoggerFqcn(Logger.class.getName())
+            .setLevel(ex == null ? Level.INFO : Level.ERROR)
+            .setMessage(new SimpleMessage(ex == null ? "OK" : "FAIL"))
+            .setTimeMillis(ts)
+            .setThreadName(Thread.currentThread().getName())
+            .setThrown(ex)
+            .setContextMap(contextData)
+            .build();
+
+    log.getContext().getConfiguration().getLoggerConfig(log.getName()).log(event);
 
     audit(user, ts, project, options, ex);
   }
