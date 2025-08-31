@@ -19,12 +19,17 @@ import com.google.gerrit.util.logging.JsonLogEntry;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
-import org.apache.log4j.spi.LoggingEvent;
+import java.nio.charset.StandardCharsets;
+import org.apache.logging.log4j.core.LogEvent;
 
 /** Layout for formatting error log events in the JSON format. */
 public class DeleteLogJsonLayout extends JsonLayout {
+  public DeleteLogJsonLayout() {
+    super(StandardCharsets.UTF_8);
+  }
+
   @Override
-  public JsonLogEntry toJsonLogEntry(LoggingEvent event) {
+  public JsonLogEntry toJsonLogEntry(LogEvent event) {
     return new DeleteJsonLogEntry(event);
   }
 
@@ -59,16 +64,21 @@ public class DeleteLogJsonLayout extends JsonLayout {
     @SerializedName("@version")
     public final int version = 1;
 
-    public DeleteJsonLogEntry(LoggingEvent event) {
-      this.timestamp = timestampFormatter.format(event.getTimeStamp());
+    public DeleteJsonLogEntry(LogEvent event) {
+      this.timestamp = timestampFormatter.format(event.getTimeMillis());
       this.level = event.getLevel().toString();
-      this.accountId = (String) event.getMDC(DeleteLog.ACCOUNT_ID);
-      this.user = (String) event.getMDC(DeleteLog.USER_NAME);
-      this.status = (String) event.getMessage();
-      this.project = (String) event.getMDC(DeleteLog.PROJECT_NAME);
+      this.accountId = (String) event.getContextData().getValue(DeleteLog.ACCOUNT_ID);
+      this.user = (String) event.getContextData().getValue(DeleteLog.USER_NAME);
+      this.status = event.getMessage().getFormattedMessage();
+      this.project = (String) event.getContextData().getValue(DeleteLog.PROJECT_NAME);
+
+      String optionsJson = (String) event.getContextData().getValue(DeleteLog.OPTIONS);
       this.options =
-          JsonParser.parseString((String) event.getMDC(DeleteLog.OPTIONS)).getAsJsonObject();
-      this.error = (String) event.getMDC(DeleteLog.ERROR);
+          optionsJson != null && !optionsJson.isEmpty()
+              ? JsonParser.parseString(optionsJson).getAsJsonObject()
+              : new JsonObject();
+
+      this.error = (String) event.getContextData().getValue(DeleteLog.ERROR);
     }
   }
 }
