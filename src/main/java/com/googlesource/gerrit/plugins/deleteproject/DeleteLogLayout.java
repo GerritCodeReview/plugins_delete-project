@@ -14,17 +14,23 @@
 
 package com.googlesource.gerrit.plugins.deleteproject;
 
+import java.nio.charset.Charset;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import org.apache.log4j.Layout;
-import org.apache.log4j.spi.LoggingEvent;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.layout.AbstractStringLayout;
 import org.eclipse.jgit.util.QuotedString;
 
-final class DeleteLogLayout extends Layout {
+public final class DeleteLogLayout extends AbstractStringLayout {
+
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofPattern("'['yyyy-MM-dd HH:mm:ss,SSS xxxx']'");
+
+  public DeleteLogLayout() {
+    super(Charset.defaultCharset());
+  }
 
   /**
    * Formats the events in the delete log.
@@ -37,10 +43,10 @@ final class DeleteLogLayout extends Layout {
    * com.google.gerrit.exceptions.StorageException: \ Failed to access the database
    */
   @Override
-  public String format(LoggingEvent event) {
+  public String toSerializable(LogEvent event) {
     final StringBuilder buf = new StringBuilder(128);
 
-    buf.append(formatDate(event.getTimeStamp()));
+    buf.append(formatDate(event.getTimeMillis()));
 
     buf.append(' ');
     buf.append(event.getLevel().toString());
@@ -49,7 +55,7 @@ final class DeleteLogLayout extends Layout {
     req(DeleteLog.USER_NAME, buf, event);
 
     buf.append(' ');
-    buf.append(event.getMessage());
+    buf.append(event.getMessage().getFormattedMessage());
 
     req(DeleteLog.PROJECT_NAME, buf, event);
     opt(DeleteLog.OPTIONS, buf, event);
@@ -64,12 +70,12 @@ final class DeleteLogLayout extends Layout {
     return zdt.format(DATE_FORMATTER);
   }
 
-  private void req(String key, StringBuilder buf, LoggingEvent event) {
-    Object val = event.getMDC(key);
+  private void req(String key, StringBuilder buf, LogEvent event) {
+    Object val = event.getContextData().getValue(key);
     buf.append(' ');
     if (val != null) {
       String s = val.toString();
-      if (0 <= s.indexOf(' ')) {
+      if (s.contains(" ")) {
         buf.append(QuotedString.BOURNE.quote(s));
       } else {
         buf.append(val);
@@ -79,19 +85,11 @@ final class DeleteLogLayout extends Layout {
     }
   }
 
-  private void opt(String key, StringBuilder buf, LoggingEvent event) {
-    Object val = event.getMDC(key);
+  private void opt(String key, StringBuilder buf, LogEvent event) {
+    Object val = event.getContextData().getValue(key);
     if (val != null) {
       buf.append(' ');
       buf.append(val);
     }
   }
-
-  @Override
-  public boolean ignoresThrowable() {
-    return true;
-  }
-
-  @Override
-  public void activateOptions() {}
 }
