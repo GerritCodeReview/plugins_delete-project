@@ -73,6 +73,30 @@
       },
       "revId": "08bc142c829aed843b1145b27fab5bb1d973cb51",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f21ac67_c3fafaa9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/database/DatabaseDeleteHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-01T19:01:11Z",
+      "side": 1,
+      "message": "Addressed with [1]\n\n\n[1] https://gerrit-review.googlesource.com/q/topic:%22bulk-change-index-notification%22",
+      "parentUuid": "2bc9d998_f7b5db3d",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 50
+      },
+      "revId": "08bc142c829aed843b1145b27fab5bb1d973cb51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
