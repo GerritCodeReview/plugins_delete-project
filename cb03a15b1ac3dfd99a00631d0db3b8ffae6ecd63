@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3209966e_52897bb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-09-02T20:08:56Z",
+      "side": 1,
+      "message": "The code isn\u0027t actually doing this: it simply calls the Gerrit change indexer to remove all the changes for a project. There is no trace of notification to any listener.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "cb03a15b1ac3dfd99a00631d0db3b8ffae6ecd63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fe6069_e28e9de6",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-09-02T20:08:56Z",
+      "side": 1,
+      "message": "The logic of triggering the listeners isn\u0027t in the delete-project plugin, therefore these tests do not belong here IMHO.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 3
+      },
+      "revId": "cb03a15b1ac3dfd99a00631d0db3b8ffae6ecd63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
