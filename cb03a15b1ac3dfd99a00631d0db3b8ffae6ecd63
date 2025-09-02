@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcbeceb8_04690e37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-09-02T23:00:20Z",
+      "side": 1,
+      "message": "\u003e \u003e There is no trace of notification to any listener.\n\u003e \n\u003e Calling `indexer.deleteAllForProject(project.getNameKey());` does notify the listeners.\n\nyes, but that is logic in Gerrit, not in the delete-project plugin. Therefore, the test should stay in Gerrit not in this plugin.\n\nThe only thing that the plugin should make sure is that the indexer is called.\n\n\u003e This is the main reason for this change: to use the `indexer.deleteAllForProject` method rather than calling `ChangeIndex.delete()` directly, since that wouldn\u0027t send any notifications.\n\nThat\u0027s a side-effect of not calling the proper method for deleting all changes for a project using the dedicated api. I agree that the test is needed, but that should be in Gerrit.\n\nThe test should say something `notifyIndexListenerWhenAllChangesAreDeleted`",
+      "parentUuid": "c5c07dd1_9ea6a9bc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "cb03a15b1ac3dfd99a00631d0db3b8ffae6ecd63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3fe6069_e28e9de6",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 2
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I believe we need to test whether the delete-project plugin causes the hook to be fired when a project is deleted.\n\nHow would we know if it was just deleting the changes from the index without triggering any notification, which would be an incorrect behaviour, like in the previous version of this code?",
       "parentUuid": "b3fe6069_e28e9de6",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 3
+      },
+      "revId": "cb03a15b1ac3dfd99a00631d0db3b8ffae6ecd63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4c28e35_4d020083",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-09-02T23:00:20Z",
+      "side": 1,
+      "message": "\u003e I believe we need to test whether the delete-project plugin causes the hook to be fired when a project is deleted.\n\nYou should ask the question: is that a responsibility of the delete-project?\nIf yes, the test *and* the implementation of calling the hook should be in the plugin.\n\nIf no, neither the implementation nor the tests should be here.\n\n\u003e How would we know if it was just deleting the changes from the index without triggering any notification, which would be an incorrect behaviour, like in the previous version of this code?\n\nWe should assert that we call Gerrit\u0027s correct API, and Gerrit should test that calling that API the hooks are invoked.",
+      "parentUuid": "a0e0b015_c3d49521",
       "range": {
         "startLine": 219,
         "startChar": 0,
