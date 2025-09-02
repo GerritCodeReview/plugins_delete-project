@@ -23,6 +23,7 @@ import static com.google.gerrit.server.project.ProjectCache.illegalState;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import com.google.common.base.Joiner;
+import com.google.gerrit.acceptance.ExtensionRegistry;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -36,6 +37,7 @@ import com.google.gerrit.entities.Permission;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.extensions.client.ProjectState;
+import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
@@ -43,6 +45,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.lib.Constants;
@@ -68,6 +71,7 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Inject private ProjectOperations projectOperations;
   @Inject private RequestScopeOperations requestScopeOperations;
+  @Inject private ExtensionRegistry extensionRegistry;
 
   private File archiveFolder;
   private File projectDir;
@@ -214,6 +218,38 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   @Test
   @UseLocalDisk
+  public void deleteAllForProjectNotifiesListenersOverHTTP() throws Exception {
+    TestDeleteAllForProjectListener deleteAllForProjectsListener =
+        new TestDeleteAllForProjectListener();
+
+    try (ExtensionRegistry.Registration ignore =
+        extensionRegistry.newRegistration().add(deleteAllForProjectsListener)) {
+
+      RestResponse r = httpDeleteProjectHelper(false);
+      r.assertNoContent();
+
+      assertThat(deleteAllForProjectsListener.getFiredCount()).isEqualTo(1);
+    }
+  }
+
+  @Test
+  @UseLocalDisk
+  public void deleteAllForProjectNotifiesListenersOverSSH() throws Exception {
+    TestDeleteAllForProjectListener deleteAllForProjectsListener =
+        new TestDeleteAllForProjectListener();
+
+    try (ExtensionRegistry.Registration ignore =
+        extensionRegistry.newRegistration().add(deleteAllForProjectsListener)) {
+
+      adminSshSession.exec(createDeleteCommand(project.get()));
+      assertThat(adminSshSession.getError()).isNull();
+
+      assertThat(deleteAllForProjectsListener.getFiredCount()).isEqualTo(1);
+    }
+  }
+
+  @Test
+  @UseLocalDisk
   @GerritConfig(name = "plugin.delete-project.allowDeletionOfReposWithTags", value = "false")
   public void testDeleteProjWithTags() throws Exception {
     projectOperations
@@ -346,5 +382,24 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
 
   private void assertWatchRemoved() throws RestApiException {
     assertThat(gApi.accounts().self().getWatchedProjects()).isEmpty();
+  }
+
+  public static class TestDeleteAllForProjectListener implements ChangeIndexedListener {
+    private final AtomicInteger firedCount = new AtomicInteger(0);
+
+    @Override
+    public void onChangeIndexed(String projectName, int id) {}
+
+    @Override
+    public void onChangeDeleted(int id) {}
+
+    @Override
+    public void onAllChangesDeletedForProject(String projectName) {
+      firedCount.incrementAndGet();
+    }
+
+    public int getFiredCount() {
+      return firedCount.get();
+    }
   }
 }
