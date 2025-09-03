@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98fab798_e0fe0978",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-03T07:42:32Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e There is no trace of notification to any listener.\n\u003e \u003e \n\u003e \u003e Calling `indexer.deleteAllForProject(project.getNameKey());` does notify the listeners.\n\u003e \n\u003e yes, but that is logic in Gerrit, not in the delete-project plugin. Therefore, the test should stay in Gerrit not in this plugin.\n\u003e \n\u003e The only thing that the plugin should make sure is that the indexer is called.\n\u003e \n\u003e \u003e This is the main reason for this change: to use the `indexer.deleteAllForProject` method rather than calling `ChangeIndex.delete()` directly, since that wouldn\u0027t send any notifications.\n\u003e \n\u003e That\u0027s a side-effect of not calling the proper method for deleting all changes for a project using the dedicated api. I agree that the test is needed, but that should be in Gerrit.\n\u003e \n\u003e The test should say something `notifyIndexListenerWhenAllChangesAreDeleted`\n\nNo need, Gerrit already has this test [1]\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/501384\n\nI will leave this comment unresolved, until we have addressed your comment and then adjust accordingly.",
+      "parentUuid": "dcbeceb8_04690e37",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "cb03a15b1ac3dfd99a00631d0db3b8ffae6ecd63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3fe6069_e28e9de6",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
         "patchSetId": 2
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "\u003e I believe we need to test whether the delete-project plugin causes the hook to be fired when a project is deleted.\n\nYou should ask the question: is that a responsibility of the delete-project?\nIf yes, the test *and* the implementation of calling the hook should be in the plugin.\n\nIf no, neither the implementation nor the tests should be here.\n\n\u003e How would we know if it was just deleting the changes from the index without triggering any notification, which would be an incorrect behaviour, like in the previous version of this code?\n\nWe should assert that we call Gerrit\u0027s correct API, and Gerrit should test that calling that API the hooks are invoked.",
       "parentUuid": "a0e0b015_c3d49521",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 3
+      },
+      "revId": "cb03a15b1ac3dfd99a00631d0db3b8ffae6ecd63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2b4f08_8ea95414",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-03T07:42:32Z",
+      "side": 1,
+      "message": "\u003e \u003e I believe we need to test whether the delete-project plugin causes the hook to be fired when a project is deleted.\n\u003e \n\u003e You should ask the question: is that a responsibility of the delete-project?\n\u003e If yes, the test *and* the implementation of calling the hook should be in the plugin.\n\u003e \n\u003e If no, neither the implementation nor the tests should be here.\n\nAgreed, only calling the right API is the responsibility of this plugin, I thought asserting the hook is fired was a non invasive way to check so as we can measure its effects.\n \n\u003e \n\u003e \u003e How would we know if it was just deleting the changes from the index without triggering any notification, which would be an incorrect behaviour, like in the previous version of this code?\n\u003e \n\u003e We should assert that we call Gerrit\u0027s correct API, and Gerrit should test that calling that API the hooks are invoked.\n\nAgreed, but I am not sure how this can be achieved without mocking the `ChangeIndexer`, which would just test the internal implementation anyway.\n\nLet\u0027s discuss how to achieve this without mocking.",
+      "parentUuid": "d4c28e35_4d020083",
       "range": {
         "startLine": 219,
         "startChar": 0,
