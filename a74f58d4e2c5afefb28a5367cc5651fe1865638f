@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "125bb229_c0de9db8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-04T20:38:05Z",
+      "side": 1,
+      "message": "- error_log seems to work\n- setting log levels via ssh logging set-level command works\n- listing log levels via ssh logging ls-level command works\n- both JGit and Jetty logs are logged and changing log levels for them works\n- delete_log of delete-project plugin works\n\nissues:\n- request logs don\u0027t work, both httpd_log and sshd_log are empty\n- replication_log seems not to work",
+      "revId": "a74f58d4e2c5afefb28a5367cc5651fe1865638f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
