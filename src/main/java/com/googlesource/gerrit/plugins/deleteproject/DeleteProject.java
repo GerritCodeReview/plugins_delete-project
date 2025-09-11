@@ -16,7 +16,6 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
@@ -38,8 +37,7 @@ import java.io.IOException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
-class DeleteProject implements RestModifyView<ProjectResource, Input>, ChangeIndexedListener {
-
+class DeleteProject implements RestModifyView<ProjectResource, Input> {
   static class Input {
     boolean preserve;
     boolean force;
@@ -126,20 +124,5 @@ class DeleteProject implements RestModifyView<ProjectResource, Input>, ChangeInd
     } finally {
       deleteLog.onDelete((IdentifiedUser) userProvider.get(), project.getNameKey(), input, ex);
     }
-  }
-
-  @Override
-  public void onChangeIndexed(String projectName, int id) {}
-
-  @Override
-  public void onChangeDeleted(int id) {}
-
-  @Override
-  public void onAllChangesDeletedForProject(String projectName) {
-    AllProjectChangesDeletedFromIndexEvent event = new AllProjectChangesDeletedFromIndexEvent();
-    event.projectName = projectName;
-    event.instanceId = instanceId;
-
-    dispatcher.get().postEvent(Project.nameKey(projectName), event);
   }
 }

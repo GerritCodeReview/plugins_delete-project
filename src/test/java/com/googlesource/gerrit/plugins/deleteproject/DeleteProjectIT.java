@@ -23,7 +23,6 @@ import static com.google.gerrit.server.project.ProjectCache.illegalState;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableList;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -38,7 +37,6 @@ import com.google.gerrit.entities.Project;
 import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.extensions.client.ProjectState;
 import com.google.gerrit.extensions.restapi.RestApiException;
-import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.deleteproject.DeleteProject.Input;
 import java.io.File;
@@ -286,31 +284,6 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
     assertThat(projectDir.exists()).isFalse();
     assertAllChangesDeletedInIndex();
     assertThat(parentFolder.toFile().exists()).isFalse();
-  }
-
-  @Test
-  @UseLocalDisk
-  public void testHttpDeleteProjectEmitsAllProjectChangesDeletedFromIndex() throws Exception {
-    RestResponse r = httpDeleteProjectHelper(false);
-    r.assertNoContent();
-
-    ImmutableList<Event> events =
-        eventRecorder.getGenericEvents(AllProjectChangesDeletedFromIndexEvent.TYPE, 1);
-
-    assertThat(((AllProjectChangesDeletedFromIndexEvent) events.getFirst()).getProjectNameKey())
-        .isEqualTo(project);
-  }
-
-  @Test
-  @UseLocalDisk
-  public void testSshDeleteProjectEmitsAllProjectChangesDeletedFromIndex() throws Exception {
-    adminSshSession.exec(createDeleteCommand(project.get()));
-
-    ImmutableList<Event> events =
-        eventRecorder.getGenericEvents(AllProjectChangesDeletedFromIndexEvent.TYPE, 1);
-
-    assertThat(((AllProjectChangesDeletedFromIndexEvent) events.getFirst()).getProjectNameKey())
-        .isEqualTo(project);
   }
 
   private File verifyProjectRepoExists(Project.NameKey name) throws IOException {
