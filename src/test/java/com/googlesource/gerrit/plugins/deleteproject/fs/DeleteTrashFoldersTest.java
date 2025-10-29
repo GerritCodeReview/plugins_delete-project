@@ -20,9 +20,11 @@ import static org.mockito.Mockito.when;
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
+import com.google.gerrit.server.git.WorkQueue;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.Executors;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
@@ -39,6 +41,8 @@ public class DeleteTrashFoldersTest {
 
   @Mock private RepositoryConfig repositoryCfg;
 
+  @Mock private WorkQueue workQueue;
+
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private Path basePath;
@@ -51,7 +55,8 @@ public class DeleteTrashFoldersTest {
     Config cfg = new Config();
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
-    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg);
+    when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
+    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
   }
 
   @Test
@@ -59,7 +64,7 @@ public class DeleteTrashFoldersTest {
     FileRepository repoToDelete = createRepository("repo.1234567890123.deleted");
     FileRepository repoToKeep = createRepository("anotherRepo.git");
     trashFolders.start();
-    trashFolders.getWorkerThread().join();
+    trashFolders.getWorkerFuture().get();
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
   }
