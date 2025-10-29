@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af28c316_4c8b0f59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-10-29T20:43:06Z",
+      "side": 1,
+      "message": "Post-merge -1",
+      "revId": "a473b8d5e8ede7ac47db481724045d4bde9d852e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be00ab24_a3d7a335",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-10-29T20:43:06Z",
+      "side": 1,
+      "message": "This is problematic for three reasons:\n\n1. The thread isn\u0027t traced in Gerrit\u0027s queues and is not visible in the running tasks in Gerrit\n2. The start happens *immediately* at startup, putting a lot of burden to the newly started Gerrit with cold caches\n3. Scans the *entire* set of repositories looking for a trash folder: we have 100k repositories that cause a massive overload for the first 10-15 mins of the start of Gerrit.\n\nIt would be best to:\na) Use a standard queue executor in Gerrit\nb) Allow a defined scheduling of this cleanup, rather than doing it at startup",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 100
+      },
+      "revId": "a473b8d5e8ede7ac47db481724045d4bde9d852e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
