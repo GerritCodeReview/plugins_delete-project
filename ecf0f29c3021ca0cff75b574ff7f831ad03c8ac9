@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb92324_d3bc09fc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-10-30T18:42:47Z",
+      "side": 1,
+      "message": "Why not using directly `workQueue.getDefaultQueue().submit()`?",
+      "range": {
+        "startLine": 102,
+        "startChar": 23,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e19197_815d5eb3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-10-30T18:42:47Z",
+      "side": 1,
+      "message": "`evaluateIfTrash` might try uncheched exception. Might be worth catching them.",
+      "range": {
+        "startLine": 106,
+        "startChar": 70,
+        "endLine": 106,
+        "endChar": 85
+      },
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746ce7c4_73a52d6d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-10-30T18:42:47Z",
+      "side": 1,
+      "message": "We should stop the taks here.",
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
