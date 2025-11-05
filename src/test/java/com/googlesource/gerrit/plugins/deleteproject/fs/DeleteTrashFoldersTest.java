@@ -24,6 +24,9 @@ import com.google.gerrit.server.git.WorkQueue;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
@@ -45,18 +48,34 @@ public class DeleteTrashFoldersTest {
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
+  private Config cfg;
   private Path basePath;
   private DeleteTrashFolders trashFolders;
+  private SitePaths sitePaths;
 
   @Before
   public void setUp() throws Exception {
-    SitePaths sitePaths = new SitePaths(tempFolder.newFolder("gerrit_site").toPath());
+    sitePaths = new SitePaths(tempFolder.newFolder("gerrit_site").toPath());
     basePath = sitePaths.resolve("base");
-    Config cfg = new Config();
+    cfg = new Config();
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
     when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
     trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+  }
+
+  @Test
+  public void testDoesNotDeleteTrashAtStartupIfScheduledInFuture() throws Exception {
+    FileRepository repoToDelete = createRepository("repo.1234567890123.deleted");
+
+    ZonedDateTime nowPlus2 = ZonedDateTime.now(ZoneId.systemDefault()).plusHours(2);
+    String nowPlus2formatted = nowPlus2.format(DateTimeFormatter.ofPattern("HH:mm"));
+
+    cfg.setString("deleteTrashFolder", null, "startTime", nowPlus2formatted);
+    DeleteTrashFolders trashFolders =
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+    trashFolders.start();
+    assertThat(repoToDelete.getDirectory().exists()).isTrue();
   }
 
   @Test

@@ -22,6 +22,7 @@ import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.RepositoryConfig;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -81,6 +83,7 @@ public class DeleteTrashFolders implements LifecycleListener {
   private Set<Path> repoFolders;
 
   private Future<Void> threadCompleted;
+  private final Optional<ScheduleConfig.Schedule> schedule;
 
   @Inject
   public DeleteTrashFolders(
@@ -91,12 +94,23 @@ public class DeleteTrashFolders implements LifecycleListener {
     repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
+    schedule = ScheduleConfig.createSchedule(cfg, "deleteTrashFolder");
     this.workQueue = workQueue;
   }
 
   @Override
   public void start() {
-    threadCompleted =
+    if (schedule.isPresent()) {
+      workQueue.scheduleAtFixedRate(
+          new Runnable() {
+            @Override
+            public void run() {
+              repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
+            }
+          },
+          schedule.get());
+    } else {
+      threadCompleted =
         workQueue
             .getDefaultQueue()
             .submit(
@@ -107,11 +121,11 @@ public class DeleteTrashFolders implements LifecycleListener {
                     return null;
                   }
 
-                  @Override
-                  public String toString() {
-                    return "DeleteTrashFolders";
-                  }
-                });
+              @Override
+              public String toString() {
+                return "DeleteTrashFolders";
+              }
+            });
   }
 
   private void evaluateIfTrash(Path folder) {
