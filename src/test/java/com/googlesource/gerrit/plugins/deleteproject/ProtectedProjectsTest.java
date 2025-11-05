@@ -53,7 +53,8 @@ public class ProtectedProjectsTest {
     pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData);
+    deleteConfig =
+        new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData, new Config());
     protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
   }
 
@@ -78,7 +79,8 @@ public class ProtectedProjectsTest {
     pluginConfig.setStringList("protectedProject", projects);
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData);
+    deleteConfig =
+        new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginData, new Config());
     assertThat(deleteConfig.protectedProjects()).hasSize(projects.size());
     protectedProjects = new ProtectedProjects(allProjectsMock, allUsersMock, deleteConfig);
 
