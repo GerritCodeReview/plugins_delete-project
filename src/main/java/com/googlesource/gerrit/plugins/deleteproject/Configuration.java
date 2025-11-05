@@ -23,15 +23,20 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
+import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.eclipse.jgit.lib.Config;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Singleton
@@ -47,15 +52,17 @@ public class Configuration {
   private final String deletedProjectsParent;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
+  private final Optional<ScheduleConfig.Schedule> schedule;
   private final PluginConfig cfg;
 
   private File pluginData;
 
   @Inject
   public Configuration(
-      PluginConfigFactory pluginConfigFactory,
-      @PluginName String pluginName,
-      @PluginData File pluginData) {
+          PluginConfigFactory pluginConfigFactory,
+          @PluginName String pluginName,
+          @PluginData File pluginData,
+          @GerritServerConfig Config gerritConfig) {
     this.cfg = pluginConfigFactory.getFromGerritConfig(pluginName);
     this.pluginData = pluginData;
     this.allowDeletionWithTags = cfg.getBoolean("allowDeletionOfReposWithTags", true);
@@ -71,6 +78,13 @@ public class Configuration {
         Arrays.asList(cfg.getStringList("protectedProject")).stream()
             .map(Pattern::compile)
             .collect(toList());
+    this.schedule =
+            ScheduleConfig.builder(gerritConfig, "plugin")
+                    .setSubsection(pluginName)
+                    .setKeyInterval("deleteTrashFolderInterval")
+                    .setKeyStartTime("deleteTrashFolderStartTime")
+                    .buildSchedule();
+    System.out.println("Delete project schedule: " + schedule);
   }
 
   public boolean deletionWithTagsAllowed() {
@@ -122,5 +136,9 @@ public class Configuration {
           e.getMessage(), DEFAULT_ARCHIVE_DURATION_DAYS);
       return DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS);
     }
+  }
+
+  public Optional<ScheduleConfig.Schedule> getSchedule() {
+    return schedule;
   }
 }

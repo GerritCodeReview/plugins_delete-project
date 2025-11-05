@@ -45,18 +45,20 @@ public class ConfigurationTest {
   private Path customArchiveFolder;
   private File pluginDataDir;
   private Configuration deleteConfig;
+  private Config gerritConfig;
 
   @Before
   public void setUp() throws Exception {
     pluginDataDir = tempFolder.newFolder("data");
     customArchiveFolder = tempFolder.newFolder("archive").toPath();
+    gerritConfig = new Config();
   }
 
   @Test
   public void defaultValuesAreLoaded() {
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
-        .thenReturn(PluginConfig.create(PLUGIN_NAME, new Config(), null));
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
+        .thenReturn(PluginConfig.create(PLUGIN_NAME, gerritConfig, null));
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, gerritConfig);
 
     assertThat(deleteConfig.getDeletedProjectsParent()).isEqualTo("Deleted-Projects");
     assertThat(deleteConfig.deletionWithTagsAllowed()).isTrue();
@@ -78,7 +80,7 @@ public class ConfigurationTest {
 
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, gerritConfig);
 
     assertThat(deleteConfig.getDeletedProjectsParent()).isEqualTo(CUSTOM_PARENT);
     assertThat(deleteConfig.deletionWithTagsAllowed()).isFalse();
@@ -96,7 +98,7 @@ public class ConfigurationTest {
 
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, gerritConfig);
 
     assertThat(deleteConfig.getArchiveDuration())
         .isEqualTo(TimeUnit.DAYS.toMillis(Long.parseLong(CUSTOM_DURATION)) * 365);
@@ -109,7 +111,7 @@ public class ConfigurationTest {
 
     when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
         .thenReturn(pluginConfig.asPluginConfig());
-    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir);
+    deleteConfig = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, gerritConfig);
 
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
   }
