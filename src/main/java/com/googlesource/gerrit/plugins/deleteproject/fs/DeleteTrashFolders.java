@@ -14,24 +14,30 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
+import static java.util.concurrent.Executors.callable;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Sets;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.RepositoryConfig;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.eclipse.jgit.lib.Config;
@@ -40,6 +46,7 @@ public class DeleteTrashFolders implements LifecycleListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final WorkQueue workQueue;
+  private final String pluginName;
 
   static class TrashFolderPredicate {
 
@@ -80,38 +87,54 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   private Set<Path> repoFolders;
 
-  private Future<Void> threadCompleted;
+  private ScheduledFuture<?> threadCompleted;
+  private final Optional<ScheduleConfig.Schedule> schedule;
 
   @Inject
   public DeleteTrashFolders(
       SitePaths site,
       @GerritServerConfig Config cfg,
       RepositoryConfig repositoryCfg,
-      WorkQueue workQueue) {
+      Configuration pluginCfg,
+      WorkQueue workQueue,
+      @PluginName String pluginName) {
     repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
+    schedule = pluginCfg.getSchedule();
     this.workQueue = workQueue;
+    this.pluginName = pluginName;
   }
 
   @Override
   public void start() {
-    threadCompleted =
-        workQueue
-            .getDefaultQueue()
-            .submit(
-                new Callable<>() {
-                  @Override
-                  public Void call() {
-                    repoFolders.stream().forEach(DeleteTrashFolders.this::evaluateIfTrash);
-                    return null;
-                  }
+    String taskName = String.format("[%s]: DeleteTrashFolders under %s", pluginName, repoFolders);
+    Runnable deleteTrashFoldersRunnable =
+        new Runnable() {
+          @Override
+          public void run() {
+            repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
+          }
 
-                  @Override
-                  public String toString() {
-                    return "DeleteTrashFolders";
-                  }
-                });
+          @Override
+          public String toString() {
+            return taskName;
+          }
+        };
+
+    ScheduledExecutorService scheduledExecutor = workQueue.getDefaultQueue();
+    if (schedule.isPresent()) {
+      threadCompleted =
+          scheduledExecutor.scheduleAtFixedRate(
+              deleteTrashFoldersRunnable,
+              schedule.get().initialDelay(),
+              schedule.get().interval(),
+              TimeUnit.MILLISECONDS);
+    } else {
+      threadCompleted =
+          scheduledExecutor.schedule(
+              callable(deleteTrashFoldersRunnable), 0, TimeUnit.MILLISECONDS);
+    }
   }
 
   private void evaluateIfTrash(Path folder) {
@@ -125,7 +148,7 @@ public class DeleteTrashFolders implements LifecycleListener {
   }
 
   @VisibleForTesting
-  Future<Void> getWorkerFuture() {
+  ScheduledFuture<?> getWorkerFuture() {
     return threadCompleted;
   }
 
@@ -138,5 +161,10 @@ public class DeleteTrashFolders implements LifecycleListener {
   }
 
   @Override
-  public void stop() {}
+  public void stop() {
+    if (threadCompleted != null) {
+      threadCompleted.cancel(true);
+      threadCompleted = null;
+    }
+  }
 }
