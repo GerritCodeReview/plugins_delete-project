@@ -14,17 +14,25 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.RepositoryConfig;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
+import com.googlesource.gerrit.plugins.deleteproject.FakeScheduledExecutorService;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.Executors;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
@@ -38,35 +46,94 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteTrashFoldersTest {
+  private static final String DELETE_PROJECT_PLUGIN = "delete-project";
+  private static final int INITIAL_DELAY_MIN = 2;
+  private static final int INTERVAL_DAYS = 1;
+  public static final String REPOSITORY_TO_DELETE = "repo.1234567890123.deleted";
 
   @Mock private RepositoryConfig repositoryCfg;
 
   @Mock private WorkQueue workQueue;
 
+  @Mock private Configuration pluginCfg;
+
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
+  private Config cfg;
   private Path basePath;
   private DeleteTrashFolders trashFolders;
+  private SitePaths sitePaths;
+  private FakeScheduledExecutorService fakeScheduledExecutor;
 
   @Before
   public void setUp() throws Exception {
-    SitePaths sitePaths = new SitePaths(tempFolder.newFolder("gerrit_site").toPath());
+    sitePaths = new SitePaths(tempFolder.newFolder("gerrit_site").toPath());
     basePath = sitePaths.resolve("base");
-    Config cfg = new Config();
+    cfg = new Config();
     cfg.setString("gerrit", null, "basePath", basePath.toString());
+    fakeScheduledExecutor = new FakeScheduledExecutorService();
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
-    when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
-    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+    when(workQueue.getDefaultQueue()).thenReturn(fakeScheduledExecutor);
+    trashFolders =
+        new DeleteTrashFolders(
+            sitePaths, cfg, repositoryCfg, pluginCfg, workQueue, DELETE_PROJECT_PLUGIN);
+  }
+
+  @Test
+  public void testShouldDeleteRepositoryAfterInitialDelayAndPeriodically() throws Exception {
+    ZonedDateTime initialDateTime =
+        ZonedDateTime.now(ZoneId.systemDefault()).plusMinutes(INITIAL_DELAY_MIN);
+    String initialDateTimeFormatted = initialDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+    setupTrashFolderCleanupSchedule(
+        initialDateTimeFormatted, String.format("%d days", INTERVAL_DAYS));
+
+    DeleteTrashFolders trashFolders =
+        new DeleteTrashFolders(
+            sitePaths, cfg, repositoryCfg, pluginCfg, workQueue, DELETE_PROJECT_PLUGIN);
+    trashFolders.start();
+
+    try (FileRepository repoToDelete = createRepository(REPOSITORY_TO_DELETE)) {
+      // Repository is not deleted at 1/2 time of the initial delay
+      fakeScheduledExecutor.advance(
+          TimeUnit.MINUTES.toSeconds(INITIAL_DELAY_MIN / 2), TimeUnit.SECONDS);
+      assertThatRepositoryExists(repoToDelete);
+
+      // Repository is deleted 1 second after the initial delay
+      fakeScheduledExecutor.advance(
+          TimeUnit.MINUTES.toSeconds(INITIAL_DELAY_MIN) + 1, TimeUnit.SECONDS);
+      assertThatRepositoryIsDeleted(repoToDelete);
+    }
+
+    try (FileRepository repoToDelete = createRepository(REPOSITORY_TO_DELETE)) {
+      // Repository recreated
+      assertThatRepositoryExists(repoToDelete);
+
+      // Repository is deleted again after the interval time
+      fakeScheduledExecutor.advance(TimeUnit.DAYS.toSeconds(INTERVAL_DAYS), TimeUnit.SECONDS);
+      assertThatRepositoryIsDeleted(repoToDelete);
+    }
+  }
+
+  private static void assertThatRepositoryIsDeleted(FileRepository repoToDelete) {
+    assertFalse(
+        "Repository " + repoToDelete.getDirectory() + " has not been deleted",
+        repoToDelete.getDirectory().exists());
+  }
+
+  private static void assertThatRepositoryExists(FileRepository repoToDelete) {
+    assertTrue(
+        "Repository " + repoToDelete.getDirectory() + " does not exist",
+        repoToDelete.getDirectory().exists());
   }
 
   @Test
   public void testStart() throws Exception {
-    FileRepository repoToDelete = createRepository("repo.1234567890123.deleted");
+    FileRepository repoToDelete = createRepository(REPOSITORY_TO_DELETE);
     FileRepository repoToKeep = createRepository("anotherRepo.git");
     trashFolders.start();
     trashFolders.getWorkerFuture().get();
-    assertThat(repoToDelete.getDirectory().exists()).isFalse();
-    assertThat(repoToKeep.getDirectory().exists()).isTrue();
+    assertThatRepositoryIsDeleted(repoToDelete);
+    assertThatRepositoryExists(repoToKeep);
   }
 
   private FileRepository createRepository(String repoName) throws IOException {
@@ -74,5 +141,17 @@ public class DeleteTrashFoldersTest {
     Repository repository = new FileRepository(repoPath.toFile());
     repository.create(true);
     return (FileRepository) repository;
+  }
+
+  private void setupTrashFolderCleanupSchedule(String startTime, String interval) {
+    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "deleteTrashFolderStartTime", startTime);
+    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "deleteTrashFolderInterval", interval);
+    Optional<ScheduleConfig.Schedule> schedule =
+        ScheduleConfig.builder(cfg, "plugin")
+            .setSubsection(DELETE_PROJECT_PLUGIN)
+            .setKeyStartTime("deleteTrashFolderStartTime")
+            .setKeyInterval("deleteTrashFolderInterval")
+            .buildSchedule();
+    when(pluginCfg.getSchedule()).thenReturn(schedule);
   }
 }
