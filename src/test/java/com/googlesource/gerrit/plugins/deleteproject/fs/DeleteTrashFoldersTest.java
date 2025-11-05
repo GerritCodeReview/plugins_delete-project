@@ -18,12 +18,19 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gerrit.acceptance.WaitUtil;
 import com.google.gerrit.server.config.RepositoryConfig;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
@@ -43,20 +50,46 @@ public class DeleteTrashFoldersTest {
 
   @Mock private WorkQueue workQueue;
 
+  @Mock private Configuration pluginCfg;
+
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
+  private Config cfg;
   private Path basePath;
   private DeleteTrashFolders trashFolders;
+  private SitePaths sitePaths;
 
   @Before
   public void setUp() throws Exception {
-    SitePaths sitePaths = new SitePaths(tempFolder.newFolder("gerrit_site").toPath());
+    sitePaths = new SitePaths(tempFolder.newFolder("gerrit_site").toPath());
     basePath = sitePaths.resolve("base");
-    Config cfg = new Config();
+    cfg = new Config();
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
     when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
-    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
+  }
+
+  @Test
+  public void testDoesNotDeleteTrashAtStartupIfScheduledInFuture() throws Exception {
+    int INITIAL_DELAY_MIN = 1;
+    FileRepository repoToDelete = createRepository("repo.1234567890123.deleted");
+
+    ZonedDateTime nowPlus2 =
+        ZonedDateTime.now(ZoneId.systemDefault()).plusMinutes(INITIAL_DELAY_MIN);
+    String nowPlus2formatted = nowPlus2.format(DateTimeFormatter.ofPattern("HH:mm"));
+
+    cfg.setString("deleteTrashFolder", null, "startTime", nowPlus2formatted);
+    when(pluginCfg.getSchedule())
+        .thenReturn(ScheduleConfig.createSchedule(cfg, "deleteTrashFolder"));
+    DeleteTrashFolders trashFolders =
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
+    trashFolders.start();
+    assertThat(repoToDelete.getDirectory().exists()).isTrue();
+
+    WaitUtil.waitUntil(
+        () -> trashFolders.getWorkerFuture().isDone(), Duration.ofMinutes(INITIAL_DELAY_MIN * 3));
+    assertThat(repoToDelete.getDirectory().exists()).isFalse();
   }
 
   @Test
