@@ -104,3 +104,33 @@ plugin.@PLUGIN@.deleteArchivedReposAfter
 	task.
 
 	By default 180 (days).
+
+Delete Trash Folder Scheduling
+=============
+
+Trash folder cleanup can be scheduled to run periodically.
+If no schedule is configured, the cleanup runs once at Gerrit startup.
+
+The configuration has to be added to the `@PLUGIN@.config` file.
+
+plugin.@PLUGIN@.deleteTrashFolderStartTime
+:	The start time for running trash folders deletion.
+
+	The [start time](/Documentation/config-gerrit.html#schedule-configuration-startTime)
+	for running trash folders deletion.
+
+plugin.@PLUGIN@.deleteTrashFolderInterval
+:	The interval between successive trash folder deletions.
+
+	The [interval](/Documentation/config-gerrit.html#schedule-configuration-interval)
+	for running trash folders deletion.
+
+plugin.@PLUGIN@.deleteTrashFolderJitter
+: A maximum random delay that will be added to the job’s scheduled start time.
+
+	See the [jitter documentation](/Documentation/config-gerrit.html#schedule-configuration-jitter)
+	for details.
+
+[Schedule examples](/Documentation/config-gerrit.html#schedule-configuration-examples)
+can be found in the [Schedule Configuration](/Documentation/config-gerrit.html#schedule-configuration)
+section.
