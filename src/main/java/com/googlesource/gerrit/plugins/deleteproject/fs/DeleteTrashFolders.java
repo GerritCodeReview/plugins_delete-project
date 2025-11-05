@@ -22,6 +22,7 @@ import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.RepositoryConfig;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -81,6 +83,8 @@ public class DeleteTrashFolders implements LifecycleListener {
   private Set<Path> repoFolders;
 
   private Future<Void> threadCompleted;
+  private final Optional<ScheduleConfig.Schedule> schedule;
+  private final WorkQueue queue;
 
   @Inject
   public DeleteTrashFolders(
@@ -91,11 +95,48 @@ public class DeleteTrashFolders implements LifecycleListener {
     repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
+<<<<<<< PATCH SET (5613946537a368ae666bacadcd9bc4d81529f120 Make trash cleanup schedulable, keep startup default)
+    schedule = ScheduleConfig.createSchedule(cfg, "deleteTrashFolder");
+    queue = workQueue;
+    threadExecutor = new ExecutorCompletionService<>(workQueue.getDefaultQueue());
+||||||| BASE      (ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9 Use Gerrit's WorkQueue for running the DeleteTashFolder task)
+    threadExecutor = new ExecutorCompletionService<>(workQueue.getDefaultQueue());
+=======
     this.workQueue = workQueue;
+>>>>>>> BASE      (f48d57b81da0e00c7fc84174989d01f107881740 Use Gerrit's WorkQueue for running the DeleteTrashFolder tas)
   }
 
   @Override
   public void start() {
+<<<<<<< PATCH SET (5613946537a368ae666bacadcd9bc4d81529f120 Make trash cleanup schedulable, keep startup default)
+    if (schedule.isPresent()) {
+      queue.scheduleAtFixedRate(
+          new Runnable() {
+            @Override
+            public void run() {
+              repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
+            }
+          },
+          schedule.get());
+    } else {
+      threadCompleted =
+          threadExecutor.submit(
+              new Callable<>() {
+                @Override
+                public Void call() {
+                  repoFolders.stream().forEach(DeleteTrashFolders.this::evaluateIfTrash);
+                  return null;
+                }
+||||||| BASE      (ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9 Use Gerrit's WorkQueue for running the DeleteTashFolder task)
+    threadCompleted =
+        threadExecutor.submit(
+            new Callable<>() {
+              @Override
+              public Void call() {
+                repoFolders.stream().forEach(DeleteTrashFolders.this::evaluateIfTrash);
+                return null;
+              }
+=======
     threadCompleted =
         workQueue
             .getDefaultQueue()
@@ -106,12 +147,28 @@ public class DeleteTrashFolders implements LifecycleListener {
                     repoFolders.stream().forEach(DeleteTrashFolders.this::evaluateIfTrash);
                     return null;
                   }
+>>>>>>> BASE      (f48d57b81da0e00c7fc84174989d01f107881740 Use Gerrit's WorkQueue for running the DeleteTrashFolder tas)
 
+<<<<<<< PATCH SET (5613946537a368ae666bacadcd9bc4d81529f120 Make trash cleanup schedulable, keep startup default)
+                @Override
+                public String toString() {
+                  return "DeleteTrashFolders";
+                }
+              });
+    }
+||||||| BASE      (ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9 Use Gerrit's WorkQueue for running the DeleteTashFolder task)
+              @Override
+              public String toString() {
+                return "DeleteTrashFolders";
+              }
+            });
+=======
                   @Override
                   public String toString() {
                     return "DeleteTrashFolders";
                   }
                 });
+>>>>>>> BASE      (f48d57b81da0e00c7fc84174989d01f107881740 Use Gerrit's WorkQueue for running the DeleteTrashFolder tas)
   }
 
   private void evaluateIfTrash(Path folder) {
