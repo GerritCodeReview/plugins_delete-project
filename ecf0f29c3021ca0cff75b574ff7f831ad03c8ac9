@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1beaf81_3f1beb7b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-05T21:38:04Z",
+      "side": 1,
+      "message": "\u003e Why not using directly `workQueue.getDefaultQueue().submit()`?\n\nI need to understand when the thread is completed, hence the use of the `ExecutorCompletionService\u003c\u003e`",
+      "parentUuid": "4bb92324_d3bc09fc",
+      "range": {
+        "startLine": 102,
+        "startChar": 23,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7e19197_815d5eb3",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
         "patchSetId": 1
@@ -101,6 +125,24 @@
       "writtenOn": "2025-10-30T18:42:47Z",
       "side": 1,
       "message": "We should stop the taks here.",
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696aeee1_4acff829",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-05T21:38:04Z",
+      "side": 1,
+      "message": "Good point, however, it\u0027s unrelated to this change, possibly a follow-up?",
+      "parentUuid": "746ce7c4_73a52d6d",
       "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
