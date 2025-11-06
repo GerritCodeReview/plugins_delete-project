@@ -15,12 +15,16 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,6 +32,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
@@ -45,6 +50,9 @@ public class DeleteTrashFoldersTest {
   @Mock private RepositoryConfig repositoryCfg;
 
   @Mock private WorkQueue workQueue;
+  @Mock private ScheduledExecutorService mockedScheduledExecutorService;
+
+  @Mock private Configuration pluginCfg;
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
@@ -60,12 +68,35 @@ public class DeleteTrashFoldersTest {
     cfg = new Config();
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
+  }
+
+  private void setupDeleteTrashFolders() {
     when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
-    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+    when(pluginCfg.getDeleteTrashFoldersBatchSize()).thenReturn(100);
+    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
+  }
+
+  @Test
+  public void batchesTrashFoldersCorrectly() throws Exception {
+    createRepository("p1.1234567890123.deleted");
+    createRepository("p2.1234567890123.deleted");
+    createRepository("p3.1234567890123.deleted");
+
+    when(workQueue.getDefaultQueue()).thenReturn(mockedScheduledExecutorService);
+    when(pluginCfg.getDeleteTrashFoldersBatchSize()).thenReturn(2);
+
+    DeleteTrashFolders d =
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
+
+    d.submitTrashFolderBatches(); // invoke the logic directly
+
+    // Expect: 2 batches → size 2 and size 1
+    verify(mockedScheduledExecutorService, times(2)).submit(any(Runnable.class));
   }
 
   @Test
   public void testDoesNotDeleteTrashAtStartupIfScheduledInFuture() throws Exception {
+    setupDeleteTrashFolders();
     FileRepository repoToDelete = createRepository("repo.1234567890123.deleted");
 
     ZonedDateTime nowPlus2 = ZonedDateTime.now(ZoneId.systemDefault()).plusHours(2);
@@ -73,13 +104,14 @@ public class DeleteTrashFoldersTest {
 
     cfg.setString("deleteTrashFolder", null, "startTime", nowPlus2formatted);
     DeleteTrashFolders trashFolders =
-        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
     trashFolders.start();
     assertThat(repoToDelete.getDirectory().exists()).isTrue();
   }
 
   @Test
   public void testStart() throws Exception {
+    setupDeleteTrashFolders();
     FileRepository repoToDelete = createRepository("repo.1234567890123.deleted");
     FileRepository repoToKeep = createRepository("anotherRepo.git");
     trashFolders.start();
