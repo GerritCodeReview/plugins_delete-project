@@ -26,10 +26,13 @@ import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -87,12 +90,14 @@ public class DeleteTrashFolders implements LifecycleListener {
   private Future<Void> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final WorkQueue queue;
+  private final int deleteTrashFoldersBatchSize;
 
   @Inject
   public DeleteTrashFolders(
       SitePaths site,
       @GerritServerConfig Config cfg,
       RepositoryConfig repositoryCfg,
+      Configuration pluginCfg,
       WorkQueue workQueue) {
     repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
@@ -100,6 +105,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     schedule = ScheduleConfig.createSchedule(cfg, "deleteTrashFolder");
     queue = workQueue;
     threadExecutor = new ExecutorCompletionService<>(workQueue.getDefaultQueue());
+    deleteTrashFoldersBatchSize = pluginCfg.getDeleteTrashFoldersBatchSize();
   }
 
   @Override
@@ -109,7 +115,7 @@ public class DeleteTrashFolders implements LifecycleListener {
           new Runnable() {
             @Override
             public void run() {
-              repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
+              submitTrashFolderBatches();
             }
           },
           schedule.get());
@@ -128,6 +134,31 @@ public class DeleteTrashFolders implements LifecycleListener {
                   return "DeleteTrashFolders";
                 }
               });
+    }
+  }
+
+  @VisibleForTesting
+  protected void submitTrashFolderBatches() {
+    for (Path repoFolder : repoFolders) {
+      List<Path> candidates = new ArrayList<>();
+      try (Stream<Path> walk = Files.walk(repoFolder, FileVisitOption.FOLLOW_LINKS)) {
+        walk.filter(Files::isDirectory)
+            .filter(TrashFolderPredicate::match)
+            .forEach(candidates::add);
+      } catch (IOException e) {
+        log.atSevere().withCause(e).log("Failed to evaluate %s", repoFolder);
+        continue;
+      }
+
+      partitionAndSubmit(candidates, deleteTrashFoldersBatchSize);
+    }
+  }
+
+  private void partitionAndSubmit(List<Path> paths, int size) {
+    for (int i = 0; i < paths.size(); i += size) {
+      List<Path> batch = paths.subList(i, Math.min(i + size, paths.size()));
+      Future<?> unused =
+          queue.getDefaultQueue().submit(() -> batch.forEach(this::recursivelyDelete));
     }
   }
 
