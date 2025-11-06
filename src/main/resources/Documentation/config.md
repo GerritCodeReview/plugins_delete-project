@@ -105,6 +105,22 @@ plugin.@PLUGIN@.deleteArchivedReposAfter
 
 	By default 180 (days).
 
+plugin.@PLUGIN@.deleteTrashFoldersBatchSize
+:   Controls how many repository trash folders are processed together
+in a single scheduled task execution.
+
+  When `deleteTrashFolder` scheduling is enabled, the plugin scans
+  repositories in batches rather than evaluating all folders in one
+  long-running pass. Each batch is submitted as a separate recurring
+  task, which helps distribute load over time and reduces the risk
+  of blocking the WorkQueue for extended periods.
+
+  A larger batch size means fewer scheduled tasks but potentially
+  longer execution time per batch. A smaller batch size increases
+  concurrency and responsiveness but adds more scheduling overhead.
+
+  By default, `100`.
+
 Delete Trash Folder Scheduling
 =============
 

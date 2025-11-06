@@ -26,10 +26,13 @@ import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -87,12 +90,14 @@ public class DeleteTrashFolders implements LifecycleListener {
   private Future<Void> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final WorkQueue queue;
+  private final int deleteTrashFoldersBatchSize;
 
   @Inject
   public DeleteTrashFolders(
       SitePaths site,
       @GerritServerConfig Config cfg,
       RepositoryConfig repositoryCfg,
+      Configuration pluginCfg,
       WorkQueue workQueue) {
     repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
@@ -100,19 +105,23 @@ public class DeleteTrashFolders implements LifecycleListener {
     schedule = ScheduleConfig.createSchedule(cfg, "deleteTrashFolder");
     queue = workQueue;
     threadExecutor = new ExecutorCompletionService<>(workQueue.getDefaultQueue());
+    deleteTrashFoldersBatchSize = pluginCfg.getDeleteTrashFoldersBatchSize();
   }
 
   @Override
   public void start() {
+    log.atSevere().log("Started pluginn.....");
     if (schedule.isPresent()) {
+      log.atSevere().log("Scheduling: %s", schedule);
       queue.scheduleAtFixedRate(
           new Runnable() {
             @Override
             public void run() {
-              repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
+              submitTrashFoldrBatches();
             }
           },
           schedule.get());
+
     } else {
       threadCompleted =
           threadExecutor.submit(
@@ -129,6 +138,37 @@ public class DeleteTrashFolders implements LifecycleListener {
                 }
               });
     }
+  }
+
+  private void submitTrashFoldrBatches() {
+    List<Path> batch = new ArrayList<>(deleteTrashFoldersBatchSize);
+
+    for (Path repoFolder : repoFolders) {
+      try (Stream<Path> dir = Files.walk(repoFolder, FileVisitOption.FOLLOW_LINKS)) {
+        dir.filter(Files::isDirectory)
+            .filter(TrashFolderPredicate::match)
+            .forEach(matched -> {
+              batch.add(matched);
+              if (batch.size() == deleteTrashFoldersBatchSize) {
+                submitDeleteTrashFoldersBatch(new ArrayList<>(batch));
+                batch.clear();
+              }
+            });
+      } catch (IOException e) {
+        log.atSevere().withCause(e).log("Failed to evaluate %s", repoFolder);
+      }
+    }
+
+    // leftover
+    if (!batch.isEmpty()) {
+      submitDeleteTrashFoldersBatch(batch);
+    }
+  }
+
+  private void submitDeleteTrashFoldersBatch(List<Path> batch) {
+    Future<Boolean> unused = queue.getDefaultQueue().submit(() -> {
+      batch.forEach(this::recursivelyDelete);
+    }, true);
   }
 
   private void evaluateIfTrash(Path folder) {
