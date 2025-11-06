@@ -1,12 +1,13 @@
 {
   "checks": {
     "zuul-check:plugins_delete-project": {
-      "state": "RUNNING",
-      "message": "Jobs have started running",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/524802,4",
+      "state": "SUCCESSFUL",
+      "message": "Change passed all voting jobs",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/9c16ede853154dbdb2f1b447d03083c3",
       "started": "2025-11-06T17:03:57Z",
+      "finished": "2025-11-06T17:12:02Z",
       "created": "2025-11-06T17:03:57Z",
-      "updated": "2025-11-06T17:04:01Z"
+      "updated": "2025-11-06T17:12:02Z"
     }
   }
 }
