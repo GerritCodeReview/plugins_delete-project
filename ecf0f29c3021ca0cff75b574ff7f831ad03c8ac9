@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0dfff679_5bc83e9c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-06T08:28:50Z",
+      "side": 1,
+      "message": "\u003e Why do you need to know when the thread is completed? `WorkQueue` takes care of the shutdown [1].\n\u003e \n\u003e It seems like `threadCompleted` is only used for tests.\n\nCorrect, we need it to allow the feature to be testable.",
+      "parentUuid": "058414db_5ac2693d",
+      "range": {
+        "startLine": 102,
+        "startChar": 23,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7e19197_815d5eb3",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
         "patchSetId": 1
