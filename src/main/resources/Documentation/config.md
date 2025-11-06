@@ -105,6 +105,13 @@ plugin.@PLUGIN@.deleteArchivedReposAfter
 
 	By default 180 (days).
 
+plugin.@PLUGIN@.deleteTrashFoldersBatchSize
+:	Delete trash folders batch size.
+
+	
+
+	By default 100.
+
 Delete Trash Folder Scheduling
 =============
 
