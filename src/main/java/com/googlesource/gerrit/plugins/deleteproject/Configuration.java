@@ -47,6 +47,7 @@ public class Configuration {
   private final String deletedProjectsParent;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
+  private final int deleteTrashFoldersBatchSize;
   private final PluginConfig cfg;
 
   private File pluginData;
@@ -62,6 +63,7 @@ public class Configuration {
     this.hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
     this.deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
     this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
+    this.deleteTrashFoldersBatchSize = cfg.getInt("deleteTrashFoldersBatchSize", 100);
     this.archiveFolder =
         getArchiveFolderFromConfig(cfg.getString("archiveFolder", pluginData.toString()));
     this.deleteArchivedReposAfter =
@@ -87,6 +89,10 @@ public class Configuration {
 
   public List<Pattern> protectedProjects() {
     return protectedProjects;
+  }
+
+  public int getDeleteTrashFoldersBatchSize() {
+    return deleteTrashFoldersBatchSize;
   }
 
   public boolean shouldArchiveDeletedRepos() {
