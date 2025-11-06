@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,6 +47,8 @@ public class DeleteTrashFoldersTest {
 
   @Mock private WorkQueue workQueue;
 
+  @Mock private Configuration pluginCfg;
+
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private Config cfg;
@@ -61,7 +64,8 @@ public class DeleteTrashFoldersTest {
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
     when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
-    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+    when(pluginCfg.getDeleteTrashFoldersBatchSize()).thenReturn(100);
+    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
   }
 
   @Test
@@ -73,7 +77,7 @@ public class DeleteTrashFoldersTest {
 
     cfg.setString("deleteTrashFolder", null, "startTime", nowPlus2formatted);
     DeleteTrashFolders trashFolders =
-        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
     trashFolders.start();
     assertThat(repoToDelete.getDirectory().exists()).isTrue();
   }
