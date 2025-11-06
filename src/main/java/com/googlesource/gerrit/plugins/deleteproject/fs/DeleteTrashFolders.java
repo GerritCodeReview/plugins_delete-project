@@ -26,10 +26,13 @@ import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -87,12 +90,14 @@ public class DeleteTrashFolders implements LifecycleListener {
   private Future<Void> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final WorkQueue queue;
+  private final int deleteTrashFoldersBatchSize;
 
   @Inject
   public DeleteTrashFolders(
       SitePaths site,
       @GerritServerConfig Config cfg,
       RepositoryConfig repositoryCfg,
+      Configuration pluginCfg,
       WorkQueue workQueue) {
     repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
@@ -100,19 +105,29 @@ public class DeleteTrashFolders implements LifecycleListener {
     schedule = ScheduleConfig.createSchedule(cfg, "deleteTrashFolder");
     queue = workQueue;
     threadExecutor = new ExecutorCompletionService<>(workQueue.getDefaultQueue());
+    deleteTrashFoldersBatchSize = pluginCfg.getDeleteTrashFoldersBatchSize();
   }
 
   @Override
   public void start() {
     if (schedule.isPresent()) {
-      queue.scheduleAtFixedRate(
-          new Runnable() {
-            @Override
-            public void run() {
-              repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
-            }
-          },
-          schedule.get());
+      List<Path> batch = new ArrayList<>(deleteTrashFoldersBatchSize);
+
+      for (Path repoFolder : repoFolders) {
+        batch.add(repoFolder);
+
+        // When batch hits 100 repos → submit a task
+        if (batch.size() == deleteTrashFoldersBatchSize) {
+          submitDeleteTrashFoldersBatch(new ArrayList<>(batch));
+          batch.clear();
+        }
+      }
+
+      // Handle remainder
+      if (!batch.isEmpty()) {
+        submitDeleteTrashFoldersBatch(batch);
+      }
+
     } else {
       threadCompleted =
           threadExecutor.submit(
@@ -129,6 +144,17 @@ public class DeleteTrashFolders implements LifecycleListener {
                 }
               });
     }
+  }
+
+  private void submitDeleteTrashFoldersBatch(List<Path> batch) {
+    queue.scheduleAtFixedRate(
+        new Runnable() {
+          @Override
+          public void run() {
+            batch.forEach(DeleteTrashFolders.this::evaluateIfTrash);
+          }
+        },
+        schedule.get());
   }
 
   private void evaluateIfTrash(Path folder) {
