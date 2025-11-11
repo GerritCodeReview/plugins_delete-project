@@ -18,7 +18,7 @@ gerrit_plugin(
     ],
     resource_jars = ["//plugins/delete-project/web:gr-delete-repo"],
     resources = glob(["src/main/resources/Documentation/*.md"]),
-    deps = ["@commons-io//jar"],
+    deps = ["@gerrit-maven//:commons_io_commons_io"],
 )
 
 junit_tests(
@@ -36,7 +36,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
-        "@commons-io//jar",
-        "@mockito//jar",
+        "@gerrit-maven//:commons_io_commons_io",
+        "@gerrit-maven//:org_mockito_mockito_core",
     ],
 )
