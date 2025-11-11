@@ -37,6 +37,6 @@ java_library(
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
         "@commons-io//jar",
-        "@mockito//jar",
+        "@maven_deps//mockito/jar",
     ],
 )
