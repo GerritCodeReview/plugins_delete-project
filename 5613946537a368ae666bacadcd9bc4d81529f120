@@ -22,6 +22,30 @@
       },
       "revId": "5613946537a368ae666bacadcd9bc4d81529f120",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6021b419_43c36374",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T23:04:16Z",
+      "side": 1,
+      "message": "One queue for one task is overkill IMHO.",
+      "parentUuid": "4c4dd48c_236d3451",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "5613946537a368ae666bacadcd9bc4d81529f120",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
