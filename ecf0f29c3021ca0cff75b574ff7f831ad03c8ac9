@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f25bf0a_58480f13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T22:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ef72386_8bb7941f",
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bb92324_d3bc09fc",
@@ -232,6 +250,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62f70d7_2750ba1c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T22:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71f53ad3_c76de7cc",
+      "range": {
+        "startLine": 106,
+        "startChar": 70,
+        "endLine": 106,
+        "endChar": 85
+      },
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "746ce7c4_73a52d6d",
@@ -263,6 +305,24 @@
       "side": 1,
       "message": "Good point, however, it\u0027s unrelated to this change, possibly a follow-up?",
       "parentUuid": "746ce7c4_73a52d6d",
+      "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6927491c_19de1024",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T22:48:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "696aeee1_4acff829",
       "revId": "ecf0f29c3021ca0cff75b574ff7f831ad03c8ac9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
