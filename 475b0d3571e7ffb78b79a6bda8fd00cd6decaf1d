@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "266cb409_46104908",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T23:22:19Z",
+      "side": 1,
+      "message": "Not sure about the approach.",
+      "revId": "475b0d3571e7ffb78b79a6bda8fd00cd6decaf1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35dfa0f_8a1ed241",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T23:22:19Z",
+      "side": 1,
+      "message": "What is the advantage of submitting all batches in one go?\nIf the purpose of this change is to reduce the CPU and System Load during the deletion, we should choose a different strategy where we have a _backlog_ of folders to delete and we just do \"one bit at a time\" once we are scheduled to process the deletions.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 91
+      },
+      "revId": "475b0d3571e7ffb78b79a6bda8fd00cd6decaf1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53f15411_d7e92d8a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T23:22:19Z",
+      "side": 1,
+      "message": "I do not see this in the code: what I see is that when the scheduled time arrives, all the batches are submitted in one go.",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 56
+      },
+      "revId": "475b0d3571e7ffb78b79a6bda8fd00cd6decaf1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f38ab22_eabd9622",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-11T23:22:19Z",
+      "side": 1,
+      "message": "Not sure we achieve that.",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 9
+      },
+      "revId": "475b0d3571e7ffb78b79a6bda8fd00cd6decaf1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
