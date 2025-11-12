@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Sets;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -87,6 +89,7 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   private ScheduledFuture<?> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
+  private final long deleteTrashFoldersMaxAllowedTime;
 
   @Inject
   public DeleteTrashFolders(
@@ -99,6 +102,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
     schedule = pluginCfg.getSchedule();
+    deleteTrashFoldersMaxAllowedTime = pluginCfg.getDeleteTrashFoldersMaxAllowedTime();
     this.workQueue = workQueue;
   }
 
@@ -146,10 +150,20 @@ public class DeleteTrashFolders implements LifecycleListener {
   }
 
   private void evaluateIfTrash(Path folder) {
+    Stopwatch stopWatch = Stopwatch.createStarted();
     try (Stream<Path> dir = Files.walk(folder, FileVisitOption.FOLLOW_LINKS)) {
-      dir.filter(Files::isDirectory)
-          .filter(TrashFolderPredicate::match)
-          .forEach(this::recursivelyDelete);
+      Iterator<Path> it =
+          dir.filter(Files::isDirectory).filter(TrashFolderPredicate::match).iterator();
+
+      while (it.hasNext()) {
+        if (stopWatch.elapsed(TimeUnit.SECONDS) > deleteTrashFoldersMaxAllowedTime) {
+          log.atWarning().log(
+              "Stopping early: exceeded max duration (%d s) while scanning %s",
+              deleteTrashFoldersMaxAllowedTime, folder);
+          break;
+        }
+        recursivelyDelete(it.next());
+      }
     } catch (IOException e) {
       log.atSevere().withCause(e).log("Failed to evaluate %s", folder);
     }
