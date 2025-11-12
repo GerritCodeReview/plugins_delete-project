@@ -18,7 +18,7 @@ gerrit_plugin(
     ],
     resource_jars = ["//plugins/delete-project/web:gr-delete-repo"],
     resources = glob(["src/main/resources/Documentation/*.md"]),
-    deps = ["@commons-io//jar"],
+    deps = ["@maven_deps//commons-io/jar"],
 )
 
 junit_tests(
