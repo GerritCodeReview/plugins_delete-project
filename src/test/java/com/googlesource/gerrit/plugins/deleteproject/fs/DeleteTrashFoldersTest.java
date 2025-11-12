@@ -32,6 +32,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
+import java.util.stream.Stream;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
@@ -67,6 +68,7 @@ public class DeleteTrashFoldersTest {
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
     when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
+    when(pluginCfg.getDeleteTrashFoldersMaxAllowedTime()).thenReturn(10L);
     trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
   }
 
@@ -100,6 +102,29 @@ public class DeleteTrashFoldersTest {
     trashFolders.getWorkerFuture().get();
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
+  }
+
+  @Test
+  public void shouldStopProcessingWhenTimeoutExceeded() throws IOException {
+    when(pluginCfg.getDeleteTrashFoldersMaxAllowedTime()).thenReturn(0L);
+
+    DeleteTrashFolders deleteTrashFolders =
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
+
+    for (int i = 0; i < 10; i++) {
+      Path trash = basePath.resolve(String.format("repo.%013d.deleted", i));
+      Files.createDirectories(trash);
+    }
+
+    deleteTrashFolders.start();
+    deleteTrashFolders.getWorkerFuture().cancel(true);
+
+    Stream<Path> remaining =
+        Files.walk(basePath)
+            .filter(Files::isDirectory)
+            .filter(DeleteTrashFolders.TrashFolderPredicate::match);
+
+    assertThat(remaining.count()).isGreaterThan(0L);
   }
 
   private FileRepository createRepository(String repoName) throws IOException {
