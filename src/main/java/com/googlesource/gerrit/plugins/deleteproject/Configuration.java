@@ -16,6 +16,8 @@ package com.googlesource.gerrit.plugins.deleteproject;
 
 import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.stream.Collectors.toList;
 
 import com.google.common.base.Strings;
@@ -43,11 +45,13 @@ public class Configuration {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String DELETED_PROJECTS_PARENT = "Deleted-Projects";
   private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
+  private static final long DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES = 10;
 
   private final boolean allowDeletionWithTags;
   private final boolean archiveDeletedRepos;
   private final boolean hideProjectOnPreserve;
   private final long deleteArchivedReposAfter;
+  private final long deleteTrashFoldersMaxAllowedTime;
   private final String deletedProjectsParent;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
@@ -68,6 +72,8 @@ public class Configuration {
     this.hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
     this.deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
     this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
+    this.deleteTrashFoldersMaxAllowedTime =
+        getTrashFoldersMaxAllowedTimeFromConfig("deleteTrashFoldersMaxAllowedTime");
     this.archiveFolder =
         getArchiveFolderFromConfig(cfg.getString("archiveFolder", pluginData.toString()));
     this.deleteArchivedReposAfter =
@@ -84,6 +90,10 @@ public class Configuration {
             .setKeyStartTime("deleteTrashFolderStartTime")
             .setKeyJitter("deleteTrashFolderJitter")
             .buildSchedule();
+  }
+
+  public long getDeleteTrashFoldersMaxAllowedTime() {
+    return deleteTrashFoldersMaxAllowedTime;
   }
 
   public boolean deletionWithTagsAllowed() {
@@ -134,6 +144,19 @@ public class Configuration {
           "The configured archive duration is not valid: %s; using the default value: %d days",
           e.getMessage(), DEFAULT_ARCHIVE_DURATION_DAYS);
       return DAYS.toMillis(DEFAULT_ARCHIVE_DURATION_DAYS);
+    }
+  }
+
+  private long getTrashFoldersMaxAllowedTimeFromConfig(String configValue) {
+    long defaultConfigValue = MINUTES.toSeconds(DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES);
+    try {
+      return ConfigUtil.getTimeUnit(configValue, defaultConfigValue, SECONDS);
+    } catch (IllegalArgumentException e) {
+      log.atWarning().log(
+          "The configured trash folder max allowed time is not valid: %s; using the default value:"
+              + " %d minutes",
+          e.getMessage(), DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES);
+      return defaultConfigValue;
     }
   }
 
