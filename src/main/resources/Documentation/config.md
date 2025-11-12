@@ -105,6 +105,19 @@ plugin.@PLUGIN@.deleteArchivedReposAfter
 
 	By default 180 (days).
 
+plugin.@PLUGIN@.deleteTrashFoldersTimeoutMinutes
+: Maximum duration, in minutes, to delete trash folders.
+
+	Specifies the maximum duration, in minutes, that the plugin will spend
+	scanning and deleting trash folders during a scheduled cleanup run.
+
+	If the operation exceeds this duration, the process stops early to avoid long-running
+	deletions that could overload the system or block other scheduled tasks.
+
+	Subsequent runs handle any remaining trash folders.
+
+	By default 10 minutes.
+
 Delete Trash Folder Scheduling
 =============
 

@@ -44,6 +44,7 @@ public class Configuration {
   private final boolean archiveDeletedRepos;
   private final boolean hideProjectOnPreserve;
   private final long deleteArchivedReposAfter;
+  private final int deleteTrashFoldersTimeoutMinutes;
   private final String deletedProjectsParent;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
@@ -62,6 +63,7 @@ public class Configuration {
     this.hideProjectOnPreserve = cfg.getBoolean("hideProjectOnPreserve", false);
     this.deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
     this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
+    this.deleteTrashFoldersTimeoutMinutes = cfg.getInt("deleteTrashFoldersTimeoutMinutes", 10);
     this.archiveFolder =
         getArchiveFolderFromConfig(cfg.getString("archiveFolder", pluginData.toString()));
     this.deleteArchivedReposAfter =
@@ -71,6 +73,10 @@ public class Configuration {
         Arrays.asList(cfg.getStringList("protectedProject")).stream()
             .map(Pattern::compile)
             .collect(toList());
+  }
+
+  public int getDeleteTrashFoldersTimeoutMinutes() {
+    return deleteTrashFoldersTimeoutMinutes;
   }
 
   public boolean deletionWithTagsAllowed() {
