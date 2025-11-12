@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.RepositoryConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.WorkQueue;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,6 +29,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
+import java.util.stream.Stream;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
@@ -46,6 +48,8 @@ public class DeleteTrashFoldersTest {
 
   @Mock private WorkQueue workQueue;
 
+  @Mock private Configuration pluginCfg;
+
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private Config cfg;
@@ -61,7 +65,8 @@ public class DeleteTrashFoldersTest {
     cfg.setString("gerrit", null, "basePath", basePath.toString());
     when(repositoryCfg.getAllBasePaths()).thenReturn(ImmutableList.of());
     when(workQueue.getDefaultQueue()).thenReturn(Executors.newSingleThreadScheduledExecutor());
-    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+    when(pluginCfg.getDeleteTrashFoldersTimeoutMinutes()).thenReturn(10);
+    trashFolders = new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
   }
 
   @Test
@@ -73,7 +78,7 @@ public class DeleteTrashFoldersTest {
 
     cfg.setString("deleteTrashFolder", null, "startTime", nowPlus2formatted);
     DeleteTrashFolders trashFolders =
-        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, workQueue);
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
     trashFolders.start();
     assertThat(repoToDelete.getDirectory().exists()).isTrue();
   }
@@ -86,6 +91,29 @@ public class DeleteTrashFoldersTest {
     trashFolders.getWorkerFuture().get();
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
+  }
+
+  @Test
+  public void shouldStopProcessingWhenTimeoutExceeded() throws IOException {
+    when(pluginCfg.getDeleteTrashFoldersTimeoutMinutes()).thenReturn(0);
+
+    DeleteTrashFolders deleteTrashFolders =
+        new DeleteTrashFolders(sitePaths, cfg, repositoryCfg, pluginCfg, workQueue);
+
+    for (int i = 0; i < 10; i++) {
+      Path trash = basePath.resolve(String.format("repo.%013d.deleted", i));
+      Files.createDirectories(trash);
+    }
+
+    deleteTrashFolders.start();
+    deleteTrashFolders.getWorkerFuture().cancel(true);
+
+    Stream<Path> remaining =
+        Files.walk(basePath)
+            .filter(Files::isDirectory)
+            .filter(DeleteTrashFolders.TrashFolderPredicate::match);
+
+    assertThat(remaining.count()).isGreaterThan(0L);
   }
 
   private FileRepository createRepository(String repoName) throws IOException {
