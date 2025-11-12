@@ -14,9 +14,9 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
-import static java.util.concurrent.Executors.callable;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Sets;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
@@ -33,8 +33,10 @@ import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +46,7 @@ import org.eclipse.jgit.lib.Config;
 
 public class DeleteTrashFolders implements LifecycleListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
+  private static final String TASK_NAME = "DeleteTrashFolders";
 
   private final WorkQueue workQueue;
   private final String pluginName;
@@ -89,6 +92,7 @@ public class DeleteTrashFolders implements LifecycleListener {
 
   private ScheduledFuture<?> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
+  private final long deleteTrashFoldersMaxAllowedTime;
 
   @Inject
   public DeleteTrashFolders(
@@ -102,6 +106,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
     schedule = pluginCfg.getSchedule();
+    deleteTrashFoldersMaxAllowedTime = pluginCfg.getDeleteTrashFoldersMaxAllowedTime();
     this.workQueue = workQueue;
     this.pluginName = pluginName;
   }
@@ -113,9 +118,7 @@ public class DeleteTrashFolders implements LifecycleListener {
         new Runnable() {
           @Override
           public void run() {
-            log.atInfo().log("%s : STARTED", taskName);
-            repoFolders.forEach(DeleteTrashFolders.this::evaluateIfTrash);
-            log.atInfo().log("%s : ENDED", taskName);
+            evaluateIfTrashWithTimeLimit();
           }
 
           @Override
@@ -134,19 +137,56 @@ public class DeleteTrashFolders implements LifecycleListener {
               TimeUnit.MILLISECONDS);
     } else {
       threadCompleted =
-          scheduledExecutor.schedule(
-              callable(deleteTrashFoldersRunnable), 0, TimeUnit.MILLISECONDS);
+          workQueue
+              .getDefaultQueue()
+              .schedule(
+                  new Callable<>() {
+                    @Override
+                    public Void call() {
+                      evaluateIfTrashWithTimeLimit();
+                      return null;
+                    }
+
+                    @Override
+                    public String toString() {
+                      return TASK_NAME;
+                    }
+                  },
+                  0,
+                  TimeUnit.MILLISECONDS);
     }
   }
 
-  private void evaluateIfTrash(Path folder) {
+  private void evaluateIfTrashWithTimeLimit() {
+    Stopwatch stopWatch = Stopwatch.createStarted();
+    for (Path folder : repoFolders) {
+      if (exceededMaxAllowedTime(folder, stopWatch)) break;
+      evaluateIfTrash(folder, stopWatch);
+    }
+  }
+
+  private void evaluateIfTrash(Path folder, Stopwatch stopWatch) {
     try (Stream<Path> dir = Files.walk(folder, FileVisitOption.FOLLOW_LINKS)) {
-      dir.filter(Files::isDirectory)
-          .filter(TrashFolderPredicate::match)
-          .forEach(this::recursivelyDelete);
+      Iterator<Path> it =
+          dir.filter(Files::isDirectory).filter(TrashFolderPredicate::match).iterator();
+
+      while (it.hasNext()) {
+        if (exceededMaxAllowedTime(folder, stopWatch)) break;
+        recursivelyDelete(it.next());
+      }
     } catch (IOException e) {
       log.atSevere().withCause(e).log("Failed to evaluate %s", folder);
     }
+  }
+
+  private boolean exceededMaxAllowedTime(Path folder, Stopwatch stopWatch) {
+    if (stopWatch.elapsed(TimeUnit.SECONDS) > deleteTrashFoldersMaxAllowedTime) {
+      log.atWarning().log(
+          "Stopping early: exceeded max duration (%d s) while scanning %s",
+          deleteTrashFoldersMaxAllowedTime, folder);
+      return true;
+    }
+    return false;
   }
 
   @VisibleForTesting
