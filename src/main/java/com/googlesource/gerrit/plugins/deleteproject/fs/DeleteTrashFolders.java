@@ -87,6 +87,7 @@ public class DeleteTrashFolders implements LifecycleListener {
   private Future<Void> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final long deleteTrashFoldersTimeoutMs;
+  private final long deleteTrashFoldersGracePeriodMs;
 
   @Inject
   public DeleteTrashFolders(
@@ -101,6 +102,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     schedule = ScheduleConfig.createSchedule(cfg, "deleteTrashFolder");
     deleteTrashFoldersTimeoutMs =
         (long) pluginCfg.getDeleteTrashFoldersTimeoutMinutes() * 60 * 1000;
+    deleteTrashFoldersGracePeriodMs = (long) pluginCfg.getDeleteTrashFoldersGracePeriodSec() * 1000;
     this.workQueue = workQueue;
   }
 
@@ -163,7 +165,8 @@ public class DeleteTrashFolders implements LifecycleListener {
   private void recursivelyDelete(Path folder) {
     try {
       MoreFiles.deleteRecursively(folder, ALLOW_INSECURE);
-    } catch (IOException e) {
+      Thread.sleep(deleteTrashFoldersGracePeriodMs);
+    } catch (InterruptedException | IOException e) {
       log.atSevere().withCause(e).log("Failed to delete %s", folder);
     }
   }
