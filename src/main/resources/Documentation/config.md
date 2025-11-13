@@ -118,6 +118,13 @@ plugin.@PLUGIN@.deleteTrashFoldersTimeoutMinutes
 
 	By default 10 minutes.
 
+plugin.@PLUGIN@.deleteTrashFoldersGracePeriodSec
+: Grace period, in seconds, to wait after each trash folder is deleted.
+
+	This delay can help preventing intensie I/O operations when deleting thrash folders.
+
+	By default 1 second.
+
 Delete Trash Folder Scheduling
 =============
 
