@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc2e9b1c_8ad58321",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-14T12:39:56Z",
+      "side": 1,
+      "message": "I cannot move it into the `gerrit.config` section of the plugin since `ScheduleConfig.createSchedule` take a `Config` as parameter, not a `PluginConfig` which returned by `pluginConfigFactory.getFromGerritConfig(pluginName)`.\n\nI can move it to the global plugin configuration.",
+      "parentUuid": "1e0d6bf9_d3dd6827",
+      "range": {
+        "startLine": 97,
+        "startChar": 45,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "542dc788_4ca34123",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
         "patchSetId": 10
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-14T08:44:10Z",
       "side": 1,
       "message": "`threadCompleted` would then be left untouched in this code path. Do you have anything in mind that can be done to mitigate the condition?",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 35
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a1fc267_59f93c8a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-14T12:39:56Z",
+      "side": 1,
+      "message": "Moved `Future\u003cVoid\u003e` to `ScheduledFuture\u003c?\u003e`.",
+      "parentUuid": "542dc788_4ca34123",
       "range": {
         "startLine": 104,
         "startChar": 6,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dd38fc2_40433a36",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-14T12:39:56Z",
+      "side": 1,
+      "message": "`ScheduleConfig` defined its own variable names that cannot be overridden.\n\nI think it makes sense having a `ScheduleConfig` here for consistency with all the schedulers and to leverage all the goodies `ScheduleConfig` takes care of.",
+      "parentUuid": "333ac4f0_a39c47ab",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ba0045d_3e525c60",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 10
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18019604_47703bbb",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-14T12:39:56Z",
+      "side": 1,
+      "message": "See comment above",
+      "parentUuid": "8ba0045d_3e525c60",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cf9542a_50ad9cfc",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
         "patchSetId": 10
@@ -106,6 +202,24 @@
       "writtenOn": "2025-11-14T08:44:10Z",
       "side": 1,
       "message": "I believe we are missing the test where the deletion is effectively scheduled and starts in the future.",
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4cdbe17_567e1891",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-14T12:39:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cf9542a_50ad9cfc",
       "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
