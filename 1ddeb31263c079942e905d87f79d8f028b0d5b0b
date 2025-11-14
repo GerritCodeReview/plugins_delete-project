@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07b3e22c_da3dee31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T09:00:09Z",
+      "side": 1,
+      "message": "```suggestion\nleading to prolonged intensive I/O and increased system load. This\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "1ddeb31263c079942e905d87f79d8f028b0d5b0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ba19352_0223ab32",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T09:00:09Z",
+      "side": 1,
+      "message": "Is `timeout` the correct term? What about `MaxAllowedTime`?",
+      "range": {
+        "startLine": 66,
+        "startChar": 74,
+        "endLine": 66,
+        "endChar": 81
+      },
+      "revId": "1ddeb31263c079942e905d87f79d8f028b0d5b0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2775fac_6d8e1fe5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T09:00:09Z",
+      "side": 1,
+      "message": "Would you mind using Java Duration here? It would be more readable rather than relying on the lower-level maths.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "1ddeb31263c079942e905d87f79d8f028b0d5b0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbae47f5_dbf912e0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T09:00:09Z",
+      "side": 1,
+      "message": "Is this the right place to introduce the maximum time break? The navigation through the repos stream would be best.\n\nBreaking it here would risk to leave a repository half-cleaned.",
+      "range": {
+        "startLine": 138,
+        "startChar": 15,
+        "endLine": 138,
+        "endChar": 30
+      },
+      "revId": "1ddeb31263c079942e905d87f79d8f028b0d5b0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e196c20_f73c9e5c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T09:00:09Z",
+      "side": 1,
+      "message": "We typically use the `Stopwatch` pattern, which can return the `Duration` calling the elapsed method.\n\nAn example can be found in `TraceContext.java`.",
+      "range": {
+        "startLine": 145,
+        "startChar": 12,
+        "endLine": 145,
+        "endChar": 76
+      },
+      "revId": "1ddeb31263c079942e905d87f79d8f028b0d5b0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
