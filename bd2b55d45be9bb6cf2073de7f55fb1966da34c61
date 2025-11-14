@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0d6bf9_d3dd6827",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T08:44:10Z",
+      "side": 1,
+      "message": "I believe this configuration should be in the delete project plugin\u0027s domain, not Gerrit.",
+      "range": {
+        "startLine": 97,
+        "startChar": 45,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "542dc788_4ca34123",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T08:44:10Z",
+      "side": 1,
+      "message": "`threadCompleted` would then be left untouched in this code path. Do you have anything in mind that can be done to mitigate the condition?",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 35
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333ac4f0_a39c47ab",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T08:44:10Z",
+      "side": 1,
+      "message": "```suggestion\nplugin.@PLUGIN@.deleteTrashFolderStartTime\n```",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba0045d_3e525c60",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T08:44:10Z",
+      "side": 1,
+      "message": "plugin.@PLUGIN@.deleteTrashFolderInterval",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf9542a_50ad9cfc",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T08:44:10Z",
+      "side": 1,
+      "message": "I believe we are missing the test where the deletion is effectively scheduled and starts in the future.",
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
