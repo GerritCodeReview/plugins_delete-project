@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8a30451_771d9368",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:08:46Z",
+      "side": 1,
+      "message": "Gotcha, however, if we exceed the time, this method would end, but the caller will continue to loop through the other base paths, violating the constraint of the maximum time.",
+      "parentUuid": "d9e12fbe_8913f466",
+      "range": {
+        "startLine": 138,
+        "startChar": 15,
+        "endLine": 138,
+        "endChar": 30
+      },
+      "revId": "1ddeb31263c079942e905d87f79d8f028b0d5b0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e196c20_f73c9e5c",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
         "patchSetId": 5
