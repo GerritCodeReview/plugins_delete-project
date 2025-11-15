@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c7b224_88747eb8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:12:15Z",
+      "side": 1,
+      "message": "Why not express this as a duration, like the other ones above?",
+      "range": {
+        "startLine": 121,
+        "startChar": 34,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "07f7d1a7502e7f38c84962473db1ecb059262688",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55427a73_83fc96f5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:12:15Z",
+      "side": 1,
+      "message": "This looks too loose IMHO. Processing 1 directory cleanup per second, would take hours to perform just one repository.\n\nWhat about 50 ms instead, as modern CPUs can process millions of operations per second, therefore reducing the processing to 20 per second is already a very loose processing.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 20
+      },
+      "revId": "07f7d1a7502e7f38c84962473db1ecb059262688",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
