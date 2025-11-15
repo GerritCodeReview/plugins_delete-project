@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9bf7891b_ec8074fe",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "\u003e I cannot move it into the `gerrit.config` section of the plugin since `ScheduleConfig.createSchedule` take a `Config` as parameter, not a `PluginConfig` which returned by `pluginConfigFactory.getFromGerritConfig(pluginName)`.\n\u003e \n\u003e I can move it to the global plugin configuration.\n\n`PluginConfig` is simply a wrapper of `@GerritServerConfig Config` which accesses the `[plugin \"pluginName\"]` section and subsection.",
+      "parentUuid": "dc2e9b1c_8ad58321",
+      "range": {
+        "startLine": 97,
+        "startChar": 45,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "542dc788_4ca34123",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
         "patchSetId": 10
@@ -144,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9892e45_6d5371ae",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "Read carefully the code of `ScheduleConfig.Builder`: the builder allows you to define the variables to use for the start time and interval.\n\nExample:\n\n```\n            ScheduleConfig.builder(gerritConfig, \"plugin\")\n                    .setSubsection(pluginName)\n                    .setKeyInterval(\"deleteTrashFolderInterval\")\n                    .setKeyStartTime(\"deleteTrashFolderStartTime\")\n                    .buildSchedule();\n```",
+      "parentUuid": "4dd38fc2_40433a36",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ba0045d_3e525c60",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 10
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "See comment above",
       "parentUuid": "8ba0045d_3e525c60",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "bd2b55d45be9bb6cf2073de7f55fb1966da34c61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e906433_60ea0c74",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "See my reply above.",
+      "parentUuid": "18019604_47703bbb",
       "range": {
         "startLine": 120,
         "startChar": 0,

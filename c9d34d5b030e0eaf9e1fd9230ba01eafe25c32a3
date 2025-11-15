@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0841b28_56ca597a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "Additionally, inject the `@GerritServerConfig Config` to enable the use of the schedule parser.\n\n\n```suggestion\n      @PluginData File pluginData,\n      @GerritServerConfig Config gerritConfig) {\n```",
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d831d5_3ed35fbb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "Just use the `ScheduleConfig.builder(config, \"plugin\").setSubsection(pluginName)` and you\u0027ll be able just to reuse the existing config section.\n\n\n```suggestion\n    this.schedule \u003d\n            ScheduleConfig.builder(gerritConfig, \"plugin\")\n                    .setSubsection(pluginName)\n                    .setKeyInterval(\"deleteTrashFolderInterval\")\n                    .setKeyStartTime(\"deleteTrashFolderStartTime\")\n                    .buildSchedule();\n```",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 88
+      },
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35950fd4_152b426d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "Missing `toString()` to identify the task.\n\n```suggestion\n                    }\n\n                    @Override\n                    public String toString() {\n                      return \"DeleteTrashFolders\";\n                    }\n```\n\n\u003e **NOTE**: Why not drying up this task with the one at L124?",
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9884d85b_38d3c1ff",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "The stop should cancel the schedule happened during the `start()` phase.\n\n\n\n```suggestion\n  public void stop() {\n    if (threadCompleted !\u003d null) {\n      threadCompleted.cancel(true);\n      threadCompleted \u003d null;\n    }\n  }\n```",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 23
+      },
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0df82d79_724fc636",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-15T01:00:44Z",
+      "side": 1,
+      "message": "How do we know that the removal happened *after* the initial delay? If that happened before the initial delay, this assertion would pass even if the code was broken.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 63
+      },
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
