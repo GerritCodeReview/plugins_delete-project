@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce770bb2_2a5ce729",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-17T23:28:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f07cda77_a8b6d045",
+      "range": {
+        "startLine": 75,
+        "startChar": 28,
+        "endLine": 75,
+        "endChar": 29
+      },
+      "revId": "12b8df7fa38b49b32534f130330cf355c03cef6f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36adff2c_0d479760",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-17T23:20:05Z",
       "side": 1,
       "message": "This configuration is now stale.\n\n```suggestion\n    cfg.setString(\"deleteTrashFolder\", null, \"startTime\", nowPlus2formatted);\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 77
+      },
+      "revId": "12b8df7fa38b49b32534f130330cf355c03cef6f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50424dce_07425b6a",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-17T23:28:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36adff2c_0d479760",
       "range": {
         "startLine": 82,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dafb0d39_16714c98",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-17T23:28:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fe5b70b_2d43cb0d",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 78
+      },
+      "revId": "12b8df7fa38b49b32534f130330cf355c03cef6f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d863b1e_8d083a27",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-11-17T23:20:05Z",
       "side": 1,
       "message": "This can be as small as `INITIAL_DELAY_MIN` + `1 sec`",
+      "range": {
+        "startLine": 92,
+        "startChar": 55,
+        "endLine": 92,
+        "endChar": 96
+      },
+      "revId": "12b8df7fa38b49b32534f130330cf355c03cef6f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5d2470f_84380479",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-17T23:28:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d863b1e_8d083a27",
       "range": {
         "startLine": 92,
         "startChar": 55,
