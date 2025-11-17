@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "437439e2_69ced782",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-17T15:19:35Z",
+      "side": 1,
+      "message": "\u003e This is already taken care in `WorkQueue` [1], isn\u0027t it?\n\u003e \n\u003e [1]: https://cs.opensource.google/gerrit/gerrit/gerrit/+/master:java/com/google/gerrit/server/git/WorkQueue.java;l\u003d330;drc\u003d5d2107842f93eb51516cfb8d42f7b5b732abb195\n\nI believe it simply waits for termination; it doesn\u0027t actually cancel it.",
+      "parentUuid": "8076da6f_45c19503",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 23
+      },
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0df82d79_724fc636",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
         "patchSetId": 11
