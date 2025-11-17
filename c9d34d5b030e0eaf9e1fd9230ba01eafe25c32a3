@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6fb60f5_c78615b0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-17T12:59:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c0841b28_56ca597a",
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13d831d5_3ed35fbb",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-11-15T01:00:44Z",
       "side": 1,
       "message": "Just use the `ScheduleConfig.builder(config, \"plugin\").setSubsection(pluginName)` and you\u0027ll be able just to reuse the existing config section.\n\n\n```suggestion\n    this.schedule \u003d\n            ScheduleConfig.builder(gerritConfig, \"plugin\")\n                    .setSubsection(pluginName)\n                    .setKeyInterval(\"deleteTrashFolderInterval\")\n                    .setKeyStartTime(\"deleteTrashFolderStartTime\")\n                    .buildSchedule();\n```",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 88
+      },
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d4fcdae_38fe6fad",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-17T12:59:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "13d831d5_3ed35fbb",
       "range": {
         "startLine": 77,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9936c74_312532e5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-17T12:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35950fd4_152b426d",
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9884d85b_38d3c1ff",
@@ -71,6 +131,30 @@
       "writtenOn": "2025-11-15T01:00:44Z",
       "side": 1,
       "message": "The stop should cancel the schedule happened during the `start()` phase.\n\n\n\n```suggestion\n  public void stop() {\n    if (threadCompleted !\u003d null) {\n      threadCompleted.cancel(true);\n      threadCompleted \u003d null;\n    }\n  }\n```",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 23
+      },
+      "revId": "c9d34d5b030e0eaf9e1fd9230ba01eafe25c32a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8076da6f_45c19503",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-17T12:59:38Z",
+      "side": 1,
+      "message": "This is already taken care in `WorkQueue` [1], isn\u0027t it?\n\n[1]: https://cs.opensource.google/gerrit/gerrit/gerrit/+/master:java/com/google/gerrit/server/git/WorkQueue.java;l\u003d330;drc\u003d5d2107842f93eb51516cfb8d42f7b5b732abb195",
+      "parentUuid": "9884d85b_38d3c1ff",
       "range": {
         "startLine": 166,
         "startChar": 0,
