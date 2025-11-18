@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55cda6d2_f054b589",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-18T08:20:59Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "21c054c9_b8adecb7",
+      "range": {
+        "startLine": 119,
+        "startChar": 18,
+        "endLine": 119,
+        "endChar": 56
+      },
+      "revId": "aa93c9ddf6feef71f297584dd5138509ae84f58b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b3aea9f_ad8e6414",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-17T23:32:42Z",
       "side": 1,
       "message": "```suggestion\n\tThe [interval](/Documentation/config-gerrit.html#schedule-configuration-interval)\n```",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 55
+      },
+      "revId": "aa93c9ddf6feef71f297584dd5138509ae84f58b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fcd3f3_6ac80734",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-18T08:20:59Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "5b3aea9f_ad8e6414",
       "range": {
         "startLine": 125,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cab3feb_4c01ab1c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-18T08:20:59Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "a0263cf6_de15dcff",
+      "range": {
+        "startLine": 131,
+        "startChar": 31,
+        "endLine": 131,
+        "endChar": 70
+      },
+      "revId": "aa93c9ddf6feef71f297584dd5138509ae84f58b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83fa502f_4dc708c0",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-11-17T23:32:42Z",
       "side": 1,
       "message": "```suggestion\n[Schedule examples](/Documentation/config-gerrit.html#schedule-configuration-examples)\n```",
+      "range": {
+        "startLine": 134,
+        "startChar": 20,
+        "endLine": 134,
+        "endChar": 59
+      },
+      "revId": "aa93c9ddf6feef71f297584dd5138509ae84f58b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb38f95a_84fae7f5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-18T08:20:59Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "83fa502f_4dc708c0",
       "range": {
         "startLine": 134,
         "startChar": 20,
