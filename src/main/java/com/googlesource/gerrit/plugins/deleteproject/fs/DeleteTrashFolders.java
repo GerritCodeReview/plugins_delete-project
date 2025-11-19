@@ -117,7 +117,9 @@ public class DeleteTrashFolders implements LifecycleListener {
         new Runnable() {
           @Override
           public void run() {
+            log.atInfo().log("%s : STARTED", taskName);
             evaluateIfTrashWithTimeLimit();
+            log.atInfo().log("%s : ENDED", taskName);
           }
 
           @Override
