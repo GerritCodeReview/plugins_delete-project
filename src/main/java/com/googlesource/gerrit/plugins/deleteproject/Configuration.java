@@ -45,7 +45,7 @@ public class Configuration {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String DELETED_PROJECTS_PARENT = "Deleted-Projects";
   private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
-  private static final long DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES = 10;
+  protected static final long DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES = 10;
 
   private final boolean allowDeletionWithTags;
   private final boolean archiveDeletedRepos;
@@ -73,7 +73,8 @@ public class Configuration {
     this.deletedProjectsParent = cfg.getString("parentForDeletedProjects", DELETED_PROJECTS_PARENT);
     this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
     this.deleteTrashFoldersMaxAllowedTime =
-        getTrashFoldersMaxAllowedTimeFromConfig("deleteTrashFoldersMaxAllowedTime");
+        getTrashFoldersMaxAllowedTimeFromConfig(
+            cfg.getString("deleteTrashFoldersMaxAllowedTime", pluginData.toString()));
     this.archiveFolder =
         getArchiveFolderFromConfig(cfg.getString("archiveFolder", pluginData.toString()));
     this.deleteArchivedReposAfter =

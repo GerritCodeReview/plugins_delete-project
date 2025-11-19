@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.deleteproject;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES;
 import static org.mockito.Mockito.when;
 
 import com.google.gerrit.server.config.PluginConfig;
@@ -34,6 +35,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationTest {
   private static final long DEFAULT_ARCHIVE_DURATION_MS = TimeUnit.DAYS.toMillis(180);
+  private static final long DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_SEC =
+      TimeUnit.MINUTES.toSeconds(DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES);
   private static final String CUSTOM_DURATION = "100";
   private static final String CUSTOM_PARENT = "customParent";
   private static final String INVALID_ARCHIVE_DURATION = "180weeks180years";
@@ -116,5 +119,34 @@ public class ConfigurationTest {
         new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, new Config());
 
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
+  }
+
+  @Test
+  public void deleteTrashFoldersMaxAllowedTimeWithUnitIsLoaded() {
+    int customDuration = 1;
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
+    pluginConfig.setString("deleteTrashFoldersMaxAllowedTime", customDuration + " hour");
+
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
+    deleteConfig =
+        new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, new Config());
+
+    assertThat(deleteConfig.getDeleteTrashFoldersMaxAllowedTime())
+        .isEqualTo(TimeUnit.HOURS.toSeconds(customDuration));
+  }
+
+  @Test
+  public void invalidDeleteTrashFoldersMaxAllowedTimeDuration() {
+    PluginConfig.Update pluginConfig = PluginConfig.Update.forTest(PLUGIN_NAME, new Config());
+    pluginConfig.setString("deleteTrashFoldersMaxAllowedTime", "invalidDuration");
+
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
+    deleteConfig =
+        new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, pluginDataDir, new Config());
+
+    assertThat(deleteConfig.getDeleteTrashFoldersMaxAllowedTime())
+        .isEqualTo(DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_SEC);
   }
 }
