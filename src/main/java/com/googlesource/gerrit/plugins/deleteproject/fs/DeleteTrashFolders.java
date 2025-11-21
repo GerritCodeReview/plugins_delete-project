@@ -146,8 +146,9 @@ public class DeleteTrashFolders implements LifecycleListener {
   private void evaluateIfTrashWithTimeLimit() {
     Stopwatch stopWatch = Stopwatch.createStarted();
     for (Path folder : repoFolders) {
-      if (exceededMaxAllowedTime(folder, stopWatch)) break;
-      evaluateIfTrash(folder, stopWatch);
+      Path deletedRepoFolder = folder.resolve(RepositoryDelete.TRASH_FOLDER_NAME);
+      if (exceededMaxAllowedTime(deletedRepoFolder, stopWatch)) break;
+      evaluateIfTrash(deletedRepoFolder, stopWatch);
     }
   }
 
