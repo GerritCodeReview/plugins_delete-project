@@ -24,6 +24,7 @@ import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.git.GitRepositoryManager;
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.File;
 import java.io.IOException;
@@ -47,10 +48,12 @@ import org.eclipse.jgit.lib.RepositoryCache;
 public class RepositoryDelete {
 
   private final GitRepositoryManager repoManager;
+  private final Configuration configuration;
 
   @Inject
-  public RepositoryDelete(GitRepositoryManager repoManager) {
+  public RepositoryDelete(GitRepositoryManager repoManager, Configuration configuration) {
     this.repoManager = repoManager;
+    this.configuration = configuration;
   }
 
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
@@ -94,7 +97,8 @@ public class RepositoryDelete {
       if (archiveDeletedRepos) {
         archiveGitRepository(projectName, repoPath, archivedFolder, deletedListeners);
       } else {
-        deleteGitRepository(projectName, repoPath, deletedListeners);
+        deleteGitRepository(
+            projectName, repoPath, deletedListeners, configuration.getTrashFolderName());
       }
     }
   }
@@ -147,11 +151,15 @@ public class RepositoryDelete {
   }
 
   private static void deleteGitRepository(
-      String projectName, Path repoPath, DynamicSet<ProjectDeletedListener> deletedListeners)
+      String projectName,
+      Path repoPath,
+      DynamicSet<ProjectDeletedListener> deletedListeners,
+      String trashFolderName)
       throws IOException {
     // Delete the repository from disk
     Path basePath = getBasePath(repoPath, projectName);
-    Path trash = renameRepository(repoPath, basePath, projectName, "deleted");
+    Path trash =
+        moveRepositoryForDeletion(repoPath, basePath, projectName, "deleted", trashFolderName);
     try {
       MoreFiles.deleteRecursively(trash, ALLOW_INSECURE);
       recursivelyDeleteEmptyParents(repoPath.toFile().getParentFile(), basePath.toFile());
@@ -174,7 +182,14 @@ public class RepositoryDelete {
     Path newRepo =
         basePath.resolve(
             projectName + "." + FORMAT.format(TimeMachine.now()) + ".%" + option + "%.git");
+    Files.createDirectories(newRepo.getParent());
     return Files.move(directory, newRepo, StandardCopyOption.ATOMIC_MOVE);
+  }
+
+  private static Path moveRepositoryForDeletion(
+      Path directory, Path basePath, String projectName, String option, String trashFolderName)
+      throws IOException {
+    return renameRepository(directory, basePath.resolve(trashFolderName), projectName, option);
   }
 
   /**

@@ -53,6 +53,7 @@ public class Configuration {
   private final long deleteArchivedReposAfter;
   private final long deleteTrashFoldersMaxAllowedTime;
   private final String deletedProjectsParent;
+  private final String trashFolderName;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
   private final Optional<ScheduleConfig.Schedule> schedule;
@@ -91,6 +92,11 @@ public class Configuration {
             .setKeyStartTime("deleteTrashFolderStartTime")
             .setKeyJitter("deleteTrashFolderJitter")
             .buildSchedule();
+    this.trashFolderName = cfg.getString("trashFolderName", ".%trash%");
+  }
+
+  public String getTrashFolderName() {
+    return trashFolderName;
   }
 
   public long getDeleteTrashFoldersMaxAllowedTime() {
