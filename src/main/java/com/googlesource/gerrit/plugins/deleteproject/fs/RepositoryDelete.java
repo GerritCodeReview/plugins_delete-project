@@ -46,6 +46,7 @@ import org.eclipse.jgit.lib.RepositoryCache;
  */
 public class RepositoryDelete {
 
+  public static final String TRASH_FOLDER_NAME = ".%trash%";
   private final GitRepositoryManager repoManager;
 
   @Inject
@@ -151,7 +152,7 @@ public class RepositoryDelete {
       throws IOException {
     // Delete the repository from disk
     Path basePath = getBasePath(repoPath, projectName);
-    Path trash = renameRepository(repoPath, basePath, projectName, "deleted");
+    Path trash = moveRepositoryForDeletion(repoPath, basePath, projectName, "deleted");
     try {
       MoreFiles.deleteRecursively(trash, ALLOW_INSECURE);
       recursivelyDeleteEmptyParents(repoPath.toFile().getParentFile(), basePath.toFile());
@@ -174,7 +175,13 @@ public class RepositoryDelete {
     Path newRepo =
         basePath.resolve(
             projectName + "." + FORMAT.format(TimeMachine.now()) + ".%" + option + "%.git");
+    Files.createDirectories(newRepo.getParent());
     return Files.move(directory, newRepo, StandardCopyOption.ATOMIC_MOVE);
+  }
+
+  private static Path moveRepositoryForDeletion(
+      Path directory, Path basePath, String projectName, String option) throws IOException {
+    return renameRepository(directory, basePath.resolve(TRASH_FOLDER_NAME), projectName, option);
   }
 
   /**
