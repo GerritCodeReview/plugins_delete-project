@@ -92,6 +92,7 @@ public class DeleteTrashFolders implements LifecycleListener {
   private ScheduledFuture<?> threadCompleted;
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final long deleteTrashFoldersMaxAllowedTime;
+  private final String trashFolderName;
 
   @Inject
   public DeleteTrashFolders(
@@ -105,6 +106,7 @@ public class DeleteTrashFolders implements LifecycleListener {
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
     schedule = pluginCfg.getSchedule();
+    trashFolderName = pluginCfg.getTrashFolderName();
     deleteTrashFoldersMaxAllowedTime = pluginCfg.getDeleteTrashFoldersMaxAllowedTime();
     this.workQueue = workQueue;
     this.pluginName = pluginName;
@@ -146,10 +148,11 @@ public class DeleteTrashFolders implements LifecycleListener {
   private void evaluateIfTrashWithTimeLimit() {
     Stopwatch stopWatch = Stopwatch.createStarted();
     for (Path folder : repoFolders) {
-      if (exceededMaxAllowedTime(folder, stopWatch)) {
+      Path deletedRepoFolder = folder.resolve(trashFolderName);
+      if (exceededMaxAllowedTime(deletedRepoFolder, stopWatch)) {
         break;
       }
-      evaluateIfTrash(folder, stopWatch);
+      evaluateIfTrash(deletedRepoFolder, stopWatch);
     }
   }
 

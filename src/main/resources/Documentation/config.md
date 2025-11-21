@@ -124,6 +124,15 @@ plugin.@PLUGIN@.deleteTrashFoldersMaxAllowedTime
 
 	By default 10 minutes.
 
+plugin.@PLUGIN@.trashFolderName
+: Parent folder for all trash folders
+
+  Specifies a common location for all trash folders. When defined, it can
+  massively reduce I/O overhead by not scanning the whole git data folder
+  but rather a much smaller subset.
+
+  By default empty string
+
 Delete Trash Folder Scheduling
 =============
 
