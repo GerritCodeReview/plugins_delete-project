@@ -95,7 +95,7 @@ public class DeleteTrashFoldersTest {
             sitePaths, cfg, repositoryCfg, pluginCfg, workQueue, DELETE_PROJECT_PLUGIN);
     trashFolders.start();
 
-    try (FileRepository repoToDelete = createRepository(REPOSITORY_TO_DELETE)) {
+    try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE)) {
       // Repository is not deleted at 1/2 time of the initial delay
       fakeScheduledExecutor.advance(
           TimeUnit.MINUTES.toSeconds(INITIAL_DELAY_MIN / 2), TimeUnit.SECONDS);
@@ -107,7 +107,7 @@ public class DeleteTrashFoldersTest {
       assertThatRepositoryIsDeleted(repoToDelete);
     }
 
-    try (FileRepository repoToDelete = createRepository(REPOSITORY_TO_DELETE)) {
+    try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE)) {
       // Repository recreated
       assertThatRepositoryExists(repoToDelete);
 
@@ -131,7 +131,7 @@ public class DeleteTrashFoldersTest {
 
   @Test
   public void testStart() throws Exception {
-    FileRepository repoToDelete = createRepository(REPOSITORY_TO_DELETE);
+    FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE);
     FileRepository repoToKeep = createRepository("anotherRepo.git");
     trashFolders.start();
     trashFolders.getWorkerFuture().get();
@@ -168,6 +168,10 @@ public class DeleteTrashFoldersTest {
     Repository repository = new FileRepository(repoPath.toFile());
     repository.create(true);
     return (FileRepository) repository;
+  }
+
+  private FileRepository createRepositoryToDelete(String repoName) throws IOException {
+    return createRepository(basePath.resolve("deleted").resolve(repoName).toString());
   }
 
   private void setupTrashFolderCleanupSchedule(String startTime, String interval) {
