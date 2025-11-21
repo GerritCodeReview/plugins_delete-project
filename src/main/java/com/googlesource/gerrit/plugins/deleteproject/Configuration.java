@@ -46,6 +46,7 @@ public class Configuration {
   private static final String DELETED_PROJECTS_PARENT = "Deleted-Projects";
   private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
   protected static final long DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES = 10;
+  public static final String DEFAULT_TRASH_FOLDER_NAME = "";
 
   private final boolean allowDeletionWithTags;
   private final boolean archiveDeletedRepos;
@@ -53,6 +54,7 @@ public class Configuration {
   private final long deleteArchivedReposAfter;
   private final long deleteTrashFoldersMaxAllowedTime;
   private final String deletedProjectsParent;
+  private final String trashFolderName;
   private final Path archiveFolder;
   private final List<Pattern> protectedProjects;
   private final Optional<ScheduleConfig.Schedule> schedule;
@@ -91,6 +93,11 @@ public class Configuration {
             .setKeyStartTime("deleteTrashFolderStartTime")
             .setKeyJitter("deleteTrashFolderJitter")
             .buildSchedule();
+    this.trashFolderName = cfg.getString("trashFolderName", DEFAULT_TRASH_FOLDER_NAME);
+  }
+
+  public String getTrashFolderName() {
+    return trashFolderName;
   }
 
   public long getDeleteTrashFoldersMaxAllowedTime() {
