@@ -93,7 +93,8 @@ class DeleteProject implements RestModifyView<ProjectResource, Input> {
     boolean preserve = input != null && input.preserve;
     Exception ex = null;
     try {
-      if (!preserve || !cfg.projectOnPreserveHidden()) {
+      if (!preserve || !cfg.
+          projectOnPreserveHidden()) {
         dbHandler.delete(project);
         try {
           fsHandler.delete(project.getNameKey(), preserve);

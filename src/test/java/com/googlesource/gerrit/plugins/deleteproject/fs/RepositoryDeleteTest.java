@@ -33,6 +33,8 @@ import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
@@ -51,6 +53,7 @@ public class RepositoryDeleteTest {
 
   @Mock private GitRepositoryManager repoManager;
   @Mock private ProjectDeletedListener projectDeleteListener;
+  @Mock private Configuration configMock;
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
@@ -64,6 +67,7 @@ public class RepositoryDeleteTest {
     deletedListeners = new DynamicSet<>();
     handle = deletedListeners.add("testPlugin", projectDeleteListener);
     basePath = tempFolder.newFolder().toPath().resolve("base");
+    when(configMock.getTrashFolderName()).thenReturn("some-trash-folder");
   }
 
   @Test
@@ -72,7 +76,7 @@ public class RepositoryDeleteTest {
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     repositoryDelete.execute(nameKey);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
@@ -83,7 +87,7 @@ public class RepositoryDeleteTest {
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     repositoryDelete.execute(nameKey);
     assertThat(repository.getDirectory().exists()).isFalse();
   }
@@ -98,7 +102,7 @@ public class RepositoryDeleteTest {
 
     Project.NameKey nameKey = Project.nameKey(repoToDeleteName);
     when(repoManager.openRepository(nameKey)).thenReturn(repoToDelete);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     repositoryDelete.execute(nameKey);
     assertThat(repoToDelete.getDirectory().exists()).isFalse();
     assertThat(repoToKeep.getDirectory().exists()).isTrue();
@@ -110,7 +114,7 @@ public class RepositoryDeleteTest {
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     repositoryDelete.execute(nameKey, true, false, NO_ARCHIVE_PATH, deletedListeners);
     assertThat(repository.getDirectory().exists()).isTrue();
   }
@@ -129,7 +133,7 @@ public class RepositoryDeleteTest {
     Path archiveFolder = basePath.resolve("test_archive");
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     repositoryDelete.execute(nameKey, false, true, Optional.of(archiveFolder), deletedListeners);
     assertThat(repository.getDirectory().exists()).isFalse();
     String patternToVerify = archiveFolder.resolve(repoName).toString() + "*%archived%.git";
@@ -142,7 +146,7 @@ public class RepositoryDeleteTest {
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     repositoryDelete.execute(nameKey, false, false, NO_ARCHIVE_PATH, deletedListeners);
     Mockito.verify(projectDeleteListener).onProjectDeleted(any());
   }
@@ -153,7 +157,7 @@ public class RepositoryDeleteTest {
     Repository repository = createRepository(repoName);
     Project.NameKey nameKey = Project.nameKey(repoName);
     when(repoManager.openRepository(nameKey)).thenReturn(repository);
-    repositoryDelete = new RepositoryDelete(repoManager);
+    repositoryDelete = new RepositoryDelete(repoManager, configMock);
     handle.remove();
     repositoryDelete.execute(nameKey, false, false, NO_ARCHIVE_PATH, deletedListeners);
     Mockito.verify(projectDeleteListener, never()).onProjectDeleted(any());
