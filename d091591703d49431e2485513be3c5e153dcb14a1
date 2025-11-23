@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f63aaef3_dae483d5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-23T21:29:36Z",
+      "side": 1,
+      "message": "`deleted` is a valid project name, therefore it could conflict with an actual project namespace.\n\nWe should prefix with any character that makes an unreasonable project name (see `LocalDiskRepositoryManager.isUnreasonableName`.\n\n\n\n```suggestion\n  public static final String TRASH_FOLDER_NAME \u003d \".%trash%\";\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 50,
+        "endLine": 49,
+        "endChar": 57
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a668d4_1592a6d6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-23T21:29:36Z",
+      "side": 1,
+      "message": "This can be inlined at L155",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 3
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afcf96c_7a36dbc6",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-23T21:29:36Z",
+      "side": 1,
+      "message": "Unrelated change?",
+      "range": {
+        "startLine": 134,
+        "startChar": 34,
+        "endLine": 134,
+        "endChar": 58
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e42dba8_fc2e0d89",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-23T21:29:36Z",
+      "side": 1,
+      "message": "Why hardcoded? It should be read from config IMHO.",
+      "range": {
+        "startLine": 174,
+        "startChar": 28,
+        "endLine": 174,
+        "endChar": 55
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
