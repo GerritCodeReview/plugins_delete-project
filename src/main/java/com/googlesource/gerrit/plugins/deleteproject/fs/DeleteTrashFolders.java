@@ -146,7 +146,9 @@ public class DeleteTrashFolders implements LifecycleListener {
   private void evaluateIfTrashWithTimeLimit() {
     Stopwatch stopWatch = Stopwatch.createStarted();
     for (Path folder : repoFolders) {
-      if (exceededMaxAllowedTime(folder, stopWatch)) break;
+      if (exceededMaxAllowedTime(folder, stopWatch)) {
+        break;
+      }
       evaluateIfTrash(folder, stopWatch);
     }
   }
@@ -157,7 +159,9 @@ public class DeleteTrashFolders implements LifecycleListener {
           dir.filter(Files::isDirectory).filter(TrashFolderPredicate::match).iterator();
 
       while (it.hasNext()) {
-        if (exceededMaxAllowedTime(folder, stopWatch)) break;
+        if (exceededMaxAllowedTime(folder, stopWatch)) {
+          break;
+        }
         recursivelyDelete(it.next());
       }
     } catch (IOException e) {
