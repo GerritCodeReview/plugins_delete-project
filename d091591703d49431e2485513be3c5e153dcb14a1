@@ -187,6 +187,30 @@
       },
       "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c74e66ab_94ebb7f5",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1155610
+      },
+      "writtenOn": "2025-11-24T15:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "347ebce1_b4629ca8",
+      "range": {
+        "startLine": 174,
+        "startChar": 28,
+        "endLine": 174,
+        "endChar": 55
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
