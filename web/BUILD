@@ -1,6 +1,6 @@
-load("//tools/js:eslint.bzl", "plugin_eslint")
-load("//tools/bzl:js.bzl", "gerrit_js_bundle", "web_test_runner")
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
+load("//tools/bzl:js.bzl", "gerrit_js_bundle", "web_test_runner")
+load("//tools/js:eslint.bzl", "plugin_eslint")
 
 package_group(
     name = "visibility",
@@ -56,8 +56,8 @@ web_test_runner(
     name = "web_test_runner",
     srcs = ["web_test_runner.sh"],
     data = [
-        ":tsconfig",
         ":delete-project-ts-tests",
+        ":tsconfig",
         "@plugins_npm//:node_modules",
         "@ui_dev_npm//:node_modules",
     ],
