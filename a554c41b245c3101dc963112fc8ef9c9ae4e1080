@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82f6ee9b_e720df64",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-25T13:12:18Z",
+      "side": 1,
+      "message": "Reopening since it hasn\u0027t been adressed",
+      "parentUuid": "d3eb603f_0022fd1c",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 17
+      },
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cbbc153_bfa5d77d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
         "patchSetId": 9
