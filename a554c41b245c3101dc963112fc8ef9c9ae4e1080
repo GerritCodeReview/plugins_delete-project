@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e02aad_cd20bb8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-25T07:10:18Z",
+      "side": 1,
+      "message": "Can you explain why we are doing it?\n\nAlso add a note about the new configuration.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c8cb9d_198d1385",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-25T07:10:18Z",
+      "side": 1,
+      "message": "Missing ticket number",
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4158577e_cd4925b5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-25T07:10:18Z",
+      "side": 1,
+      "message": "nit: `trashFolderName` for consistency. Also it isn\u0027t a path and the renaming creates confusion.",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 17
+      },
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cbbc153_bfa5d77d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-25T07:10:18Z",
+      "side": 1,
+      "message": "This is just wrapping the private `renameRepository`. Why not just modifying `renameRepository`? It is not a public API, so not a big deal.",
+      "range": {
+        "startLine": 189,
+        "startChar": 1,
+        "endLine": 193,
+        "endChar": 3
+      },
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2fbb34_bb69cd22",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-25T07:10:18Z",
+      "side": 1,
+      "message": "I think we are missing a couple showing a repository when deleted ends up in the `trashFolder`. One using a custom value and one the default one.",
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
