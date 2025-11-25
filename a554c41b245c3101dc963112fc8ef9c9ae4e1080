@@ -154,6 +154,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f68627_27c17f45",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-25T17:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f6ee9b_e720df64",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 17
+      },
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cbbc153_bfa5d77d",
@@ -214,6 +238,24 @@
       "writtenOn": "2025-11-25T07:10:18Z",
       "side": 1,
       "message": "I think we are missing a couple showing a repository when deleted ends up in the `trashFolder`. One using a custom value and one the default one.",
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1265c2cd_451d30ba",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-25T17:41:18Z",
+      "side": 1,
+      "message": "Does it matter to test with the default value? Its a path, if anything not testing it with the default value ensure that the config is used consistently everywhere.\n\nWhat benefit are we gaining from testing with the default value?",
+      "parentUuid": "2d2fbb34_bb69cd22",
       "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
