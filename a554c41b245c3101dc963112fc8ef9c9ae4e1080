@@ -258,6 +258,24 @@
       "parentUuid": "2d2fbb34_bb69cd22",
       "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1642a3c_34a7b51a",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDeleteTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-26T07:38:58Z",
+      "side": 1,
+      "message": "If you have a test explicitely for it it will be quicker to pinpoint what the issue is instead of testing it implicitely in other tests.",
+      "parentUuid": "1265c2cd_451d30ba",
+      "revId": "a554c41b245c3101dc963112fc8ef9c9ae4e1080",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
