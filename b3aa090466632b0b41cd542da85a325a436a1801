@@ -112,6 +112,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d7d11b9_f7231aa4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-28T11:18:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6470152e_8800b6c4",
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f215121d_25a122ca",
@@ -125,6 +143,24 @@
       "writtenOn": "2025-11-28T10:30:31Z",
       "side": 1,
       "message": "Is this a noop if the directory already exists?",
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f73679b_e7ed3571",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-28T11:18:19Z",
+      "side": 1,
+      "message": "Yes.\n\n\u003eCreates a directory by creating all nonexistent parent directories first. Unlike \u003ethe createDirectory method, an exception is not thrown if the directory could not \u003ebe created because it already exists.",
+      "parentUuid": "f215121d_25a122ca",
       "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
