@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a945f6_47632c3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-28T10:30:31Z",
+      "side": 1,
+      "message": "```suggestion\nThis is expected, so much so that, on a regular, configurable interval,\n```",
+      "range": {
+        "startLine": 13,
+        "startChar": 61,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9256e809_3d38e916",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-28T10:30:31Z",
+      "side": 1,
+      "message": "I would say some something like \"Move the files in a configurable folder, so that we only need to scan this, rather than the whole git data folder. Keep the root directory as default.\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6470152e_8800b6c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-28T10:30:31Z",
+      "side": 1,
+      "message": "Missing documentation",
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f215121d_25a122ca",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-11-28T10:30:31Z",
+      "side": 1,
+      "message": "Is this a noop if the directory already exists?",
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
