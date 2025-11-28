@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b4d508_52f9bd25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-28T11:10:37Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "c0a945f6_47632c3c",
+      "range": {
+        "startLine": 13,
+        "startChar": 61,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9256e809_3d38e916",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-28T10:30:31Z",
       "side": 1,
       "message": "I would say some something like \"Move the files in a configurable folder, so that we only need to scan this, rather than the whole git data folder. Keep the root directory as default.\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "b3aa090466632b0b41cd542da85a325a436a1801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ead1b6f6_02ea2d9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-28T11:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9256e809_3d38e916",
       "range": {
         "startLine": 21,
         "startChar": 0,
