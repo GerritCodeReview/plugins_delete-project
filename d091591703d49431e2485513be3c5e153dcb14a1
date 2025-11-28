@@ -95,6 +95,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9512ee5_d8eb1fb4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/RepositoryDelete.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-28T11:18:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c140a4f8_d9140754",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 3
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6afcf96c_7a36dbc6",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "No, the tests would fail without this change.",
       "parentUuid": "6afcf96c_7a36dbc6",
+      "range": {
+        "startLine": 134,
+        "startChar": 34,
+        "endLine": 134,
+        "endChar": 58
+      },
+      "revId": "d091591703d49431e2485513be3c5e153dcb14a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb60694_9e5a7dac",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFoldersTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-11-28T11:18:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "451ef729_b87e49f2",
       "range": {
         "startLine": 134,
         "startChar": 34,
