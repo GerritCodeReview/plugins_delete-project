@@ -22,6 +22,30 @@
       },
       "revId": "b3297163634bc4b05c4248b2c96f7a630c17a7de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43d79a3e_b30c5d24",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/ArchiveRepositoryRemover.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-03T16:35:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6feeaacc_b986569c",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 1
+      },
+      "revId": "b3297163634bc4b05c4248b2c96f7a630c17a7de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
