@@ -113,13 +113,12 @@ class RepositoryCleanupTask implements Runnable {
   private List<Path> listOverdueFiles(long duration) {
     List<Path> files = new ArrayList<>();
     File targetDir = config.getArchiveFolder().toFile();
-    FileTime nowTime = FileTime.fromMillis(TimeMachine.now().toEpochMilli());
+    long nowTimestamp = TimeMachine.now().toEpochMilli();
 
     for (File repo : targetDir.listFiles()) {
       try {
-        FileTime lastModifiedTime = Files.getLastModifiedTime(repo.toPath());
-        FileTime expires = FileTime.fromMillis(lastModifiedTime.toMillis() + duration);
-        if (nowTime.compareTo(expires) > 0) {
+        long lastModifiedTime = Files.getLastModifiedTime(repo.toPath()).toMillis();
+        if (nowTimestamp > lastModifiedTime + duration) {
           files.add(repo.toPath());
         }
       } catch (IOException e) {
