@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1ee5e9b_6ff4755a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/ArchiveRepositoryRemover.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-12-03T13:47:48Z",
+      "side": 1,
+      "message": "```suggestion\n\tlong expiryTimestamp \u003d lastModifiedTime + duration;\n        if (nowTimestamp \u003e expiryTimestamp) {\n```\n\nSince this change is about readability, maybe this makes it even clearer?",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 57
+      },
+      "revId": "1c00e02ae0336361c8ab5602aeb3cc68ec4ab98d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
