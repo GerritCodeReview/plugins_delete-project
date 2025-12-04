@@ -133,11 +133,13 @@ plugin.@PLUGIN@.trashFolderName
 
   By default empty string
 
-Delete Trash Folder Scheduling
+Delete & Archiving Trash Folder Scheduling
 =============
 
-Trash folder cleanup can be scheduled to run periodically.
-If no schedule is configured, the cleanup runs once at Gerrit startup.
+Trash folder cleanup and repository archiving can be scheduled to run periodically.
+If no schedule is configured by default:
+- Cleanup runs once at Gerrit startup.
+- Archiving runs on a schedule, once per day.
 
 The configuration has to be added to the `@PLUGIN@.config` file.
 
