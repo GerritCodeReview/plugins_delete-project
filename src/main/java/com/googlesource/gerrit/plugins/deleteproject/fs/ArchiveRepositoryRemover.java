@@ -15,13 +15,16 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
+import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_INITIAL_DELAY_MILLIS;
+import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_PERIOD_DAYS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.LifecycleListener;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -34,6 +37,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -41,26 +45,34 @@ import java.util.concurrent.TimeUnit;
 public class ArchiveRepositoryRemover implements LifecycleListener {
 
   private final WorkQueue queue;
+  private final Optional<ScheduleConfig.Schedule> schedule;
   private final Provider<RepositoryCleanupTask> repositoryCleanupTaskProvider;
   private ScheduledFuture<?> scheduledCleanupTask;
 
   @Inject
   ArchiveRepositoryRemover(
-      WorkQueue queue, Provider<RepositoryCleanupTask> repositoryCleanupTaskProvider) {
+      WorkQueue queue,
+      Provider<RepositoryCleanupTask> repositoryCleanupTaskProvider,
+      Configuration pluginCfg) {
+    schedule = pluginCfg.getSchedule();
     this.queue = queue;
     this.repositoryCleanupTaskProvider = repositoryCleanupTaskProvider;
   }
 
   @Override
   public void start() {
+    long initialDelay = DEFAULT_INITIAL_DELAY_MILLIS;
+    long period = TimeUnit.DAYS.toMillis(DEFAULT_PERIOD_DAYS);
+    if (schedule.isPresent()) {
+      initialDelay = schedule.get().initialDelay();
+      period = schedule.get().interval();
+    }
+
     scheduledCleanupTask =
         queue
             .getDefaultQueue()
             .scheduleAtFixedRate(
-                repositoryCleanupTaskProvider.get(),
-                SECONDS.toMillis(1),
-                TimeUnit.DAYS.toMillis(1),
-                MILLISECONDS);
+                repositoryCleanupTaskProvider.get(), initialDelay, period, MILLISECONDS);
   }
 
   @Override
@@ -69,6 +81,11 @@ public class ArchiveRepositoryRemover implements LifecycleListener {
       scheduledCleanupTask.cancel(true);
       scheduledCleanupTask = null;
     }
+  }
+
+  @VisibleForTesting
+  ScheduledFuture<?> getWorkerFuture() {
+    return scheduledCleanupTask;
   }
 }
 
