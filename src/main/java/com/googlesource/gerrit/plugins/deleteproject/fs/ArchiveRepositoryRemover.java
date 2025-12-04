@@ -18,10 +18,12 @@ import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.LifecycleListener;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -34,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -41,26 +44,38 @@ import java.util.concurrent.TimeUnit;
 public class ArchiveRepositoryRemover implements LifecycleListener {
 
   private final WorkQueue queue;
+  private final Optional<ScheduleConfig.Schedule> schedule;
   private final Provider<RepositoryCleanupTask> repositoryCleanupTaskProvider;
   private ScheduledFuture<?> scheduledCleanupTask;
 
   @Inject
   ArchiveRepositoryRemover(
-      WorkQueue queue, Provider<RepositoryCleanupTask> repositoryCleanupTaskProvider) {
+      WorkQueue queue,
+      Provider<RepositoryCleanupTask> repositoryCleanupTaskProvider,
+      Configuration pluginCfg) {
+    schedule = pluginCfg.getSchedule();
     this.queue = queue;
     this.repositoryCleanupTaskProvider = repositoryCleanupTaskProvider;
   }
 
   @Override
   public void start() {
+    long initialDelay = SECONDS.toMillis(1);
+    long period = TimeUnit.DAYS.toMillis(1);
+    System.out.println("****");
+    System.out.println("Checking schedule");
+    if (schedule.isPresent()) {
+      initialDelay = schedule.get().initialDelay();
+      period = schedule.get().interval();
+      System.out.println("Schedule is configured with initialDelay" + initialDelay);
+      System.out.println("Schedule is configured with period" + period);
+    }
+
     scheduledCleanupTask =
         queue
             .getDefaultQueue()
             .scheduleAtFixedRate(
-                repositoryCleanupTaskProvider.get(),
-                SECONDS.toMillis(1),
-                TimeUnit.DAYS.toMillis(1),
-                MILLISECONDS);
+                repositoryCleanupTaskProvider.get(), initialDelay, period, MILLISECONDS);
   }
 
   @Override
@@ -69,6 +84,11 @@ public class ArchiveRepositoryRemover implements LifecycleListener {
       scheduledCleanupTask.cancel(true);
       scheduledCleanupTask = null;
     }
+  }
+
+  @VisibleForTesting
+  ScheduledFuture<?> getWorkerFuture() {
+    return scheduledCleanupTask;
   }
 }
 
@@ -80,12 +100,14 @@ class RepositoryCleanupTask implements Runnable {
 
   @Inject
   RepositoryCleanupTask(Configuration config, @PluginName String pluginName) {
+    System.out.println("Configuring the RepositoryCleanupTask");
     this.config = config;
     this.pluginName = pluginName;
   }
 
   @Override
   public void run() {
+    System.out.println("Cleaning up expired git repositories...");
     logger.atInfo().log("Cleaning up expired git repositories...");
     cleanUpOverdueRepositories();
     logger.atInfo().log("Cleaning up expired git repositories... Done");
@@ -99,6 +121,7 @@ class RepositoryCleanupTask implements Runnable {
   }
 
   private void cleanUpOverdueRepositories() {
+    System.out.println("Cleaning Cleaning");
     for (Path path : listOverdueFiles(config.getArchiveDuration())) {
       try {
         MoreFiles.deleteRecursively(path, ALLOW_INSECURE);
@@ -110,15 +133,18 @@ class RepositoryCleanupTask implements Runnable {
   }
 
   private List<Path> listOverdueFiles(long duration) {
+    System.out.println("****");
     List<Path> files = new ArrayList<>();
     File targetDir = config.getArchiveFolder().toFile();
     long nowTimestamp = TimeMachine.now().toEpochMilli();
-
+    System.out.println("Cleaning overdue file");
     for (File repo : targetDir.listFiles()) {
       try {
         long lastModifiedTime = Files.getLastModifiedTime(repo.toPath()).toMillis();
         long expiryTimestamp = lastModifiedTime + duration;
+        System.out.println("Checking");
         if (nowTimestamp > expiryTimestamp) {
+          System.out.println("Checking and true");
           files.add(repo.toPath());
         }
       } catch (IOException e) {
