@@ -197,13 +197,13 @@ public class DeleteTrashFoldersTest {
   }
 
   private void setupTrashFolderCleanupSchedule(String startTime, String interval) {
-    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "deleteTrashFolderStartTime", startTime);
-    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "deleteTrashFolderInterval", interval);
+    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "cleanupStartTime", startTime);
+    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "cleanupInterval", interval);
     Optional<ScheduleConfig.Schedule> schedule =
         ScheduleConfig.builder(cfg, "plugin")
             .setSubsection(DELETE_PROJECT_PLUGIN)
-            .setKeyStartTime("deleteTrashFolderStartTime")
-            .setKeyInterval("deleteTrashFolderInterval")
+            .setKeyStartTime("cleanupStartTime")
+            .setKeyInterval("cleanupInterval")
             .buildSchedule();
     when(pluginCfg.getSchedule()).thenReturn(schedule);
   }

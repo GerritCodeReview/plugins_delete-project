@@ -133,27 +133,27 @@ plugin.@PLUGIN@.trashFolderName
 
   By default empty string
 
-Delete Trash Folder Scheduling
+Delete & Archiving Trash Folder Scheduling
 =============
 
-Trash folder cleanup can be scheduled to run periodically.
-If no schedule is configured, the cleanup runs periodically, once every day.
+Trash folder cleanup and repository archiving can be scheduled to run periodically.
+If no schedule is configured, the operations run periodically, once every day.
 
 The configuration has to be added to the `@PLUGIN@.config` file.
 
-plugin.@PLUGIN@.deleteTrashFolderStartTime
+plugin.@PLUGIN@.cleanupStartTime
 :	The start time for running trash folders deletion.
 
 	The [start time](/Documentation/config-gerrit.html#schedule-configuration-startTime)
 	for running trash folders deletion.
 
-plugin.@PLUGIN@.deleteTrashFolderInterval
+plugin.@PLUGIN@.cleanupInterval
 :	The interval between successive trash folder deletions.
 
 	The [interval](/Documentation/config-gerrit.html#schedule-configuration-interval)
 	for running trash folders deletion.
 
-plugin.@PLUGIN@.deleteTrashFolderJitter
+plugin.@PLUGIN@.cleanupJitter
 : A maximum random delay that will be added to the job’s scheduled start time.
 
 	See the [jitter documentation](/Documentation/config-gerrit.html#schedule-configuration-jitter)
