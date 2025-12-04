@@ -126,7 +126,7 @@ public class DeleteTrashFoldersTest {
     trashFolders.start();
 
     try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE);
-         FileRepository repoToKeep = createRepository("anotherRepo.git")) {
+        FileRepository repoToKeep = createRepository("anotherRepo.git")) {
       // Repository is not deleted at 1/2 time of the initial delay
       fakeScheduledExecutor.advance(DEFAULT_INITIAL_DELAY_MILLIS / 2, TimeUnit.MILLISECONDS);
       assertThatRepositoryExists(repoToDelete);
@@ -139,7 +139,7 @@ public class DeleteTrashFoldersTest {
     }
 
     try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE);
-         FileRepository repoToKeep = createRepository("anotherRepoAgain.git"))  {
+        FileRepository repoToKeep = createRepository("anotherRepoAgain.git")) {
       // Repository recreated
       assertThatRepositoryExists(repoToDelete);
       assertThatRepositoryExists(repoToKeep);
@@ -201,13 +201,13 @@ public class DeleteTrashFoldersTest {
   }
 
   private void setupTrashFolderCleanupSchedule(String startTime, String interval) {
-    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "deleteTrashFolderStartTime", startTime);
-    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "deleteTrashFolderInterval", interval);
+    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "cleanupStartTime", startTime);
+    cfg.setString("plugin", DELETE_PROJECT_PLUGIN, "cleanupInterval", interval);
     Optional<ScheduleConfig.Schedule> schedule =
         ScheduleConfig.builder(cfg, "plugin")
             .setSubsection(DELETE_PROJECT_PLUGIN)
-            .setKeyStartTime("deleteTrashFolderStartTime")
-            .setKeyInterval("deleteTrashFolderInterval")
+            .setKeyStartTime("cleanupStartTime")
+            .setKeyInterval("cleanupInterval")
             .buildSchedule();
     when(pluginCfg.getSchedule()).thenReturn(schedule);
   }
