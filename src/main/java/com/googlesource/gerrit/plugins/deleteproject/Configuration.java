@@ -88,12 +88,14 @@ public class Configuration {
         Arrays.asList(cfg.getStringList("protectedProject")).stream()
             .map(Pattern::compile)
             .collect(toList());
+
+    checkForUnsupportedScheduleConfigEntries();
     this.schedule =
         ScheduleConfig.builder(gerritConfig, "plugin")
             .setSubsection(pluginName)
-            .setKeyInterval("deleteTrashFolderInterval")
-            .setKeyStartTime("deleteTrashFolderStartTime")
-            .setKeyJitter("deleteTrashFolderJitter")
+            .setKeyInterval("cleanupInterval")
+            .setKeyStartTime("cleanupStartTime")
+            .setKeyJitter("cleanupJitter")
             .buildSchedule();
     this.trashFolderName = cfg.getString("trashFolderName", DEFAULT_TRASH_FOLDER_NAME);
   }
@@ -167,6 +169,20 @@ public class Configuration {
               + " %d minutes",
           e.getMessage(), DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES);
       return defaultConfigValue;
+    }
+  }
+
+  private void checkForUnsupportedScheduleConfigEntries() {
+    List<String> deprecatedConfigEntries =
+        List.of(
+            "deleteTrashFolderInterval", "deleteTrashFolderStartTime", "deleteTrashFolderJitter");
+    for (String deprecatedConfigEntry : deprecatedConfigEntries) {
+      if (cfg.getString(deprecatedConfigEntry) != null) {
+        log.atSevere().log(
+            "Ignoring unsupported configuration value %s found in configuration. Check the docs for"
+                + " the available settings.",
+            deprecatedConfigEntry);
+      }
     }
   }
 
