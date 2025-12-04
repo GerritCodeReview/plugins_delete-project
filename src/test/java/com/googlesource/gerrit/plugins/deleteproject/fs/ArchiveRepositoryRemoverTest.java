@@ -27,21 +27,28 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.google.common.base.Joiner;
+import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
+import com.googlesource.gerrit.plugins.deleteproject.FakeScheduledExecutorService;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.StreamSupport;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
 import org.junit.Rule;
@@ -54,43 +61,56 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ArchiveRepositoryRemoverTest {
 
+  private static final int INITIAL_DELAY_MIN = 1;
+  private static final int INTERVAL_DAYS = 1;
   private static final long ARCHIVE_DURATION = 1;
-  private static final long CLEANUP_INTERVAL = TimeUnit.DAYS.toMillis(1);
   private static final int NUMBER_OF_REPOS = 10;
   private static final String PLUGIN_NAME = "delete-project";
 
-  @Mock private ScheduledExecutorService executorMock;
-  @Mock private ScheduledFuture<?> scheduledFutureMock;
   @Mock private WorkQueue workQueueMock;
   @Mock private Provider<RepositoryCleanupTask> cleanupTaskProviderMock;
   @Mock private Configuration configMock;
+  @Mock private Configuration pluginCfg;
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private ArchiveRepositoryRemover remover;
   private Path archiveRepo;
+  private FakeScheduledExecutorService fakeScheduledExecutor;
+  private Config cfg;
 
   @Before
   public void setUp() throws Exception {
-    when(cleanupTaskProviderMock.get()).thenReturn(new RepositoryCleanupTask(null, null));
-    when(workQueueMock.getDefaultQueue()).thenReturn(executorMock);
-    doReturn(scheduledFutureMock)
-        .when(executorMock)
-        .scheduleAtFixedRate(
-            isA(RepositoryCleanupTask.class), anyLong(), anyLong(), isA(TimeUnit.class));
-    remover = new ArchiveRepositoryRemover(workQueueMock, cleanupTaskProviderMock);
+    cfg = new Config();
+    fakeScheduledExecutor = new FakeScheduledExecutorService();
+    when(cleanupTaskProviderMock.get()).thenReturn(new RepositoryCleanupTask(pluginCfg, PLUGIN_NAME));
+    when(workQueueMock.getDefaultQueue()).thenReturn(fakeScheduledExecutor);
     archiveRepo = tempFolder.newFolder("archive").toPath();
     when(configMock.getArchiveFolder()).thenReturn(archiveRepo);
     when(configMock.getArchiveDuration()).thenReturn(ARCHIVE_DURATION);
+
+    ZonedDateTime initialDateTime =
+        ZonedDateTime.now(ZoneId.systemDefault()).plusMinutes(INITIAL_DELAY_MIN);
+    String initialDateTimeFormatted = initialDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+    setupArchiveFolderCleanupSchedule(
+        initialDateTimeFormatted, String.format("%d minutes", INTERVAL_DAYS));
+
+    remover = new ArchiveRepositoryRemover(workQueueMock, cleanupTaskProviderMock, pluginCfg);
   }
 
   @Test
   public void cleanUpOverdueRepositoriesTest() throws IOException {
+    assertDirectoryContents(archiveRepo, true);
     setupArchiveFolder();
+
+    remover.start();
     try {
-      TimeMachine.useFixedClockAt(
-          Instant.ofEpochMilli(Files.getLastModifiedTime(archiveRepo).toMillis())
-              .plusMillis(TimeUnit.DAYS.toMillis(ARCHIVE_DURATION) + 10));
+//      TimeMachine.useFixedClockAt(
+//          Instant.ofEpochMilli(Files.getLastModifiedTime(archiveRepo).toMillis())
+//              .plusMillis(TimeUnit.DAYS.toMillis(ARCHIVE_DURATION) + 10));
+
+      fakeScheduledExecutor.advance(
+          TimeUnit.DAYS.toSeconds(INITIAL_DELAY_MIN + ARCHIVE_DURATION + 2), TimeUnit.MILLISECONDS);
 
       RepositoryCleanupTask task = new RepositoryCleanupTask(configMock, PLUGIN_NAME);
       task.run();
@@ -106,21 +126,12 @@ public class ArchiveRepositoryRemoverTest {
   }
 
   @Test
-  public void testRepositoryCleanupTaskIsScheduledOnStart() {
-    remover.start();
-    verify(executorMock, times(1))
-        .scheduleAtFixedRate(
-            isA(RepositoryCleanupTask.class),
-            eq(SECONDS.toMillis(1)),
-            eq(CLEANUP_INTERVAL),
-            eq(TimeUnit.MILLISECONDS));
-  }
-
-  @Test
   public void testRepositoryCleanupTaskIsCancelledOnStop() {
     remover.start();
+    assertThat(remover.getWorkerFuture()).isNotNull();
+
     remover.stop();
-    verify(scheduledFutureMock, times(1)).cancel(true);
+    assertThat(remover.getWorkerFuture()).isNull();
   }
 
   private void setupArchiveFolder() throws IOException {
@@ -149,5 +160,17 @@ public class ArchiveRepositoryRemoverTest {
         fail(String.format("Expected dir [%s] to be non-empty but it is empty", dir));
       }
     }
+  }
+
+  private void setupArchiveFolderCleanupSchedule(String startTime, String interval) {
+    cfg.setString("plugin", PLUGIN_NAME, "deleteTrashFolderStartTime", startTime);
+    cfg.setString("plugin", PLUGIN_NAME, "deleteTrashFolderInterval", interval);
+    Optional<ScheduleConfig.Schedule> schedule =
+        ScheduleConfig.builder(cfg, "plugin")
+            .setSubsection(PLUGIN_NAME)
+            .setKeyStartTime("deleteTrashFolderStartTime")
+            .setKeyInterval("deleteTrashFolderInterval")
+            .buildSchedule();
+    when(pluginCfg.getSchedule()).thenReturn(schedule);
   }
 }
