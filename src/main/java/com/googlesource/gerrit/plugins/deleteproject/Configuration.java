@@ -91,9 +91,9 @@ public class Configuration {
     this.schedule =
         ScheduleConfig.builder(gerritConfig, "plugin")
             .setSubsection(pluginName)
-            .setKeyInterval("deleteTrashFolderInterval")
-            .setKeyStartTime("deleteTrashFolderStartTime")
-            .setKeyJitter("deleteTrashFolderJitter")
+            .setKeyInterval("cleanupInterval")
+            .setKeyStartTime("cleanupStartTime")
+            .setKeyJitter("cleanupJitter")
             .buildSchedule();
     this.trashFolderName = cfg.getString("trashFolderName", DEFAULT_TRASH_FOLDER_NAME);
   }
