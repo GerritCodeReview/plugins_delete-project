@@ -135,7 +135,7 @@ public class FakeScheduledExecutorService implements ScheduledExecutorService {
 
   @Override
   public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-    throw new UnsupportedOperationException();
+    return queue(new FakeScheduledFuture<>(callable(command), delay, unit));
   }
 
   @Override
