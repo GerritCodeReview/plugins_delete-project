@@ -128,12 +128,14 @@ public class DeleteTrashFoldersTest {
     try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE)) {
       // Repository is not deleted at 1/2 time of the initial delay
       fakeScheduledExecutor.advance(
-          DEFAULT_INITIAL_DELAY_MILLIS / 2, TimeUnit.MILLISECONDS);
+          TimeUnit.MILLISECONDS.toSeconds(DEFAULT_INITIAL_DELAY_MILLIS / 2),
+          TimeUnit.SECONDS);
       assertThatRepositoryExists(repoToDelete);
 
       // Repository is deleted 1 second after the initial delay
       fakeScheduledExecutor.advance(
-          DEFAULT_INITIAL_DELAY_MILLIS + 1, TimeUnit.MILLISECONDS);
+          TimeUnit.MILLISECONDS.toSeconds(DEFAULT_INITIAL_DELAY_MILLIS) + 1,
+          TimeUnit.SECONDS);
       assertThatRepositoryIsDeleted(repoToDelete);
     }
 

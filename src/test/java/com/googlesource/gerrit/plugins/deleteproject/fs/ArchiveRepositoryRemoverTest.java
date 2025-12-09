@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 import com.google.common.base.Joiner;
 import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.git.WorkQueue;
-import com.google.inject.Provider;
 import com.googlesource.gerrit.plugins.deleteproject.Configuration;
 import com.googlesource.gerrit.plugins.deleteproject.FakeScheduledExecutorService;
 import com.googlesource.gerrit.plugins.deleteproject.TimeMachine;
@@ -60,10 +59,7 @@ public class ArchiveRepositoryRemoverTest {
   private static final String PLUGIN_NAME = "delete-project";
 
   @Mock private WorkQueue workQueueMock;
-  @Mock private Provider<RepositoryCleanupTask> cleanupTaskProviderMock;
   @Mock private Configuration configMock;
-  @Mock private Configuration pluginCfg;
-
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private ArchiveRepositoryRemover remover;
@@ -78,11 +74,9 @@ public class ArchiveRepositoryRemoverTest {
     when(configMock.getArchiveFolder()).thenReturn(archiveRepo);
     when(configMock.getArchiveDuration()).thenReturn(ARCHIVE_DURATION);
     fakeScheduledExecutor = new FakeScheduledExecutorService();
-    when(cleanupTaskProviderMock.get())
-        .thenReturn(new RepositoryCleanupTask(configMock, PLUGIN_NAME));
     when(workQueueMock.getDefaultQueue()).thenReturn(fakeScheduledExecutor);
 
-    remover = new ArchiveRepositoryRemover(workQueueMock, cleanupTaskProviderMock, pluginCfg);
+    remover = new ArchiveRepositoryRemover(workQueueMock, configMock, PLUGIN_NAME);
   }
 
   @Test
@@ -93,13 +87,14 @@ public class ArchiveRepositoryRemoverTest {
           Instant.ofEpochMilli(Files.getLastModifiedTime(archiveRepo).toMillis())
               .plusMillis(TimeUnit.DAYS.toMillis(ARCHIVE_DURATION) + 10));
 
-      RepositoryCleanupTask task = new RepositoryCleanupTask(configMock, PLUGIN_NAME);
-      task.run();
-      assertThat(task.toString())
+      remover.run();
+
+      assertThat(remover.toString())
           .isEqualTo(
               String.format(
                   "[%s]: Clean up expired git repositories from the archive [%s]",
                   PLUGIN_NAME, archiveRepo));
+
       assertDirectoryContents(archiveRepo, true);
     } finally {
       TimeMachine.useSystemPctZoneClock();
@@ -110,7 +105,6 @@ public class ArchiveRepositoryRemoverTest {
   public void cleanUpOverdueRepositoriesRespectsScheduleTest() throws IOException {
     assertDirectoryContents(archiveRepo, true);
     setupArchiveFolder();
-
     ZonedDateTime initialDateTime =
         ZonedDateTime.now(ZoneId.systemDefault()).plusMinutes(INITIAL_DELAY_MIN);
     String initialDateTimeFormatted = initialDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -118,14 +112,13 @@ public class ArchiveRepositoryRemoverTest {
         initialDateTimeFormatted, String.format("%d milliseconds", INTERVAL_MILLIS));
 
     ArchiveRepositoryRemover remover =
-        new ArchiveRepositoryRemover(workQueueMock, cleanupTaskProviderMock, pluginCfg);
+        new ArchiveRepositoryRemover(workQueueMock, configMock, PLUGIN_NAME);
 
     remover.start();
     try {
       assertDirectoryContents(archiveRepo, false);
 
-      fakeScheduledExecutor.advance(
-          TimeUnit.MINUTES.toMillis(INITIAL_DELAY_MIN/2), SECONDS);
+      fakeScheduledExecutor.advance(TimeUnit.MINUTES.toMillis(INITIAL_DELAY_MIN / 2), SECONDS);
       // Repository are not archived at 1/2 time of the initial delay
       assertDirectoryContents(archiveRepo, false);
 
@@ -146,15 +139,17 @@ public class ArchiveRepositoryRemoverTest {
   public void testRepositoryCleanupTaskIsCancelledOnStop() {
     remover.start();
     assertThat(remover.getWorkerFuture()).isNotNull();
-
     remover.stop();
     assertThat(remover.getWorkerFuture()).isNull();
   }
 
   private void setupArchiveFolder() throws IOException {
+
     for (int i = 0; i < NUMBER_OF_REPOS; i++) {
+
       createRepository("Repo_" + i);
     }
+
     assertDirectoryContents(archiveRepo, false);
   }
 
@@ -188,6 +183,7 @@ public class ArchiveRepositoryRemoverTest {
             .setKeyStartTime("cleanupStartTime")
             .setKeyInterval("cleanupInterval")
             .buildSchedule();
-    when(pluginCfg.getSchedule()).thenReturn(schedule);
+
+    when(configMock.getSchedule()).thenReturn(schedule);
   }
 }
