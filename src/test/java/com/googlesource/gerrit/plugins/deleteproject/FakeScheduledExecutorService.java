@@ -17,8 +17,6 @@ package com.googlesource.gerrit.plugins.deleteproject;
 import static java.util.concurrent.Executors.callable;
 
 import com.google.common.util.concurrent.MoreExecutors;
-import org.junit.Ignore;
-
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +30,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import org.junit.Ignore;
 
 @Ignore
 public class FakeScheduledExecutorService implements ScheduledExecutorService {
@@ -135,7 +134,7 @@ public class FakeScheduledExecutorService implements ScheduledExecutorService {
 
   @Override
   public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-    throw new UnsupportedOperationException();
+    return queue(new FakeScheduledFuture<>(callable(command), delay, unit));
   }
 
   @Override
