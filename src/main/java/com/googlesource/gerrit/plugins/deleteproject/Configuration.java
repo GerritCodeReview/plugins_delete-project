@@ -175,7 +175,7 @@ public class Configuration {
   private void checkDeprecatedScheduleConfigEntries(){
     List<String> deprecatedConfigEntries = List.of("deleteTrashFolderInterval", "deleteTrashFolderStartTime", "deleteTrashFolderJitter");
     for (String deprecatedConfigEntry : deprecatedConfigEntries) {
-      if(cfg.getString(deprecatedConfigEntry).isEmpty()){
+      if(cfg.getString(deprecatedConfigEntry) != null){
         log.atSevere().log("Ignored configuration value %s still in use", deprecatedConfigEntry);
       }
     }
