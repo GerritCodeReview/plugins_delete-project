@@ -44,11 +44,13 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.eclipse.jgit.lib.Config;
 
-public class DeleteTrashFolders implements LifecycleListener {
+public class DeleteTrashFolders extends AbstractScheduledTask {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
-  private final WorkQueue workQueue;
   private final String pluginName;
+  private final Set<Path> repoFolders;
+  private final long deleteTrashFoldersMaxAllowedTime;
+  private final String trashFolderName;
 
   static class TrashFolderPredicate {
 
@@ -87,13 +89,6 @@ public class DeleteTrashFolders implements LifecycleListener {
     }
   }
 
-  private Set<Path> repoFolders;
-
-  private ScheduledFuture<?> threadCompleted;
-  private final Optional<ScheduleConfig.Schedule> schedule;
-  private final long deleteTrashFoldersMaxAllowedTime;
-  private final String trashFolderName;
-
   @Inject
   public DeleteTrashFolders(
       SitePaths site,
@@ -102,47 +97,26 @@ public class DeleteTrashFolders implements LifecycleListener {
       Configuration pluginCfg,
       WorkQueue workQueue,
       @PluginName String pluginName) {
-    repoFolders = Sets.newHashSet();
+    super(workQueue, pluginCfg.getSchedule(), 0, TimeUnit.MILLISECONDS, 0, TimeUnit.MILLISECONDS);
+    this.pluginName = pluginName;
+    this.repoFolders = Sets.newHashSet();
     repoFolders.add(site.resolve(cfg.getString("gerrit", null, "basePath")));
     repoFolders.addAll(repositoryCfg.getAllBasePaths());
-    schedule = pluginCfg.getSchedule();
     trashFolderName = pluginCfg.getTrashFolderName();
     deleteTrashFoldersMaxAllowedTime = pluginCfg.getDeleteTrashFoldersMaxAllowedTime();
-    this.workQueue = workQueue;
-    this.pluginName = pluginName;
   }
 
   @Override
-  public void start() {
-    String taskName = String.format("[%s]: DeleteTrashFolders under %s", pluginName, repoFolders);
-    Runnable deleteTrashFoldersRunnable =
-        new Runnable() {
-          @Override
-          public void run() {
-            log.atInfo().log("%s : STARTED", taskName);
-            evaluateIfTrashWithTimeLimit();
-            log.atInfo().log("%s : ENDED", taskName);
-          }
+  public void run() {
+    String taskName = toString();
+    log.atInfo().log("%s : STARTED", taskName);
+    evaluateIfTrashWithTimeLimit();
+    log.atInfo().log("%s : ENDED", taskName);
+  }
 
-          @Override
-          public String toString() {
-            return taskName;
-          }
-        };
-
-    ScheduledExecutorService scheduledExecutor = workQueue.getDefaultQueue();
-    if (schedule.isPresent()) {
-      threadCompleted =
-          scheduledExecutor.scheduleAtFixedRate(
-              deleteTrashFoldersRunnable,
-              schedule.get().initialDelay(),
-              schedule.get().interval(),
-              TimeUnit.MILLISECONDS);
-    } else {
-      threadCompleted =
-          scheduledExecutor.schedule(
-              callable(deleteTrashFoldersRunnable), 0, TimeUnit.MILLISECONDS);
-    }
+  @Override
+  public String toString() {
+    return String.format("[%s]: DeleteTrashFolders under %s", pluginName, repoFolders);
   }
 
   private void evaluateIfTrashWithTimeLimit() {
@@ -182,24 +156,11 @@ public class DeleteTrashFolders implements LifecycleListener {
     return false;
   }
 
-  @VisibleForTesting
-  ScheduledFuture<?> getWorkerFuture() {
-    return threadCompleted;
-  }
-
   private void recursivelyDelete(Path folder) {
     try {
       MoreFiles.deleteRecursively(folder, ALLOW_INSECURE);
     } catch (IOException e) {
       log.atSevere().withCause(e).log("Failed to delete %s", folder);
-    }
-  }
-
-  @Override
-  public void stop() {
-    if (threadCompleted != null) {
-      threadCompleted.cancel(true);
-      threadCompleted = null;
     }
   }
 }
