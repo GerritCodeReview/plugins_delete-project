@@ -13,13 +13,10 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Sets;
 import com.google.common.flogger.FluentLogger;
-import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.config.RepositoryConfig;
@@ -150,11 +147,4 @@ public class DeleteTrashFolders extends AbstractScheduledTask {
     return false;
   }
 
-  private void recursivelyDelete(Path folder) {
-    try {
-      MoreFiles.deleteRecursively(folder, ALLOW_INSECURE);
-    } catch (IOException e) {
-      log.atSevere().withCause(e).log("Failed to delete %s", folder);
-    }
-  }
 }
