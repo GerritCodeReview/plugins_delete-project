@@ -16,16 +16,22 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_INITIAL_DELAY_MILLIS;
 import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_PERIOD_DAYS;
+import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.flogger.FluentLogger;
+import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.ScheduleConfig;
 import com.google.gerrit.server.git.WorkQueue;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractScheduledTask implements LifecycleListener, Runnable {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final WorkQueue queue;
   private final Optional<ScheduleConfig.Schedule> schedule;
@@ -61,6 +67,14 @@ public abstract class AbstractScheduledTask implements LifecycleListener, Runnab
 
   @Override
   public abstract void run();
+
+  protected void recursivelyDelete(Path path) {
+    try {
+      MoreFiles.deleteRecursively(path, ALLOW_INSECURE);
+    } catch (IOException e) {
+      logger.atWarning().withCause(e).log("Failed to delete %s", path);
+    }
+  }
 
   @VisibleForTesting
   ScheduledFuture<?> getWorkerFuture() {

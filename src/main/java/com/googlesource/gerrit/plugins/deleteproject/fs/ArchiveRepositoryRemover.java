@@ -14,9 +14,7 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
-import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 import com.google.common.flogger.FluentLogger;
-import com.google.common.io.MoreFiles;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
@@ -61,12 +59,7 @@ public class ArchiveRepositoryRemover extends AbstractScheduledTask {
 
   private void cleanUpOverdueRepositories() {
     for (Path path : listOverdueFiles(config.getArchiveDuration())) {
-      try {
-        MoreFiles.deleteRecursively(path, ALLOW_INSECURE);
-      } catch (IOException e) {
-        logger.atWarning().withCause(e).log(
-            "Error trying to clean the archived git repository: %s", path);
-      }
+      recursivelyDelete(path);
     }
   }
 
