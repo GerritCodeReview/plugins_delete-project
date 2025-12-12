@@ -16,6 +16,29 @@
       "message": "Missing `Bug: Issue 461332435`",
       "revId": "2c1700525e3f3af88d00dceddee89d4c0c2a3585",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05a45e9b_0f463c1b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/AbstractScheduledTask.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-12-12T15:43:11Z",
+      "side": 1,
+      "message": "I would dismiss the possibility of scheduling the cleanup just once at Gerrit startup since it doesn\u0027t make sense anymore.\n\nSince we are in master we can dismiss it and add it to the release notes.\n\nThis will simplify the logic and allow an easier refactoring.\n\nI would create a change just to dismiss the logic and base the rest of the changes on it.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "2c1700525e3f3af88d00dceddee89d4c0c2a3585",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
