@@ -14,7 +14,7 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
-import static java.util.concurrent.Executors.callable;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Stopwatch;
@@ -93,6 +93,8 @@ public class DeleteTrashFolders implements LifecycleListener {
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final long deleteTrashFoldersMaxAllowedTime;
   private final String trashFolderName;
+  private static final long defaultInitialDelayMillis = 1;
+  private static final long defaultPeriodDays = 1;
 
   @Inject
   public DeleteTrashFolders(
@@ -131,18 +133,16 @@ public class DeleteTrashFolders implements LifecycleListener {
         };
 
     ScheduledExecutorService scheduledExecutor = workQueue.getDefaultQueue();
+    long initialDelay = defaultInitialDelayMillis;
+    long period = TimeUnit.DAYS.toMillis(defaultPeriodDays);
     if (schedule.isPresent()) {
-      threadCompleted =
-          scheduledExecutor.scheduleAtFixedRate(
-              deleteTrashFoldersRunnable,
-              schedule.get().initialDelay(),
-              schedule.get().interval(),
-              TimeUnit.MILLISECONDS);
-    } else {
-      threadCompleted =
-          scheduledExecutor.schedule(
-              callable(deleteTrashFoldersRunnable), 0, TimeUnit.MILLISECONDS);
+      initialDelay = schedule.get().initialDelay();
+      period = schedule.get().interval();
     }
+
+    threadCompleted =
+        scheduledExecutor.scheduleAtFixedRate(
+            deleteTrashFoldersRunnable, initialDelay, period, MILLISECONDS);
   }
 
   private void evaluateIfTrashWithTimeLimit() {
@@ -185,6 +185,16 @@ public class DeleteTrashFolders implements LifecycleListener {
   @VisibleForTesting
   ScheduledFuture<?> getWorkerFuture() {
     return threadCompleted;
+  }
+
+  @VisibleForTesting
+  static long getDefaultInitialDelayMillis() {
+    return defaultInitialDelayMillis;
+  }
+
+  @VisibleForTesting
+  static long getDefaultPeriodDays() {
+    return defaultPeriodDays;
   }
 
   private void recursivelyDelete(Path folder) {
