@@ -15,6 +15,8 @@ package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 import static java.util.concurrent.Executors.callable;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Stopwatch;
@@ -93,6 +95,8 @@ public class DeleteTrashFolders implements LifecycleListener {
   private final Optional<ScheduleConfig.Schedule> schedule;
   private final long deleteTrashFoldersMaxAllowedTime;
   private final String trashFolderName;
+  static public long defaultInitialDelaySeconds = 1;
+  static public long defaultPeriodDays = 1;
 
   @Inject
   public DeleteTrashFolders(
@@ -140,8 +144,11 @@ public class DeleteTrashFolders implements LifecycleListener {
               TimeUnit.MILLISECONDS);
     } else {
       threadCompleted =
-          scheduledExecutor.schedule(
-              callable(deleteTrashFoldersRunnable), 0, TimeUnit.MILLISECONDS);
+          scheduledExecutor.scheduleAtFixedRate(
+              deleteTrashFoldersRunnable,
+              SECONDS.toMillis(defaultInitialDelaySeconds),
+              TimeUnit.DAYS.toMillis(defaultPeriodDays),
+              MILLISECONDS);
     }
   }
 
