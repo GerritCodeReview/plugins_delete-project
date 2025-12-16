@@ -137,7 +137,7 @@ Delete Trash Folder Scheduling
 =============
 
 Trash folder cleanup can be scheduled to run periodically.
-If no schedule is configured, the cleanup runs once at Gerrit startup.
+If no schedule is configured, the cleanup runs periodically, once every day.
 
 The configuration has to be added to the `@PLUGIN@.config` file.
 
