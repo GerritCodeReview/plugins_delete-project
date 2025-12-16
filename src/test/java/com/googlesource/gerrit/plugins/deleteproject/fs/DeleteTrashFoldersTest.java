@@ -15,6 +15,8 @@
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_INITIAL_DELAY_MILLIS;
+import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_PERIOD_DAYS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
@@ -118,6 +120,38 @@ public class DeleteTrashFoldersTest {
     }
   }
 
+  @Test
+  public void testShouldDeleteRepositoryAfterInitialDelayAndDailyIfNoScheduleIsConfigured()
+      throws Exception {
+    trashFolders.start();
+
+    try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE);
+         FileRepository repoToKeep = createRepository("anotherRepo.git")) {
+      // Repository is not deleted at 1/2 time of the initial delay
+      fakeScheduledExecutor.advance(DEFAULT_INITIAL_DELAY_MILLIS / 2, TimeUnit.MILLISECONDS);
+      assertThatRepositoryExists(repoToDelete);
+      assertThatRepositoryExists(repoToKeep);
+
+      // Repository is deleted 1 second after the initial delay
+      fakeScheduledExecutor.advance(DEFAULT_INITIAL_DELAY_MILLIS + 1, TimeUnit.MILLISECONDS);
+      assertThatRepositoryIsDeleted(repoToDelete);
+      assertThatRepositoryExists(repoToKeep);
+    }
+
+    try (FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE);
+         FileRepository repoToKeep = createRepository("anotherRepoAgain.git"))  {
+      // Repository recreated
+      assertThatRepositoryExists(repoToDelete);
+      assertThatRepositoryExists(repoToKeep);
+
+      // Repository is deleted again after the interval time
+      fakeScheduledExecutor.advance(
+          TimeUnit.DAYS.toMillis(DEFAULT_PERIOD_DAYS), TimeUnit.MILLISECONDS);
+      assertThatRepositoryIsDeleted(repoToDelete);
+      assertThatRepositoryExists(repoToKeep);
+    }
+  }
+
   private static void assertThatRepositoryIsDeleted(FileRepository repoToDelete) {
     assertFalse(
         "Repository " + repoToDelete.getDirectory() + " has not been deleted",
@@ -128,16 +162,6 @@ public class DeleteTrashFoldersTest {
     assertTrue(
         "Repository " + repoToDelete.getDirectory() + " does not exist",
         repoToDelete.getDirectory().exists());
-  }
-
-  @Test
-  public void testStart() throws Exception {
-    FileRepository repoToDelete = createRepositoryToDelete(REPOSITORY_TO_DELETE);
-    FileRepository repoToKeep = createRepository("anotherRepo.git");
-    trashFolders.start();
-    trashFolders.getWorkerFuture().get();
-    assertThatRepositoryIsDeleted(repoToDelete);
-    assertThatRepositoryExists(repoToKeep);
   }
 
   @Test
