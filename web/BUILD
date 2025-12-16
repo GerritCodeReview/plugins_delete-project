@@ -1,5 +1,6 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
-load("//tools/bzl:js.bzl", "gerrit_js_bundle", "web_test_runner")
+load("//tools/bzl:js.bzl", "web_test_runner")
+load("@com_googlesource_gerrit_bazlets//js:defs.bzl", "gerrit_js_bundle")
 load("//tools/js:eslint.bzl", "plugin_eslint")
 
 package_group(
