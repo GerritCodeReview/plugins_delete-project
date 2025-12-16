@@ -47,6 +47,8 @@ public class Configuration {
   private static final long DEFAULT_ARCHIVE_DURATION_DAYS = 180;
   protected static final long DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES = 10;
   public static final String DEFAULT_TRASH_FOLDER_NAME = "";
+  public static final long DEFAULT_INITIAL_DELAY_MILLIS = 1000;
+  public static final long DEFAULT_PERIOD_DAYS = 1;
 
   private final boolean allowDeletionWithTags;
   private final boolean archiveDeletedRepos;
