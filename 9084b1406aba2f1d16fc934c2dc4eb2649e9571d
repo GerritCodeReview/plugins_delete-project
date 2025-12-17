@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcdd6e9_89f72a34",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-12-17T15:08:11Z",
+      "side": 1,
+      "message": "This logic can be moved in the `Config`. It can be done in a followup to minimize the change.",
+      "range": {
+        "startLine": 136,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 5
+      },
+      "revId": "9084b1406aba2f1d16fc934c2dc4eb2649e9571d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
