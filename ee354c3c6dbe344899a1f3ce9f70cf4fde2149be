@@ -71,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "415a6e1c_319eaa24",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3d543f4_46043746",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd766f33_97b6ea3b",
@@ -135,6 +159,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d9217ec_39065b17",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10e2690f_0ea0078b",
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e032d05e_828e2a0c",
@@ -148,6 +190,30 @@
       "writtenOn": "2025-12-17T16:18:46Z",
       "side": 1,
       "message": "Not needed: just make the static constants public.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 3
+      },
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c09daef7_6c87566c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e032d05e_828e2a0c",
       "range": {
         "startLine": 190,
         "startChar": 0,
