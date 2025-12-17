@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3d543f4_46043746",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:18:46Z",
+      "side": 1,
+      "message": "``` suggestion\n  public static final long DEFAULT_INITIAL_DELAY_MILLIS \u003d 1;\n```",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd766f33_97b6ea3b",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
         "patchSetId": 10
@@ -90,6 +113,46 @@
         "startChar": 0,
         "endLine": 97,
         "endChar": 50
+      },
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e2690f_0ea0078b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:18:46Z",
+      "side": 1,
+      "message": "```suggestion\n  public static final long DEFAULT_PERIOD_MILLIS \u003d TimeUnit.DAYS.toMillis(1);\n```",
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e032d05e_828e2a0c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:18:46Z",
+      "side": 1,
+      "message": "Not needed: just make the static constants public.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 3
       },
       "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
