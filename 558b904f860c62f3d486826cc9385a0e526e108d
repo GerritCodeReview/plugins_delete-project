@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2334582_9f491af6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:30:00Z",
+      "side": 1,
+      "message": "```suggestion\n  private void checkForUnsupportedScheduleConfigEntries() {\n```",
+      "range": {
+        "startLine": 175,
+        "startChar": 20,
+        "endLine": 175,
+        "endChar": 30
+      },
+      "revId": "558b904f860c62f3d486826cc9385a0e526e108d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21636b25_56f7587f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-12-17T16:30:00Z",
+      "side": 1,
+      "message": "```suggestion\n        log.atSevere().log(\"Ignoring unsupported configuration value %s found in configuration. Check the docs for the available settings.\", deprecatedConfigEntry);\n```",
+      "range": {
+        "startLine": 181,
+        "startChar": 28,
+        "endLine": 181,
+        "endChar": 46
+      },
+      "revId": "558b904f860c62f3d486826cc9385a0e526e108d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
