@@ -47,6 +47,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44df6188_b6a33238",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T11:25:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd766f33_97b6ea3b",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fa158d9_cf085639",
@@ -60,6 +84,24 @@
       "writtenOn": "2025-12-17T10:29:03Z",
       "side": 1,
       "message": "Maybe we should add that scheduling at startup is not possible anymore to highlight it is a breaking change.",
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "594690e6_f616760e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T11:25:03Z",
+      "side": 1,
+      "message": "It wasn\u0027t possible to configure it before either, its just how it worked.\n\nI\u0027m slightly wary of noting something that can no longer be done in the docs, as otherwise we should start documenting all the no longer supported features.",
+      "parentUuid": "5fa158d9_cf085639",
       "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
