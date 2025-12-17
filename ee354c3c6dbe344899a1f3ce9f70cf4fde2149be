@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3dc1e7_48632830",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T11:30:18Z",
+      "side": 1,
+      "message": "\u003e Furthermore they were adding spikes in the load at startup.\nThat was not due to the deletion itself, but the sheer amount of repositories whose name needed to be pattern matched to understand if they needed to be deleted or not.\n\nThat was sold separately and don\u0027t think is relevant here.\n\nThe first point about long running gerrit processes though is very valid.",
+      "parentUuid": "5a762140_84665289",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "ee354c3c6dbe344899a1f3ce9f70cf4fde2149be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd766f33_97b6ea3b",
