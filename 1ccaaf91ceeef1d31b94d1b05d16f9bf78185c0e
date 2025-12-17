@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e5c89a_9cc55ce2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T15:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c01e56e4_88cbb05d",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "1ccaaf91ceeef1d31b94d1b05d16f9bf78185c0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7c2a56b_300bbb12",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-12-17T15:22:18Z",
       "side": 1,
       "message": "repositories",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "1ccaaf91ceeef1d31b94d1b05d16f9bf78185c0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa739210_8aa5de26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T15:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7c2a56b_300bbb12",
       "range": {
         "startLine": 14,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12c37b7_493841d4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/Configuration.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T15:34:25Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "8c745400_8bd346b7",
+      "range": {
+        "startLine": 181,
+        "startChar": 36,
+        "endLine": 181,
+        "endChar": 49
+      },
+      "revId": "1ccaaf91ceeef1d31b94d1b05d16f9bf78185c0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77dfa1b0_550de458",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-12-17T15:22:18Z",
       "side": 1,
       "message": "Can you add a comment explain this? Somethig like \"Move forward time to make repositories archiveable\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 6,
+        "endLine": 133,
+        "endChar": 74
+      },
+      "revId": "1ccaaf91ceeef1d31b94d1b05d16f9bf78185c0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a1e7b77_27a13ee0",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/fs/ArchiveRepositoryRemoverTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-17T15:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77dfa1b0_550de458",
       "range": {
         "startLine": 131,
         "startChar": 6,
