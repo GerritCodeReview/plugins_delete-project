@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94af442f_9e6f088a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-12-17T10:38:19Z",
+      "side": 1,
+      "message": "Extra space",
+      "revId": "07a3143d240dad301caac571f0fcb277cd0f3e95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7186ccee_6c3d427c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/ArchiveRepositoryRemover.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-12-17T10:38:19Z",
+      "side": 1,
+      "message": "Remove hardcoded default value and move them in the `Configuration` class.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "07a3143d240dad301caac571f0fcb277cd0f3e95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
