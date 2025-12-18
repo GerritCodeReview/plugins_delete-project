@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffac7dbb_079e5f61",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/ArchiveRepositoryRemover.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-18T09:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1802202_a63b9da4",
+      "revId": "56866b3929fb086a7ab7b307f6c44b6d4faa9763",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c015993f_d24e2d6c",
@@ -41,6 +59,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05027af1_eba524e0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/deleteproject/fs/DeleteTrashFolders.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-18T09:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c015993f_d24e2d6c",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "56866b3929fb086a7ab7b307f6c44b6d4faa9763",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8387be0e_b634c14d",
@@ -54,6 +96,24 @@
       "writtenOn": "2025-12-18T08:46:36Z",
       "side": 1,
       "message": "unrelated",
+      "revId": "56866b3929fb086a7ab7b307f6c44b6d4faa9763",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98581a44_a336349c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/FakeScheduledExecutorService.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-12-18T09:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8387be0e_b634c14d",
       "revId": "56866b3929fb086a7ab7b307f6c44b6d4faa9763",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
