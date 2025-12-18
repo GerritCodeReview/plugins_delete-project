@@ -14,9 +14,9 @@
 
 package com.googlesource.gerrit.plugins.deleteproject.fs;
 
+import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_INITIAL_DELAY_MILLIS;
 import static com.googlesource.gerrit.plugins.deleteproject.Configuration.DEFAULT_PERIOD_DAYS;
-import static com.google.common.io.RecursiveDeleteOption.ALLOW_INSECURE;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
