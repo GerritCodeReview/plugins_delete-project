@@ -1,11 +1,6 @@
 load("@rules_java//java:defs.bzl", "java_library")
 load("@com_googlesource_gerrit_bazlets//tools:junit.bzl", "junit_tests")
-load(
-    "//tools/bzl:plugin.bzl",
-    "PLUGIN_DEPS",
-    "PLUGIN_TEST_DEPS",
-    "gerrit_plugin",
-)
+load("@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl", "gerrit_plugin")
 
 gerrit_plugin(
     name = "delete-project",
@@ -34,8 +29,9 @@ java_library(
     name = "delete-project__plugin_test_deps",
     testonly = 1,
     visibility = ["//visibility:public"],
-    exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
+    exports = [
         ":delete-project__plugin",
+        "//java/com/google/gerrit/acceptance:lib",
         "@maven//:commons_io_commons_io",
         "@maven//:org_mockito_mockito_core",
     ],
