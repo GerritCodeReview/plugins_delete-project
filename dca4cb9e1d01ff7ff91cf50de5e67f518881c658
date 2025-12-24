@@ -3,11 +3,11 @@
     "zuul-check:plugins_delete-project": {
       "state": "FAILED",
       "message": "Change failed",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/8603d9e7b9414d6a980db2805281893a",
-      "started": "2025-12-24T10:42:52Z",
-      "finished": "2025-12-24T10:42:52Z",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/b2bb7f80482547bd89685ff20e6067ce",
+      "started": "2025-12-24T10:43:21Z",
+      "finished": "2025-12-24T10:43:22Z",
       "created": "2025-12-19T08:16:39Z",
-      "updated": "2025-12-24T10:42:52Z"
+      "updated": "2025-12-24T10:43:22Z"
     }
   }
 }
