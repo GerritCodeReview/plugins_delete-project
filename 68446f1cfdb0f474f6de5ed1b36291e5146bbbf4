@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ddd9c84_98229db6",
+        "filename": "BUILD",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-01-08T15:46:04Z",
+      "side": 1,
+      "message": "Is it possible not to leak the internal details of the `rules_jvm_external` module to plugins during the Bzlmod migration?\n\nFor example, for mockito, we could simplify it to something like `//lib/mockito`. For `commons-io`, we would first need to define a library wrapper in gerrit-core, with a comment indicating that it\u0027s intended for use with core plugins.\n\nThis approach could help streamline the transition without exposing unnecessary details to the (non-core) plugin authors during the migration phase.",
+      "revId": "68446f1cfdb0f474f6de5ed1b36291e5146bbbf4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
