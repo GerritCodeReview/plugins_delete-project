@@ -1,0 +1,24 @@
+module(name = "gerrit-plugin-delete-project")
+
+bazel_dep(name = "rules_jvm_external", version = "6.9")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+maven.install(
+    name = "gerrit_plugin_deps",
+    artifacts = [
+        "commons-io:commons-io:2.20.0",
+    ],
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+    duplicate_version_warning = "error",
+    fail_if_repin_required = True,
+    fail_on_missing_checksum = True,
+    fetch_sources = True,
+    lock_file = "//:gerrit_plugin_deps.lock.json",
+    strict_visibility = True,
+    version_conflict_policy = "pinned",
+)
+
+use_repo(maven, "gerrit_plugin_deps")
