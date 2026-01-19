@@ -37,6 +37,6 @@ java_library(
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":delete-project__plugin",
         "@gerrit_plugin_deps//:commons_io_commons_io",
-        "@gerrit_deps//:org_mockito_mockito_core",
+        "//lib/mockito",
     ],
 )
