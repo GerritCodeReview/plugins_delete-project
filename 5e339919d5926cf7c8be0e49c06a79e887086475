@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "zuul-check:plugins_delete-project": {
+      "state": "FAILED",
+      "message": "Change failed",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/fd609a0566174571897a515773caf532",
+      "started": "2026-01-23T12:01:49Z",
+      "finished": "2026-01-23T12:01:49Z",
+      "created": "2026-01-23T12:01:49Z",
+      "updated": "2026-01-23T12:01:49Z"
+    }
+  }
+}
