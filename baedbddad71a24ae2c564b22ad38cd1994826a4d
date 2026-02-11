@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25353ba7_5c80142d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-02-11T21:06:45Z",
+      "side": 1,
+      "message": "This simplifies migration to `rules_jvm_externsal`, because we don\u0027t need to adjust external dependency coordinates.",
+      "revId": "baedbddad71a24ae2c564b22ad38cd1994826a4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
