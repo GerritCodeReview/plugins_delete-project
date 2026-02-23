@@ -70,6 +70,24 @@
       "parentUuid": "7314729a_43338b75",
       "revId": "a585976a88abf979d7c39703ecf6778562878d5c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56267184_4b889896",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2026-02-23T21:11:37Z",
+      "side": 1,
+      "message": "Looking at https://gerrit-review.googlesource.com/Documentation/dev-processes.html#handle-security-issue it looks like there\u0027s a process using a dedicated security fix repo for the main Gerrit repo, but I don\u0027t see anything about plugins. We could create a dedicated security fix branch (in each repo) with restricted read permissions. Then the fixes are done on that branch and when all the fixes are ready (across all repos), we merge that branch into the main branch.\n\n@luca.milanesio@gmail.com or @ekempin@google.com do you have thoughts?",
+      "parentUuid": "af250463_5eb22fb8",
+      "revId": "a585976a88abf979d7c39703ecf6778562878d5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
