@@ -319,6 +319,8 @@ public class DeleteProjectIT extends LightweightPluginDaemonTest {
         .project(project)
         .forUpdate()
         .add(allow(Permission.SUBMIT).ref("refs/for/refs/heads/master").group(REGISTERED_USERS))
+        .add(allow(Permission.SUBMIT).ref("refs/for/refs/for/master").group(REGISTERED_USERS))
+        .add(allow(Permission.SUBMIT).ref("refs/heads/master").group(REGISTERED_USERS))
         .update();
     pushHead(testRepo, "refs/for/master%submit");
 
