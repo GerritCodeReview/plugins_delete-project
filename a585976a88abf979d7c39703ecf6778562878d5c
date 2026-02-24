@@ -106,6 +106,24 @@
       "parentUuid": "56267184_4b889896",
       "revId": "a585976a88abf979d7c39703ecf6778562878d5c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70138ac7_b5a96a44",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-24T11:05:36Z",
+      "side": 1,
+      "message": "Yep, agreed with @ekempin@google.com: I can create the security branches once we discuss and agree on the releases to prepare at the ESC.\n\nWe would also need a Googler to formally create the CVE and provide the number for us to include in the release notes.",
+      "parentUuid": "3a237a90_2f4ce03f",
+      "revId": "a585976a88abf979d7c39703ecf6778562878d5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
