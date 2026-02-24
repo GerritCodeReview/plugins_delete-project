@@ -88,6 +88,24 @@
       "parentUuid": "af250463_5eb22fb8",
       "revId": "a585976a88abf979d7c39703ecf6778562878d5c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a237a90_2f4ce03f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2026-02-24T10:59:02Z",
+      "side": 1,
+      "message": "Yes, security fixes should either be done in a separate repo or branch for which read access is locked down. Merging back into the public repo/branch should only happen once a release that includes the security fix is available for everyone.\n\nUsing a separate repo (instead of a separate branch) is usually a bit safer (less error-prone), but might be too much overhead for a one-time fix in a plugin.",
+      "parentUuid": "56267184_4b889896",
+      "revId": "a585976a88abf979d7c39703ecf6778562878d5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
