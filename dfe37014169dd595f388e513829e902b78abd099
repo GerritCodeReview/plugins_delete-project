@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6dc1ad_7a190e1b",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/deleteproject/DeleteProjectIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-25T14:42:17Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed. The fact that this test is broken means that the fix to the Issue 486131256 isn\u0027t correct and creates a functional regression.\n\nPlease check my comments on the Issue 486131256 and where the problem first originated (over 10 years ago) and where it should be fixed IMHO.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 87
+      },
+      "revId": "dfe37014169dd595f388e513829e902b78abd099",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
