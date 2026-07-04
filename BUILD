@@ -1,9 +1,10 @@
-load("@rules_java//java:defs.bzl", "java_library")
 load("@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl", "gerrit_plugin", "gerrit_plugin_tests")
+load("@rules_java//java:defs.bzl", "java_library")
 
 gerrit_plugin(
     name = "delete-project",
     srcs = glob(["src/main/java/**/*.java"]),
+    flavour = "any",
     manifest_entries = [
         "Gerrit-PluginName: delete-project",
         "Gerrit-Module: com.googlesource.gerrit.plugins.deleteproject.PluginModule",
