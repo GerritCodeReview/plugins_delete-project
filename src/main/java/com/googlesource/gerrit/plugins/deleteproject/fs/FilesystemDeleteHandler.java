@@ -29,7 +29,7 @@ public class FilesystemDeleteHandler {
   private final Configuration config;
 
   @Inject
-  public FilesystemDeleteHandler(
+  FilesystemDeleteHandler(
       RepositoryDelete repositoryDelete,
       DynamicSet<ProjectDeletedListener> deletedListeners,
       Configuration config) {

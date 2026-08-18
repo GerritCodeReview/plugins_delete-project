@@ -83,7 +83,7 @@ public class DeleteTrashFolders extends AbstractScheduledTask {
   private final String trashFolderName;
 
   @Inject
-  public DeleteTrashFolders(
+  DeleteTrashFolders(
       SitePaths site,
       @GerritServerConfig Config cfg,
       RepositoryConfig repositoryCfg,

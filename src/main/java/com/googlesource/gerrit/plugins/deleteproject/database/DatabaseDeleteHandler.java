@@ -50,7 +50,7 @@ public class DatabaseDeleteHandler {
   private final GitRepositoryManager repoManager;
 
   @Inject
-  public DatabaseDeleteHandler(
+  DatabaseDeleteHandler(
       StarredChangesWriter starredChangesWriter,
       ChangeIndexer indexer,
       ChangeNotes.Factory schemaFactoryNoteDb,

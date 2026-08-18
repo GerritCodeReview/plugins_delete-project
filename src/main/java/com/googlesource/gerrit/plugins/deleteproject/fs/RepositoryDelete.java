@@ -51,7 +51,7 @@ public class RepositoryDelete {
   private final Configuration configuration;
 
   @Inject
-  public RepositoryDelete(GitRepositoryManager repoManager, Configuration configuration) {
+  RepositoryDelete(GitRepositoryManager repoManager, Configuration configuration) {
     this.repoManager = repoManager;
     this.configuration = configuration;
   }

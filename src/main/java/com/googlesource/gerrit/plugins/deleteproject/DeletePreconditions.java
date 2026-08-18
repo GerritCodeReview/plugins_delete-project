@@ -65,7 +65,7 @@ class DeletePreconditions {
   private final PermissionBackend permissionBackend;
 
   @Inject
-  public DeletePreconditions(
+  DeletePreconditions(
       Configuration config,
       Provider<ListChildProjects> listChildProjectsProvider,
       Provider<MergeOpRepoManager> mergeOpProvider,

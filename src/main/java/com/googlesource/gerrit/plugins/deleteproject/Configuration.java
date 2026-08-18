@@ -65,7 +65,7 @@ public class Configuration {
   private File pluginData;
 
   @Inject
-  public Configuration(
+  Configuration(
       PluginConfigFactory pluginConfigFactory,
       @PluginName String pluginName,
       @PluginData File pluginData,

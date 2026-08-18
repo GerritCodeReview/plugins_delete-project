@@ -23,7 +23,7 @@ public class CacheDeleteHandler {
   private final ProjectCache projectCache;
 
   @Inject
-  public CacheDeleteHandler(ProjectCache projectCache) {
+  CacheDeleteHandler(ProjectCache projectCache) {
     this.projectCache = projectCache;
   }
 

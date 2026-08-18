@@ -47,7 +47,7 @@ class DeleteLog extends PluginLogFile {
   private final AuditService auditService;
 
   @Inject
-  public DeleteLog(
+  DeleteLog(
       SystemLog systemLog,
       ServerInformation serverInfo,
       AuditService auditService,
