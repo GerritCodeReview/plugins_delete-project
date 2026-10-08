@@ -68,6 +68,10 @@ public class ConfigurationTest {
     assertThat(deleteConfig.shouldArchiveDeletedRepos()).isFalse();
     assertThat(deleteConfig.getArchiveDuration()).isEqualTo(DEFAULT_ARCHIVE_DURATION_MS);
     assertThat(deleteConfig.getArchiveFolder().toString()).isEqualTo(pluginDataDir.toString());
+    assertThat(deleteConfig.getDeleteTrashFoldersMaxAllowedTime())
+        .isEqualTo(
+            TimeUnit.MINUTES.toSeconds(
+                Configuration.DEFAULT_TRASH_FOLDER_MAX_ALLOWED_TIME_MINUTES));
   }
 
   @Test
