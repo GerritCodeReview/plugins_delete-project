@@ -78,7 +78,7 @@ public class Configuration {
     this.archiveDeletedRepos = cfg.getBoolean("archiveDeletedRepos", false);
     this.deleteTrashFoldersMaxAllowedTime =
         getTrashFoldersMaxAllowedTimeFromConfig(
-            cfg.getString("deleteTrashFoldersMaxAllowedTime", pluginData.toString()));
+            cfg.getString("deleteTrashFoldersMaxAllowedTime"));
     this.archiveFolder =
         getArchiveFolderFromConfig(cfg.getString("archiveFolder", pluginData.toString()));
     this.deleteArchivedReposAfter =
