@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60100b3f_37bc6933",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-10-09T06:07:59Z",
+      "side": 1,
+      "message": "I\u0027d lean toward dropping the \"Co-Authored-By: Claude\" footer — but as one maintainer, not as a ruling. This isn\u0027t mine to decide, and I\u0027m not on the ESC or a community manager.\n\nMy reasoning: the code was authored by you. A tool that helped you write it isn\u0027t a contributor in the sense our process recognizes — a contribution is tied to the person who certifies its origin [1], and an AI can\u0027t be that party. I\u0027m also not aware of any official Gerrit Code Review policy that endorses such a footer.\n\nSince we have no project-wide rule (yet), I\u0027d defer the actual decision to the ESC and the community managers. I\u0027m happy to open an issue so they can discuss it and set a policy; in the meantime I\u0027d suggest removing it here.\n\n[1]: https://cla.developers.google.com/clas",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "1bb38fe7b1993f6bf0f054d99d4bec0ff8b1f2f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
